@@ -1,25 +1,25 @@
 var couchdb_url = 'http://new.cspbuilder.info:9091/';
 
-var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'cspControllers']);
+var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cspControllers']);
 
 cspbuilderApp.config(['$routeProvider',
     function($routeProvider) {
     $routeProvider.
-        when('/analysis/:owner_id', {
+        when('/analysis/', {
             templateUrl: 'analysis.html',
             controller: 'CspAnalysisController'
         }).
-        when('/policy/:owner_id', {
+        when('/policy/', {
             templateUrl: 'policy.html',
             controller: 'CspPolicyController'
         }
         ).
-        when('/reports/:owner_id', {
+        when('/reports/', {
             templateUrl: 'reports.html',
             controller: 'CspReportsController'
         }
         ).
-        when('/live/:owner_id', {
+        when('/live/', {
             templateUrl: 'live.html',
             controller: 'CspLiveController'
         }

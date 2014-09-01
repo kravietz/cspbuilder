@@ -1,7 +1,9 @@
-cspControllers.controller('CspAnalysisController', ['$scope', '$routeParams', 'cornercouch',
-    function($scope, $routeParams, cornercouch) {
+cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'cornercouch', '$window',
+    function($scope, $cookieStore, cornercouch, $window) {
 
-        $scope.owner_id = $routeParams.owner_id;
+        $scope.owner_id = $cookieStore.get('owner_id');
+        if(!$scope.owner_id) { $window.location.href='/static/#/login'; }
+
         $scope.blocked = true;
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "sources_key_owner",
@@ -18,6 +20,12 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$routeParams', 'c
                     $scope.blocked = false;
                 }
             );
+
+        $scope.logout = function() {
+            console.log('logout');
+            $cookieStore.remove('owner_id');
+            $window.location.href='/static/#/login';
+        };
 
         $scope.detail_open = function(index) {
             console.log('detail_open '+index);

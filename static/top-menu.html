@@ -6,13 +6,16 @@
         </div>
 
         <ul class="nav navbar-nav">
-            <li><a href="#/analysis/{{owner_id}}">Analysis</a></li>
-            <li><a href="#/policy/{{owner_id}}">Policy</a></li>
-            <li><a href="#/reports/{{owner_id}}">All reports</a></li>
-            <li><a href="#/live/{{owner_id}}">Live view</a></li>
+            <li><a href="#/analysis/">Analysis</a></li>
+            <li><a href="#/policy/">Policy</a></li>
+            <li><a href="#/reports/">All reports</a></li>
+            <li><a href="#/live/">Live view</a></li>
         </ul>
 
-        <p class="navbar-text navbar-right">Current page identifier: {{owner_id}}</p>
+       <div ng-show="{{owner_id}}">
+            <p class="navbar-text navbar-right">Current page identifier: {{owner_id}}</p>
+            <button type="button" class="btn btn-default navbar-btn" ng-click="logout()">Log out</button>
+       </div>
 
     </div>
 </nav>
