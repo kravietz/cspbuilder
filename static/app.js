@@ -42,7 +42,7 @@ function screenRows() {
     return Math.round(
             window.innerHeight / (
                     Math.round(
-                            $('#main-list').css('font-size').replace('px','')
+                            $('body').css('font-size').replace('px','')
                         )
                 )
         )
