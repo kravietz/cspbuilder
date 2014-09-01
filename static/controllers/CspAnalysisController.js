@@ -35,11 +35,13 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $scope.db2.query('csp', 'by_source_type',
             {
                 limit: 1,
-                startkey: $scope.db.rows[index].key,
+                startkey: $scope.db.rows[index].key, // endkey not needed because limit=1
                 include_docs: true
             }).success( function() {
                 $scope.csp = $scope.db2.rows[0].doc['csp-report'];
                 $scope.meta = $scope.db2.rows[0].doc.meta;
+                $scope.norm_src = normalize_csp_source($scope.csp['blocked-uri'];
+                $scope.norm_type = $scope.csp['violated-directive'].split(' ')[0];
             }
             );
 
@@ -53,9 +55,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.approve_source = function() {
                 db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-                newdoc = {  'owner_id': $scope.owner_id,
-                            'approved_uri' : $scope.csp['blocked-uri'],
-                            'approved_type': $scope.csp['violated-directive'].split(' ')[0]
+                newdoc = {  'owner_id'     : $scope.owner_id,
+                            'approved_uri' : $scope.norm_src,
+                            'approved_type': $scope.norm_type
                             };
                 db2.newDoc(newdoc).save();
                 $scope.approved = true;

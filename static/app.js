@@ -48,6 +48,16 @@ function screenRows(obj) {
         )
 }
 
+function normalize_csp_source(blocked_uri) {
+    // for 'data:image/png' return 'data:'
+    if(blocked_uri.lastIndexOf('data', 0) === 0) {
+        blocked_uri='data:';
+    // for 'http://url.com/path/path' return 'http://url.com'
+    } else if(/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
+        blocked_uri=blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
+    }
+}
+
 var cspControllers = angular.module('cspControllers', ['CornerCouch','infinite-scroll']);
 
 
