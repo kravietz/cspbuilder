@@ -56,14 +56,14 @@
             <h3>Sample</h3>
 
             <ul class="list-group">
-                <li class="list-group-item">Date received:
-                    <tt>{{meta.timestamp}}</tt>
+                <li class="list-group-item">
+                    <small>Date received <tt>{{meta.timestamp}}</tt></small>
 
-                <li class="list-group-item">User agent:
-                    <tt>{{meta.user_agent}}</tt>
+                <li class="list-group-item">
+                    <small>User agent: <tt>{{meta.user_agent}}</tt></small>
 
-                <li class="list-group-item">Remote IP:
-                    <tt>{{meta.remote_ip}}</tt>
+                <li class="list-group-item">
+                    <small>Remote IP: <tt>{{meta.remote_ip}}</tt></small>
             </ul>
 
             <pre class="pre-scrollable" id="raw-report">{{csp | json}}</pre>
