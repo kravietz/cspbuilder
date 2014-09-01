@@ -60,6 +60,9 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             $window.location.href='/static/#/login';
         };
 
+        // TODO: add various types from https://www.owasp.org/index.php/Content_Security_Policy
+        // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
+
         $scope.generate_csp = function() {
 
             if($scope.csp_config.enforce) {
@@ -69,6 +72,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             }
 
             $scope.policy = header + ': ';
+            $scope.policy += 'default-src \'none\'';
+            $scope.policy += 'reflected-xss filter';
 
             for (i=0; i<$scope.approved_list.length; i++) {
                 src_list = $scope.approved_list[i];
