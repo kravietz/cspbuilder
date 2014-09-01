@@ -1,0 +1,75 @@
+<ng-include src="'top-menu.html'"></ng-include>
+
+<div class="row" id="main-list">
+
+    <div class="alert alert-info" role="alert">
+        These resource origins and types were reported as blocked
+        by your page's current Content Security Policy.
+        Click on rows to see sample alert for this origin and resource combination.
+        When done with all go to the <a href="#/policy/{{owner_id}}">Policy</a> tab.
+    </div>
+
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+        <tr>
+            <th>Resource origin</th>
+            <th>Resource type</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="report in db.rows track by $index" title="{{report}}" ng-click="detail_open($index)">
+            <td>{{report.key[1]}}</td>
+            <td>{{report.key[2]}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div ng-show="meta">
+        <div id="sample-report">
+
+            <button type="button" class="close" ng-click="detail_close()">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+
+            <h3>Source</h3>
+
+            <div class="alert alert-info" role="alert">
+            <u>If you recognize</u> this resource as authorised click the <strong>Approve</strong> button to add it to your policy,
+            </div>
+
+            <div class="text-center alert alert-warning" role="alert">
+                 <strong>{{csp['violated-directive'].split(' ')[0]}} {{csp['blocked-uri']}}</strong>
+                 <span class="glyphicon glyphicon-ok text-success" ng-show="approved"></span>
+            </div>
+
+            <div class="row">
+                <button type="button"
+                        class="btn btn-success btn-default center-block"
+                        ng-click="approve_source()"
+                        title="Add this origin and resource to policy">
+                    <span>Approve</span>
+                </button>
+            </div>
+
+            <h3>Sample</h3>
+
+            <ul class="list-group">
+                <li class="list-group-item">Date received:
+                    <tt>{{meta.timestamp}}</tt>
+
+                <li class="list-group-item">User agent:
+                    <tt>{{meta.user_agent}}</tt>
+
+                <li class="list-group-item">Remote IP:
+                    <tt>{{meta.remote_ip}}</tt>
+            </ul>
+
+            <pre class="pre-scrollable" id="raw-report">{{csp | json}}</pre>
+
+
+        </div>
+    </div>
+
+</div>

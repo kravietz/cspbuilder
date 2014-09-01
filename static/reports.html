@@ -1,0 +1,65 @@
+<ng-include src="'top-menu.html'"></ng-include>
+
+<div class="row" id="reports-left-list"
+     infinite-scroll="loadNextPage()"
+     infinite-scroll-distance="0"
+     infinite-scroll-immediate-check="true"
+     infinite-scroll-disabled="{{blocked}}">
+
+      <ul>
+        <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)">
+            <small>{{report.doc.meta.timestamp | limitTo: 19}}</small>
+        </li>
+    </ul>
+
+    <img ng-show="blocked" src="http://ajaxload.info/cache/FF/FF/FF/00/00/00/20-1.gif"/>
+
+</div>
+
+<div class="container" id="reports-details-fixed">
+
+   <div class="row text-center">
+       <button id="reports-prev-button" type="button" class="btn btn-default" ng-click="detail_prev()">Previous</button>
+       <button id="reports-next-button" type="button" class="btn btn-default" ng-click="detail_next()">Next</button>
+   </div>
+
+    <table class="table table-condensed">
+        <tbody>
+            <tr><td colspan="2">Report #{{index}}
+
+            <tr><th colspan="2" class="text-center">Meta data
+
+            <tr><th>Received<td>{{meta.timestamp}}
+            <tr><th>User agent<td>{{meta.user_agent}}
+            <tr><th>Remote IP<td>{{meta.remote_ip}}
+
+            <tr><th colspan="2" class="text-center">Blocked resource report
+
+            <tr><th>Blocked URI<td>{{csp['blocked-uri']}}
+            <tr><th>Violated directive<td>{{csp['violated-directive'].split(' ')[0]}}
+            <tr><th>Document URI<td>{{csp['document-uri']}}
+            <tr ng-show="csp['referrer']"><th>Referrer<td>{{csp['referrer']}}
+            <tr ng-show="csp['source-file']"><th>Source file<td>{{csp['source-file']}}
+
+        </tbody>
+    </table>
+
+    <div class="row text-center">
+        <button type="button" class="btn btn-default" ng-click="raw = 2"><span class="caret"></span> Violated directive</button>
+        <button type="button" class="btn btn-default" ng-click="raw = 3"><span class="caret"></span> Original policy</button>
+        <button type="button" class="btn btn-default" ng-click="raw = 1"><span class="caret"></span> Raw JSON</button>
+    </div>
+
+    <pre ng-show="raw == 1">
+        {{csp | json}}
+    </pre>
+
+    <pre ng-show="raw == 2">
+        violated-directive {{csp['violated-directive'] | json}}
+    </pre>
+
+    <pre ng-show="raw == 3">
+        original-policy {{csp['original-policy'] | json}}
+    </pre>
+
+</div>

@@ -1,0 +1,27 @@
+
+#main-list {
+    margin-top: 50px;
+    width: 60%;
+}
+#sample-report {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    width: 40%;
+    margin-right: 10px;
+}
+#raw-report {
+    font-size: 0.7em;
+}
+.menu-text {
+    font-weight: bold;
+}
+#reports-left-list {
+    width: 30%;
+}
+#reports-details-fixed {
+    position:fixed;
+    width: 70%;
+    right: 70px;
+    top: 50px;
+}

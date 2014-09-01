@@ -1,0 +1,30 @@
+<ng-include src="'top-menu.html'"></ng-include>
+
+<h3>Policy generator</h3>
+
+<div class="row">
+    <form name="cspEditor">
+    <ul>
+        <li ng-repeat="row in approved_list">
+            {{row.type}}
+            <ul>
+                <li ng-repeat="(k,v) in row.sources">
+                    <input type="checkbox" ng-model="row.sources[k]"> {{k}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+    </form>
+</div>
+
+<div class="row">
+    <button ng-click="generate_csp()">Generate</button>
+</div>
+
+<div class="row">
+    <pre>{{policy }}</pre>
+</div>
+
+<div class="row">
+    <pre>{{approved_list | json}}</pre>
+</div>
