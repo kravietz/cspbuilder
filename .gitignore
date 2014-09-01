@@ -1,0 +1,4 @@
+*.pyo
+bin/
+lib/
+include/
