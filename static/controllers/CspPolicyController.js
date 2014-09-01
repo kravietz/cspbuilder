@@ -72,8 +72,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             }
 
             $scope.policy = header + ': ';
-            $scope.policy += 'default-src \'none\'';
-            $scope.policy += 'reflected-xss filter';
+            $scope.policy += 'default-src \'none\'; ';
+            $scope.policy += 'reflected-xss filter; ';
 
             for (i=0; i<$scope.approved_list.length; i++) {
                 src_list = $scope.approved_list[i];
