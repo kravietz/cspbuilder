@@ -31,7 +31,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             console.log('detail_open '+index);
             $scope.approved = false;
             // sources list already contains the key we can use to fetch sample report
-            console.log($scope.db.rows[index].key);
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             $scope.db2.query('csp', 'by_source_type',
             {
