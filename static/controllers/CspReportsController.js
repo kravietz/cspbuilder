@@ -1,7 +1,9 @@
-cspControllers.controller('CspReportsController', ['$scope', '$routeParams', 'cornercouch',
-    function($scope, $routeParams, cornercouch) {
+cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'cornercouch', '$window',
+    function($scope, $cookieStore, cornercouch, $window) {
 
-        $scope.owner_id = $routeParams.owner_id;
+        $scope.owner_id = $cookieStore.get('owner_id');
+        if(!$scope.owner_id) { $window.location.href='/static/#/login'; }
+
         $scope.blocked = true; // for infinite scroll
         $('#reports-prev-button').addClass('disabled');
         $scope.index = 0;
@@ -17,6 +19,12 @@ cspControllers.controller('CspReportsController', ['$scope', '$routeParams', 'co
                     $scope.detail_show(0);
                 }
             );
+
+        $scope.logout = function() {
+            console.log('logout');
+            $cookieStore.remove('owner_id');
+            $window.location.href='/static/#/login';
+        };
 
         $scope.detail_show = function(index) {
             console.log('detail_show '+index);

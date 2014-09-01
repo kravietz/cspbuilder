@@ -1,5 +1,5 @@
-cspControllers.controller('CspPolicyController', ['$scope', '$routeParams', 'cornercouch',
-    function($scope, $routeParams, cornercouch) {
+cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cornercouch', '$window',
+    function($scope, $cookieStore, cornercouch, $window) {
 
         $scope.csp_config = {
             'enforce' : false,      // Content-Security-Policy-Read-Only
@@ -13,7 +13,9 @@ cspControllers.controller('CspPolicyController', ['$scope', '$routeParams', 'cor
             'header' : 'standard', /* 'xcsp', 'chrome' */
         };
 
-        $scope.owner_id = $routeParams.owner_id;
+        $scope.owner_id = $cookieStore.get('owner_id');
+        if(!$scope.owner_id) { $window.location.href='/static/#/login'; }
+
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "approved_sources_owner",
             {
@@ -51,6 +53,12 @@ cspControllers.controller('CspPolicyController', ['$scope', '$routeParams', 'cor
 
                 }
             );
+
+        $scope.logout = function() {
+            console.log('logout');
+            $cookieStore.remove('owner_id');
+            $window.location.href='/static/#/login';
+        };
 
         $scope.generate_csp = function() {
             if($scope.csp_config.enforce) {
