@@ -18,7 +18,7 @@
         </thead>
 
         <tbody>
-        <tr ng-repeat="report in db.rows track by $index" title="{{report}}" ng-click="detail_open($index)">
+        <tr ng-repeat="report in db.rows track by $index" title="{{report}}" id="{{$index}}" ng-click="detail_open($index)">
             <td>{{report.key[1]}}</td>
             <td>{{report.key[2]}}</td>
         </tr>
