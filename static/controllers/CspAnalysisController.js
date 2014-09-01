@@ -6,6 +6,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.blocked = true;
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
+        $scope.index = 0;
         $scope.db.query("csp", "sources_key_owner",
             {
                 include_docs: false,
@@ -30,6 +31,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
         $scope.detail_open = function(index) {
             console.log('detail_open '+index);
             $scope.approved = false;
+            $('#report-row-' + index).removeClass('bg-info'); // delete highlight from old row
+            $scope.index = index;
+            $('#report-row-' + index).addClass('bg-info'); // highlight current row
             // sources list already contains the key we can use to fetch sample report
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             $scope.db2.query('csp', 'by_source_type',
