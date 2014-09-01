@@ -8,7 +8,10 @@
 
       <ul>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)">
-            <small>{{report.doc.meta.timestamp | limitTo: 19}}</small>
+            <small>{{report.doc.meta.timestamp | limitTo: 19}}
+                   {{report.doc['csp-report']['violated-directive'].split(' ')[0]}}
+                   {{report.doc['csp-report']['blocked-uri']}}
+            </small>
         </li>
     </ul>
 
