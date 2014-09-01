@@ -56,6 +56,7 @@ function normalize_csp_source(blocked_uri) {
     } else if(/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
         blocked_uri=blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
     }
+    return blocked_uri;
 }
 
 var cspControllers = angular.module('cspControllers', ['CornerCouch','infinite-scroll']);
