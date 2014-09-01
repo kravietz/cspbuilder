@@ -61,16 +61,17 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         };
 
         $scope.generate_csp = function() {
+
             if($scope.csp_config.enforce) {
                 header = 'Content-Security-Policy';
             } else {
                 header = 'Content-Security-Policy-Report-Only';
             }
+
             $scope.policy = header + ': ';
+
             for (i=0; i<$scope.approved_list.length; i++) {
                 src_list = $scope.approved_list[i];
-                console.log('sources=' + JSON.stringify(src_list.sources));
-                console.log('keys=' + Object.keys(src_list.sources));
                 $scope.policy += src_list.type + ':';
                 for (src in src_list.sources) {
                     console.log('src=' + src);

@@ -39,8 +39,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 startkey: $scope.db.rows[index].key,
                 include_docs: true
             }).success( function() {
-                console.log('sample data loading finished');
-                console.log($scope.db2.rows[0].doc['csp-report']);
                 $scope.csp = $scope.db2.rows[0].doc['csp-report'];
                 $scope.meta = $scope.db2.rows[0].doc.meta;
             }
