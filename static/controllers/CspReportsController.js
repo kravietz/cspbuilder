@@ -29,7 +29,10 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
 
         $scope.detail_show = function(index) {
             console.log('detail_show '+index);
+            $('#reports-li-' + $scope.index).removeClass('bg-info'); // remove highlight from previous
             $scope.index = index; // update scope index
+            $('#reports-li-' + $scope.index).addClass('bg-info'); // highlight
+
             $scope.csp = $scope.db.rows[index].doc['csp-report'];
             $scope.meta = $scope.db.rows[index].doc['meta'];
             $scope.raw = 0;
