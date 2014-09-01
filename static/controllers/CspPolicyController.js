@@ -29,6 +29,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                     current_list = {};
                     // rewrite the list of accepted items into a dictionary
                     $scope.db.rows.forEach(function(item) {
+                            console.log('row=' + item);
                             type = item.key[1];
                             src = item.key[2];
                             if(current_type==type) {
@@ -36,7 +37,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                                 current_list[src] = true;
                             } else {
                                 // new type - open new dictionary
-                                if(current_type && current_list) {
+                                if(current_type && current_list) { // save items added previously
                                     $scope.approved_list.push( {
                                             'type': current_type,
                                             'sources': current_list
@@ -50,6 +51,10 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                             }
 
                         });
+                    $scope.approved_list.push( { // save last added items
+                                            'type': current_type,
+                                            'sources': current_list
+                                            });
 
                 }
             );
