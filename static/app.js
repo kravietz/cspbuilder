@@ -55,6 +55,8 @@ function normalize_csp_source(blocked_uri) {
     // for 'http://url.com/path/path' return 'http://url.com'
     } else if(/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
         blocked_uri=blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
+    } else if(blocked_uri==='self') {
+        blocked_uri='\'self\'';
     }
     return blocked_uri;
 }
