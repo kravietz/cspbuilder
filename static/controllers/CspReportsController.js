@@ -13,6 +13,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
             {
                 include_docs: true,
                 key: Math.floor($scope.owner_id),
+                limit: screenRows()
             }).success( function() {
                     console.log('data loading finished');
                     $scope.blocked = false;
