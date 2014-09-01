@@ -1,6 +1,6 @@
 var couchdb_url = 'http://new.cspbuilder.info:9091/';
 
-var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'cspControllers']);
+var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cspControllers']);
 
 cspbuilderApp.config(['$routeProvider',
     function($routeProvider) {
