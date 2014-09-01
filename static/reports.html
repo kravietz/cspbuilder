@@ -12,11 +12,11 @@
         </li>
     </ul>
 
-    <img ng-show="blocked" src="/static/20-0.gif"/>
+    <div class="text-center"><img ng-show="blocked" src="/static/20-0.gif"/></div>
 
 </div>
 
-<div class="container" id="reports-details-fixed">
+<div class="container" id="reports-details-fixed" ng-hide="blocked">
 
    <div class="row text-center">
        <button id="reports-prev-button" type="button" class="btn btn-default" ng-click="detail_prev()">Previous</button>
