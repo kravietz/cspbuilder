@@ -64,7 +64,8 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
             }
         };
 
-        $scope.loadNextPage = function() {
+        $scope.load_next_page = function() {
+            console.log('load next page');
             $scope.db.queryMore().success( function() {
                     console.log('data loading finished');
                     $scope.blocked = false;
