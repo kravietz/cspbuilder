@@ -65,7 +65,7 @@ function normalize_csp_source(csp) {
         blocked_uri='\'self\'';
 
     // empty URI can be inline or eval()
-    } else if(blocked_uri.length === 0) {
+    } else if(blocked_uri === 'null') {
 
         // if type was style, then inline CSS was blocked
         if(blocked_type === 'style-src') {
