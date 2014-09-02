@@ -81,7 +81,7 @@ function normalize_csp_source(csp) {
             violated_directive = csp['violated-directive'];
 
             // check if eval was already allowed on blocked page
-            if(violated_directive.indexIf('unsafe-eval') > 0) {
+            if(violated_directive.indexOf('unsafe-eval') > 0) {
                 // so the blocked resource was an inline script
                 blocked_uri='\'unsafe-inline\'';
             } else {
