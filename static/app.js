@@ -78,7 +78,7 @@ function normalize_csp_source(csp) {
         // guesswork needed for scripts
         } else if (blocked_type === 'script-src') {
 
-            violated_direcive = csp['violated-directive'];
+            violated_directive = csp['violated-directive'];
 
             // check if eval was already allowed on blocked page
             if(violated_directive.indexIf('unsafe-eval') > 0) {
