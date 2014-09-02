@@ -77,9 +77,10 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             }
 
             $scope.policy = header + ': ';
-            $scope.policy += 'default-src \'none\'; ';
-            $scope.policy += 'reflected-xss filter; ';
-            $scope.policy += 'frame-ancestors \'none\'; ';
+            //$scope.policy += 'default-src \'none\'; ';
+            //$scope.policy += 'reflected-xss filter; ';
+            //$scope.policy += 'frame-ancestors \'none\'; ';
+            //$scope.policy += 'form-action \'none\'';
             $scope.policy += 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
 
             for (i=0; i<$scope.approved_list.length; i++) {
