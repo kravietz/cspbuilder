@@ -100,14 +100,14 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     }).success( function() {
                         approve_list = { 'docs': [] }
                         $scope.db2.rows.forEach( function(item) {
-                        delete_list.docs.push({
-                            '_id': item.doc._id,
-                            '_rev': item.doc._rev,
-                            'approved' : true
+                            delete_list.docs.push({
+                                '_id': item.doc._id,
+                                '_rev': item.doc._rev,
+                                'approved' : true
+                            });
+                            console.log('set as approved ' + $scope.db2.length);
                         });
-                        console.log('set as approved ' + $scope.db2.length);
                     });
-        };
 
-    }
+        }
 ]);
