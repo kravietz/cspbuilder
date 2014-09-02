@@ -93,20 +93,25 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 db2.newDoc(newdoc).save();
                 $scope.approved = true;
 
-                // set all reports with this key as approved
+                 // set all reports with this key as approved
                  $scope.db2.query('csp', 'by_source_type', {
                         key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
                         include_docs: true
                     }).success( function() {
                         approve_list = { 'docs': [] }
                         $scope.db2.rows.forEach( function(item) {
-                            delete_list.docs.push({
+                            approve_list.docs.push({
                                 '_id': item.doc._id,
                                 '_rev': item.doc._rev,
                                 'approved' : true
                             });
                             console.log('set as approved ' + $scope.db2.length);
                         });
+                        // run bulk update
+                        client = new XMLHttpRequest();
+                        client.open('POST', couchdb_url + '/csp/_bulk_docs');
+                        client.setRequestHeader('Content-Type', 'application/json');
+                        client.send(JSON.stringify(approve_list));
                     });
 
         };
