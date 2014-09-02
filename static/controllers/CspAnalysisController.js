@@ -59,8 +59,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             $scope.db2.query('csp', 'approved_sources_owner', {
                 reduce: false,
-                startkey: [$scope.owner_id],
-                endkey: [$scope.owner_id,{}],
+                startkey: [Math.floor($scope.owner_id)],
+                endkey: [Math.floor($scope.owner_id,{})],
                 include_docs: true
             })
             .success( function() {
@@ -86,7 +86,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 if(allow) {
                     // save new whitelist entry if action was to allow
                     db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-                    newdoc = {  'owner_id'     : $scope.owner_id,
+                    newdoc = {  'owner_id'     : Math.floor($scope.owner_id),
                                 'approved_uri' : $scope.norm_src,
                                 'approved_type': $scope.norm_type
                                 };
