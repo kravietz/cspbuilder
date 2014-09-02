@@ -59,8 +59,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 endkey: [$scope.owner_id,{}],
                 include_docs: true
                     }).success( function() {
-                    delete_list = { 'docs': [] }
-                $scope.db2.rows.forEach( function(item) {
+                    delete_list = { 'docs': [] };
+                    $scope.db2.rows.forEach( function(item) {
                     delete_list.docs.push({
                         '_id': item.doc._id,
                         '_rev': item.doc._rev,
@@ -72,9 +72,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 client.open('POST', couchdb_url + '/csp/_bulk_docs');
                 client.setRequestHeader('Content-Type', 'application/json');
                 client.send(JSON.stringify(delete_list));
-                }
-            );
-         };
+                )};
+                };
 
         $scope.detail_close = function() {
             console.log('detail_close ');
@@ -82,6 +81,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             delete $scope.raw_report;
         };
 
+        /*
         $scope.approve_source = function() {
 
                 console.log('approve_source');
@@ -98,7 +98,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                         key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
                         include_docs: true
                     }).success( function() {
-                        approve_list = { 'docs': [] }
+                        approve_list = { 'docs': [] };
                         $scope.db2.rows.forEach( function(item) {
                             approve_list.docs.push({
                                 '_id': item.doc._id,
@@ -115,4 +115,5 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     });
 
         };
+        */
 ]);
