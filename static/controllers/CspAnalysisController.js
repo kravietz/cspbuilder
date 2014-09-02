@@ -103,7 +103,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                                 '_rev': item.doc._rev,
                                 'approved' : true
                             });
-                            console.log('set as approved ' + $scope.db2.length);
                         });
                         // run bulk update
                         client = new XMLHttpRequest();
