@@ -22,19 +22,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 }
             );
 
-        $scope.logout = function() {
-            console.log('logout');
-            $cookieStore.remove('owner_id');
-            $window.location.href='/static/#/login';
-        };
 
-
-
-        $scope.detail_close = function() {
-            console.log('detail_close ');
-            delete $scope.meta;
-            delete $scope.raw_report;
-        };
 
 
 
