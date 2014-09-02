@@ -81,7 +81,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             delete $scope.raw_report;
         };
 
-        /*
         $scope.approve_source = function() {
 
                 console.log('approve_source');
@@ -115,5 +114,5 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     });
 
         };
-        */
+
 ]);
