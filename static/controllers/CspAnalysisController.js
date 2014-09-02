@@ -44,8 +44,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             }).success( function() {
                 $scope.csp = $scope.db2.rows[0].doc['csp-report'];
                 $scope.meta = $scope.db2.rows[0].doc.meta;
-                $scope.norm_src = normalize_csp_source($scope.csp['blocked-uri']);
                 $scope.norm_type = $scope.csp['violated-directive'].split(' ')[0];
+                $scope.norm_src = normalize_csp_source($scope.csp);
             }
             );
 
