@@ -11,8 +11,8 @@ if(blocked_uri.lastIndexOf('data', 0) === 0) {
         blocked_uri=blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
       }
   emit( [ doc['owner_id'],
-          blocked_uri,
-         doc['csp-report']['violated-directive'].split(' ')[0] ],
+          doc['csp-report']['violated-directive'].split(' ')[0],
+          blocked_uri, ],
 	 null );
  }
 }
@@ -46,8 +46,8 @@ BY_SOURCE_TYPE_MAP="""
 function(doc) {
   if(doc['owner_id'] && doc['csp-report'] && doc['csp-report']['blocked-uri'] && doc['csp-report']['violated-directive']) {
   emit( [ doc['owner_id'],
-          doc['csp-report']['blocked-uri'],
-          doc['csp-report']['violated-directive'].split(' ')[0] ],
+	  doc['csp-report']['violated-directive'].split(' ')[0],
+          doc['csp-report']['blocked-uri'] ],
 	  null );
  }
 }
