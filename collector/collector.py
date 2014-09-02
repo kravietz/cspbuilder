@@ -89,6 +89,11 @@ def application(environ, start_response):
     # copy metadata into the final report object
     output['meta'] = meta
 
+    # if blocked-uri is empty, replace it with null value
+    # otherwise JS views will not be able to find it
+    if output['csp-report']['blocked-uri'] == "":
+        output['csp-report']['blocked-uri'] = "null";
+
     # save current report to CouchDB
     db = couchdb.Server(COUCHDB_SERVER)['csp']
     db.save(output)
