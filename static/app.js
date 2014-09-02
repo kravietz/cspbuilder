@@ -64,6 +64,10 @@ function normalize_csp_source(csp) {
     } else if(blocked_uri === 'self') {
         blocked_uri='\'self\'';
 
+    // encode empty source ("") as "null" in database, otherwise key lookups won't work
+    } else if(blocked_uri.length === 0) {
+        blocked_uri = 'null';
+
     // empty URI can be inline or eval()
     } else if(blocked_uri === 'null') {
 
