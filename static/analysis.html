@@ -43,15 +43,22 @@
 
             <div class="text-center alert alert-warning" role="alert">
                  <strong>{{norm_type}} {{norm_src}}</strong>
-                 <span class="glyphicon glyphicon-ok text-success" ng-show="approved"></span>
+                 <span class="glyphicon glyphicon-ok text-success" ng-show="reviewed"></span>
             </div>
 
             <div class="row">
                 <button type="button"
                         class="btn btn-success btn-default center-block"
-                        ng-click="approve_source()"
+                        ng-click="review_source(true)"
                         title="Add this origin and resource to policy">
-                    <span>Approve</span>
+                    <span>Allow</span>
+                </button>
+
+                <button type="button"
+                        class="btn btn-warning center-block"
+                        ng-click="review_source(false)"
+                        title="Reset all approved sources">
+                    <span>Disallow</span>
                 </button>
 
                 <button type="button"

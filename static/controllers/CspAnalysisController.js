@@ -80,18 +80,22 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             });
         };  // reset_approved
 
-        $scope.approve_source = function() {
+        $scope.review_source = function(allow) {
 
-                console.log('approve_source');
-                db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-                newdoc = {  'owner_id'     : $scope.owner_id,
-                            'approved_uri' : $scope.norm_src,
-                            'approved_type': $scope.norm_type
-                            };
-                db2.newDoc(newdoc).save();
-                $scope.approved = true;
+                console.log('review_source allow=' + allow);
+                if(allow) {
+                    // save new whitelist entry if action was to allow
+                    db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
+                    newdoc = {  'owner_id'     : $scope.owner_id,
+                                'approved_uri' : $scope.norm_src,
+                                'approved_type': $scope.norm_type
+                                };
+                    db2.newDoc(newdoc).save();
+                }
+                // mark as approved on the page
+                $scope.reviewed = true;
 
-                 // set all reports with this key as approved
+                 // set all reports with this key as reviewed
                  $scope.db2.query('csp', 'by_source_type', {
                         key: [Math.floor($scope.owner_id), $scope.norm_type, $scope.norm_src],
                         include_docs: true
@@ -101,7 +105,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                             approve_list.docs.push({
                                 '_id': item.doc._id,
                                 '_rev': item.doc._rev,
-                                'approved' : true
+                                'reviewed' : true
                             });
                         });
                         // run bulk update
