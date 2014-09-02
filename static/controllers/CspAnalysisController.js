@@ -57,8 +57,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 reduce: false,
                 startkey: [$scope.owner_id],
                 endkey: [$scope.owner_id,{}],
-         }).success(
+         }).success( funtion() {
             console.log($scope.db.rows);
+            }
          )};
 
         $scope.detail_close = function() {
