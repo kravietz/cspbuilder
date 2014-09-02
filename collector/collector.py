@@ -33,7 +33,7 @@ def application(environ, start_response):
     # sanity checks
     # check HTTP method
     if request_method != 'POST':
-        print('Error: invalid request method {} from {}'.format(client_ip, request_method))
+        print('Error: invalid request method {} from {}'.format(request_method, client_ip))
         return http_400_bad_request(start_response, "Invalid HTTP method")
 
     # get identifier of page sending this report
@@ -93,6 +93,8 @@ def application(environ, start_response):
     db = couchdb.Server(COUCHDB_SERVER)['csp']
     db.save(output)
 
-    print('{} {} {} {}'.format(meta['timestamp'], client_ip, request_uri, output['csp-report']['blocked-uri']))
+    print('{} {} {} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
+                                                                 output['csp-report']['violated-directive'].split()[0],
+                                                                 output['csp-report']['blocked-uri']))
 
     return http_204_no_content(start_response)
