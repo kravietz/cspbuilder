@@ -57,21 +57,21 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 reduce: false,
                 startkey: [$scope.owner_id],
                 endkey: [$scope.owner_id,{}],
-		include_docs: true
-            }).success( function() {
-	    	delete_list = { 'docs': [] }
-		$scope.db2.rows.forEach( function(item) {
-			delete_list.docs.push({
-				'_id': item.doc._id,
-				'_rev': item.doc._rev,
-				'_deleted' : true
-			});
-		});
-		// run bulk delete - CornerCouch does not support it
-		client = new XMLHttpRequest();
-		client.open('POST', couchdb_url + '/csp/_bulk_docs');
-		client.setRequestHeader('Content-Type', 'application/json');
-		client.send(JSON.stringify(delete_list));
+                include_docs: true
+                    }).success( function() {
+                    delete_list = { 'docs': [] }
+                $scope.db2.rows.forEach( function(item) {
+                    delete_list.docs.push({
+                        '_id': item.doc._id,
+                        '_rev': item.doc._rev,
+                        '_deleted' : true
+                    });
+                });
+                // run bulk delete - CornerCouch does not support it
+                client = new XMLHttpRequest();
+                client.open('POST', couchdb_url + '/csp/_bulk_docs');
+                client.setRequestHeader('Content-Type', 'application/json');
+                client.send(JSON.stringify(delete_list));
                 }
             );
          };
@@ -83,6 +83,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
         };
 
         $scope.approve_source = function() {
+
+                console.log('approve_source');
                 db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
                 newdoc = {  'owner_id'     : $scope.owner_id,
                             'approved_uri' : $scope.norm_src,
@@ -91,6 +93,20 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 db2.newDoc(newdoc).save();
                 $scope.approved = true;
 
+                // set all reports with this key as approved
+                 $scope.db2.query('csp', 'by_source_type', {
+                        key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
+                        include_docs: true
+                    }).success( function() {
+                        approve_list = { 'docs': [] }
+                        $scope.db2.rows.forEach( function(item) {
+                        delete_list.docs.push({
+                            '_id': item.doc._id,
+                            '_rev': item.doc._rev,
+                            'approved' : true
+                        });
+                        console.log('set as approved ' + $scope.db2.length);
+                    });
         };
 
     }
