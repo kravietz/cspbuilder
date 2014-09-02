@@ -77,7 +77,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 client.open('POST', couchdb_url + '/csp/_bulk_docs');
                 client.setRequestHeader('Content-Type', 'application/json');
                 client.send(JSON.stringify(delete_list));
-            )};
+            });
         };  // reset_approved
 
         $scope.approve_source = function() {
