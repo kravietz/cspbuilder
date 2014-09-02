@@ -56,26 +56,27 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
         };   // detail_open
 
         $scope.reset_approved = function() {
-         $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-         $scope.db2.query('csp', 'approved_sources_owner', {
-            reduce: false,
-            startkey: [$scope.owner_id],
-            endkey: [$scope.owner_id,{}],
-            include_docs: true
-                }).success( function() {
+            $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
+            $scope.db2.query('csp', 'approved_sources_owner', {
+                reduce: false,
+                startkey: [$scope.owner_id],
+                endkey: [$scope.owner_id,{}],
+                include_docs: true
+            })
+            .success( function() {
                 delete_list = { 'docs': [] };
                 $scope.db2.rows.forEach( function(item) {
-                delete_list.docs.push({
-                    '_id': item.doc._id,
-                    '_rev': item.doc._rev,
-                    '_deleted' : true
+                    delete_list.docs.push({
+                        '_id': item.doc._id,
+                        '_rev': item.doc._rev,
+                        '_deleted' : true
+                    });
                 });
-            });
-            // run bulk delete - CornerCouch does not support it
-            client = new XMLHttpRequest();
-            client.open('POST', couchdb_url + '/csp/_bulk_docs');
-            client.setRequestHeader('Content-Type', 'application/json');
-            client.send(JSON.stringify(delete_list));
+                // run bulk delete - CornerCouch does not support it
+                client = new XMLHttpRequest();
+                client.open('POST', couchdb_url + '/csp/_bulk_docs');
+                client.setRequestHeader('Content-Type', 'application/json');
+                client.send(JSON.stringify(delete_list));
             )};
         };  // reset_approved
 
