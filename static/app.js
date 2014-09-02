@@ -54,7 +54,7 @@ function normalize_csp_source(csp) {
 
     // for 'data:image/png' return 'data:'
     if(blocked_uri.lastIndexOf('data', 0) === 0) {
-        blocked_uri='\'data:\'';
+        blocked_uri='data:';
 
     // for 'http://url.com/path/path' return 'http://url.com'
     } else if(/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
