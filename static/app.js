@@ -49,7 +49,7 @@ function screenRows(obj) {
 }
 
 function normalize_csp_source(csp) {
-    blocked_uri = csp['blocked-uri];
+    blocked_uri = csp['blocked-uri'];
     blocked_type = csp['violated-directive'].split(' ')[0];
 
     // for 'data:image/png' return 'data:'
@@ -75,7 +75,7 @@ function normalize_csp_source(csp) {
         } else if (blocked_type === 'script-src') {
 
             violated_direcive = csp['violated-directive'];
-            
+
             // check if eval was already allowed on blocked page
             if(violated_directive.indexIf('unsafe-eval') > 0) {
                 // so the blocked resource was an inline script
