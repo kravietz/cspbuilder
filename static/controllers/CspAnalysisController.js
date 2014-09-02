@@ -109,5 +109,5 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                         });
                     });
 
-        }
+        };
 ]);
