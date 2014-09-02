@@ -2,8 +2,6 @@
 
 <div class="row" id="main-list">
 
-    <h3>Resources</h3>
-
     <div class="alert alert-info" role="alert">
         These resource origins and types were reported as blocked
         by your page's current Content Security Policy.
@@ -50,7 +48,14 @@
                 <button type="button"
                         class="btn btn-success btn-default center-block"
                         ng-click="approve_source()"
-                        title="Add this origin and resource to policy.">
+                        title="Add this origin and resource to policy">
+                    <span>Approve</span>
+                </button>
+
+                <button type="button"
+                        class="btn btn-warning btn-default center-block"
+                        ng-click="reset_approved()"
+                        title="Reset all approved sources">
                     <span>Approve</span>
                 </button>
 

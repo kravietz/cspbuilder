@@ -51,6 +51,16 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         };
 
+         $scope.reset_approved = function() {
+             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
+             $scope.db2.query('csp', 'approved_sources_owner', {
+                reduce: false,
+                startkey: [$scope.owner_id],
+                endkey: [$scope.owner_id,{}],
+         }).success(
+            console.log($scope.db.rows);
+         )};
+
         $scope.detail_close = function() {
             console.log('detail_close ');
             delete $scope.meta;
