@@ -27,18 +27,34 @@ ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types'
 
 def application(environ, start_response):
 
+    client_ip = environ.get('REMOTE_ADDR')
+    request_method = environ.get('REQUEST_METHOD')
+
     # sanity checks
     # check HTTP method
-    if environ.get('REQUEST_METHOD') != 'POST':
+    if request_method != 'POST':
+        print('Error: invalid request method {} from {}'.format(client_ip, request_method))
         return http_400_bad_request(start_response, "Invalid HTTP method")
 
+    # get identifier of page sending this report
+    request_uri = environ.get('REQUEST_URI')
+    try:
+        page_id = int(request_uri.split('/')[2])
+    except (ValueError, IndexError, AttributeError):
+        print('Error: bad report URI {} from {}'.format(request_uri, client_ip))
+        return http_400_bad_request(start_response)
+
+    content_type = environ.get('CONTENT_TYPE')
+
     # check content type
-    if environ.get('CONTENT_TYPE') not in ALLOWED_CONTENT_TYPES:
+    if content_type not in ALLOWED_CONTENT_TYPES:
+        print('Error: invalid content type {} from {}'.format(content_type, request_method))
         return http_400_bad_request(start_response, "Invalid content type")
 
     # check body size
     request_body_size = int(environ.get('CONTENT_LENGTH', 0))
     if request_body_size == 0:
+        print('Error: empty request body from {}'.format(client_ip))
         return http_400_bad_request(start_response, "Empty body")
 
     # get body content and try JSON decode
@@ -46,17 +62,13 @@ def application(environ, start_response):
     try:
         output = json.loads(request_body.decode('ascii'))
     except ValueError:
+        print('Error: invalid JSON from {}: {}'.format(client_ip, request_body))
         return http_400_bad_request(start_response, "Invalid JSON")
 
     # check if csp-report is present in JSON
     if not 'csp-report' in output:
+        print('Error: JSON from {} has no csp-report: {}'.format(client_ip, request_body))
         return http_400_bad_request(start_response, "Csp-report object missing")
-
-    # get identifier of page sending this report
-    try:
-        page_id = int(environ.get('REQUEST_URI').split('/')[2])
-    except (ValueError, IndexError, AttributeError):
-        return http_400_bad_request(start_response)
 
     output['owner_id'] = page_id
 
@@ -68,10 +80,8 @@ def application(environ, start_response):
     if user_agent:
         meta['user_agent'] = user_agent
 
-    # client's IP address
-    remote_ip = environ.get('REMOTE_ADDR')
-    if remote_ip:
-        meta['remote_ip'] = remote_ip
+    # save client's IP address
+    meta['remote_ip'] = client_ip
 
     # UTC timestamp
     meta['timestamp'] = datetime.now(timezone.utc).isoformat()
@@ -81,6 +91,8 @@ def application(environ, start_response):
 
     # save current report to CouchDB
     db = couchdb.Server(COUCHDB_SERVER)['csp']
-    print(db.save(output))
+    db.save(output)
+
+    print('{} {} {} {}'.format(meta['timestamp'], client_ip, request_uri, output['csp-report']['blocked-uri']))
 
     return http_204_no_content(start_response)
