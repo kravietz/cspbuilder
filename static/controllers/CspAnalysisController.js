@@ -102,11 +102,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     }).success( function() {
                         approve_list = { 'docs': [] };
                         $scope.db2.rows.forEach( function(item) {
-                            approve_list.docs.push({
-                                '_id': item.doc._id,
-                                '_rev': item.doc._rev,
-                                'reviewed' : true
-                            });
+                            item.doc['reviewed'] = true;
+                            approve_list.docs.push(item.doc);
                         });
                         // run bulk update
                         client = new XMLHttpRequest();
