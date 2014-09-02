@@ -28,28 +28,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $window.location.href='/static/#/login';
         };
 
-        $scope.detail_open = function(index) {
-            console.log('detail_open '+index);
-            $scope.approved = false;
-            $('#report-row-' + $scope.index).removeClass('bg-info'); // delete highlight from old row
-            $scope.index = index;
-            $('#report-row-' + $scope.index).addClass('bg-info'); // highlight current row
-            // sources list already contains the key we can use to fetch sample report
-            $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            $scope.db2.query('csp', 'by_source_type',
-            {
-                limit: 1,
-                startkey: $scope.db.rows[index].key, // endkey not needed because limit=1
-                include_docs: true
-            }).success( function() {
-                $scope.csp = $scope.db2.rows[0].doc['csp-report'];
-                $scope.meta = $scope.db2.rows[0].doc.meta;
-                $scope.norm_type = $scope.csp['violated-directive'].split(' ')[0];
-                $scope.norm_src = normalize_csp_source($scope.csp);
-            }
-            );
 
-        };
 
         $scope.detail_close = function() {
             console.log('detail_close ');
