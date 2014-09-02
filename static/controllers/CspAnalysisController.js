@@ -93,7 +93,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
                  // set all reports with this key as approved
                  $scope.db2.query('csp', 'by_source_type', {
-                        key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
+                        key: [Math.floor($scope.owner_id), $scope.norm_type, $scope.norm_src],
                         include_docs: true
                     }).success( function() {
                         approve_list = { 'docs': [] };
