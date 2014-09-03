@@ -6,14 +6,14 @@
      infinite-scroll-immediate-check="true"
      infinite-scroll-disabled="{{blocked}}">
 
-      <ul>
+      <ol>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
             <small>{{report.doc.meta.timestamp | limitTo: 19}}
                    {{report.doc['csp-report']['violated-directive'].split(' ')[0]}}
                    {{report.doc['csp-report']['blocked-uri']}}
             </small>
         </li>
-    </ul>
+    </ol>
 
     <div class="text-center"><img ng-show="blocked" src="/static/20-0.gif"/></div>
 
