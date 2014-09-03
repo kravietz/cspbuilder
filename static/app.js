@@ -39,9 +39,9 @@ cspbuilderApp.config(['$routeProvider',
 
 
 function screenRows(obj) {
-    return Math.round(
+    return Math.floor(
             window.innerHeight / (
-                    Math.round(
+                    Math.floor(
                             $(obj).css('font-size').replace('px','')
                         )
                 )

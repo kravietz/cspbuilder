@@ -13,8 +13,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             include_docs: false,
             // CouchDB idiom used to narrow search
             // ref: http://docs.couchdb.org/en/latest/couchapp/views/collation.html#string-ranges
-            startkey: [Math.floor($scope.owner_id)],
-            endkey: [Math.floor($scope.owner_id), {}],
+            startkey: [parseInt($scope.owner_id)],
+            endkey: [parseInt($scope.owner_id), {}],
             // group required for reduce function to work
             group: true
         })
@@ -61,8 +61,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             $scope.db2.query('csp', 'approved_sources_owner', {
                 reduce: false,
-                startkey: [Math.floor($scope.owner_id)],
-                endkey: [Math.floor($scope.owner_id, {})],
+                startkey: [parseInt($scope.owner_id)],
+                endkey: [parseInt($scope.owner_id, {})],
                 include_docs: true
             })
                 .success(function () {
@@ -96,7 +96,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             if (allow) {
                 // save new whitelist entry if action was to allow
                 db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-                newdoc = {  'owner_id': Math.floor($scope.owner_id),
+                newdoc = {  'owner_id': parseInt($scope.owner_id),
                     'approved_uri': $scope.norm_src,
                     'approved_type': $scope.norm_type
                 };
@@ -107,7 +107,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
             // set all reports with this key as reviewed
             $scope.db2.query('csp', 'by_source_type', {
-                key: [Math.floor($scope.owner_id), $scope.norm_type, $scope.norm_src],
+                key: [parseInt($scope.owner_id), $scope.norm_type, $scope.norm_src],
                 include_docs: true
             }).success(function () {
                 approve_list = { 'docs': [] };

@@ -14,7 +14,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
         $scope.db.query("csp", "all_by_owner",
             {
                 include_docs: true,
-                key: Math.floor($scope.owner_id),
+                key: parseInt($scope.owner_id),
                 limit: screenRows('#reports-left-list')
             })
             .success(function () {
@@ -101,7 +101,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
 
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             $scope.db2.query('csp', 'all_by_owner', {
-                key: Math.floor($scope.owner_id),
+                key: parseInt($scope.owner_id),
                 include_docs: true
             })
                 .success(function () {
