@@ -11,6 +11,8 @@ button to produce the CSP header.
 
 <div class="row" id="policy-config">
     <h4>Configuration</h4>
+
+    <div class="col-md-3">
     <div class="checkbox">
         <label>
             <input type="checkbox" ng-model="csp_config.enforce">
@@ -18,7 +20,7 @@ button to produce the CSP header.
         </label>
     </div>
 
-    <h5>Referrer policy</h5>
+    <h5>Reflected XSS</h5>
     <div class="radio">
     <label>
     <input type="radio" ng-model="csp_config.reflected_xss" value="none" checked>
@@ -37,7 +39,31 @@ button to produce the CSP header.
     Block
     </label>
     </div>
+    </div>
 
+    <div class="col-md-3">
+    <h5>Header format</h5>
+    <div class="radio">
+    <label>
+    <input type="radio" ng-model="csp_config.header_format" value="standard" checked>
+    <code>Content-Security-Policy</code>
+    </label>
+    </div>
+    <div class="radio">
+    <label>
+    <input type="radio" ng-model="csp_config.header_format" value="xcsp" checked>
+    <code>X-Content-Security-Policy</code>
+    </label>
+    </div>
+    <div class="radio">
+    <label>
+    <input type="radio" ng-model="csp_config.header_format" value="webkit" checked>
+    <code>X-WebKit-CSP</code>
+    </label>
+    </div>
+    </div>
+
+    <div class="col-md-3">
     <h5>Referrer policy</h5>
     <div class="radio">
     <label>
@@ -48,12 +74,6 @@ button to produce the CSP header.
     <div class="radio">
     <label>
     <input type="radio" ng-model="csp_config.referrer" value="no-referrer" checked>
-    No referrer
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="no-referrer-when-downgrade" checked>
     No referrer
     </label>
     </div>
@@ -81,26 +101,9 @@ button to produce the CSP header.
     Unsafe URL
     </label>
     </div>
+    </div>
 
-    <h5>Header format</h5>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.header_format" value="standard" checked>
-    <code>Content-Security-Policy</code>
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.header_format" value="xcsp" checked>
-    <code>X-Content-Security-Policy</code>
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.header_format" value="webkit" checked>
-    <code>X-WebKit-CSP</code>
-    </label>
-    </div>
+
 </div>
 
 <div class="row">
