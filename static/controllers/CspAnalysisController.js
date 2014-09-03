@@ -13,8 +13,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             include_docs: false,
             // CouchDB idiom used to narrow search
             // ref: http://docs.couchdb.org/en/latest/couchapp/views/collation.html#string-ranges
-            startkey: [parseInt($scope.owner_id)],
-            endkey: [parseInt($scope.owner_id), {}],
+            startkey: [$scope.owner_id],
+            endkey: [$scope.owner_id, {}],
             // group required for reduce function to work
             group: true
         })
@@ -73,7 +73,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
             // save new whitelist/blacklist entry if action was to allow
             db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            newdoc = {  'owner_id': parseInt($scope.owner_id),
+            newdoc = {  'owner_id': $scope.owner_id,
                         'known_uri': $scope.norm_src,
                         'known_type': $scope.norm_type,
                         'action': allow ? 'accept' : 'reject'
@@ -85,7 +85,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
             // set all reports with this key as reviewed
             $scope.db2.query('csp', 'by_source_type', {
-                key: [parseInt($scope.owner_id), $scope.norm_type, $scope.norm_src],
+                key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
                 include_docs: true
             }).success(function () {
                 approve_list = { 'docs': [] };

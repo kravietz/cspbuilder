@@ -17,8 +17,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "approved_sources_owner",
             {
-                startkey: [parseInt($scope.owner_id)],
-                endkey: [parseInt($scope.owner_id), {}],
+                startkey: [$scope.owner_id],
+                endkey: [$scope.owner_id, {}],
                 group: true
             }).success(function () {
                 console.log('data loading finished');

@@ -42,7 +42,9 @@ def application(environ, start_response):
     # get identifier of page sending this report
     request_uri = environ.get('REQUEST_URI')
     try:
-        owner_id = int(request_uri.split('/')[2])
+        # the URI should be always like /report/9018643792216450862
+        owner_id = request_uri.split('/')[2]
+        int(owner_id)  # just to check if it's numerical
     except (ValueError, IndexError, AttributeError):
         print('Error: bad report URI {} from {}'.format(request_uri, client_ip))
         return http_400_bad_request(start_response)
