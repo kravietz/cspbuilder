@@ -2,10 +2,11 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
     function ($scope, $cookieStore, cornercouch, $window) {
 
         $scope.csp_config = {
-            'enforce': false,      // Content-Security-Policy-Read-Only
+            'enforce': false,
+            'default': false,
             'referrer': 'none',
             'reflected_xss': 'block',
-            'header_format': 'standard', /* 'xcsp', 'chrome' */
+            'header_format': 'standard',
         };
 
         $scope.owner_id = $cookieStore.get('owner_id');
@@ -64,6 +65,14 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
 
         // TODO: add various types from https://www.owasp.org/index.php/Content_Security_Policy
         // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
+        function ror_generator() {
+            // TODO: https://github.com/twitter/secureheaders
+            return null;
+        }
+        function django_generator() {
+            // TODO: https://github.com/kravietz/django-security
+            return null;
+        }
 
         $scope.generate_csp = function (format) {
 
@@ -73,12 +82,6 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 header = 'Content-Security-Policy-Report-Only';
             }
 
-
-            //$scope.policy = header + ': ';
-            //$scope.policy += 'default-src \'none\'; ';
-            //$scope.policy += 'reflected-xss filter; ';
-            //$scope.policy += 'frame-ancestors \'none\'; ';
-            //$scope.policy += 'form-action \'none\'';
             policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
 
             for (i = 0; i < $scope.approved_list.length; i++) {
@@ -106,11 +109,11 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                     break;
                 case 'ror':
                     $scope.policy_message = 'Use <a href="https://github.com/twitter/secureheaders">secureheaders</a>.';
-                    $scope.policy = '';
+                    $scope.policy = ror_generator();
                     break;
                 case 'django':
                     $scope.policy_message = 'Use <a href="https://github.com/kravietz/django-security">django-security</a>.';
-                    $scope.policy = '';
+                    $scope.policy = django_generator();
                 default:
                     $scope.policy = header + ': ' + policy;
             }
