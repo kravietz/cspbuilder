@@ -100,8 +100,11 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             for (var i = 0; i < $scope.approved_list.length; i++) {
                 var src_list = $scope.approved_list[i];
                 policy += src_list.type + ' ';
-                for(var j=0; j<src_list.sources.length; j++) {
-                    policy += ' ' + src_list.sources[j];
+                var sources = Object.keys(src_list.sources);
+                for(var j=0; j<sources.length; j++) {
+                    if(src_list.sources[sources[j]]) {
+                        policy += ' ' + sources[j];
+                    }
                 }
                 policy += '; ';
             }
