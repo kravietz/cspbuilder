@@ -16,12 +16,16 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
                 include_docs: true,
                 key: Math.floor($scope.owner_id),
                 limit: screenRows('#reports-left-list')
-            }).success(function () {
+            })
+            .success(function () {
                 console.log('data loading finished');
                 $scope.blocked = false;
                 $scope.detail_show(0);
-            }
-        );
+            })
+            .error(function(resp) {
+                $scope.blocked = false;
+                $scope.error = resp;
+            });
 
         $scope.logout = function () {
             console.log('logout');
