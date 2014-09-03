@@ -37,9 +37,7 @@ button to produce the CSP header.
 </div>
 
 <div class="row">
-    <div class="alert alert-info" role="alert" ng-show="policy_message">
-    {{policy_message}}
-    </div>
+    <div class="alert alert-info" role="alert" ng-show="policy_message" ng-bind-html="policy_message"></div>
     <pre>{{policy }}</pre>
 </div>
 
