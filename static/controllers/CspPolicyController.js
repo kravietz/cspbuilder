@@ -6,7 +6,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             'default': false,
             'referrer': 'none',
             'reflected_xss': 'block',
-            'header_format': 'standard',
+            'header_format': 'standard'
         };
 
         $scope.owner_id = $cookieStore.get('owner_id');
@@ -74,25 +74,43 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             return null;
         }
 
+        // Cycle between default (empty) policy and original, generated policy array
+        $scope.default_policy = function() {
+            // check if we're not cycling back from default policy
+            if($scope.approved_list_backup) {
+                $scope.approved_list = $scope.approved_list_backup;
+                delete $scope.approved_list_backup;
+                return
+            }
+             $scope.approved_list_backup = $scope.approved_list;
+             $scope.approved_list = [];
+            // report-uri and default-src will be added automatically
+            var types = ['connect-src','child-src','font-src','form-action','frame-ancestors','frame-src',
+                        'img-src','media-src','object-src','script-src','style-src'];
+            types.forEach( function (type) {
+                $scope.approved_list.push(
+                    {'type':type, 'sources': {'\'none\'':true}}
+                );
+            });
+        };
+
         $scope.generate_csp = function (format) {
 
-            // select CSP header to use
-            if ($scope.csp_config.enforce) {
-                var header = 'Content-Security-Policy';
-            } else {
-                var header = 'Content-Security-Policy-Report-Only';
+            // select CSP header format
+            switch($scope.csp_config.header_format) {
+                case 'xcsp':
+                    var header = 'X-Content-Security-Policy';
+                    break;
+                case 'webkit':
+                    var header = 'X-WebKit-CSP';
+                    break;
+                default:
+                    var header = 'Content-Security-Policy';
             }
 
-            // reset the in-memory policy if default policy was selected
-            if($scope.csp_config.default) {
-                $scope.approved_list = [];
-                // report-uri and default-src will be added automatically
-                var types = ['connect-src','child-src','font-src','form-action','frame-ancestors','frame-src','img-src','media-src','object-src','script-src','style-src'];
-                types.forEach( function (type) {
-                    $scope.approved_list.push(
-                        {'type':type, 'sources': {'\'none\'':true}}
-                    );
-                });
+            // append RO if enforcenement is not selected
+            if (!$scope.csp_config.enforce) {
+                header += '-Report-Only';
             }
 
             var policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
