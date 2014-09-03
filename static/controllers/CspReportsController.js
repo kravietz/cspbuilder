@@ -109,6 +109,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
                 client.open('POST', couchdb_url + '/csp/_bulk_docs');
                 client.setRequestHeader('Content-Type', 'application/json');
                 client.send(JSON.stringify(delete_list));
+                location.reload();
             });
          };
 
