@@ -42,7 +42,7 @@ def application(environ, start_response):
     # get identifier of page sending this report
     request_uri = environ.get('REQUEST_URI')
     try:
-        page_id = int(request_uri.split('/')[2])
+        owner_id = int(request_uri.split('/')[2])
     except (ValueError, IndexError, AttributeError):
         print('Error: bad report URI {} from {}'.format(request_uri, client_ip))
         return http_400_bad_request(start_response)
@@ -73,7 +73,7 @@ def application(environ, start_response):
         print('Error: JSON from {} has no csp-report: {}'.format(client_ip, request_body))
         return http_400_bad_request(start_response, "Csp-report object missing")
 
-    output['owner_id'] = page_id
+    output['owner_id'] = owner_id
 
     # fill-in metadata for current report from HTTP headers
     meta = {}
@@ -111,18 +111,18 @@ def application(environ, start_response):
         uri_template = blocked_uri
 
     # check known list
-    print([page_id, uri_template, violated_directive, ""])
+    print([owner_id, uri_template, violated_directive, ""])
     for row in db.view('csp/known_list', group=True,
-                       startkey=[page_id, uri_template, violated_directive, ""],
-                       endkey=[page_id, uri_template, violated_directive, {}]):
+                       startkey=[owner_id, uri_template, violated_directive, ""],
+                       endkey=[owner_id, uri_template, violated_directive, {}]):
         print('whitelist=', row)
 
     db.save(output)
 
     stop_time = datetime.now(timezone.utc)
 
-    print('{} {} {} {} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
-                                                                    stop_time-start_time,
+    print('{} {} {} {} owner={} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
+                                                                    stop_time-start_time, owner_id,
                                                                     violated_directive, blocked_uri))
 
     return http_204_no_content(start_response)
