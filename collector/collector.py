@@ -27,6 +27,8 @@ ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types'
 
 def application(environ, start_response):
 
+    start_time = datetime.now(timezone.utc)
+
     client_ip = environ.get('REMOTE_ADDR')
     request_method = environ.get('REQUEST_METHOD')
 
@@ -98,8 +100,11 @@ def application(environ, start_response):
     db = couchdb.Server(COUCHDB_SERVER)['csp']
     db.save(output)
 
-    print('{} {} {} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
-                                                                 output['csp-report']['violated-directive'].split()[0],
-                                                                 output['csp-report']['blocked-uri']))
+    stop_time = datetime.now(timezone.utc)
+
+    print('{} {} {} {} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
+                                                                    stop_time-start_time,
+                                                                    output['csp-report']['violated-directive'].split()[0],
+                                                                    output['csp-report']['blocked-uri']))
 
     return http_204_no_content(start_response)
