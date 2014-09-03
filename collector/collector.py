@@ -111,7 +111,10 @@ def application(environ, start_response):
         uri_template = blocked_uri
 
     # check known list
-    for row in db.view('csp/known_list', key=[page_id, uri_template, violated_directive,], group=True):
+    print([page_id, uri_template, violated_directive, ""])
+    for row in db.view('csp/known_list', group=True,
+                       startkey=[page_id, uri_template, violated_directive, ""],
+                       endkey=[page_id, uri_template, violated_directive, {}]):
         print('whitelist=', row)
 
     db.save(output)
