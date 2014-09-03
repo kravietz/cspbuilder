@@ -20,7 +20,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 startkey: [$scope.owner_id],
                 endkey: [$scope.owner_id, {}],
                 group: true
-            }).success(function () {
+            })
+            .success(function () {
                 console.log('data loading finished');
                 $scope.approved_list = [];
                 var current_type = null;
@@ -69,27 +70,28 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             // TODO: https://github.com/twitter/secureheaders
             return null;
         }
+
         function django_generator() {
             // TODO: https://github.com/kravietz/django-security
             return null;
         }
 
         // Cycle between default (empty) policy and original, generated policy array
-        $scope.default_policy = function() {
+        $scope.default_policy = function () {
             // check if we're not cycling back from default policy
-            if($scope.approved_list_backup) {
+            if ($scope.approved_list_backup) {
                 $scope.approved_list = $scope.approved_list_backup;
                 delete $scope.approved_list_backup;
                 return
             }
-             $scope.approved_list_backup = $scope.approved_list;
-             $scope.approved_list = [];
+            $scope.approved_list_backup = $scope.approved_list;
+            $scope.approved_list = [];
             // report-uri and default-src will be added automatically
-            var types = ['connect-src','child-src','font-src','form-action','frame-ancestors','frame-src',
-                        'img-src','media-src','object-src','script-src','style-src'];
-            types.forEach( function (type) {
+            var types = ['connect-src', 'child-src', 'font-src', 'form-action', 'frame-ancestors', 'frame-src',
+                'img-src', 'media-src', 'object-src', 'script-src', 'style-src'];
+            types.forEach(function (type) {
                 $scope.approved_list.push(
-                    {'type':type, 'sources': {'\'none\'':true}}
+                    {'type': type, 'sources': {'\'none\'': true}}
                 );
             });
         };
@@ -97,7 +99,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         $scope.generate_csp = function (format) {
 
             // select CSP header format
-            switch($scope.csp_config.header_format) {
+            switch ($scope.csp_config.header_format) {
                 case 'xcsp':
                     var header = 'X-Content-Security-Policy';
                     break;
@@ -119,8 +121,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 var src_list = $scope.approved_list[i];
                 policy += src_list.type + ' ';
                 var sources = Object.keys(src_list.sources);
-                for(var j=0; j<sources.length; j++) {
-                    if(src_list.sources[sources[j]]) {
+                for (var j = 0; j < sources.length; j++) {
+                    if (src_list.sources[sources[j]]) {
                         policy += ' ' + sources[j];
                     }
                 }
@@ -131,7 +133,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             policy += 'default-src \'none\';';
 
             // produce final formatted output depending on requested format
-            switch(format) {
+            switch (format) {
                 case 'nginx':
                     $scope.policy = 'add_header ' + header + ' "' + policy + '";';
                     break;

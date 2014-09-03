@@ -72,8 +72,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             }
 
             // save new whitelist/blacklist entry if action was to allow
-            db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            newdoc = {  'owner_id': $scope.owner_id,
+            var db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
+            var newdoc = {  'owner_id': $scope.owner_id,
                         'known_uri': $scope.norm_src,
                         'known_type': $scope.norm_type,
                         'action': allow ? 'accept' : 'reject'
@@ -88,14 +88,14 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
                 include_docs: true
             }).success(function () {
-                approve_list = { 'docs': [] };
+                var approve_list = { 'docs': [] };
                 $scope.db2.rows.forEach(function (item) {
                     // set updated document status according to allow flag
                     item.doc['reviewed'] = allow ? 'accepted' : 'rejected';
                     approve_list.docs.push(item.doc);
                 });
                 // run bulk update
-                client = new XMLHttpRequest();
+                var client = new XMLHttpRequest();
                 client.open('POST', couchdb_url + '/csp/_bulk_docs');
                 client.setRequestHeader('Content-Type', 'application/json');
                 client.send(JSON.stringify(approve_list));
