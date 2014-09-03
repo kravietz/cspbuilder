@@ -3,7 +3,9 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
 
         $scope.csp_config = {
             'enforce': false,      // Content-Security-Policy-Read-Only
-            'header': 'standard', /* 'xcsp', 'chrome' */
+            'referrer': 'none',
+            'reflected_xss': 'block',
+            'header_format': 'standard', /* 'xcsp', 'chrome' */
         };
 
         $scope.owner_id = $cookieStore.get('owner_id');
