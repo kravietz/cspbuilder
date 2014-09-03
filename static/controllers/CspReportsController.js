@@ -1,3 +1,5 @@
+"use strict";
+
 cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'cornercouch', '$window',
     function ($scope, $cookieStore, cornercouch, $window) {
 

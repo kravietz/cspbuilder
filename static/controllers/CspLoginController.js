@@ -1,3 +1,5 @@
+"use strict";
+
 cspControllers.controller('CspLoginController', ['$scope', 'cornercouch', '$cookieStore',
     function ($scope, cornercouch, $cookieStore) {
         console.log('CspLoginCtrl');
