@@ -106,6 +106,13 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 case 'php':
                     $scope.policy = 'header("' + header + ': ' + policy + '");';
                     break;
+                case 'ror':
+                    $scope.policy_message = 'Use <a href="https://github.com/twitter/secureheaders">secureheaders</a>.';
+                    $scope.policy = '';
+                    break;
+                case 'django':
+                    $scope.policy_message = 'Use <a href="https://github.com/kravietz/django-security">django-security</a>.';
+                    $scope.policy = '';
                 default:
                     $scope.policy = header + ': ' + policy;
             }

@@ -32,9 +32,14 @@ button to produce the CSP header.
     <button class="btn btn-default" ng-click="generate_csp('nginx')">Nginx</button>
     <button class="btn btn-default" ng-click="generate_csp('apache')">Apache</button>
     <button class="btn btn-default" ng-click="generate_csp('php')">PHP</button>
+    <button class="btn btn-default" ng-click="generate_csp('ror')">Ruby on Rails</button>
+    <button class="btn btn-default" ng-click="generate_csp('django')">Django</button>
 </div>
 
 <div class="row">
+    <div class="alert alert-info" role="alert" ng-show="policy_message">
+    {{policy_message}}
+    </div>
     <pre>{{policy }}</pre>
 </div>
 
