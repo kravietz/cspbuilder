@@ -48,39 +48,17 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     limit: 1,
                     startkey: $scope.db.rows[index].key, // endkey not needed because limit=1
                     include_docs: true
-                }).success(function () {
+                })
+                .success(function () {
                     $scope.csp = $scope.db2.rows[0].doc['csp-report'];
                     $scope.meta = $scope.db2.rows[0].doc.meta;
                     $scope.norm_type = $scope.csp['violated-directive'].split(' ')[0];
                     $scope.norm_src = normalize_csp_source($scope.csp);
-                }
-            );
-        };   // detail_open
-
-        $scope.reset_approved = function () {
-            $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            $scope.db2.query('csp', 'approved_sources_owner', {
-                reduce: false,
-                startkey: [parseInt($scope.owner_id)],
-                endkey: [parseInt($scope.owner_id, {})],
-                include_docs: true
-            })
-                .success(function () {
-                    delete_list = { 'docs': [] };
-                    $scope.db2.rows.forEach(function (item) {
-                        delete_list.docs.push({
-                            '_id': item.doc._id,
-                            '_rev': item.doc._rev,
-                            '_deleted': true
-                        });
-                    });
-                    // run bulk delete - CornerCouch does not support it
-                    client = new XMLHttpRequest();
-                    client.open('POST', couchdb_url + '/csp/_bulk_docs');
-                    client.setRequestHeader('Content-Type', 'application/json');
-                    client.send(JSON.stringify(delete_list));
+                })
+                .error(function(resp) {
+                    $scope.error = resp;
                 });
-        };  // reset_approved
+        };   // detail_open
 
         $scope.review_source = function (allow) {
 
@@ -93,15 +71,15 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 $('#report-row-' + $scope.index).addClass('bg-warning');
             }
 
-            if (allow) {
-                // save new whitelist entry if action was to allow
-                db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-                newdoc = {  'owner_id': parseInt($scope.owner_id),
-                    'approved_uri': $scope.norm_src,
-                    'approved_type': $scope.norm_type
-                };
-                db2.newDoc(newdoc).save();
-            }
+            // save new whitelist/blacklist entry if action was to allow
+            db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
+            newdoc = {  'owner_id': parseInt($scope.owner_id),
+                        'known_uri': $scope.norm_src,
+                        'known_type': $scope.norm_type,
+                        'action': allow ? 'accept' : 'reject'
+            };
+            db2.newDoc(newdoc).save();
+
             // mark as approved on the page
             $scope.reviewed = true;
 
@@ -123,7 +101,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 client.send(JSON.stringify(approve_list));
             });
 
-        }; // approve_source
+        }; // review_source
 
     } // function($scope
 ]);
