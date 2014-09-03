@@ -108,9 +108,10 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
                     delete_list = { 'docs': [] };
                     $scope.db2.rows.forEach(function (item) {
                         delete_list.docs.push({
+                            // no need to copy the whole document body on delete
                             '_id': item.doc._id,
                             '_rev': item.doc._rev,
-                            '_deleted': true
+                            '_deleted': true // this is the actual delete command
                         });
                     });
                     // run bulk delete - CornerCouch does not support it
