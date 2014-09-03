@@ -9,9 +9,10 @@ import re
 
 __author__ = 'pawelkrawczyk'
 
+
 def http_400_bad_request(start_response, reason=""):
     start_response('400 Bad Request', [('Content-Type', 'text/plain')])
-    return [bytes(reason+'\n', 'ascii')]
+    return [bytes(reason + '\n', 'ascii')]
 
 
 def http_204_no_content(start_response):
@@ -23,11 +24,10 @@ config = configparser.ConfigParser()
 config.read(('collector.ini', os.path.join('collector', 'collector.ini')))
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
-ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',') ]
+ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
 
 
 def application(environ, start_response):
-
     start_time = datetime.now(timezone.utc)
 
     client_ip = environ.get('REMOTE_ADDR')
@@ -113,12 +113,11 @@ def application(environ, start_response):
         uri_template = blocked_uri
 
     # check list of known sources
-    print([owner_id, uri_template, violated_directive, ""])
+    action = 'unknown'
     for row in db.view('csp/known_list', group=True,
                        startkey=[owner_id, uri_template, violated_directive, ""],
                        endkey=[owner_id, uri_template, violated_directive, {}]):
         action = row.key[3]
-        print('action=', action)
         # entry found, classify the new alert
         if action == 'accept':
             output['reviewed'] = 'accepted'
@@ -129,8 +128,10 @@ def application(environ, start_response):
 
     stop_time = datetime.now(timezone.utc)
 
-    print('{} {} {} {} owner={} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
-                                                                    stop_time-start_time, owner_id,
-                                                                    violated_directive, blocked_uri))
+    print('{} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip,
+                                                                                       request_uri,
+                                                                                       stop_time - start_time, action,
+                                                                                       owner_id,
+                                                                                       violated_directive, blocked_uri))
 
     return http_204_no_content(start_response)
