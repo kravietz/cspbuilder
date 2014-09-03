@@ -96,6 +96,9 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
         };
 
         $scope.delete_all = function () {
+
+            if(!confirm('Are you sure?')) { return }
+
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             $scope.db2.query('csp', 'all_by_owner', {
                 key: Math.floor($scope.owner_id),

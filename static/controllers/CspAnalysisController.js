@@ -112,7 +112,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             }).success(function () {
                 approve_list = { 'docs': [] };
                 $scope.db2.rows.forEach(function (item) {
-                    item.doc['reviewed'] = true;
+                    // set updated document status according to allow flag
+                    item.doc['reviewed'] = allow ? 'accepted' : 'rejected';
                     approve_list.docs.push(item.doc);
                 });
                 // run bulk update
