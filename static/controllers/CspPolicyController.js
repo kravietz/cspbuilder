@@ -30,7 +30,6 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 var current_list = {};
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
-                    console.log('row=' + item);
                     var type = item.key[1];
                     var src = item.key[2];
                     if (current_type == type) {
