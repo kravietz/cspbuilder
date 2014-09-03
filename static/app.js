@@ -77,25 +77,23 @@ function normalize_csp_source(csp) {
 
         if (blocked_type === 'style-src') {
 
-            // check if eval was already allowed on blocked page
+            // check if inline was already allowed on blocked page
             if (violated_directive.indexOf('unsafe-inline') > 0) {
-                // so the blocked resource was an inline script
+                // otherwise it must have been eval()
                 blocked_uri = '\'unsafe-eval\'';
             } else {
-                // otherwise it must have been eval()
+                // so the blocked resource was an inline script
                 blocked_uri = '\'unsafe-inline\'';
             }
 
             // guesswork needed for scripts
         } else if (blocked_type === 'script-src') {
 
-            // check if eval was already allowed on blocked page
-            if (violated_directive.indexOf('unsafe-eval') > 0) {
-                // so the blocked resource was an inline script
-                blocked_uri = '\'unsafe-inline\'';
-            } else {
-                // otherwise it must have been eval()
+            // the same heuristics is used for script-src
+            if (violated_directive.indexOf('unsafe-inline') > 0) {
                 blocked_uri = '\'unsafe-eval\'';
+            } else {
+                blocked_uri = '\'unsafe-inline\'';
             }
 
         } else {
