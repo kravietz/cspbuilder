@@ -23,13 +23,13 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             }).success(function () {
                 console.log('data loading finished');
                 $scope.approved_list = [];
-                current_type = null;
-                current_list = {};
+                var current_type = null;
+                var current_list = {};
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
                     console.log('row=' + item);
-                    type = item.key[1];
-                    src = item.key[2];
+                    var type = item.key[1];
+                    var src = item.key[2];
                     if (current_type == type) {
                         // item inside one type - add to "sources" dictionary
                         current_list[src] = true;
@@ -78,9 +78,9 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
 
             // select CSP header to use
             if ($scope.csp_config.enforce) {
-                header = 'Content-Security-Policy';
+                var header = 'Content-Security-Policy';
             } else {
-                header = 'Content-Security-Policy-Report-Only';
+                var header = 'Content-Security-Policy-Report-Only';
             }
 
             // reset the in-memory policy if default policy was selected
@@ -95,13 +95,13 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 });
             }
 
-            policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
+            var policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
 
-            for (i = 0; i < $scope.approved_list.length; i++) {
-                src_list = $scope.approved_list[i];
-                $scope.policy += src_list.type + ' ';
-                for (src in src_list.sources) {
-                    policy += ' ' + src;
+            for (var i = 0; i < $scope.approved_list.length; i++) {
+                var src_list = $scope.approved_list[i];
+                policy += src_list.type + ' ';
+                for(var i=0; i<src_list.sources.length; i++) {
+                    policy += ' ' + src_list.sources[i];
                 }
                 policy += '; ';
             }
