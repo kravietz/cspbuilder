@@ -106,7 +106,7 @@ def application(environ, start_response):
     db = couchdb.Server(COUCHDB_SERVER)['csp']
 
     # get basic URI template for match with known list
-    r = re.match(r'^(https?://[a-zA-Z0-9.-]+/)', blocked_uri)
+    r = re.match(r'^(https?://[a-zA-Z0-9.-]+)', blocked_uri)
     if r:
         uri_template = r.group(0)
     else:
