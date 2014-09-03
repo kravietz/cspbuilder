@@ -95,10 +95,19 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 policy += '; ';
             }
 
-            if (format === 'nginx') {
-                $scope.policy = 'add_header ' + header + ' "' + policy + '";';
-            } else {
-                $scope.policy = header + ': ' + policy;
+            // produce final formatted output depending on requested format
+            switch(format) {
+                case 'nginx':
+                    $scope.policy = 'add_header ' + header + ' "' + policy + '";';
+                    break;
+                case 'apache':
+                    $scope.policy = 'Header set ' + header + ' "' + policy + '"';
+                    break;
+                case 'php':
+                    $scope.policy = 'header("' + header + ': ' + policy + '");';
+                    break;
+                default:
+                    $scope.policy = header + ': ' + policy;
             }
 
         };
