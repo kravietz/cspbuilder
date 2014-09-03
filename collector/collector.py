@@ -107,6 +107,8 @@ def application(environ, start_response):
     r = re.match(r'^(https?://[a-zA-Z0-9.-]+/)', blocked_uri)
     if r:
         uri_template = r.group(0)
+    else:
+        uri_template = blocked_uri
 
     # check known list
     for row in db.view('csp/known_list', key=[page_id, uri_template, violated_directive,], group=True):
