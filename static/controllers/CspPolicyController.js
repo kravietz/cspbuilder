@@ -87,11 +87,12 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             if($scope.csp_config.default) {
                 $scope.approved_list = [];
                 // report-uri and default-src will be added automatically
-                for (var type in ['connect-src','child-src','font-src','form-action','frame-ancestors','frame-src','img-src','media-src','object-src','script-src','style-src']) {
+                var types = ['connect-src','child-src','font-src','form-action','frame-ancestors','frame-src','img-src','media-src','object-src','script-src','style-src'];
+                types.forEach( function (type) {
                     $scope.approved_list.push(
                         {'type':type, 'sources': {'\'none\'':true}}
                     );
-                }
+                });
             }
 
             policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
