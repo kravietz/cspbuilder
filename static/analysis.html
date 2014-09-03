@@ -46,23 +46,23 @@
                  <span class="glyphicon glyphicon-ok text-success" ng-show="reviewed"></span>
             </div>
 
-            <div class="row">
+            <div class="row text-center">
                 <button type="button"
-                        class="btn btn-success btn-default center-block"
+                        class="btn btn-success btn-default"
                         ng-click="review_source(true)"
                         title="Add this origin and resource to policy">
                     <span>Allow</span>
                 </button>
 
                 <button type="button"
-                        class="btn btn-warning center-block"
+                        class="btn btn-warning"
                         ng-click="review_source(false)"
                         title="Reset all approved sources">
                     <span>Disallow</span>
                 </button>
 
                 <button type="button"
-                        class="btn btn-default center-block"
+                        class="btn btn-default"
                         ng-click="reset_approved()"
                         title="Reset all approved sources">
                     <span>Reset</span>
