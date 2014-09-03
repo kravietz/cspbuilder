@@ -3,13 +3,6 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
 
         $scope.csp_config = {
             'enforce': false,      // Content-Security-Policy-Read-Only
-            'webserver': 'generic', /* 'generic' = just CSP header
-             'nginx' = Nginx add_header format
-             'apache' = Apache
-             'ruby'
-             'django'
-             'php'
-             */
             'header': 'standard', /* 'xcsp', 'chrome' */
         };
 
@@ -94,6 +87,9 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 }
                 policy += '; ';
             }
+
+            // add default source
+            policy += 'default-src \'none\';';
 
             // produce final formatted output depending on requested format
             switch(format) {
