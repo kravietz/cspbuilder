@@ -112,12 +112,18 @@ def application(environ, start_response):
     else:
         uri_template = blocked_uri
 
-    # check known list
+    # check list of known sources
     print([owner_id, uri_template, violated_directive, ""])
     for row in db.view('csp/known_list', group=True,
                        startkey=[owner_id, uri_template, violated_directive, ""],
                        endkey=[owner_id, uri_template, violated_directive, {}]):
-        print('whitelist=', row)
+        action = row.key[3]
+        print('action=', action)
+        # entry found, classify the new alert
+        if action == 'accept':
+            output['reviewed'] = 'accepted'
+        else:
+            output['reviewed'] = 'rejected'
 
     db.save(output)
 
