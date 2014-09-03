@@ -102,8 +102,8 @@ def application(environ, start_response):
     # save current report to CouchDB
     db = couchdb.Server(COUCHDB_SERVER)['csp']
 
-    for row in db.view('csp/known_list', include_docs=True, key=[page_id, blocked_uri, violated_directive,], group=True):
-        print('whitelist=', row.doc)
+    for row in db.view('csp/known_list', key=[page_id, blocked_uri, violated_directive,], group=True):
+        print('whitelist=', row)
 
     db.save(output)
 
