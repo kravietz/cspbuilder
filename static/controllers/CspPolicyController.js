@@ -76,10 +76,22 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
 
         $scope.generate_csp = function (format) {
 
+            // select CSP header to use
             if ($scope.csp_config.enforce) {
                 header = 'Content-Security-Policy';
             } else {
                 header = 'Content-Security-Policy-Report-Only';
+            }
+
+            // reset the in-memory policy if default policy was selected
+            if($scope.csp_config.default) {
+                $scope.approved_list = [];
+                // report-uri and default-src will be added automatically
+                for (var type in ['connect-src','child-src','font-src','form-action','frame-ancestors','frame-src','img-src','media-src','object-src','script-src','style-src']) {
+                    $scope.approved_list.push(
+                        {'type':type, 'sources': {'\'none\'':true}}
+                    );
+                }
             }
 
             policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';

@@ -3,124 +3,134 @@
 <h3>Policy generator</h3>
 
 <div class="row">
-<div class="alert alert-info" role="alert">
-These sources have been accepted by you already. Please review them for the last time and press <strong>Generate</strong>
-button to produce the CSP header.
-</div>
+    <div class="alert alert-info" role="alert">
+        These sources have been accepted by you already. Please review them for the last time and press
+        <strong>Generate</strong>
+        button to produce the CSP header.
+    </div>
 </div>
 
 <div class="row" id="policy-config">
     <h4>Configuration</h4>
 
     <div class="col-md-1">
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" ng-model="csp_config.enforce">
-            Enforcement mode
-        </label>
-    </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="csp_config.enforce">
+                Enforcement mode
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="csp_config.default">
+                Default (empty) policy
+            </label>
+        </div>
 
-    <h5>Reflected XSS</h5>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.reflected_xss" value="none" checked>
-    None
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.reflected_xss" value="filter" checked>
-    Filter
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.reflected_xss" value="block" checked>
-    Block
-    </label>
-    </div>
-    </div>
+        <h5>Reflected XSS</h5>
 
-    <div class="col-md-1">
-    <h5>Header format</h5>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.header_format" value="standard" checked>
-    <code>Content-Security-Policy</code>
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.header_format" value="xcsp" checked>
-    <code>X-Content-Security-Policy</code>
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.header_format" value="webkit" checked>
-    <code>X-WebKit-CSP</code>
-    </label>
-    </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="none" checked>
+                None
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="filter" checked>
+                Filter
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="block" checked>
+                Block
+            </label>
+        </div>
     </div>
 
     <div class="col-md-1">
-    <h5>Referrer policy</h5>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="none" checked>
-    Default
-    </label>
+        <h5>Header format</h5>
+
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.header_format" value="standard" checked>
+                <code>Content-Security-Policy</code>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.header_format" value="xcsp" checked>
+                <code>X-Content-Security-Policy</code>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.header_format" value="webkit" checked>
+                <code>X-WebKit-CSP</code>
+            </label>
+        </div>
     </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="no-referrer" checked>
-    No referrer
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="no-referrer-when-downgrade" checked>
-    No referrer when downgrade
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="origin" checked>
-    Origin
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="origin-when-cross-origin" checked>
-    Origin when cross-origin
-    </label>
-    </div>
-    <div class="radio">
-    <label>
-    <input type="radio" ng-model="csp_config.referrer" value="unsafe-url" checked>
-    Unsafe URL
-    </label>
-    </div>
+
+    <div class="col-md-1">
+        <h5>Referrer policy</h5>
+
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.referrer" value="none" checked>
+                Default
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.referrer" value="no-referrer" checked>
+                No referrer
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.referrer" value="no-referrer-when-downgrade" checked>
+                No referrer when downgrade
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.referrer" value="origin" checked>
+                Origin
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.referrer" value="origin-when-cross-origin" checked>
+                Origin when cross-origin
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.referrer" value="unsafe-url" checked>
+                Unsafe URL
+            </label>
+        </div>
     </div>
 
 
 </div>
 
-<div class="row" ng-show="Object.keys(approved_list).length">
+<div class="row" ng-show="Object.keys(approved_list).length && !csp_config.default">
     <h4>Approved sources</h4>
     <small>
-    <form name="cspEditor">
-    <ul>
-        <li ng-repeat="row in approved_list">
-            {{row.type}}
+        <form name="cspEditor">
             <ul>
-                <li ng-repeat="(k,v) in row.sources">
-                    <input type="checkbox" ng-model="row.sources[k]"> {{k}}
+                <li ng-repeat="row in approved_list">
+                    {{row.type}}
+                    <ul>
+                        <li ng-repeat="(k,v) in row.sources">
+                            <input type="checkbox" ng-model="row.sources[k]"> {{k}}
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </li>
-    </ul>
-    </form>
+        </form>
     </small>
 </div>
 
