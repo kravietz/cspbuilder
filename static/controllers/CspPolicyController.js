@@ -68,7 +68,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         // TODO: add various types from https://www.owasp.org/index.php/Content_Security_Policy
         // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
 
-        $scope.generate_csp = function() {
+        $scope.generate_csp = function(format) {
 
             if($scope.csp_config.enforce) {
                 header = 'Content-Security-Policy';
@@ -76,20 +76,27 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 header = 'Content-Security-Policy-Report-Only';
             }
 
-            $scope.policy = header + ': ';
+
+            //$scope.policy = header + ': ';
             //$scope.policy += 'default-src \'none\'; ';
             //$scope.policy += 'reflected-xss filter; ';
             //$scope.policy += 'frame-ancestors \'none\'; ';
             //$scope.policy += 'form-action \'none\'';
-            $scope.policy += 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
+            policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
 
             for (i=0; i<$scope.approved_list.length; i++) {
                 src_list = $scope.approved_list[i];
                 $scope.policy += src_list.type + ' ';
                 for (src in src_list.sources) {
-                    $scope.policy += ' ' + src;
+                    policy += ' ' + src;
                 }
-                $scope.policy += '; ';
+                policy += '; ';
+            }
+
+            if(format === 'nginx') {
+                $scope.policy = 'add_header ' + header + ' "' + policy + '";';
+            } else {
+                $scope.policy = header + ': ' + policy;
             }
 
         };

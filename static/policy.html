@@ -27,7 +27,9 @@ button to produce the CSP header.
 </div>
 
 <div class="row">
-    <button ng-click="generate_csp()">Generate</button>
+    Generate CSP:
+    <button class="btn btn-default" ng-click="generate_csp()">Generic</button>
+    <button class="btn btn-default" ng-click="generate_csp('nginx')">Nginx</button>
 </div>
 
 <div class="row">
