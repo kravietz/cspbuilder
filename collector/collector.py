@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import json
 import couchdb
 import os
+import re
 
 __author__ = 'pawelkrawczyk'
 
@@ -102,7 +103,13 @@ def application(environ, start_response):
     # save current report to CouchDB
     db = couchdb.Server(COUCHDB_SERVER)['csp']
 
-    for row in db.view('csp/known_list', key=[page_id, blocked_uri, violated_directive,], group=True):
+    # get basic URI template for match with known list
+    r = re.match(r'^(https?://[a-zA-Z0-9.-]+/)', blocked_uri)
+    if r:
+        uri_template = r.group(0)
+
+    # check known list
+    for row in db.view('csp/known_list', key=[page_id, uri_template, violated_directive,], group=True):
         print('whitelist=', row)
 
     db.save(output)
