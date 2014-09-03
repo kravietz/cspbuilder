@@ -3,98 +3,109 @@ var couchdb_url = 'http://new.cspbuilder.info:8080';
 var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cspControllers', 'infinite-scroll']);
 
 cspbuilderApp.config(['$routeProvider',
-    function($routeProvider) {
-    $routeProvider.
-        when('/analysis/', {
-            templateUrl: 'analysis.html',
-            controller: 'CspAnalysisController'
-        }).
-        when('/policy/', {
-            templateUrl: 'policy.html',
-            controller: 'CspPolicyController'
-        }
+    function ($routeProvider) {
+        $routeProvider.
+            when('/analysis/', {
+                templateUrl: 'analysis.html',
+                controller: 'CspAnalysisController'
+            }).
+            when('/policy/', {
+                templateUrl: 'policy.html',
+                controller: 'CspPolicyController'
+            }
         ).
-        when('/reports/', {
-            templateUrl: 'reports.html',
-            controller: 'CspReportsController'
-        }
+            when('/reports/', {
+                templateUrl: 'reports.html',
+                controller: 'CspReportsController'
+            }
         ).
-        when('/live/', {
-            templateUrl: 'live.html',
-            controller: 'CspLiveController'
-        }
+            when('/live/', {
+                templateUrl: 'live.html',
+                controller: 'CspLiveController'
+            }
         ).
-        when('/login', {
-            templateUrl: 'login.html',
-            controller: 'CspLoginController'
-        }
+            when('/login', {
+                templateUrl: 'login.html',
+                controller: 'CspLoginController'
+            }
         ).
-        otherwise({
-            redirectTo: '/login'
-        }
+            otherwise({
+                redirectTo: '/login'
+            }
         );
     }
 ]);
 
 
-
 function screenRows(obj) {
     return Math.floor(
             window.innerHeight / (
-                    Math.floor(
-                            $(obj).css('font-size').replace('px','')
-                        )
-                )
-        )
+            Math.floor(
+                $(obj).css('font-size').replace('px', '')
+            )
+            )
+    )
 }
 
 function normalize_csp_source(csp) {
-    blocked_uri = csp['blocked-uri'];
-    blocked_type = csp['violated-directive'].split(' ')[0];
+    var blocked_uri = csp['blocked-uri'];
+    var blocked_type = csp['violated-directive'].split(' ')[0];
 
     // for 'data:image/png' return 'data:'
-    if(blocked_uri.lastIndexOf('data', 0) === 0) {
-        blocked_uri='data:';
+    if (blocked_uri.lastIndexOf('data', 0) === 0) {
+        blocked_uri = 'data:';
 
-    // for 'http://url.com/path/path' return 'http://url.com'
-    } else if(/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
-        blocked_uri=blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
+        // for 'http://url.com/path/path' return 'http://url.com'
+    } else if (/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
+        blocked_uri = blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
 
-    // 'self' is easy
-    } else if(blocked_uri === 'self') {
-        blocked_uri='\'self\'';
+        // 'self' is easy
+    } else if (blocked_uri === 'self') {
+        blocked_uri = '\'self\'';
 
-    // encode empty source ("") as "null" in database, otherwise key lookups won't work
-    } else if(blocked_uri.length === 0) {
+        // encode empty source ("") as "null" in database, otherwise key lookups won't work
+    } else if (blocked_uri.length === 0) {
         blocked_uri = 'null';
 
-    // empty URI can be inline or eval()
-    } else if(blocked_uri === 'null') {
+        // empty URI can be inline or eval()
+    }
 
-        // if type was style, then inline CSS was blocked
-        if(blocked_type === 'style-src') {
-            blocked_uri='\'unsafe-inline\'';
+    // distinguishing between unsafe-inline and unsafe-eval is a guess work...
+    if (blocked_uri === 'null') {
 
-        // guesswork needed for scripts
-        } else if (blocked_type === 'script-src') {
+        var violated_directive = csp['violated-directive'];
 
-            violated_directive = csp['violated-directive'];
+        if (blocked_type === 'style-src') {
 
             // check if eval was already allowed on blocked page
-            if(violated_directive.indexOf('unsafe-eval') > 0) {
+            if (violated_directive.indexOf('unsafe-eval') > 0) {
                 // so the blocked resource was an inline script
-                blocked_uri='\'unsafe-inline\'';
+                blocked_uri = '\'unsafe-inline\'';
             } else {
                 // otherwise it must have been eval()
-                blocked_uri='\'unsafe-eval\'';
+                blocked_uri = '\'unsafe-eval\'';
             }
 
+            // guesswork needed for scripts
+        } else if (blocked_type === 'script-src') {
+
+            // check if eval was already allowed on blocked page
+            if (violated_directive.indexOf('unsafe-eval') > 0) {
+                // so the blocked resource was an inline script
+                blocked_uri = '\'unsafe-inline\'';
+            } else {
+                // otherwise it must have been eval()
+                blocked_uri = '\'unsafe-eval\'';
+            }
+
+        } else {
+            console.warn('Unrecognized \'null\' source for type ' + blocked_type + ' in:' + JSON.stringify(csp));
         }
     }
     return blocked_uri;
 }
 
-var cspControllers = angular.module('cspControllers', ['CornerCouch','infinite-scroll']);
+var cspControllers = angular.module('cspControllers', ['CornerCouch', 'infinite-scroll']);
 
 
 

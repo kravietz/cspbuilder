@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from couchdb import Server
+
 __author__ = 'pawelkrawczyk'
 
 server = Server('http://localhost:5984/')
