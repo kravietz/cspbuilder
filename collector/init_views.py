@@ -49,9 +49,15 @@ return true;
 BY_SOURCE_TYPE_MAP="""
 function(doc) {
   if(doc['owner_id'] && doc['csp-report'] && doc['csp-report']['blocked-uri'] && doc['csp-report']['violated-directive'] && !doc.reviewed) {
+blocked_uri = doc['csp-report']['blocked-uri'];
+if(blocked_uri.lastIndexOf('data', 0) === 0) {
+        blocked_uri='data:';
+      } else if(/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
+        blocked_uri=blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+)/)[1];
+      }
   emit( [ doc['owner_id'],
 	  doc['csp-report']['violated-directive'].split(' ')[0],
-          doc['csp-report']['blocked-uri'] ],
+          blocked_uri ],
 	  null );
  }
 }
