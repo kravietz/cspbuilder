@@ -96,15 +96,21 @@ def application(environ, start_response):
     if output['csp-report']['blocked-uri'] == "":
         output['csp-report']['blocked-uri'] = "null";
 
+    violated_directive = output['csp-report']['violated-directive'].split()[0]
+    blocked_uri = output['csp-report']['blocked-uri']
+
     # save current report to CouchDB
     db = couchdb.Server(COUCHDB_SERVER)['csp']
+
+    for row in db.view('known_list', include_docs=True, key=[page_id, blocked_uri, violated_directive,], group=True):
+        print('whitelist=', row.doc)
+
     db.save(output)
 
     stop_time = datetime.now(timezone.utc)
 
     print('{} {} {} {} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip, request_uri,
                                                                     stop_time-start_time,
-                                                                    output['csp-report']['violated-directive'].split()[0],
-                                                                    output['csp-report']['blocked-uri']))
+                                                                    violated_directive, blocked_uri))
 
     return http_204_no_content(start_response)
