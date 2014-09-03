@@ -57,9 +57,25 @@ function(doc) {
 }
 """
 
+KNOWN_LIST_MAP="""
+function(doc) {
+  if(doc['owner_id'] && doc['known_uri'] && doc['known_type'] && doc['action']) {
+    emit([doc['owner_id'],doc['known_uri'], doc['known_type'], doc['action']]
+	, null)
+}
+}
+"""
+
+KNOWN_LIST_RED="""
+function() {
+return true;
+}
+"""
+
 
 db = couchdb.Server('http://127.0.0.1:5984/')['csp']
 ViewDefinition('csp', 'sources_key_owner', map_fun=SOURCES_KEY_OWNER_MAP, reduce_fun=SOURCES_KEY_OWNER_RED).sync(db)
 ViewDefinition('csp', 'all_by_owner', map_fun=ALL_BY_OWNER).sync(db)
 ViewDefinition('csp', 'approved_sources_owner', map_fun=APPROVED_SOURCES_OWNER_MAP, reduce_fun=APPROVED_SOURCES_OWNER_RED).sync(db)
 ViewDefinition('csp', 'by_source_type', map_fun=BY_SOURCE_TYPE_MAP).sync(db)
+ViewDefinition('csp', 'known_list', map_fun=KNOWN_LIST_MAP, reduce_fun=KNOWN_LIST_RED).sync(db)
