@@ -43,12 +43,12 @@
 
             <div class="text-center alert alert-warning" role="alert">
 
-                 <span ng-show="typeof(policy_sources) === 'string'">
+                 <span>
                      <strong>{{policy_type}} {{policy_sources}}</strong>
                      <span class="glyphicon glyphicon-ok text-success" ng-show="reviewed"></span>
                  </span>
 
-                <div class="radio" ng-repeat="src in policy_sources" ng-show="typeof(policy_sources) === 'object'">
+                <div class="radio" ng-repeat="src in policy_sources">
                     <label>
                         <input type="radio" ng-model="policy_choice" value="{{src}}">{{policy_type}} {{src}}
                     </label>

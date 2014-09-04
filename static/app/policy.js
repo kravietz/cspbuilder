@@ -62,7 +62,7 @@ function null_url_guesswork(csp) {
 // convert blocked-uri from CSP report to a statement that can be used in new policy
 function source_to_policy_statement(csp) {
     console.log('source_to_policy_statement');
-    
+
     var blocked_uri = csp['blocked-uri'];
     var document_uri = csp['document-uri'];
 
