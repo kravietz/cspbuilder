@@ -1,6 +1,6 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
-<div class="row" id="reports-left-list" infinite-scroll="load_next_page()">
+<div class="row" id="reports-left-list" infinite-scroll="load_next_page()" infinite-scroll-disabled="db.queryActive">
 
       <ol>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
@@ -11,11 +11,11 @@
         </li>
     </ol>
 
-    <div class="text-center"><img ng-show="blocked" src="/static/20-0.gif"/></div>
+    <div class="text-center"><img ng-show="db.queryActive" src="/static/20-0.gif"/></div>
 
 </div>
 
-<div class="row" id="reports-details-fixed" ng-hide="blocked">
+<div class="row" id="reports-details-fixed" ng-hide="db.queryActive">
 
    <div class="row text-center">
        <button id="reports-prev-button" type="button" class="btn btn-default" ng-click="detail_prev()">Previous</button>
