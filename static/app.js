@@ -100,7 +100,7 @@ function normalize_csp_source(csp) {
     return blocked_uri;
 }
 
-var cspControllers = angular.module('cspControllers', ['CornerCouch', 'infinite-scroll']);
+var cspControllers = angular.module('cspControllers', ['CornerCouch']);
 
 
 
