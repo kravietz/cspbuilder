@@ -12,26 +12,26 @@ cspbuilderApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
             when('/analysis/', {
-                templateUrl: '../analysis.html',
+                templateUrl: '/static/analysis.html',
                 controller: 'CspAnalysisController'
             }).
             when('/policy/', {
-                templateUrl: '../policy.html',
+                templateUrl: '/static/policy.html',
                 controller: 'CspPolicyController'
             }
         ).
             when('/reports/', {
-                templateUrl: '../reports.html',
+                templateUrl: '/static/reports.html',
                 controller: 'CspReportsController'
             }
         ).
             when('/live/', {
-                templateUrl: '../live.html',
+                templateUrl: '/static/live.html',
                 controller: 'CspLiveController'
             }
         ).
             when('/login', {
-                templateUrl: '../login.html',
+                templateUrl: '/static/login.html',
                 controller: 'CspLoginController'
             }
         ).
