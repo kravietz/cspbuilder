@@ -10,57 +10,59 @@
     ['http://webcookies.info/dajaxice/register_site.status','http://webcookies.info/dajaxice',http://webcookies.info']
  */
 function gen_uri_variants(blocked_uri) {
+    console.log('gen_uri_variants');
     var variants = [];
     var parts = blocked_uri.split('/');
 
     for (var i = parts.length - 1; i >= 3; i--) {
         variants.push(parts.slice(0,i).join('/'));
     }
-
+    console.log('variants=' + variants);
     return variants;
 
 }
 
 function null_url_guesswork(csp) {
+    console.log('null_url_guesswork');
+
     var blocked_uri = csp['blocked-uri'];
     var blocked_type = csp['violated-directive'].split(' ')[0];
+    var violated_directive = csp['violated-directive'];
 
-    // distinguishing between unsafe-inline and unsafe-eval is a guess work...
-    if (blocked_uri === 'null') {
+    // styles
+    if (blocked_type === 'style-src') {
 
-        var violated_directive = csp['violated-directive'];
-
-        // styles
-        if (blocked_type === 'style-src') {
-
-            // check if inline was already allowed on blocked page
-            if (violated_directive.indexOf('unsafe-inline') > 0) {
-                // otherwise it must have been eval()
-                blocked_uri = '\'unsafe-eval\'';
-            } else {
-                // so the blocked resource was an inline script
-                blocked_uri = '\'unsafe-inline\'';
-            }
-
-        // scripts
-        } else if (blocked_type === 'script-src') {
-
-            // the same heuristics as above
-            if (violated_directive.indexOf('unsafe-inline') > 0) {
-                blocked_uri = '\'unsafe-eval\'';
-            } else {
-                blocked_uri = '\'unsafe-inline\'';
-            }
-
+        // check if inline was already allowed on blocked page
+        if (violated_directive.indexOf('unsafe-inline') > 0) {
+            // yes, it must have been eval()
+            blocked_uri = '\'unsafe-eval\'';
         } else {
-            console.warn('Unrecognized \'null\' source for type ' + blocked_type + ' in:' + JSON.stringify(csp));
+            // no, try inline first
+            blocked_uri = '\'unsafe-inline\'';
         }
+
+    // scripts
+    } else if (blocked_type === 'script-src') {
+
+        // the same heuristics as above
+        if (violated_directive.indexOf('unsafe-inline') > 0) {
+            blocked_uri = '\'unsafe-eval\'';
+        } else {
+            blocked_uri = '\'unsafe-inline\'';
+        }
+
+    // something else?
+    } else {
+        console.warn('Unrecognized \'null\' source for type ' + blocked_type + ' in:' + JSON.stringify(csp));
     }
+
     return blocked_uri;
 } // null_url_guesswork
 
 // convert blocked-uri from CSP report to a statement that can be used in new policy
 function source_to_policy_statement(csp) {
+    console.log('source_to_policy_statement');
+    
     var blocked_uri = csp['blocked-uri'];
     var document_uri = csp['document-uri'];
 
