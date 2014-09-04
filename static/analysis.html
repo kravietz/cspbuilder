@@ -42,8 +42,19 @@
             </div>
 
             <div class="text-center alert alert-warning" role="alert">
-                 <strong>{{norm_type}} {{norm_src}}</strong>
-                 <span class="glyphicon glyphicon-ok text-success" ng-show="reviewed"></span>
+
+                 <span ng-show="typeof(policy_sources) === 'string'">
+                     <strong>{{policy_type}} {{policy_sources}}</strong>
+                     <span class="glyphicon glyphicon-ok text-success" ng-show="reviewed"></span>
+                 </span>
+
+                <div ng-show="typeof(policy_sources) === 'object'">
+                    <ul>
+                        <li ng-repeat="src in policy_sources">{{src}}</li>
+                    </ul>
+
+                </div>
+
             </div>
 
             <div class="row text-center">
