@@ -12,9 +12,10 @@
 function gen_uri_variants(blocked_uri) {
     console.log('gen_uri_variants');
     var variants = [];
+    blocked_uri = blocked_uri.split('?')[0];
     var parts = blocked_uri.split('/');
 
-    for (var i = parts.length - 1; i >= 3; i--) {
+    for (var i = parts.length; i >= 3; i--) {
         variants.push(parts.slice(0,i).join('/'));
     }
     console.log('variants=' + variants);
