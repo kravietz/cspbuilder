@@ -12,7 +12,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $window.location.href = '/static/#/login';
         }
 
-        $scope.policy_choice = null;
+        $scope.choice = {
+            policy: null
+        };
         $scope.blocked = true;
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.index = 0;
