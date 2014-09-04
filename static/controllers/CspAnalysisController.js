@@ -77,7 +77,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.review_source = function (allow) {
 
-            console.log('review_source allow=' + allow);
+            console.log('review_source allow=' + allow + 'policy_choice=' + $scope.policy_choice);
 
             // highlight processed row according to its state
             if (allow) {
@@ -89,20 +89,23 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             // save new whitelist/blacklist entry if action was to allow
             var db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
             var newdoc = {  'owner_id': $scope.owner_id,
-                        'known_uri': $scope.norm_src,
-                        'known_type': $scope.norm_type,
+                        'known_uri': $scope.policy_choice,
+                        'known_type': $scope.policy_type,
                         'action': allow ? 'accept' : 'reject'
             };
-            db2.newDoc(newdoc).save();
+            db2.newDoc(newdoc).save().error(function(resp) {
+                    $scope.error = resp;
+                });
 
             // mark as approved on the page
             $scope.reviewed = true;
 
             // set all reports with this key as reviewed
             $scope.db2.query('csp', 'by_source_type', {
-                key: [$scope.owner_id, $scope.norm_type, $scope.norm_src],
+                key: [$scope.owner_id, $scope.policy_type, $scope.policy_choice],
                 include_docs: true
-            }).success(function () {
+            })
+            .success(function () {
                 var approve_list = { 'docs': [] };
                 $scope.db2.rows.forEach(function (item) {
                     // set updated document status according to allow flag
@@ -114,6 +117,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 client.open('POST', couchdb_url + '/csp/_bulk_docs');
                 client.setRequestHeader('Content-Type', 'application/json');
                 client.send(JSON.stringify(approve_list));
+            })
+            .error(function(resp) {
+                $scope.error = resp;
             });
 
         }; // review_source
