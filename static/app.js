@@ -41,7 +41,7 @@ cspbuilderApp.config(['$routeProvider',
 
 function screen_rows(obj) {
     var font_size = Math.floor($(obj).css('font-size').replace('px', ''));
-    return Math.floor(window.innerHeight / font_size / 1.7);
+    return Math.floor(window.innerHeight / font_size / 1.8);
 }
 
 function normalize_csp_source(csp) {
