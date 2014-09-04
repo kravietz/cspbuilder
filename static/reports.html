@@ -1,10 +1,6 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
-<div class="row" id="reports-left-list"
-     infinite-scroll="load_next_page()"
-     infinite-scroll-distance="0"
-     infinite-scroll-immediate-check="true"
-     infinite-scroll-disabled="{{blocked}}">
+<div class="row" id="reports-left-list" infinite-scroll="load_next_page()">
 
       <ol>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
