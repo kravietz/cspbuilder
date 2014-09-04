@@ -1,3 +1,7 @@
+/**
+ * Created by pawelkrawczyk on 04/09/2014.
+ */
+
 "use strict";
 
 cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cornercouch', '$window',

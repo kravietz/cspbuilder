@@ -1,3 +1,7 @@
+/**
+ * Created by pawelkrawczyk on 04/09/2014.
+ */
+
 "use strict";
 
 cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'cornercouch', '$window',
@@ -33,8 +37,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.detail_close = function () {
             console.log('detail_close ');
-            delete $scope.meta;
-            delete $scope.raw_report;
+            delete $scope.meta; // hides details window
         };
 
         $scope.detail_open = function (index) {
@@ -54,8 +57,17 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 .success(function () {
                     $scope.csp = $scope.db2.rows[0].doc['csp-report'];
                     $scope.meta = $scope.db2.rows[0].doc.meta;
-                    $scope.norm_type = $scope.csp['violated-directive'].split(' ')[0];
-                    $scope.norm_src = source_to_policy_statement($scope.csp);
+                    $scope.policy_type = $scope.csp['violated-directive'].split(' ')[0];
+
+                    // turn report source into policy statement
+                    var policy_source = source_to_policy_statement($scope.csp);
+
+                    // need to deal with null sources
+                    if(policy_source === 'null') {
+                        policy_source = null_url_guesswork($scope.csp);
+                    }
+
+                    $scope.policy_sources = policy_source;
                 })
                 .error(function(resp) {
                     $scope.error = resp;
