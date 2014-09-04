@@ -6,7 +6,7 @@
         These resource origins and types were reported as blocked
         by your page's current Content Security Policy.
         Click on rows to see sample alert for this origin and resource combination.
-        When done with all go to the <a href="#/policy/{{owner_id}}">Policy</a> tab.
+        When done with all go to the <a href="#/policy/">Policy</a> tab.
     </div>
 
     <table class="table table-condensed">
@@ -48,11 +48,10 @@
                      <span class="glyphicon glyphicon-ok text-success" ng-show="reviewed"></span>
                  </span>
 
-                <div ng-show="typeof(policy_sources) === 'object'">
-                    <ul>
-                        <li ng-repeat="src in policy_sources">{{src}}</li>
-                    </ul>
-
+                <div class="radio" ng-repeat="src in policy_sources" ng-show="typeof(policy_sources) === 'object'">
+                    <label>
+                        <input type="radio" ng-model="policy_choice" value="{{src}}">{{policy_type}} {{src}}
+                    </label>
                 </div>
 
             </div>
