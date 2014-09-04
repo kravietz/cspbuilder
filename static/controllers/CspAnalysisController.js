@@ -42,7 +42,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.detail_open = function (index) {
             console.log('detail_open ' + index);
-            $scope.policy_choice = null;
             $scope.reviewed = false;
             $('#report-row-' + $scope.index).removeClass('bg-info'); // delete highlight from old row
             $scope.index = index;
@@ -77,7 +76,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.review_source = function (allow) {
 
-            console.log('review_source allow=' + allow + 'policy_choice=' + $scope.policy_choice);
+            console.log('review_source allow=' + allow + ' policy_choice=' + $scope.policy_choice);
 
             // highlight processed row according to its state
             if (allow) {
