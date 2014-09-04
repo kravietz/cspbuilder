@@ -17,7 +17,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
             {
                 include_docs: true,
                 key: $scope.owner_id,
-                limit: screen_rows('#reports-left-list')/1.6 // need to compensate for spacing
+                limit: screen_rows('#reports-left-list') // need to compensate for spacing
             })
             .success(function () {
                 console.log('data loading finished');
