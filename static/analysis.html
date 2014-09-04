@@ -43,13 +43,11 @@
 
             <div class="alert alert-warning" role="alert">
 
-                <header ng-repeat-start="src in policy_sources"/>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" ng-model="policy_choice" value="{{src}}">{{policy_type}} {{src}}
-                        </label>
-                    </div>
-                <footer ng-repeat-end/>
+                <div class="radio" ng-repeat="src in policy_sources">
+                    <label>
+                        <input type="radio" ng-model="policy_choice" value="{{src}}">{{policy_type}} {{src}}
+                    </label>
+                </div>
 
             </div>
 
