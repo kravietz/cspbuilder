@@ -17,7 +17,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
             {
                 include_docs: true,
                 key: $scope.owner_id,
-                limit: screenRows('#reports-left-list')
+                limit: screenRows('#reports-left-list')-10
             })
             .success(function () {
                 console.log('data loading finished');
