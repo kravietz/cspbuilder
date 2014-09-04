@@ -1,6 +1,6 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
-<div class="row" id="reports-left-list" infinite-scroll="load_next_page()" infinite-scroll-disabled="db.queryActive" infinite-scroll-distance="0">
+<div class="row" id="reports-left-list">
 
       <ol>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
@@ -12,6 +12,10 @@
     </ol>
 
     <div class="text-center"><img ng-show="db.queryActive" src="/static/20-0.gif"/></div>
+
+    <div class="text-center">
+       <button type="button" class="btn btn-default" ng-click="load_next_page()">Load more...</button>
+    </div>
 
 </div>
 
