@@ -102,28 +102,9 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
 
             if(!confirm('Are you sure?')) { return }
 
-            $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            $scope.db2.query('csp', 'all_by_owner', {
-                key: $scope.owner_id,
-                include_docs: true
-            })
-                .success(function () {
-                    var delete_list = { 'docs': [] };
-                    $scope.db2.rows.forEach(function (item) {
-                        delete_list.docs.push({
-                            // no need to copy the whole document body on delete
-                            '_id': item.doc._id,
-                            '_rev': item.doc._rev,
-                            '_deleted': true // this is the actual delete command
-                        });
-                    });
-                    // run bulk delete - CornerCouch does not support it
-                    var client = new XMLHttpRequest();
-                    client.open('POST', couchdb_url + '/csp/_bulk_docs');
-                    client.setRequestHeader('Content-Type', 'application/json');
-                    client.send(JSON.stringify(delete_list));
-                    location.reload();
-                });
+            // TODO: add CSRF protection
+            $http.delete('/api/' + $scope.owner_id + '/all-reports');
+
         };
 
 
