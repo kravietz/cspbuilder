@@ -71,7 +71,7 @@ function source_to_policy_statement(csp) {
 
     // for 'data:image/png' return 'data:'
     if (blocked_uri.lastIndexOf('data', 0) === 0) {
-        return 'data:';
+        return ['data:'];
     }
 
     // for 'http://url.com:80/path/path' return 'http://url.com:80/'
@@ -83,7 +83,7 @@ function source_to_policy_statement(csp) {
         // check if blocked URI was not in the same domain as CSP website
         if (blocked_site === document_uri) {
             // yes, return 'self'
-            return '\'self\'';
+            return ['\'self\''];
         } else {
             // no, return URI variants
             return gen_uri_variants(blocked_uri);
@@ -97,7 +97,7 @@ function source_to_policy_statement(csp) {
 
     console.log('policy statement ' + blocked_uri + ' for ' + JSON.stringify(csp));
 
-    return blocked_uri;
+    return [blocked_uri];
 } // source_to_policy_statement
 
 
