@@ -3,7 +3,6 @@
 import configparser
 import os
 from datetime import datetime, timezone
-import couchdb
 from flask import Flask, request
 from couchdb import Server
 import re
@@ -43,7 +42,6 @@ def take_csp_report(owner_id):
 
     mimetype = request.headers['Content-Type']
 
-    print(mimetype)
     if mimetype not in ALLOWED_CONTENT_TYPES:
         return 'Invalid content type', 400, []
 
