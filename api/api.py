@@ -18,14 +18,17 @@ server = Server('http://localhost:5984/')
 db = server['csp']
 
 # TODO: set & verify CSRF headers
+# TODO: authentication
 @app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
 def delete_all_reports(owner_id):
     docs = []
-    for row in db.view('all_by_owner', key=owner_id, include_docs=True):
+    for row in db.view('csp/all_by_owner', key=owner_id, include_docs=True):
         doc = row.doc
         doc['_deleted'] = True
         docs.append(doc)
-    print(db.update(docs))
+
+    db.update(docs)
+    return ('', 204, [])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
