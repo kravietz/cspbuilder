@@ -26,9 +26,10 @@ function gen_uri_variants(blocked_uri) {
 function null_url_guesswork(csp) {
     console.log('null_url_guesswork');
 
-    var blocked_uri = csp['blocked-uri'];
     var blocked_type = csp['violated-directive'].split(' ')[0];
     var violated_directive = csp['violated-directive'];
+    var eval_first = ['\'unsafe-eval\'', '\'unsafe-inline\''];
+    var inline_first = ['\'unsafe-inline\'', '\'unsafe-eval\''];
 
     // styles
     if (blocked_type === 'style-src') {
@@ -36,10 +37,10 @@ function null_url_guesswork(csp) {
         // check if inline was already allowed on blocked page
         if (violated_directive.indexOf('unsafe-inline') > 0) {
             // yes, it must have been eval()
-            blocked_uri = '\'unsafe-eval\'';
+            return eval_first;
         } else {
             // no, try inline first
-            blocked_uri = '\'unsafe-inline\'';
+            return inline_first;
         }
 
     // scripts
@@ -47,9 +48,9 @@ function null_url_guesswork(csp) {
 
         // the same heuristics as above
         if (violated_directive.indexOf('unsafe-inline') > 0) {
-            blocked_uri = '\'unsafe-eval\'';
+            return eval_first;
         } else {
-            blocked_uri = '\'unsafe-inline\'';
+            return inline_first;
         }
 
     // something else?
@@ -57,7 +58,8 @@ function null_url_guesswork(csp) {
         console.warn('Unrecognized \'null\' source for type ' + blocked_type + ' in:' + JSON.stringify(csp));
     }
 
-    return blocked_uri;
+    // this might be for object-src where inline makes more sense...
+    return inline_first;
 } // null_url_guesswork
 
 // convert blocked-uri from CSP report to a statement that can be used in new policy
