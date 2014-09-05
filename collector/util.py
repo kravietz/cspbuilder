@@ -9,6 +9,10 @@ server = Server('http://localhost:5984/')
 db = server['csp']
 db.compact()
 
-for row in db.view('_all_docs', include_docs=True):
-    doc = row.doc
-    db.delete(doc)
+i=0
+for row in db.view('csp/_all_docs', include_docs=True):
+    if 'owner_id' in row.doc:
+        db.delete(row.doc)
+        i += 1
+
+print(i,'deleted')
