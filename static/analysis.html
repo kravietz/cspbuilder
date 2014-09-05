@@ -43,7 +43,7 @@
 
             <div class="alert alert-warning" role="alert">
 
-                <div class="radio" ng-repeat="src in policy_sources">
+                <div class="radio" ng-repeat="src in policy_sources track by $index">
                     <label>
                         <input name="policy_choice" type="radio" ng-model="$parent.policy_choice" value="{{src}}">{{policy_type}} {{src}}
                     </label>
