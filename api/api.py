@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import configparser
 import os
-import datetime
+from datetime import datetime, timezone
 import couchdb
 from flask import Flask, request
 from couchdb import Server
@@ -25,7 +25,7 @@ db = server['csp']
 
 # TODO: set & verify CSRF headers
 # TODO: authentication
-@app.route('/api/<int:owner_id>/all-reports', method='DELETE')
+@app.route('/api/<int:owner_id>/all-reports', methods=['DELETE'])
 def delete_all_reports(owner_id):
     docs = []
     for row in db.view('csp/all_by_owner', key=owner_id, include_docs=True):
@@ -36,10 +36,10 @@ def delete_all_reports(owner_id):
     db.update(docs)
     return '', 204, []
 
-@app.route('/report/<int:owner_id>', method='POST')
+@app.route('/report/<int:owner_id>', methods=['POST'])
 def take_csp_report(owner_id):
 
-    start_time = datetime.now(datetime.timezone.utc)
+    start_time = datetime.now(timezone.utc)
 
     mimetype = request.headers['Content-Type']
 
@@ -63,7 +63,7 @@ def take_csp_report(owner_id):
     meta['remote_ip'] = client_ip
 
     # UTC timestamp
-    meta['timestamp'] = datetime.now(datetime.timezone.utc).isoformat()
+    meta['timestamp'] = datetime.now(timezone.utc).isoformat()
 
     # copy metadata into the final report object
     output['meta'] = meta
@@ -110,4 +110,4 @@ def take_csp_report(owner_id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', debug=True, port=8080)
