@@ -96,7 +96,7 @@ def take_csp_report(owner_id):
     # save current report to CouchDB
     db.save(output)
 
-    stop_time = datetime.now(datetime.timezone.utc)
+    stop_time = datetime.now(timezone.utc)
 
     print('{} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip,
                                                                                        request.url,
