@@ -26,6 +26,9 @@ db = server['csp']
 # TODO: authentication
 @app.route('/api/<int:owner_id>/all-reports', methods=['DELETE'])
 def delete_all_reports(owner_id):
+    start_time = datetime.now(timezone.utc)
+    client_ip = request.environ.get('REMOTE_ADDR')
+
     docs = []
     for row in db.view('csp/all_by_owner', key=owner_id, include_docs=True):
         doc = row.doc
@@ -33,6 +36,11 @@ def delete_all_reports(owner_id):
         docs.append(doc)
 
     db.update(docs)
+
+    stop_time = datetime.now(timezone.utc)
+
+    print('{} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
+
     return '', 204, []
 
 @app.route('/report/<int:owner_id>', methods=['POST'])
@@ -61,7 +69,7 @@ def take_csp_report(owner_id):
     meta['remote_ip'] = client_ip
 
     # UTC timestamp
-    meta['timestamp'] = datetime.now(timezone.utc).isoformat()
+    meta['timestamp'] = start_time.isoformat()
 
     # copy metadata into the final report object
     output['meta'] = meta
@@ -98,7 +106,7 @@ def take_csp_report(owner_id):
 
     stop_time = datetime.now(datetime.timezone.utc)
 
-    print('{} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(meta['timestamp'], client_ip,
+    print('{} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time, client_ip,
                                                                                        request.url,
                                                                                        stop_time - start_time, action,
                                                                                        owner_id,
