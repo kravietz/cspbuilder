@@ -28,7 +28,7 @@ def delete_all_reports(owner_id):
         docs.append(doc)
 
     db.update(docs)
-    return ('', 204, [])
+    return '', 204, []
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
