@@ -97,7 +97,7 @@ def application(environ, start_response):
     # if blocked-uri is empty, replace it with null value
     # otherwise JS views will not be able to find it
     if output['csp-report']['blocked-uri'] == "":
-        output['csp-report']['blocked-uri'] = "null";
+        output['csp-report']['blocked-uri'] = "null"
 
     violated_directive = output['csp-report']['violated-directive'].split()[0]
     blocked_uri = output['csp-report']['blocked-uri']
