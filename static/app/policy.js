@@ -18,6 +18,11 @@ function gen_uri_variants(blocked_uri) {
     for (var i = parts.length; i >= 3; i--) {
         variants.push(parts.slice(0,i).join('/'));
     }
+    variants.reverse();
+    if(variants.length > 3) {
+        // get only a few shortest variants, more is too much
+        variants = variants.slice(0, 5);
+    }
     console.log('variants=' + variants);
     return {'message':'gen_uri_variants', 'sources':variants};
 
