@@ -27,7 +27,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
         })
             .success(function () {
                 console.log('data loading finished');
-                $scope.data.rows.sort(function (a, b) {
+                $scope.db.rows.sort(function (a, b) {
                     return a.value - b.value;
                 });
                 $scope.blocked = false;
