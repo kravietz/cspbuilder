@@ -53,7 +53,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $('#report-row-' + $scope.index).addClass('bg-info'); // highlight current row
             // sources list already contains the key we can use to fetch sample report
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            $scope.db2.query('csp', 'grouped_source_type',
+            $scope.db2.query('csp', 'grouped_types_sources',
                 {
                     reduce: false,
                     limit: 1,
