@@ -26,4 +26,5 @@
     width: 45%;
     right: 70px;
     top: 50px;
+    overflow: auto;
 }
