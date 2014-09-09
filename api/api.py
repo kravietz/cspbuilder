@@ -24,7 +24,32 @@ db = server['csp']
 
 # TODO: set & verify CSRF headers
 # TODO: authentication
-@app.route('/api/<int:owner_id>/all-reports', methods=['DELETE'])
+@app.route('/api/<owner_id>/review', methods=['POST'])
+def review_type_source(owner_id):
+    start_time = datetime.now(timezone.utc)
+    client_ip = request.environ.get('REMOTE_ADDR')
+
+    review_type   = request.form('review_type')
+    review_source = request.form('review_source')
+    review_action = request.form('review_action')
+
+    docs = []
+    for row in db.view('csp/grouped_types_sources',
+                       include_docs=True,
+                       startkey=[owner_id, review_type, review_source],
+                       endkey=[owner_id, review_type, {}]):
+        doc = row.doc
+        doc['reviewed'] = review_action
+        docs.append(doc)
+
+    db.update(docs)
+
+    stop_time = datetime.now(timezone.utc)
+    print('review_type_source {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
+
+    return '', 204, []
+
+@app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
 def delete_all_reports(owner_id):
     start_time = datetime.now(timezone.utc)
     client_ip = request.environ.get('REMOTE_ADDR')
@@ -38,8 +63,7 @@ def delete_all_reports(owner_id):
     db.update(docs)
 
     stop_time = datetime.now(timezone.utc)
-
-    print('{} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
+    print('delete_all_reports {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
 
     return '', 204, []
 
@@ -83,7 +107,7 @@ def read_csp_report(owner_id):
     blocked_uri = output['csp-report']['blocked-uri']
 
     # get basic URI template for match with known list
-    r = re.match(r'^(https?://[a-zA-Z0-9.:-]+/)', blocked_uri)
+    r = re.match(r'^(https?://[^?#/]+)', blocked_uri)
     if r:
         uri_template = r.group(0)
     else:
@@ -106,7 +130,7 @@ def read_csp_report(owner_id):
 
     stop_time = datetime.now(timezone.utc)
 
-    print('{} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time, client_ip,
+    print('read_csp_report {} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time, client_ip,
                                                                                        request.url,
                                                                                        stop_time - start_time, action,
                                                                                        owner_id,
