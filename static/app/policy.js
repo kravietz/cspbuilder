@@ -62,6 +62,11 @@ function null_url_guesswork(csp) {
     return {'message':'null_url_guesswork (non-standard type)', 'sources':inline_first};
 } // null_url_guesswork
 
+// for 'http://url.com:80/path/path' return 'http://url.com:80'
+function base_uri(uri) {
+    return uri.match(/^(https?:\/\/[^?#/]+)/);
+}
+
 // convert blocked-uri from CSP report to a statement that can be used in new policy
 function source_to_policy_statement(csp) {
     console.log('source_to_policy_statement');
@@ -77,11 +82,12 @@ function source_to_policy_statement(csp) {
     // for 'http://url.com:80/path/path' return 'http://url.com:80/'
     if (/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
 
-        // extract base website URL
-        var blocked_site = blocked_uri.match(/^(https?:\/\/[a-zA-Z0-9.:-]+\/)/)[1];
+        // extract base website URLs
+        var blocked_site = base_uri(blocked_uri);
+        var document_site = base_uri(document_uri);
 
         // check if blocked URI was not in the same domain as CSP website
-        if (blocked_site === document_uri) {
+        if (blocked_site === document_site) {
             // yes, return 'self'
             return {'message':null, 'sources':['\'self\'']};
         } else {
