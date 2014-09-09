@@ -44,7 +44,7 @@ def delete_all_reports(owner_id):
     return '', 204, []
 
 @app.route('/report/<owner_id>', methods=['POST'])
-def take_csp_report(owner_id):
+def read_csp_report(owner_id):
 
     start_time = datetime.now(timezone.utc)
 
