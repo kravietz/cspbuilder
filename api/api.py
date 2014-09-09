@@ -127,7 +127,7 @@ def read_csp_report(owner_id):
 
     # check list of known sources
     action = 'unknown'
-    for row in db.view('csp/known_list', group=True,
+    for row in db.view('csp/known_list',
                        startkey=[owner_id, violated_directive, uri_template, ""],
                        endkey=[owner_id, violated_directive, uri_template, {}]):
         action = row.key[3]
