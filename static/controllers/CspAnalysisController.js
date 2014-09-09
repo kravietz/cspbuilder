@@ -4,8 +4,8 @@
 
 "use strict";
 
-cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'cornercouch', '$window',
-    function ($scope, $cookieStore, cornercouch, $window) {
+cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'cornercouch', '$window', '$http',
+    function ($scope, $cookieStore, cornercouch, $window, $http) {
 
         $scope.owner_id = $cookieStore.get('owner_id');
         if (!$scope.owner_id) {
