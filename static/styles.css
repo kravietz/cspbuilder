@@ -11,6 +11,7 @@
     right: 0;
     width: 40%;
     margin-right: 10px;
+    overflow: auto;
 }
 #raw-report {
     font-size: 0.7em;
@@ -20,10 +21,4 @@
 }
 #reports-left-list {
     width: 52%;
-}
-#reports-details-fixed {
-    width: 45%;
-    right: 70px;
-    top: 50px;
-    overflow: auto;
 }
