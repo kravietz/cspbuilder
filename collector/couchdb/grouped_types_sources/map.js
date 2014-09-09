@@ -11,6 +11,7 @@ function (doc) {
         if (/^https?/.test(blocked_uri)) {
             // truncate URI to exclude params after ? or #
             blocked_uri = blocked_uri.match(/^(https?:\/\/[^?#]+)/)[1];
+            blocked_uri = blocked_uri.split('/').slice(0,7).join('/');
         }
 
         emit([ doc['owner_id'], doc['csp-report']['violated-directive'].split(' ')[0], blocked_uri, ], 1);
