@@ -25,7 +25,7 @@
                 ng-click="detail_open($index)">
 
                 <td>{{report.key[1]}}</td>
-                <td>{{report.key[2]}}</td>
+                <td>{{report.key[2] | limitTo: 70}}</td>
             </tr>
             </tbody>
         </table>
