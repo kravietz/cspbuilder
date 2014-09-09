@@ -30,6 +30,11 @@ cspbuilderApp.config(['$routeProvider',
                 controller: 'CspLiveController'
             }
         ).
+            when('/known/', {
+                templateUrl: '/static/known.html',
+                controller: 'CspKnownController'
+            }
+        ).
             when('/login', {
                 templateUrl: '/static/login.html',
                 controller: 'CspLoginController'
