@@ -19,7 +19,7 @@ function gen_uri_variants(blocked_uri) {
         variants.push(parts.slice(0,i).join('/'));
     }
     console.log('variants=' + variants);
-    return return {'message':'gen_uri_variants', 'sources':variants};
+    return {'message':'gen_uri_variants', 'sources':variants};
 
 }
 
@@ -97,7 +97,7 @@ function source_to_policy_statement(csp) {
 
     console.log('policy statement ' + blocked_uri + ' for ' + JSON.stringify(csp));
 
-    return return {'message':null, 'sources':[blocked_uri]};
+    return  {'message':null, 'sources':[blocked_uri]};
 } // source_to_policy_statement
 
 
