@@ -2,41 +2,42 @@
 
 <div class="container-fluid">
 
-<div class="row">
+    <div class="row">
 
-    <div class="col-xs-6">
+        <div class="col-xs-6">
 
-        <div class="alert alert-info" role="alert">
-            These resource origins and types were reported as blocked
-            by your page's current Content Security Policy.
-            Click on rows to see sample alert for this origin and resource combination.
-            When done with all go to the <a href="#/policy/">Policy</a> tab.
+            <div class="alert alert-info" role="alert">
+                These resource origins and types were reported as blocked
+                by your page's current Content Security Policy.
+                Click on rows to see sample alert for this origin and resource combination.
+                When done with all go to the <a href="#/policy/">Policy</a> tab.
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+
+                    <th>Type</th>
+                    <th>Resource origin</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="report in db.rows track by $index" title="{{report}}" id="report-row-{{$index}}"
+                    ng-click="detail_open($index)">
+
+                    <td>{{report.key[1]}}</td>
+                    <td>{{report.key[2] | limitTo: 70}}</td>
+                </tr>
+                </tbody>
+            </table>
+
         </div>
 
-        <table class="table table-condensed">
-            <thead>
-            <tr>
+        <div class="col-xs-6" ng-show="meta">
 
-                <th>Resource type</th>
-                <th>Resource origin</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr ng-repeat="report in db.rows track by $index" title="{{report}}" id="report-row-{{$index}}"
-                ng-click="detail_open($index)">
-
-                <td>{{report.key[1]}}</td>
-                <td>{{report.key[2] | limitTo: 70}}</td>
-            </tr>
-            </tbody>
-        </table>
-
-    </div>
-
-    <div class="col-xs-6" ng-show="meta">
-        <div id="analysis-details">
-
+            <div class="text-center"><img ng-show="db.queryActive" src="/static/20-0.gif"/></div>
+        
             <button type="button" class="close" ng-click="detail_close()">
                 <span aria-hidden="true">&times;</span>
                 <span class="sr-only">Close</span>
@@ -99,7 +100,5 @@
 
         </div>
     </div>
-
-</div>
 
 </div>
