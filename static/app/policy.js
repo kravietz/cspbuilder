@@ -19,7 +19,7 @@ function gen_uri_variants(blocked_uri) {
         variants.push(parts.slice(0,i).join('/'));
     }
     console.log('variants=' + variants);
-    return variants;
+    return return {'message':'gen_uri_variants', 'sources':variants};
 
 }
 
@@ -37,10 +37,10 @@ function null_url_guesswork(csp) {
         // check if inline was already allowed on blocked page
         if (violated_directive.indexOf('unsafe-inline') > 0) {
             // yes, it must have been eval()
-            return eval_first;
+            return {'message':'null_url_guesswork', 'sources':eval_first};
         } else {
             // no, try inline first
-            return inline_first;
+            return {'message':'null_url_guesswork', 'sources':inline_first};
         }
 
     // scripts
@@ -48,9 +48,9 @@ function null_url_guesswork(csp) {
 
         // the same heuristics as above
         if (violated_directive.indexOf('unsafe-inline') > 0) {
-            return eval_first;
+            return {'message':'null_url_guesswork', 'sources':eval_first};
         } else {
-            return inline_first;
+            return {'message':'null_url_guesswork', 'sources':inline_first};
         }
 
     // something else?
@@ -59,7 +59,7 @@ function null_url_guesswork(csp) {
     }
 
     // this might be for object-src where inline makes more sense...
-    return inline_first;
+    return {'message':'null_url_guesswork (non-standard type)', 'sources':inline_first};
 } // null_url_guesswork
 
 // convert blocked-uri from CSP report to a statement that can be used in new policy
@@ -71,7 +71,7 @@ function source_to_policy_statement(csp) {
 
     // for 'data:image/png' return 'data:'
     if (blocked_uri.lastIndexOf('data', 0) === 0) {
-        return ['data:'];
+        return {'message':null, 'sources':['data:']};
     }
 
     // for 'http://url.com:80/path/path' return 'http://url.com:80/'
@@ -83,7 +83,7 @@ function source_to_policy_statement(csp) {
         // check if blocked URI was not in the same domain as CSP website
         if (blocked_site === document_uri) {
             // yes, return 'self'
-            return ['\'self\''];
+            return {'message':null, 'sources':['\'self\'']};
         } else {
             // no, return URI variants
             return gen_uri_variants(blocked_uri);
@@ -97,7 +97,7 @@ function source_to_policy_statement(csp) {
 
     console.log('policy statement ' + blocked_uri + ' for ' + JSON.stringify(csp));
 
-    return [blocked_uri];
+    return return {'message':null, 'sources':[blocked_uri]};
 } // source_to_policy_statement
 
 
