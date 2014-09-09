@@ -33,6 +33,18 @@ def review_type_source(owner_id):
     review_source = request.form('review_source')
     review_action = request.form('review_action')
 
+    # save known list entry for auto-reviewing of future reports
+    for row in db.view('csp/known_list',
+                       include_docs=True,
+                       startkey=[owner_id, review_type, review_source],
+                       endkey=[owner_id, review_type, {}]):
+        doc = row.doc
+        if 'reviewed' in doc:
+            # make sure the action in known list matches user's last intention
+            doc['reviewed'] = review_action
+            db.save(doc)
+
+    # review old reports matching the pattern
     docs = []
     for row in db.view('csp/grouped_types_sources',
                        include_docs=True,
@@ -116,8 +128,8 @@ def read_csp_report(owner_id):
     # check list of known sources
     action = 'unknown'
     for row in db.view('csp/known_list', group=True,
-                       startkey=[owner_id, uri_template, violated_directive, ""],
-                       endkey=[owner_id, uri_template, violated_directive, {}]):
+                       startkey=[owner_id, violated_directive, uri_template, ""],
+                       endkey=[owner_id, violated_directive, uri_template, {}]):
         action = row.key[3]
         # entry found, classify the new alert
         if action == 'accept':

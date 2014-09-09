@@ -65,7 +65,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     $scope.policy_message = ret.message;
                     $scope.policy_sources = ret.sources;
                 })
-                .error(function(resp) {
+                .error(function (resp) {
                     $scope.error = resp;
                 });
         };   // detail_open
@@ -81,41 +81,17 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 $('#report-row-' + $scope.index).addClass('bg-warning');
             }
 
-            // save new whitelist/blacklist entry if action was to allow
-            var db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            var newdoc = {  'owner_id': $scope.owner_id,
-                        'known_uri': $scope.policy_choice,
-                        'known_type': $scope.policy_type,
-                        'action': allow ? 'accept' : 'reject'
-            };
-            db2.newDoc(newdoc).save().error(function(resp) {
-                    $scope.error = resp;
+            $http.post('/api/' + $scope.owner_id + '/review', {
+                    'review_type': $scope.policy_type,
+                    'review_source': $scope.policy_choice,
+                    'review_action': allow ? 'accept' : 'reject'
+                })
+                .error(function (error) {
+                    $scope.error = error;
+                })
+                .success(function () {
+                    console.log('review source completed');
                 });
-
-            // mark as approved on the page
-            $scope.reviewed = true;
-
-            // set all reports with this key as reviewed
-            $scope.db2.query('csp', 'by_source_type', {
-                key: [$scope.owner_id, $scope.policy_type, $scope.policy_choice],
-                include_docs: true
-            })
-            .success(function () {
-                var approve_list = { 'docs': [] };
-                $scope.db2.rows.forEach(function (item) {
-                    // set updated document status according to allow flag
-                    item.doc['reviewed'] = allow ? 'accepted' : 'rejected';
-                    approve_list.docs.push(item.doc);
-                });
-                // run bulk update
-                var client = new XMLHttpRequest();
-                client.open('POST', couchdb_url + '/csp/_bulk_docs');
-                client.setRequestHeader('Content-Type', 'application/json');
-                client.send(JSON.stringify(approve_list));
-            })
-            .error(function(resp) {
-                $scope.error = resp;
-            });
 
         }; // review_source
 
