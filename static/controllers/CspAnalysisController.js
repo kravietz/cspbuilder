@@ -39,11 +39,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             $window.location.href = '/static/#/login';
         };
 
-        $scope.detail_close = function () {
-            console.log('detail_close ');
-            delete $scope.meta; // hides details window
-        };
-
         $scope.detail_open = function (index) {
             console.log('detail_open ' + index);
             $scope.policy_message = null;
