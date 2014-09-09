@@ -42,6 +42,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.detail_open = function (index) {
             console.log('detail_open ' + index);
+            $scope.policy_message = null;
             $scope.reviewed = false;
             $('#report-row-' + $scope.index).removeClass('bg-info'); // delete highlight from old row
             $scope.index = index;
@@ -60,14 +61,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     $scope.policy_type = $scope.csp['violated-directive'].split(' ')[0];
 
                     // turn report source into policy statement
-                    var policy_source = source_to_policy_statement($scope.csp);
-
-                    // need to deal with null sources
-                    if(policy_source === 'null') {
-                        policy_source = null_url_guesswork($scope.csp);
-                    }
-
-                    $scope.policy_sources = policy_source;
+                    var ret = source_to_policy_statement($scope.csp);
+                    $scope.policy_message = ret.message;
+                    $scope.policy_sources = ret.sources;
                 })
                 .error(function(resp) {
                     $scope.error = resp;
