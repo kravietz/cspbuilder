@@ -15,17 +15,21 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
         $scope.blocked = true;
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.index = 0;
-        $scope.db.query("csp", "sources_key_owner", {
+        $scope.db.query("csp", "grouped_types_sources", {
             include_docs: false,
             // CouchDB idiom used to narrow search
             // ref: http://docs.couchdb.org/en/latest/couchapp/views/collation.html#string-ranges
             startkey: [$scope.owner_id],
             endkey: [$scope.owner_id, {}],
-            // group required for reduce function to work
+            // group & reduce required for grouping to work
+            reduce: true,
             group: true
         })
             .success(function () {
                 console.log('data loading finished');
+                $scope.data.rows.sort(function (a, b) {
+                    return a.value - b.value;
+                });
                 $scope.blocked = false;
             });
 
