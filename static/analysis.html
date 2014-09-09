@@ -2,33 +2,38 @@
 
 <div class="row" id="main-list">
 
-    <div class="alert alert-info" role="alert">
-        These resource origins and types were reported as blocked
-        by your page's current Content Security Policy.
-        Click on rows to see sample alert for this origin and resource combination.
-        When done with all go to the <a href="#/policy/">Policy</a> tab.
+    <div class="col-md-6" id="analysis-list">
+
+        <div class="alert alert-info" role="alert">
+            These resource origins and types were reported as blocked
+            by your page's current Content Security Policy.
+            Click on rows to see sample alert for this origin and resource combination.
+            When done with all go to the <a href="#/policy/">Policy</a> tab.
+        </div>
+
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+
+                <th>Resource type</th>
+                <th>Resource origin</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="report in db.rows track by $index" title="{{report}}" id="report-row-{{$index}}"
+                ng-click="detail_open($index)">
+
+                <td>{{report.key[1]}}</td>
+                <td>{{report.key[2]}}</td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 
-    <table class="table table-condensed">
-        <thead>
-        <tr>
-
-            <th>Resource type</th>
-             <th>Resource origin</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr ng-repeat="report in db.rows track by $index" title="{{report}}" id="report-row-{{$index}}" ng-click="detail_open($index)">
-
-            <td>{{report.key[1]}}</td>
-            <td>{{report.key[2]}}</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <div ng-show="meta">
-        <div id="reports-details-fixed">
+    <div class="col-md-6" ng-show="meta">
+        <div id="analysis-details">
 
             <button type="button" class="close" ng-click="detail_close()">
                 <span aria-hidden="true">&times;</span>
@@ -38,14 +43,16 @@
             <h3>Resource approval</h3>
 
             <div class="alert alert-info" role="alert">
-            <u>If you recognize</u> this resource as authorised click the <strong>Approve</strong> button to add it to your policy,
+                <u>If you recognize</u> this resource as authorised click the <strong>Approve</strong> button to add it
+                to your policy,
             </div>
 
             <div class="alert alert-warning" role="alert">
 
                 <div class="radio" ng-repeat="src in policy_sources track by $index">
                     <label>
-                        <input name="policy_choice" type="radio" ng-model="$parent.policy_choice" value="{{src}}">{{policy_type}} {{src}}
+                        <input name="policy_choice" type="radio" ng-model="$parent.policy_choice" value="{{src}}">{{policy_type}}
+                        {{src}}
                     </label>
                 </div>
 
