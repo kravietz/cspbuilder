@@ -29,9 +29,9 @@ def review_type_source(owner_id):
     start_time = datetime.now(timezone.utc)
     client_ip = request.environ.get('REMOTE_ADDR')
 
-    review_type   = request.form('review_type')
-    review_source = request.form('review_source')
-    review_action = request.form('review_action')
+    review_type   = request.form['review_type']
+    review_source = request.form['review_source']
+    review_action = request.form['review_action']
 
     # save known list entry for auto-reviewing of future reports
     for row in db.view('csp/known_list',
