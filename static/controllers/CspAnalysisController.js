@@ -61,14 +61,19 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 })
                 .success(function () {
                     console.log('$scope.db2.rows=' + $scope.db2.rows.length);
-                    $scope.csp = $scope.db2.rows[0].doc['csp-report'];
-                    $scope.meta = $scope.db2.rows[0].doc.meta;
-                    $scope.policy_type = $scope.csp['violated-directive'].split(' ')[0];
+                    if($scope.db2.rows.length) {
+                        $scope.csp = $scope.db2.rows[0].doc['csp-report'];
+                        $scope.meta = $scope.db2.rows[0].doc.meta;
+                        $scope.policy_type = $scope.csp['violated-directive'].split(' ')[0];
 
-                    // turn report source into policy statement
-                    var ret = source_to_policy_statement($scope.csp);
-                    $scope.policy_message = ret.message;
-                    $scope.policy_sources = ret.sources;
+                        // turn report source into policy statement
+                        var ret = source_to_policy_statement($scope.csp);
+                        $scope.policy_message = ret.message;
+                        $scope.policy_sources = ret.sources;
+                    } else {
+                        // empty result set on detail open means this entry was already reviewed, update the main list
+                        delete $scope.db.rows[index];
+                    }
                 })
                 .error(function (resp) {
                     $scope.error = resp;
