@@ -40,17 +40,38 @@ def review_type_source(owner_id):
         abort(400)
 
     # save known list entry for auto-reviewing of future reports
-    for row in db.view('csp/known_list',
+    results = db.view('csp/known_list',
                        include_docs=True, reduce=False,
                        startkey=[owner_id, review_type, review_source],
-                       endkey=[owner_id, review_type, {}]):
-        doc = row.doc
-        if 'reviewed' in doc:
-            # make sure the action in known list matches user's last intention
-            doc['reviewed'] = review_action
-            db.save(doc)
+                       endkey=[owner_id, review_type, {}])
 
-    # review old reports matching the pattern
+    if not len(results):
+        # no entries for this type and source were found - add a new one
+        doc = {
+            'owner_id': owner_id,
+            'review_type': review_type,
+            'review_source': review_source,
+            'review_action': review_action,
+            # for audit
+            'client_ip': client_ip,
+            'timestamp': start_time,
+        }
+        db.save(doc)
+    else:
+        # entries were found, just leave one and update its action
+        first = True
+        for row in results:
+            if first:
+                doc = row.doc
+                doc['review_action'] = review_action
+                doc['client_ip'] = client_ip
+                doc['timestamp'] = start_time
+                db.save(doc)
+                first = False
+            else:
+                db.delete(doc)
+
+    # review old reports matching the pattern (using bulk interface)
     docs = []
     for row in db.view('csp/grouped_types_sources',
                        include_docs=True, reduce=False,
