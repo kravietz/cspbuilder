@@ -32,7 +32,7 @@ def review_type_source(owner_id):
     data = request.json
 
     try:
-        review_type   = data['review_type']
+        review_type = data['review_type']
         review_source = data['review_source']
         review_action = data['review_action']
     except KeyError:
@@ -52,6 +52,9 @@ def review_type_source(owner_id):
                        endkey=[owner_id, review_type, {}])
 
     known_list_doc = {}
+
+    print('review_type_source results {} for {} {}'.format(len(results), review_type, review_source))
+
     if not len(results):
         # no entries for this type and source were found - add a new one
         known_list_doc = {
@@ -63,11 +66,13 @@ def review_type_source(owner_id):
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
         }
+        print('review_type_source saving new {}'.format(known_list_doc))
         db.save(known_list_doc)
     else:
         # entries were found, just leave one and update its action
         first = True
         for row in results:
+            print('review_type_source updating existing {}'.format(row.doc))
             if first:
                 known_list_doc = row.doc
                 known_list_doc['review_action'] = action
