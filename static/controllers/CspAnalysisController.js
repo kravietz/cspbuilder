@@ -74,13 +74,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
             console.log('review_source allow=' + allow + ' policy_choice=' + $scope.policy_choice);
 
-            // highlight processed row according to its state
-            if (allow) {
-                $('#report-row-' + $scope.index).addClass('bg-success');
-            } else {
-                $('#report-row-' + $scope.index).addClass('bg-warning');
-            }
-
             $http.post('/api/' + $scope.owner_id + '/review', {
                     'review_type': $scope.policy_type,
                     'review_source': $scope.policy_choice,
@@ -91,6 +84,13 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 })
                 .success(function () {
                     console.log('review source completed');
+                    $scope.reviewed = true;
+                    // highlight processed row according to its state
+                    if (allow) {
+                        $('#report-row-' + $scope.index).addClass('bg-success');
+                    } else {
+                        $('#report-row-' + $scope.index).addClass('bg-warning');
+                    }
                 });
 
         }; // review_source
