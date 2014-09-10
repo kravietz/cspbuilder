@@ -87,7 +87,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     $scope.reviewed = true;
                     // add green tick in details tab
                     // TODO: fix HTML selectors
-                    $('input:checked').parent().add('span').addClass('text-success glyphicon glyphicon-ok');
+                    //$('input:checked').parent().add('span').addClass('text-success glyphicon glyphicon-ok');
                     // highlight processed row according to its state
                     if (allow) {
                         $('#report-row-' + $scope.index).addClass('bg-success');
