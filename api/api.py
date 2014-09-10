@@ -175,6 +175,8 @@ def read_csp_report(owner_id):
 
     # check list of known sources
     action = 'unknown'
+    review_rule = 'default'
+
     for row in db.view('csp/known_list',
                        startkey=[owner_id, violated_directive, uri_template, ""],
                        endkey=[owner_id, violated_directive, uri_template, {}]):
@@ -186,9 +188,10 @@ def read_csp_report(owner_id):
             action = 'rejected'
 
         # save the known list entry used to autoreview this report
-        output['review_rule'] = row.key
-        output['review_method'] = 'auto'
+        review_rule = row.key
 
+    output['review_rule'] = review_rule
+    output['review_method'] = 'auto'
     output['reviewed'] = action
 
     # save current report to CouchDB
