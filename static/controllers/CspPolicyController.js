@@ -60,10 +60,15 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                     }
 
                 });
-                $scope.approved_list.push({ // save last added items
-                    'type': current_type,
-                    'sources': current_list
-                });
+                if(current_type && current_list) {
+                    // save items added as last, intentionally stays outside of the forEach loop
+                    $scope.approved_list.push({
+                        'type': current_type,
+                        'sources': current_list
+                    });
+                }
+                // finally generate the generic CSP on the page
+                $scope.generate_csp();
 
             }
         );
