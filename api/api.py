@@ -39,12 +39,6 @@ def review_type_source(owner_id):
         print('review_type_source {} {} invalid input: {}'.format(start_time, client_ip, data))
         abort(400)
 
-    # convert review command to document status
-    if review_action == 'accept':
-            action = 'accepted'
-    if review_action == 'reject':
-            action = 'rejected'
-
     # save known list entry for auto-reviewing of future reports
     results = db.view('csp/known_list',
                        include_docs=True, reduce=False,
@@ -61,7 +55,7 @@ def review_type_source(owner_id):
             'owner_id': owner_id,
             'review_type': review_type,
             'review_source': review_source,
-            'review_action': action,
+            'review_action': review_action,
             # for audit
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
@@ -75,13 +69,19 @@ def review_type_source(owner_id):
             print('review_type_source updating existing {}'.format(row.doc))
             if first:
                 known_list_doc = row.doc
-                known_list_doc['review_action'] = action
+                known_list_doc['review_action'] = review_action
                 known_list_doc['client_ip'] = client_ip
                 known_list_doc['timestamp'] = start_time.isoformat()
                 db.save(known_list_doc)
                 first = False
             else:
                 db.delete(known_list_doc)
+
+    # convert review command to document status
+    if review_action == 'accept':
+            action = 'accepted'
+    if review_action == 'reject':
+            action = 'rejected'
 
     # review old reports matching the pattern (using bulk interface)
     docs = []
