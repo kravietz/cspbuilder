@@ -41,7 +41,7 @@ def review_type_source(owner_id):
 
     # save known list entry for auto-reviewing of future reports
     for row in db.view('csp/known_list',
-                       include_docs=True,
+                       include_docs=True, reduce=False,
                        startkey=[owner_id, review_type, review_source],
                        endkey=[owner_id, review_type, {}]):
         doc = row.doc
@@ -53,7 +53,7 @@ def review_type_source(owner_id):
     # review old reports matching the pattern
     docs = []
     for row in db.view('csp/grouped_types_sources',
-                       include_docs=True,
+                       include_docs=True, reduce=False,
                        startkey=[owner_id, review_type, review_source],
                        endkey=[owner_id, review_type, {}]):
         doc = row.doc
