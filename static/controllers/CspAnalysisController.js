@@ -41,8 +41,12 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
         $scope.detail_open = function (index) {
             console.log('detail_open ' + index);
-            $scope.policy_message = null;
-            $scope.reviewed = false;
+            delete $scope.policy_message;
+            delete $scope.error;
+            delete $scope.csp;
+            delete $scope.meta;
+            delete $scope.policy_type;
+            delete $scope.policy_sources;
             $('#report-row-' + $scope.index).removeClass('bg-info'); // delete highlight from old row
             $scope.index = index;
             $('#report-row-' + $scope.index).addClass('bg-info'); // highlight current row
