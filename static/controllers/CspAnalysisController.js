@@ -60,6 +60,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                     include_docs: true
                 })
                 .success(function () {
+                    console.log('$scope.db2.rows=' + $scope.db2.rows.length);
                     $scope.csp = $scope.db2.rows[0].doc['csp-report'];
                     $scope.meta = $scope.db2.rows[0].doc.meta;
                     $scope.policy_type = $scope.csp['violated-directive'].split(' ')[0];
