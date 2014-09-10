@@ -177,9 +177,13 @@ def read_csp_report(owner_id):
     action = 'unknown'
     review_rule = 'default'
 
-    for row in db.view('csp/known_list',
+    results = db.view('csp/known_list',
                        startkey=[owner_id, violated_directive, uri_template, ""],
-                       endkey=[owner_id, violated_directive, uri_template, {}]):
+                       endkey=[owner_id, violated_directive, uri_template, {}])
+
+    print('read_csp_report found {} KL entries for report: {} {}'.format(len(results), violated_directive, uri_template))
+
+    for row in results:
         action = row.key[3]
         # entry found, classify the new alert
         if action == 'accept':
