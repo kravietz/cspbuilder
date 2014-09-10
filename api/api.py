@@ -57,7 +57,7 @@ def review_type_source(owner_id):
             'owner_id': owner_id,
             'review_type': review_type,
             'review_source': review_source,
-            'review_action': action: ,
+            'review_action': action ,
             # for audit
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
