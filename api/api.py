@@ -3,7 +3,7 @@
 import configparser
 import os
 from datetime import datetime, timezone
-from flask import Flask, request
+from flask import Flask, request, abort
 from couchdb import Server
 import re
 
@@ -29,9 +29,15 @@ def review_type_source(owner_id):
     start_time = datetime.now(timezone.utc)
     client_ip = request.environ.get('REMOTE_ADDR')
 
-    review_type   = request.form['review_type']
-    review_source = request.form['review_source']
-    review_action = request.form['review_action']
+    data = request.json
+
+    try:
+        review_type   = data['review_type']
+        review_source = data['review_source']
+        review_action = data['review_action']
+    except KeyError:
+        print('review_type_source {} {} invalid input: {}'.format(start_time, client_ip, data))
+        abort(400)
 
     # save known list entry for auto-reviewing of future reports
     for row in db.view('csp/known_list',
