@@ -69,7 +69,7 @@ function null_url_guesswork(csp) {
 
 // for 'http://url.com:80/path/path' return 'http://url.com:80'
 function base_uri(uri) {
-    return uri.match(/^(https?:\/\/[^?#/]+)/);
+    return uri.match(/^(https?:\/\/[^?#/]+)/)[1];
 }
 
 // convert blocked-uri from CSP report to a statement that can be used in new policy
