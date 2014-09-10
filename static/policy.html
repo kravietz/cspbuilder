@@ -1,48 +1,52 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
-<h3>Policy generator</h3>
+<div class="container-fluid">
 
-<div class="row">
-    <div class="alert alert-info" role="alert">
-        These sources have been accepted by you already. Please review them for the last time and press
-        <strong>Generate</strong>
-        button to produce the CSP header.
+    <h3>Policy generator</h3>
+
+    <div class="row">
+        <div class="alert alert-info" role="alert">
+            These sources have been accepted by you already. Please review them for the last time and press
+            <strong>Generate</strong>
+            button to produce the CSP header.
+        </div>
     </div>
-</div>
 
-<ng-include src="'policy-config.html'"></ng-include>
+    <ng-include src="'policy-config.html'"></ng-include>
 
-<div class="row" ng-show="Object.keys(approved_list).length && !csp_config.default">
-    <h4>Approved sources</h4>
-    <small>
-        <form name="cspEditor">
-            <ul>
-                <li ng-repeat="row in approved_list">
-                    {{row.type}}
-                    <ul>
-                        <li ng-repeat="(k,v) in row.sources">
-                            <input type="checkbox" ng-model="row.sources[k]"> {{k}}
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </form>
-    </small>
-</div>
+    <div class="row" ng-show="Object.keys(approved_list).length && !csp_config.default">
+        <h4>Approved sources</h4>
+        <small>
+            <form name="cspEditor">
+                <ul>
+                    <li ng-repeat="row in approved_list">
+                        {{row.type}}
+                        <ul>
+                            <li ng-repeat="(k,v) in row.sources">
+                                <input type="checkbox" ng-model="row.sources[k]"> {{k}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </small>
+    </div>
 
-<div class="row">
-    <h4>Output</h4>
-    Generate CSP:
-    <button class="btn btn-default" ng-click="generate_csp()">Generic</button>
-    <button class="btn btn-default" ng-click="generate_csp('nginx')">Nginx</button>
-    <button class="btn btn-default" ng-click="generate_csp('apache')">Apache</button>
-    <button class="btn btn-default" ng-click="generate_csp('php')">PHP</button>
-    <button class="btn btn-default" ng-click="generate_csp('ror')">Ruby on Rails</button>
-    <button class="btn btn-default" ng-click="generate_csp('django')">Django</button>
-    <div class="alert alert-info" role="alert" ng-show="policy_message" ng-bind-html="policy_message"></div>
-    <pre>{{policy }}</pre>
-</div>
+    <div class="row">
+        <h4>Output</h4>
+        Generate CSP:
+        <button class="btn btn-default" ng-click="generate_csp()">Generic</button>
+        <button class="btn btn-default" ng-click="generate_csp('nginx')">Nginx</button>
+        <button class="btn btn-default" ng-click="generate_csp('apache')">Apache</button>
+        <button class="btn btn-default" ng-click="generate_csp('php')">PHP</button>
+        <button class="btn btn-default" ng-click="generate_csp('ror')">Ruby on Rails</button>
+        <button class="btn btn-default" ng-click="generate_csp('django')">Django</button>
+        <div class="alert alert-info" role="alert" ng-show="policy_message" ng-bind-html="policy_message"></div>
+        <pre>{{policy }}</pre>
+    </div>
 
-<div class="row">
-    <pre>{{approved_list | json}}</pre>
+    <div class="row">
+        <pre>{{approved_list | json}}</pre>
+    </div>
+
 </div>
