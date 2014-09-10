@@ -54,7 +54,7 @@ def review_type_source(owner_id):
             'review_action': review_action,
             # for audit
             'client_ip': client_ip,
-            'timestamp': start_time,
+            'timestamp': start_time.isoformat(),
         }
         db.save(doc)
     else:
@@ -65,7 +65,7 @@ def review_type_source(owner_id):
                 doc = row.doc
                 doc['review_action'] = review_action
                 doc['client_ip'] = client_ip
-                doc['timestamp'] = start_time
+                doc['timestamp'] = start_time.isoformat()
                 db.save(doc)
                 first = False
             else:
