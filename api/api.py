@@ -39,6 +39,12 @@ def review_type_source(owner_id):
         print('review_type_source {} {} invalid input: {}'.format(start_time, client_ip, data))
         abort(400)
 
+    # convert review command to document status
+    if review_action == 'accept':
+        action = 'accepted'
+    else:
+        action = 'rejected'
+
     # save known list entry for auto-reviewing of future reports
     results = db.view('csp/known_list',
                        include_docs=True, reduce=False,
@@ -51,7 +57,7 @@ def review_type_source(owner_id):
             'owner_id': owner_id,
             'review_type': review_type,
             'review_source': review_source,
-            'review_action': review_action,
+            'review_action': action: ,
             # for audit
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
