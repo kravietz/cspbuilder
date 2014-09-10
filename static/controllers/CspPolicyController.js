@@ -21,11 +21,10 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         }
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
-        $scope.db.query("csp", "approved_sources_owner",
+        $scope.db.query("csp", "known_list",
             {
-                startkey: [$scope.owner_id],
-                endkey: [$scope.owner_id, {}],
-                group: true
+                startkey: [$scope.owner_id, , , ],
+                endkey: [$scope.owner_id, {}, {}, {}],
             })
             .success(function () {
                 console.log('data loading finished');
@@ -34,24 +33,30 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 var current_list = {};
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
+                    // ["9018643792216450862", "connect-src", "http://platform.twitter.com", "accept"]
                     var type = item.key[1];
                     var src = item.key[2];
-                    if (current_type == type) {
-                        // item inside one type - add to "sources" dictionary
-                        current_list[src] = true;
-                    } else {
-                        // new type - open new dictionary
-                        if (current_type && current_list) { // save items added previously
-                            $scope.approved_list.push({
-                                'type': current_type,
-                                'sources': current_list
-                            });
+                    var action = item.key[3];
+
+                    if (action == 'accept') {
+
+                        if (current_type == type) {
+                            // item inside one type - add to "sources" dictionary
+                            current_list[src] = true;
+                        } else {
+                            // new type - open new dictionary
+                            if (current_type && current_list) { // save items added previously
+                                $scope.approved_list.push({
+                                    'type': current_type,
+                                    'sources': current_list
+                                });
+                            }
+                            current_type = type;
+                            current_list = {};
+                            // by default all sources are checked - the list is built
+                            // from items accepted by user in Analysis tab
+                            current_list[src] = true;
                         }
-                        current_type = type;
-                        current_list = {};
-                        // by default all sources are checked - the list is built
-                        // from items accepted by user in Analysis tab
-                        current_list[src] = true;
                     }
 
                 });
