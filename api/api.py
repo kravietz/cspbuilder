@@ -41,9 +41,9 @@ def review_type_source(owner_id):
 
     # convert review command to document status
     if review_action == 'accept':
-        action = 'accepted'
-    else:
-        action = 'rejected'
+            action = 'accepted'
+    if review_action == 'reject':
+            action = 'rejected'
 
     # save known list entry for auto-reviewing of future reports
     results = db.view('csp/known_list',
@@ -57,7 +57,7 @@ def review_type_source(owner_id):
             'owner_id': owner_id,
             'review_type': review_type,
             'review_source': review_source,
-            'review_action': action ,
+            'review_action': action,
             # for audit
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
@@ -69,7 +69,7 @@ def review_type_source(owner_id):
         for row in results:
             if first:
                 doc = row.doc
-                doc['review_action'] = review_action
+                doc['review_action'] = action
                 doc['client_ip'] = client_ip
                 doc['timestamp'] = start_time.isoformat()
                 db.save(doc)
@@ -84,7 +84,7 @@ def review_type_source(owner_id):
                        startkey=[owner_id, review_type, review_source],
                        endkey=[owner_id, review_type, {}]):
         doc = row.doc
-        doc['reviewed'] = review_action
+        doc['reviewed'] = action
         docs.append(doc)
 
     db.update(docs)
@@ -177,9 +177,11 @@ def read_csp_report(owner_id):
         action = row.key[3]
         # entry found, classify the new alert
         if action == 'accept':
-            output['reviewed'] = 'accepted'
-        else:
-            output['reviewed'] = 'rejected'
+            action = 'accepted'
+        if action == 'reject':
+            action = 'rejected'
+
+    output['reviewed'] = action
 
     # save current report to CouchDB
     db.save(output)
