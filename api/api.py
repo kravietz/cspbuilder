@@ -51,9 +51,10 @@ def review_type_source(owner_id):
                        startkey=[owner_id, review_type, review_source],
                        endkey=[owner_id, review_type, {}])
 
+    known_list_doc = {}
     if not len(results):
         # no entries for this type and source were found - add a new one
-        doc = {
+        known_list_doc = {
             'owner_id': owner_id,
             'review_type': review_type,
             'review_source': review_source,
@@ -62,20 +63,20 @@ def review_type_source(owner_id):
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
         }
-        db.save(doc)
+        db.save(known_list_doc)
     else:
         # entries were found, just leave one and update its action
         first = True
         for row in results:
             if first:
-                doc = row.doc
-                doc['review_action'] = action
-                doc['client_ip'] = client_ip
-                doc['timestamp'] = start_time.isoformat()
-                db.save(doc)
+                known_list_doc = row.doc
+                known_list_doc['review_action'] = action
+                known_list_doc['client_ip'] = client_ip
+                known_list_doc['timestamp'] = start_time.isoformat()
+                db.save(known_list_doc)
                 first = False
             else:
-                db.delete(doc)
+                db.delete(known_list_doc)
 
     # review old reports matching the pattern (using bulk interface)
     docs = []
@@ -85,6 +86,9 @@ def review_type_source(owner_id):
                        endkey=[owner_id, review_type, {}]):
         doc = row.doc
         doc['reviewed'] = action
+        # save the known list entry used to review this report
+        doc['review_rule'] = [owner_id, review_type, review_source, action]
+        doc['review_method'] = 'user'
         docs.append(doc)
 
     db.update(docs)
@@ -180,6 +184,10 @@ def read_csp_report(owner_id):
             action = 'accepted'
         if action == 'reject':
             action = 'rejected'
+
+        # save the known list entry used to autoreview this report
+        output['review_rule'] = row.key
+        output['review_method'] = 'auto'
 
     output['reviewed'] = action
 
