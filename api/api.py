@@ -144,6 +144,7 @@ def read_csp_report(owner_id):
 
     violated_directive = output['csp-report']['violated-directive'].split()[0]
     blocked_uri = output['csp-report']['blocked-uri']
+    document_uri = output['csp-report']['document-uri']
 
     # get basic URI template for match with known list
     r = re.match(r'^(https?://[^?#/]+)', blocked_uri)
@@ -151,6 +152,16 @@ def read_csp_report(owner_id):
         uri_template = r.group(0)
     else:
         uri_template = blocked_uri
+    # get site template to check for 'self'
+    r = re.match(r'^(https?://[^?#/]+)', document_uri)
+    if r:
+        doc_template = r.group(0)
+    else:
+        doc_template = document_uri
+
+    # check for 'self'
+    if doc_template == uri_template:
+        uri_template = '\'self\''
 
     # check list of known sources
     action = 'unknown'
