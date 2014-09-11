@@ -20,6 +20,7 @@ ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types'
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
 app = Flask(__name__)
+app.debug = True
 server = Server('http://localhost:5984/')
 db = server['csp']
 
