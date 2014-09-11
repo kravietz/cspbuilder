@@ -71,8 +71,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                         $scope.policy_message = ret.message;
                         $scope.policy_sources = ret.sources;
                     } else {
-                        // empty result set on detail open means this entry was already reviewed, update the main list
-                        delete $scope.db.rows[index];
+                        // hide given row if no results were returned
+                        $('#report-row-' + $scope.index).addClass('hidden');
                     }
                 })
                 .error(function (resp) {
