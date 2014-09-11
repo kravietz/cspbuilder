@@ -169,14 +169,14 @@ def read_csp_report(owner_id):
         # these could be  about:blank
         document_base = document_uri
 
+    print('read_csp_report type={} document_base={} blocked_uri={}'.format(violated_directive, document_base, blocked_uri))
+
     # check list of known sources
     action = 'unknown'
     review_rule = 'default'
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
-
-    print('read_csp_report found {} KL entries for {}'.format(len(results),owner_id))
 
     for row in results:
         # sample:
@@ -188,7 +188,7 @@ def read_csp_report(owner_id):
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
         if violated_directive == known_directive:
-            print('read_csp_report matched directive {} on {}'.format(violated_directive, known_directive))
+            print('read_csp_report matched directive {} on {}'.format(violated_directive, blocked_uri))
             # if blocked resource's URI is the same as origin document's URI then
             # check if it's not allowed by 'self' entry
             if fnmatch(blocked_uri, document_base + '*') and known_src == '\'self\'':
