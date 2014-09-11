@@ -192,8 +192,7 @@ def read_csp_report(owner_id):
     blocked_uri = output['csp-report']['blocked-uri']
     document_uri = output['csp-report']['document-uri']
 
-    print('read_csp_report type={} document_base={} blocked_uri={}'.format(violated_directive, document_base,
-                                                                           blocked_uri))
+    print('read_csp_report type={} blocked_uri={}'.format(violated_directive, blocked_uri))
 
     # check list of known sources
     action = 'unknown'
