@@ -24,6 +24,27 @@ app.debug = True
 server = Server('http://localhost:5984/')
 db = server['csp']
 
+
+def base_uri_match(a, b):
+    """
+    Compare origin of two URLs to check if they both come from the same origin.
+    :param a: first URL
+    :param b: second URL
+    :return: True or False
+    """
+    r = re.match(r'^(https?://[^?#/]+)', a)
+    if not r:
+        return False
+    a = r.group(1)
+
+    r = re.match(r'^(https?://[^?#/]+)', b)
+    if not r:
+        return False
+    b = r.group(1)
+
+    return a == b
+
+
 # TODO: set & verify CSRF headers
 # TODO: authentication
 @app.route('/api/<owner_id>/review', methods=['POST'])
@@ -86,10 +107,13 @@ def update_known_list(owner_id):
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
     docs = []
+    # the view does type filtering already
     for row in db.view('csp/1000_owner_type_src', include_docs=True,
                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
-        # ["9018643792216450862", "connect-src", "http://api.mixpanel.com"]
-        if fnmatch(row.key[2], review_source + '*'):
+        # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
+        # this if covers two conditions: standard known list URI match, and 'self' URI match
+        if (review_source == '\'self\'' and base_uri_match(row.key[2], row.doc['csp-report']['blocked-uri'])) \
+                or fnmatch(row.key[2], review_source + '*'):
             doc = row.doc
             doc['reviewed'] = report_status
             # save the known list entry used to review this report
@@ -168,15 +192,8 @@ def read_csp_report(owner_id):
     blocked_uri = output['csp-report']['blocked-uri']
     document_uri = output['csp-report']['document-uri']
 
-    # extract origin website's base URL for 'self' check
-    r = re.match(r'^(https?://[^?#/]+)', document_uri)
-    if r:
-        document_base = r.group(0)
-    else:
-        # these could be  about:blank
-        document_base = document_uri
-
-    print('read_csp_report type={} document_base={} blocked_uri={}'.format(violated_directive, document_base, blocked_uri))
+    print('read_csp_report type={} document_base={} blocked_uri={}'.format(violated_directive, document_base,
+                                                                           blocked_uri))
 
     # check list of known sources
     action = 'unknown'
@@ -198,8 +215,8 @@ def read_csp_report(owner_id):
             print('read_csp_report matched directive {} on {}'.format(violated_directive, blocked_uri))
             # if blocked resource's URI is the same as origin document's URI then
             # check if it's not allowed by 'self' entry
-            if fnmatch(blocked_uri, document_base + '*') and known_src == '\'self\'':
-                print('read_csp_report match \'self\' on {} and {}'.format(blocked_uri, document_base))
+            if known_src == '\'self\'' and base_uri_match(blocked_uri, document_uri):
+                print('read_csp_report match \'self\' on {} and {}'.format(blocked_uri, document_uri))
                 got_match = True
 
             if fnmatch(blocked_uri, known_src + '*'):
