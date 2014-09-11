@@ -184,7 +184,6 @@ def read_csp_report(owner_id):
         known_directive = row.key[1]
         # append '*' so that 'http://api.google.com/blah/file.js' matches ''http://*.google.com'
         known_src = row.key[2]
-        action = row.key[3]
         got_match = False
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
@@ -203,6 +202,8 @@ def read_csp_report(owner_id):
             if got_match:
                 # save the known list entry used to autoreview this report
                 review_rule = row.key
+                # actually copy the action from KL
+                action = row.key[3]
                 # stop processing other entries
                 break
 
