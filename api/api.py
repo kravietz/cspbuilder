@@ -61,6 +61,7 @@ def update_known_list(owner_id):
                 db.save(row.doc)
                 print('update_known_list saved updated KL entry {}'.format(row.doc))
                 match = True
+                break
             elif row.key[2] == review_source:
                 print('update_known_list already have value {}'.format(review_source))
             else:
@@ -81,10 +82,9 @@ def update_known_list(owner_id):
         db.save(known_list_doc)
         print('update_known_list saved new KL entry {}'.format(known_list_doc))
 
+    # review old reports matching the pattern (using bulk interface)
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
-
-    # review old reports matching the pattern (using bulk interface)
     docs = []
     for row in db.view('csp/1000_owner_type_src', include_docs=True,
                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
