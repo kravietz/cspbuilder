@@ -166,8 +166,7 @@ def read_csp_report(owner_id):
     if r:
         document_base = r.group(0)
     else:
-        # got something non-URLy which shouldn't make sense in document-uri
-        print('got weird document-uri {}'.format(document_uri))
+        # these could be  about:blank
         document_base = document_uri
 
     # check list of known sources
