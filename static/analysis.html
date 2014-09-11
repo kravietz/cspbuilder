@@ -55,6 +55,12 @@
                     </label>
                 </div>
 
+                <div class="radio">
+                    <label>
+                        Custom: <input name="policy_choice" type="text" ng-model="$parent.policy_choice" value="{{policy_type}} {{src}}">
+                    </label>
+                </div>
+
             </div>
 
             <div class="alert alert-warning" role="alert" ng-show="policy_message">
