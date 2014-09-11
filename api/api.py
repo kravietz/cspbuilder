@@ -5,6 +5,7 @@ import os
 from datetime import datetime, timezone
 from flask import Flask, request, abort
 from couchdb import Server
+from fnmatch import fnmatch
 import re
 
 __author__ = 'pawelkrawczyk'
@@ -21,6 +22,7 @@ COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 app = Flask(__name__)
 server = Server('http://localhost:5984/')
 db = server['csp']
+
 
 # TODO: set & verify CSRF headers
 # TODO: authentication
@@ -113,7 +115,7 @@ def delete_all_reports(owner_id):
         doc = row.doc
         doc['_deleted'] = True
         docs.append(doc)
-
+    
     db.update(docs)
 
     stop_time = datetime.now(timezone.utc)
@@ -161,47 +163,50 @@ def read_csp_report(owner_id):
     blocked_uri = output['csp-report']['blocked-uri']
     document_uri = output['csp-report']['document-uri']
 
-    # get basic URI template for match with known list
-    r = re.match(r'^(https?://[^?#/]+)', blocked_uri)
-    if r:
-        uri_template = r.group(0)
-    else:
-        uri_template = blocked_uri
-    # get site template to check for 'self'
+    # extract origin website's base URL for 'self' check
     r = re.match(r'^(https?://[^?#/]+)', document_uri)
     if r:
-        doc_template = r.group(0)
+        document_base = r.group(0)
     else:
-        doc_template = document_uri
-
-    # check for 'self'
-    if doc_template == uri_template:
-        uri_template = '\'self\''
+        # got something non-URLy which shouldn't make sense in document-uri
+        print('got weird document-uri {}'.format(document_uri))
+        document_base = document_uri
 
     # check list of known sources
     action = 'unknown'
     review_rule = 'default'
 
-    results = db.view('csp/known_list',
-                       startkey=[owner_id, violated_directive, uri_template, ""],
-                       endkey=[owner_id, violated_directive, uri_template, {}])
+    results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
 
-    print('read_csp_report found {} KL entries for report: {} {}'.format(len(results), violated_directive, uri_template))
+    print('read_csp_report found {} KL entries for report: {} {}'.format(len(results), violated_directive, blocked_uri))
 
     for row in results:
+        # sample:
+        # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
+        known_directive = row.key[1]
+        # append '*' so that 'http://api.google.com/blah/file.js' matches ''http://*.google.com'
+        known_src = row.key[2]
         action = row.key[3]
-        # entry found, classify the new alert
-        if action == 'accept':
-            action = 'accepted'
-        if action == 'reject':
-            action = 'rejected'
-
-        # save the known list entry used to autoreview this report
-        review_rule = row.key
+        got_match = False
+        # only process relevant directives
+        # ownership is already limited at view level (startkey,endkey)
+        if violated_directive == known_directive:
+            # if blocked resource's URI is the same as origin document's URI then
+            # check if it's not allowed by 'self' entry
+            if fnmatch(blocked_uri, document_base + '*') and known_src == '\'self\'':
+                got_match = True
+            if fnmatch(blocked_uri, known_src + '*'):
+                got_match = True
+            if got_match:
+                # save the known list entry used to autoreview this report
+                review_rule = row.key
+                # stop processing other entries
+                break
 
     output['review_rule'] = review_rule
     output['review_method'] = 'auto'
-    output['reviewed'] = action
+    action_to_status = { 'accept': 'accepted', 'reject': 'rejected'}
+    output['reviewed'] = action_to_status[action]
 
     # save current report to CouchDB
     db.save(output)
