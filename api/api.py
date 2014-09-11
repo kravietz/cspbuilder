@@ -115,8 +115,9 @@ def delete_all_reports(owner_id):
         doc = row.doc
         doc['_deleted'] = True
         docs.append(doc)
-    
-    db.update(docs)
+
+    if(docs):
+        db.update(docs)
 
     stop_time = datetime.now(timezone.utc)
     print('delete_all_reports {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
