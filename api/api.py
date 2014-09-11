@@ -57,9 +57,14 @@ def update_known_list(owner_id):
             if fnmatch(row.key[2], review_source + '*'):
                 # new entry is shorter and more general - use it
                 row.doc['review_source'] = review_source
+                row.doc['review_method'] = 'user'
                 db.save(row.doc)
                 print('update_known_list saved updated KL entry {}'.format(row.doc))
                 match = True
+            elif row.key[2] == review_source:
+                print('update_known_list already have value {}'.format(review_source))
+            else:
+                print('update_known_list don\'t know what to do with {} {}'.format(review_directive, review_source))
 
     if not match:
         # means the KL was not updated, create a new entry
@@ -69,6 +74,7 @@ def update_known_list(owner_id):
             'review_source': review_source,
             'review_action': review_action,
             # for audit
+            'review_method': 'user',
             'client_ip': client_ip,
             'timestamp': start_time.isoformat(),
         }
