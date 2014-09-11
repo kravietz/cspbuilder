@@ -79,7 +79,6 @@ def update_known_list(owner_id):
 
     # review old reports matching the pattern (using bulk interface)
     docs = []
-    i = 0
     for row in db.view('csp/1000_owner_type_src', include_docs=True,
                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
         # ["9018643792216450862", "connect-src", "http://api.mixpanel.com"]
@@ -90,12 +89,11 @@ def update_known_list(owner_id):
             doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
             doc['review_method'] = 'user'
             docs.append(doc)
-            i += 1
 
     if docs:
         db.update(docs)
 
-    print('update_known_list updated status of {} existing reports'.format(i))
+    print('update_known_list updated status of {} existing reports'.format(len(docs)))
 
     stop_time = datetime.now(timezone.utc)
     print('update_known_list {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
@@ -118,7 +116,8 @@ def delete_all_reports(owner_id):
         db.update(docs)
 
     stop_time = datetime.now(timezone.utc)
-    print('delete_all_reports {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
+    print('delete_all_reports {} {} {} {} deleted {} reports'.format(start_time, client_ip, request.url,
+                                                                     stop_time - start_time, len(docs)))
 
     return '', 204, []
 
