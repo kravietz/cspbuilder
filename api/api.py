@@ -176,7 +176,7 @@ def read_csp_report(owner_id):
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
 
-    print('read_csp_report found {} KL entries for report: {} {}'.format(len(results), violated_directive, blocked_uri))
+    print('read_csp_report found {} KL entries for {}'.format(len(results),owner_id))
 
     for row in results:
         # sample:
@@ -189,12 +189,17 @@ def read_csp_report(owner_id):
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
         if violated_directive == known_directive:
+            print('read_csp_report matched directive {} on {}'.format(violated_directive, known_directive))
             # if blocked resource's URI is the same as origin document's URI then
             # check if it's not allowed by 'self' entry
             if fnmatch(blocked_uri, document_base + '*') and known_src == '\'self\'':
+                print('read_csp_report match \'self\' on {} and {}'.format(blocked_uri, document_base))
                 got_match = True
+
             if fnmatch(blocked_uri, known_src + '*'):
+                print('read_csp_report match on {} and {}'.format(blocked_uri, known_src))
                 got_match = True
+
             if got_match:
                 # save the known list entry used to autoreview this report
                 review_rule = row.key
@@ -203,7 +208,7 @@ def read_csp_report(owner_id):
 
     output['review_rule'] = review_rule
     output['review_method'] = 'auto'
-    action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
+    action_to_status = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
     output['reviewed'] = action_to_status[action]
 
     # save current report to CouchDB
