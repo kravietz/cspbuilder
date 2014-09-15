@@ -24,7 +24,7 @@ function gen_uri_variants(blocked_uri) {
         variants = variants.slice(0, 5);
     }
     console.log('variants=' + variants);
-    return {'message':'gen_uri_variants', 'sources':variants};
+    return {'message':'Choose URI pattern to allow. Shorter patterns will allow all the longer patterns as well.', 'sources':variants};
 
 }
 
@@ -42,10 +42,10 @@ function null_url_guesswork(csp) {
         // check if inline was already allowed on blocked page
         if (violated_directive.indexOf('unsafe-inline') > 0) {
             // yes, it must have been eval()
-            return {'message':'null_url_guesswork', 'sources':eval_first};
+            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow eval().', 'sources':eval_first};
         } else {
             // no, try inline first
-            return {'message':'null_url_guesswork', 'sources':inline_first};
+            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow inline.', 'sources':inline_first};
         }
 
     // scripts
@@ -53,9 +53,9 @@ function null_url_guesswork(csp) {
 
         // the same heuristics as above
         if (violated_directive.indexOf('unsafe-inline') > 0) {
-            return {'message':'null_url_guesswork', 'sources':eval_first};
+            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow eval().', 'sources':eval_first};
         } else {
-            return {'message':'null_url_guesswork', 'sources':inline_first};
+            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow inline.', 'sources':inline_first};
         }
 
     // something else?
@@ -64,7 +64,7 @@ function null_url_guesswork(csp) {
     }
 
     // this might be for object-src where inline makes more sense...
-    return {'message':'null_url_guesswork (non-standard type)', 'sources':inline_first};
+    return {'message':'Normally this directive should not generate inline and/or eval() reports, please inspect it carefully before allowing.', 'sources':inline_first};
 } // null_url_guesswork
 
 // for 'http://url.com:80/path/path' return 'http://url.com:80'
