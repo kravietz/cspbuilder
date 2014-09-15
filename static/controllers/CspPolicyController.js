@@ -12,7 +12,12 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             'default': false,
             'referrer': 'none',
             'reflected_xss': 'block',
-            'header_format': 'standard'
+            'header_format': 'standard',
+            'plugin_types': [
+                'application/pdf',
+                'application/x-shockwave-flash',
+                'application/java'
+            ]
         };
 
         $scope.owner_id = $cookieStore.get('owner_id');
@@ -142,6 +147,26 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                     }
                 }
                 policy += '; ';
+            }
+
+            switch($scope.csp_config.referrer) {
+                case 'no-referrer':
+                    policy += 'referrer no-referrer; '
+                    break;
+                case 'no-referrer-when-downgrade':
+                    policy += 'referrer no-referrer-when-downgrade; '
+                    break;
+                case 'origin':
+                    policy += 'origin; '
+                    break;
+                case 'origin-when-cross-origin':
+                    policy += 'origin-when-cross-origin; '
+                    break;
+                case 'unsafe-url':
+                    policy += 'unsafe-url; '
+                    break;
+                default: // none
+                    // do nothing, do not add the directive
             }
 
             // add default source

@@ -19,7 +19,7 @@
 
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.reflected_xss" value="none" checked>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="none">
                 None
             </label>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.reflected_xss" value="block" checked>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="block">
                 Block
             </label>
         </div>
@@ -48,13 +48,13 @@
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.header_format" value="xcsp" checked>
+                <input type="radio" ng-model="csp_config.header_format" value="xcsp">
                 <code>X-Content-Security-Policy</code>
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.header_format" value="webkit" checked>
+                <input type="radio" ng-model="csp_config.header_format" value="webkit">
                 <code>X-WebKit-CSP</code>
             </label>
         </div>
@@ -71,34 +71,41 @@
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.referrer" value="no-referrer" checked>
+                <input type="radio" ng-model="csp_config.referrer" value="no-referrer">
                 No referrer
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.referrer" value="no-referrer-when-downgrade" checked>
+                <input type="radio" ng-model="csp_config.referrer" value="no-referrer-when-downgrade">
                 No referrer when downgrade
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.referrer" value="origin" checked>
+                <input type="radio" ng-model="csp_config.referrer" value="origin">
                 Origin
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.referrer" value="origin-when-cross-origin" checked>
+                <input type="radio" ng-model="csp_config.referrer" value="origin-when-cross-origin">
                 Origin when cross-origin
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" ng-model="csp_config.referrer" value="unsafe-url" checked>
+                <input type="radio" ng-model="csp_config.referrer" value="unsafe-url">
                 Unsafe URL
             </label>
         </div>
+    </div>
+
+    <div class="col-md-2">
+        <h5>Plugin types</h5>
+
+        <select multiple class="form-control" ng-model="for plugin_type in csp_config.plugin_types"></select>
+
     </div>
 
 
