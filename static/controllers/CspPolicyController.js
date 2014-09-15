@@ -18,7 +18,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 'application/x-shockwave-flash',
                 'application/java'
             ],
-            'plugin_choice': null
+            'plugin_choice': []
         };
 
         $scope.owner_id = $cookieStore.get('owner_id');
@@ -30,7 +30,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         $scope.db.query("csp", "known_list",
             {
                 startkey: [$scope.owner_id, , , ],
-                endkey: [$scope.owner_id, {}, {}, {}],
+                endkey: [$scope.owner_id, {}, {}, {}]
             })
             .success(function () {
                 console.log('data loading finished');
