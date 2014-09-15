@@ -150,6 +150,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 policy += '; ';
             }
 
+            // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-referrer
             switch($scope.csp_config.referrer) {
                 case 'no-referrer':
                     policy += 'referrer no-referrer; '
@@ -168,6 +169,15 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                     break;
                 default: // none
                     // do nothing, do not add the directive
+            }
+
+            // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-plugin-types
+            if($scope.csp_config.plugin_choice.length) {
+                policy += 'plugin-types ';
+                for (var i = 0; i < $scope.csp_config.plugin_choice.length; i++) {
+                    policy += $scope.csp_config.plugin_choice[i];
+                }
+                policy += '; ';
             }
 
             // add default source
