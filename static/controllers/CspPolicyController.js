@@ -158,13 +158,13 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                     policy += 'referrer no-referrer-when-downgrade; '
                     break;
                 case 'origin':
-                    policy += 'origin; '
+                    policy += 'referrer origin; '
                     break;
                 case 'origin-when-cross-origin':
-                    policy += 'origin-when-cross-origin; '
+                    policy += 'referrer origin-when-cross-origin; '
                     break;
                 case 'unsafe-url':
-                    policy += 'unsafe-url; '
+                    policy += 'referrer unsafe-url; '
                     break;
                 default: // none
                     // do nothing, do not add the directive
