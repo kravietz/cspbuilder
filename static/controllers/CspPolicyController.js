@@ -176,6 +176,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 policy += 'plugin-types ';
                 for (var i = 0; i < $scope.csp_config.plugin_choice.length; i++) {
                     policy += $scope.csp_config.plugin_choice[i];
+                    policy += ' ';
                 }
                 policy += '; ';
             }
