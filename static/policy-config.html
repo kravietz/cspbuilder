@@ -104,7 +104,7 @@
     <div class="col-md-2">
         <h5>Plugin types</h5>
 
-        <select multiple class="form-control" ng-model="for plugin_type in csp_config.plugin_types"></select>
+        <select multiple class="form-control" ng-model="csp_config.plugin_choice" ng-options="plugin_type for plugin_type in csp_config.plugin_types"></select>
 
     </div>
 

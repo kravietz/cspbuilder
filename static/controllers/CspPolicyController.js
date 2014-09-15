@@ -17,7 +17,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 'application/pdf',
                 'application/x-shockwave-flash',
                 'application/java'
-            ]
+            ],
+            'plugin_choice': null
         };
 
         $scope.owner_id = $cookieStore.get('owner_id');
