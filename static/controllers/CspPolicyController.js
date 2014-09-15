@@ -150,6 +150,19 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 policy += '; ';
             }
 
+            // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
+            switch($scope.reflected_xss) {
+                case 'block':
+                    policy += 'reflected-xss block; ';
+                    break;
+                case 'filter':
+                    policy += 'reflected-xss filter; ';
+                    break;
+                case 'allow':
+                    policy += 'reflected-xss allow; ';
+                    break;
+            }
+
             // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-referrer
             switch($scope.csp_config.referrer) {
                 case 'no-referrer':
