@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/analysis.html" afterPath="$PROJECT_DIR$/static/analysis.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/app/app.js" afterPath="$PROJECT_DIR$/static/app/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/known.html" afterPath="$PROJECT_DIR$/static/known.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/policy-config.html" afterPath="$PROJECT_DIR$/static/policy-config.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/top-menu.html" afterPath="$PROJECT_DIR$/static/top-menu.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -63,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1559792" vertical-offset="0" max-vertical-offset="1005">
-              <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
+              <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -76,8 +72,18 @@
       <file leaf-file-name="known.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/known.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="495">
-              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="495">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="top-menu.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/top-menu.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5153707" vertical-offset="0" max-vertical-offset="553">
+              <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -137,9 +143,9 @@
         <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
-        <option value="$PROJECT_DIR$/static/top-menu.html" />
         <option value="$PROJECT_DIR$/static/app/app.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
+        <option value="$PROJECT_DIR$/static/top-menu.html" />
       </list>
     </option>
   </component>
@@ -1780,7 +1786,19 @@
       <created>1411767272391</created>
       <updated>1411767272391</updated>
     </task>
-    <option name="localTasksCounter" value="273" />
+    <task id="LOCAL-00273" summary="move login check to separate controller">
+      <created>1411767688120</created>
+      <updated>1411767688120</updated>
+    </task>
+    <task id="LOCAL-00274" summary="display navbar only if logged in">
+      <created>1411767779281</created>
+      <updated>1411767779282</updated>
+    </task>
+    <task id="LOCAL-00275" summary="add descriptions">
+      <created>1411767804219</created>
+      <updated>1411767804219</updated>
+    </task>
+    <option name="localTasksCounter" value="276" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1824,9 +1842,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="derive number of updated records from array size" />
-    <MESSAGE value="document-uri can be about:blank" />
-    <MESSAGE value="further fixes, more debugging" />
     <MESSAGE value="typo" />
     <MESSAGE value="minor fixes in user interface" />
     <MESSAGE value="additional logging" />
@@ -1849,7 +1864,10 @@
     <MESSAGE value="init plugin choice to be []" />
     <MESSAGE value="add support for reflected-xss" />
     <MESSAGE value="move login check to app.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="move login check to app.js" />
+    <MESSAGE value="move login check to separate controller" />
+    <MESSAGE value="display navbar only if logged in" />
+    <MESSAGE value="add descriptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="add descriptions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2205,22 +2223,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/known.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="495">
-          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/top-menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13562387" vertical-offset="0" max-vertical-offset="553">
-          <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36395147" vertical-offset="0" max-vertical-offset="577">
@@ -2234,8 +2236,24 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1559792" vertical-offset="0" max-vertical-offset="1005">
-          <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/known.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="495">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/top-menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5153707" vertical-offset="0" max-vertical-offset="553">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
           <folding />
         </state>
       </provider>
