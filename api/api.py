@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from flask import Flask, request, abort
 from couchdb import Server
 from fnmatch import fnmatch
+from http.client import BadStatusLine
 import re
 
 __author__ = 'pawelkrawczyk'
@@ -41,7 +42,7 @@ def base_uri_match(a, b):
     if not r:
         return False
     b = r.group(1)
-s
+
     return a == b
 
 
@@ -64,7 +65,11 @@ def update_known_list(owner_id):
 
     # update known list entry
     # first check if there's such entry already
-    results = db.view('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}])
+    try:
+        results = db.view('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}])
+    except (AttributeError, BadStatusLine) as e:
+        print('read_csp_report exception {}'.format(e))
+        return '', 204, []
 
     match = False
 
@@ -201,8 +206,13 @@ def read_csp_report(owner_id):
     review_rule = 'default'
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
-    results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
-    print('read_csp_report known_list={}'.format(results))
+    try:
+        results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
+    except BadStatusLine as e:
+        print('read_csp_report exception {}'.format(e))
+        return '', 204, []
+
+    print('read_csp_report {} known_list={}'.format(len(results), results))
 
     for row in results:
         # sample:
@@ -214,15 +224,15 @@ def read_csp_report(owner_id):
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
         if violated_directive == known_directive:
-            print('read_csp_report matched directive {} on {}'.format(violated_directive, blocked_uri))
+            print('read_csp_report matched directive violated_directive={} on blocked_uri={}'.format(violated_directive, blocked_uri))
             # if blocked resource's URI is the same as origin document's URI then
             # check if it's not allowed by 'self' entry
             if known_src == '\'self\'' and base_uri_match(blocked_uri, document_uri):
-                print('read_csp_report match \'self\' on {} and {}'.format(blocked_uri, document_uri))
+                print('read_csp_report match \'self\' on blocked_uri={} and document_uri={}'.format(blocked_uri, document_uri))
                 got_match = True
 
             if fnmatch(blocked_uri, known_src + '*'):
-                print('read_csp_report match on {} and {}'.format(blocked_uri, known_src))
+                print('read_csp_report match on KL blocked_uri={} and known_src={}'.format(blocked_uri, known_src))
                 got_match = True
 
             if got_match:
