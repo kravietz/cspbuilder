@@ -1,3 +1,28 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
-<div class="alert alert-warning" role="alert">Nothing here yet!</div>
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-condensed">
+                <thead>
+                <tr>
+
+                    <th>Type</th>
+                    <th>Resource origin</th>
+                    <th>Action</th>
+                    <th>Tools</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="src in db.rows track by $index" title="{{src}}" id="report-row-{{$index}}">
+                    <td>{{src.key[1]}}</td>
+                    <td>{{src.key[2]}}</td>
+                    <td>{{src.key[3]}}</td>
+                    <td>
+                        <span class="text-danger glyphicon glyphicon-remove" ng-click="delete($index)"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
