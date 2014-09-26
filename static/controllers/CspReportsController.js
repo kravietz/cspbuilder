@@ -7,11 +7,6 @@
 cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'cornercouch', '$window', '$http',
     function ($scope, $cookieStore, cornercouch, $window, $http) {
 
-        $scope.owner_id = $cookieStore.get('owner_id');
-        if (!$scope.owner_id) {
-            $window.location.href = '/static/#/login';
-        }
-
         $scope.blocked = true; // for infinite scroll
         $('#reports-prev-button').addClass('disabled');
         $scope.index = 0;

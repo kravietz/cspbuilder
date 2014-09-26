@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/app.js" afterPath="$PROJECT_DIR$/static/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" afterPath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" afterPath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspReportsController.js" afterPath="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/analysis.html" afterPath="$PROJECT_DIR$/static/analysis.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/app/app.js" afterPath="$PROJECT_DIR$/static/app/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/known.html" afterPath="$PROJECT_DIR$/static/known.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/policy-config.html" afterPath="$PROJECT_DIR$/static/policy-config.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
+    <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
     <ignored path="csp2.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +22,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
+    <option name="PATCH_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
@@ -26,31 +33,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="top-menu.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/top-menu.html">
+      <file leaf-file-name="CspAnalysisController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="390">
-              <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1695">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/styles.css">
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="480">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
+              <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="policy.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/policy.html">
+      <file leaf-file-name="api.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="525">
-              <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3075" max-vertical-offset="4125">
+              <caret line="205" column="27" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -59,38 +66,48 @@
       <file leaf-file-name="CspPolicyController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="555" max-vertical-offset="1350">
-              <caret line="60" column="10" selection-start-line="60" selection-start-column="10" selection-end-line="60" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3375">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CspAnalysisController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
-              <caret line="27" column="10" selection-start-line="23" selection-start-column="8" selection-end-line="27" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CspReportsController.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="CspReportsController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspReportsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1410">
-              <caret line="4" column="73" selection-start-line="4" selection-start-column="73" selection-end-line="4" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.24368231" vertical-offset="0" max-vertical-offset="1680">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/app.js">
+      <file leaf-file-name="analysis.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/analysis.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-              <caret line="0" column="50" selection-start-line="0" selection-start-column="50" selection-end-line="0" selection-end-column="50" />
+            <state vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="1680">
+              <caret line="32" column="20" selection-start-line="15" selection-start-column="12" selection-end-line="32" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="known.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/known.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="495">
+              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CspKnownController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+              <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -99,18 +116,8 @@
       <file leaf-file-name="CspLoginController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspLoginController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-              <caret line="0" column="89" selection-start-line="0" selection-start-column="89" selection-end-line="0" selection-end-column="89" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="210">
-              <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -124,6 +131,7 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="SYNC_SETTING" value="DONT" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -131,26 +139,46 @@
       <list>
         <option value="$PROJECT_DIR$/collector/collector.ini" />
         <option value="$PROJECT_DIR$/static/ionic.js" />
-        <option value="$PROJECT_DIR$/uwsgi.ini" />
-        <option value="$PROJECT_DIR$/collector/collector.py" />
         <option value="$PROJECT_DIR$/couchdb/design.py" />
         <option value="$PROJECT_DIR$/static/report-list.html" />
         <option value="$PROJECT_DIR$/static/report-details.html" />
         <option value="$PROJECT_DIR$/static/live.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspListController.js" />
         <option value="$PROJECT_DIR$/collector/test.py" />
-        <option value="$PROJECT_DIR$/static/styles.css" />
-        <option value="$PROJECT_DIR$/static/analysis.html" />
-        <option value="$PROJECT_DIR$/static/reports.html" />
-        <option value="$PROJECT_DIR$/static/policy.html" />
-        <option value="$PROJECT_DIR$/static/index.html" />
         <option value="$PROJECT_DIR$/static/login.html" />
-        <option value="$PROJECT_DIR$/static/top-menu.html" />
+        <option value="$PROJECT_DIR$/uwsgi.ini" />
+        <option value="$PROJECT_DIR$/collector/util.py" />
+        <option value="$PROJECT_DIR$/static/controllers/test.js" />
+        <option value="$PROJECT_DIR$/collector/init_views.py" />
+        <option value="$PROJECT_DIR$/static/ng-infinite-scroll.js" />
+        <option value="$PROJECT_DIR$/static/js/policy.js" />
+        <option value="$PROJECT_DIR$/static/app.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
+        <option value="$PROJECT_DIR$/collector/collector.py" />
+        <option value="$PROJECT_DIR$/static/reports.html" />
+        <option value="$PROJECT_DIR$/static/app/aaa.js" />
+        <option value="$PROJECT_DIR$/collector/couchdb/grouped_types_sources/reduce.js" />
+        <option value="$PROJECT_DIR$/static/styles.css" />
+        <option value="$PROJECT_DIR$/static/index.html" />
+        <option value="$PROJECT_DIR$/collector/couchdb/known_list/reduce.js" />
+        <option value="$PROJECT_DIR$/static/top-menu.html" />
+        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+        <option value="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
+        <option value="$PROJECT_DIR$/collector/couchdb/approved_reports/map.js" />
+        <option value="$PROJECT_DIR$/collector/couchdb/approved_reports/reduce.js" />
+        <option value="$PROJECT_DIR$/collector/couchdb/grouped_types_sources/map.js" />
+        <option value="$PROJECT_DIR$/api/api.py" />
+        <option value="$PROJECT_DIR$/static/policy.html" />
+        <option value="$PROJECT_DIR$/etc/rsa-cert.pem" />
+        <option value="$PROJECT_DIR$/etc/rsa-key.pem" />
+        <option value="$PROJECT_DIR$/static/app/policy.js" />
+        <option value="$PROJECT_DIR$/static/policy-config.html" />
+        <option value="$PROJECT_DIR$/static/analysis.html" />
+        <option value="$PROJECT_DIR$/static/known.html" />
+        <option value="$PROJECT_DIR$/static/app/app.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
-        <option value="$PROJECT_DIR$/static/app.js" />
       </list>
     </option>
   </component>
@@ -159,11 +187,33 @@
     <option name="width" value="1280" />
     <option name="height" value="697" />
   </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Portability issues</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Buildout</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="false" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
     <ConfirmationsSetting value="0" id="Add" />
@@ -245,7 +295,119 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="etc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="collector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="collector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="couchdb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="known_list" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="collector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="couchdb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grouped_types_sources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="collector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="couchdb" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="approved_reports" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -256,13 +418,17 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="preferences.pluginManager" />
+    <property name="options.lastSelected" value="vcs.Git" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/collector/couchdb" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
+    <property name="LayoutCode.rearrangeEntriesPlain text" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="LayoutCode.rearrangeEntriesJavaScript" value="false" />
+    <property name="LayoutCode.rearrangeEntriesPython" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -271,10 +437,154 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/collector/couchdb" />
       <recent name="$PROJECT_DIR$/static" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/etc" />
+      <recent name="$PROJECT_DIR$/collector/couchdb/grouped_types_sources" />
+      <recent name="$PROJECT_DIR$/static/js" />
+      <recent name="$PROJECT_DIR$/static/app" />
+    </key>
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="Moments ago" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/api/api.py</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/uwsgi.ini</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -285,6 +595,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -309,6 +620,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -332,8 +644,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -346,6 +662,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -358,6 +675,9 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -368,6 +688,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -387,6 +708,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csp2" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
@@ -400,11 +722,12 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" myUseAcceleration="nothing">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="" />
+      <changelist id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
       <created>1408534096895</created>
       <updated>1408534096895</updated>
     </task>
@@ -412,28 +735,1109 @@
       <created>1409583543277</created>
       <updated>1409583543277</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="no slash in CouchDB addr">
+      <created>1409583611031</created>
+      <updated>1409583611031</updated>
+    </task>
+    <task id="LOCAL-00003" summary="locally hosted wait icon">
+      <created>1409583869692</created>
+      <updated>1409583869692</updated>
+    </task>
+    <task id="LOCAL-00004" summary="no slash in CouchDB addr">
+      <created>1409585326123</created>
+      <updated>1409585326123</updated>
+    </task>
+    <task id="LOCAL-00005" summary="limit by screen rows">
+      <created>1409596440665</created>
+      <updated>1409596440665</updated>
+    </task>
+    <task id="LOCAL-00006" summary="take size of body">
+      <created>1409596526452</created>
+      <updated>1409596526452</updated>
+    </task>
+    <task id="LOCAL-00007" summary="get size of  '#reports-left-list'">
+      <created>1409596648671</created>
+      <updated>1409596648671</updated>
+    </task>
+    <task id="LOCAL-00008" summary="display more info in all reports list">
+      <created>1409596863073</created>
+      <updated>1409596863073</updated>
+    </task>
+    <task id="LOCAL-00009" summary="more spacing">
+      <created>1409596917384</created>
+      <updated>1409596917384</updated>
+    </task>
+    <task id="LOCAL-00010" summary="improve sources_key_owner map function to support data and hostname match">
+      <created>1409600231865</created>
+      <updated>1409600231865</updated>
+    </task>
+    <task id="LOCAL-00011" summary="display meta data in smaller font">
+      <created>1409600351630</created>
+      <updated>1409600351630</updated>
+    </task>
+    <task id="LOCAL-00012" summary="less logging">
+      <created>1409601527532</created>
+      <updated>1409601527532</updated>
+    </task>
+    <task id="LOCAL-00013" summary="less logging">
+      <created>1409601543968</created>
+      <updated>1409601543968</updated>
+    </task>
+    <task id="LOCAL-00014" summary="use normalised source URL">
+      <created>1409601871793</created>
+      <updated>1409601871793</updated>
+    </task>
+    <task id="LOCAL-00015" summary="missing )">
+      <created>1409601920649</created>
+      <updated>1409601920649</updated>
+    </task>
+    <task id="LOCAL-00016" summary="normalize function forgot to return value...">
+      <created>1409602036678</created>
+      <updated>1409602036678</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix variable name">
+      <created>1409602048357</created>
+      <updated>1409602048357</updated>
+    </task>
+    <task id="LOCAL-00018" summary="try if $index will work on table rows">
+      <created>1409603357184</created>
+      <updated>1409603357184</updated>
+    </task>
+    <task id="LOCAL-00019" summary="highlight rows">
+      <created>1409603639010</created>
+      <updated>1409603639010</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix row highlighting">
+      <created>1409603768368</created>
+      <updated>1409603768368</updated>
+    </task>
+    <task id="LOCAL-00021" summary="table-hover &amp; stripe messes up with highlight">
+      <created>1409603820854</created>
+      <updated>1409603820858</updated>
+    </task>
+    <task id="LOCAL-00022" summary="explain policy generation">
+      <created>1409604600687</created>
+      <updated>1409604600687</updated>
+    </task>
+    <task id="LOCAL-00023" summary="remove debugging data">
+      <created>1409604626126</created>
+      <updated>1409604626126</updated>
+    </task>
+    <task id="LOCAL-00024" summary="render  form in small text">
+      <created>1409604659452</created>
+      <updated>1409604659452</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add highlight to reports">
+      <created>1409606973865</created>
+      <updated>1409606973865</updated>
+    </task>
+    <task id="LOCAL-00026" summary="change container to class">
+      <created>1409607244448</created>
+      <updated>1409607244448</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add header">
+      <created>1409607329166</created>
+      <updated>1409607329166</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add default-src and reflected-xss">
+      <created>1409608405107</created>
+      <updated>1409608405107</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add ; separators">
+      <created>1409608444376</created>
+      <updated>1409608444376</updated>
+    </task>
+    <task id="LOCAL-00030" summary="policy entries should not have :">
+      <created>1409608613596</created>
+      <updated>1409608613596</updated>
+    </task>
+    <task id="LOCAL-00031" summary="embed self in quotes">
+      <created>1409608853602</created>
+      <updated>1409608853602</updated>
+    </task>
+    <task id="LOCAL-00032" summary="add debug pre back">
+      <created>1409609052199</created>
+      <updated>1409609052199</updated>
+    </task>
+    <task id="LOCAL-00033" summary="render as JSON">
+      <created>1409609084689</created>
+      <updated>1409609084689</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix how approved_list is generated">
+      <created>1409609521276</created>
+      <updated>1409609521276</updated>
+    </task>
+    <task id="LOCAL-00035" summary="add frame-ancestors">
+      <created>1409609693361</created>
+      <updated>1409609693361</updated>
+    </task>
+    <task id="LOCAL-00036" summary="add report-uri">
+      <created>1409609864292</created>
+      <updated>1409609864292</updated>
+    </task>
+    <task id="LOCAL-00037" summary="view should not discard reports with empty (&quot;&quot;) blocked-uri">
+      <created>1409610824335</created>
+      <updated>1409610824335</updated>
+    </task>
+    <task id="LOCAL-00038" summary="better logging">
+      <created>1409656559055</created>
+      <updated>1409656559055</updated>
+    </task>
+    <task id="LOCAL-00039" summary="log violated-directive">
+      <created>1409656934746</created>
+      <updated>1409656934746</updated>
+    </task>
+    <task id="LOCAL-00040" summary="improve source normalizing heuristics">
+      <created>1409659060131</created>
+      <updated>1409659060131</updated>
+    </task>
+    <task id="LOCAL-00041" summary="add static favicon.ico">
+      <created>1409659330548</created>
+      <updated>1409659330548</updated>
+    </task>
+    <task id="LOCAL-00042" summary="i can't haz tabz?">
+      <created>1409659384710</created>
+      <updated>1409659384710</updated>
+    </task>
+    <task id="LOCAL-00043" summary="i can't haz tabz?">
+      <created>1409659969440</created>
+      <updated>1409659969440</updated>
+    </task>
+    <task id="LOCAL-00044" summary="typo">
+      <created>1409661424256</created>
+      <updated>1409661424256</updated>
+    </task>
+    <task id="LOCAL-00045" summary="save approved &quot;&quot; sources as &quot;null&quot;">
+      <created>1409668711696</created>
+      <updated>1409668711696</updated>
+    </task>
+    <task id="LOCAL-00046" summary="save approved &quot;&quot; sources as &quot;null&quot;">
+      <created>1409669013960</created>
+      <updated>1409669013961</updated>
+    </task>
+    <task id="LOCAL-00047" summary="implement reset of approved sources">
+      <created>1409669577972</created>
+      <updated>1409669577972</updated>
+    </task>
+    <task id="LOCAL-00048" summary="forgot {}">
+      <created>1409669649240</created>
+      <updated>1409669649240</updated>
+    </task>
+    <task id="LOCAL-00049" summary="forgot {}">
+      <created>1409669763215</created>
+      <updated>1409669763215</updated>
+    </task>
+    <task id="LOCAL-00050" summary="typos">
+      <created>1409669834784</created>
+      <updated>1409669834784</updated>
+    </task>
+    <task id="LOCAL-00051" summary="minor fixes">
+      <created>1409669935854</created>
+      <updated>1409669935855</updated>
+    </task>
+    <task id="LOCAL-00052" summary="fix null blocked-uris on flight">
+      <created>1409673006243</created>
+      <updated>1409673006243</updated>
+    </task>
+    <task id="LOCAL-00053" summary="util script">
+      <created>1409673531785</created>
+      <updated>1409673531785</updated>
+    </task>
+    <task id="LOCAL-00054" summary="new view syntax">
+      <created>1409682614313</created>
+      <updated>1409682614314</updated>
+    </task>
+    <task id="LOCAL-00055" summary="typo">
+      <created>1409683106971</created>
+      <updated>1409683106972</updated>
+    </task>
+    <task id="LOCAL-00056" summary="typo">
+      <created>1409683197810</created>
+      <updated>1409683197810</updated>
+    </task>
+    <task id="LOCAL-00057" summary="fix order of columns">
+      <created>1409683241570</created>
+      <updated>1409683241570</updated>
+    </task>
+    <task id="LOCAL-00058" summary="approve sources in database">
+      <created>1409688086660</created>
+      <updated>1409688086660</updated>
+    </task>
+    <task id="LOCAL-00059" summary="typos">
+      <created>1409688178132</created>
+      <updated>1409688178132</updated>
+    </task>
+    <task id="LOCAL-00060" summary="typos">
+      <created>1409688249653</created>
+      <updated>1409688249654</updated>
+    </task>
+    <task id="LOCAL-00061" summary="add bulk update">
+      <created>1409688400309</created>
+      <updated>1409688400309</updated>
+    </task>
+    <task id="LOCAL-00062" summary="formatting">
+      <created>1409689376162</created>
+      <updated>1409689376162</updated>
+    </task>
+    <task id="LOCAL-00063" summary="temp">
+      <created>1409689632166</created>
+      <updated>1409689632166</updated>
+    </task>
+    <task id="LOCAL-00064" summary="temp">
+      <created>1409689770936</created>
+      <updated>1409689770936</updated>
+    </task>
+    <task id="LOCAL-00065" summary="temp">
+      <created>1409689850939</created>
+      <updated>1409689850940</updated>
+    </task>
+    <task id="LOCAL-00066" summary="temp">
+      <created>1409689913408</created>
+      <updated>1409689913408</updated>
+    </task>
+    <task id="LOCAL-00067" summary="temp">
+      <created>1409690156963</created>
+      <updated>1409690156964</updated>
+    </task>
+    <task id="LOCAL-00068" summary="temp">
+      <created>1409690328395</created>
+      <updated>1409690328395</updated>
+    </task>
+    <task id="LOCAL-00069" summary="temp">
+      <created>1409690503549</created>
+      <updated>1409690503550</updated>
+    </task>
+    <task id="LOCAL-00070" summary="send owner_id as integer">
+      <created>1409691004736</created>
+      <updated>1409691004737</updated>
+    </task>
+    <task id="LOCAL-00071" summary="obsolete log">
+      <created>1409691194238</created>
+      <updated>1409691194239</updated>
+    </task>
+    <task id="LOCAL-00072" summary="implement review/approve">
+      <created>1409695608841</created>
+      <updated>1409695608841</updated>
+    </task>
+    <task id="LOCAL-00073" summary="implement review/approve">
+      <created>1409696263194</created>
+      <updated>1409696263194</updated>
+    </task>
+    <task id="LOCAL-00074" summary="data: is unquoted">
+      <created>1409696557388</created>
+      <updated>1409696557389</updated>
+    </task>
+    <task id="LOCAL-00075" summary="remove various defaults">
+      <created>1409696568581</created>
+      <updated>1409696568581</updated>
+    </task>
+    <task id="LOCAL-00076" summary="implement delete all button">
+      <created>1409697197447</created>
+      <updated>1409697197447</updated>
+    </task>
+    <task id="LOCAL-00077" summary="send owner_id as integer">
+      <created>1409697207135</created>
+      <updated>1409697207135</updated>
+    </task>
+    <task id="LOCAL-00078" summary="need to include_docs  for _rev">
+      <created>1409697286738</created>
+      <updated>1409697286738</updated>
+    </task>
+    <task id="LOCAL-00079" summary="update whole document when reviewing">
+      <created>1409697883973</created>
+      <updated>1409697883973</updated>
+    </task>
+    <task id="LOCAL-00080" summary="load_next_page">
+      <created>1409698241069</created>
+      <updated>1409698241069</updated>
+    </task>
+    <task id="LOCAL-00081" summary="add infinite scroll to ng-app">
+      <created>1409698379986</created>
+      <updated>1409698379986</updated>
+    </task>
+    <task id="LOCAL-00082" summary="add page reload after delete all">
+      <created>1409733354061</created>
+      <updated>1409733354062</updated>
+    </task>
+    <task id="LOCAL-00083" summary="generate policy in Nginx format as well">
+      <created>1409733391432</created>
+      <updated>1409733391433</updated>
+    </task>
+    <task id="LOCAL-00084" summary="put buttons in one row">
+      <created>1409733404980</created>
+      <updated>1409733404980</updated>
+    </task>
+    <task id="LOCAL-00085" summary="reformat code">
+      <created>1409738867543</created>
+      <updated>1409738867543</updated>
+    </task>
+    <task id="LOCAL-00086" summary="display errors">
+      <created>1409740716805</created>
+      <updated>1409740716805</updated>
+    </task>
+    <task id="LOCAL-00087" summary="error sign placement">
+      <created>1409740912120</created>
+      <updated>1409740912120</updated>
+    </task>
+    <task id="LOCAL-00088" summary="add confirmation to 'delete all'">
+      <created>1409741975408</created>
+      <updated>1409741975408</updated>
+    </task>
+    <task id="LOCAL-00089" summary="comments">
+      <created>1409742071225</created>
+      <updated>1409742071225</updated>
+    </task>
+    <task id="LOCAL-00090" summary="use parseInt() instead of Math.floor()">
+      <created>1409742254290</created>
+      <updated>1409742254290</updated>
+    </task>
+    <task id="LOCAL-00091" summary="fix approved sources view to use the new reviewed field">
+      <created>1409743952214</created>
+      <updated>1409743952214</updated>
+    </task>
+    <task id="LOCAL-00092" summary="send owner_id as int">
+      <created>1409743966682</created>
+      <updated>1409743966682</updated>
+    </task>
+    <task id="LOCAL-00093" summary="add Apache, PHP formats">
+      <created>1409744492641</created>
+      <updated>1409744492641</updated>
+    </task>
+    <task id="LOCAL-00094" summary="add Django, RoR stubs, support for policy messages">
+      <created>1409746514817</created>
+      <updated>1409746514817</updated>
+    </task>
+    <task id="LOCAL-00095" summary="bind raw HTML into messages to enable links etc">
+      <created>1409746744232</created>
+      <updated>1409746744232</updated>
+    </task>
+    <task id="LOCAL-00096" summary="initial support for configuration block">
+      <created>1409747610290</created>
+      <updated>1409747610290</updated>
+    </task>
+    <task id="LOCAL-00097" summary="formatting">
+      <created>1409747712798</created>
+      <updated>1409747712798</updated>
+    </task>
+    <task id="LOCAL-00098" summary="support for policy config">
+      <created>1409748556083</created>
+      <updated>1409748556083</updated>
+    </task>
+    <task id="LOCAL-00099" summary="formatting">
+      <created>1409748932779</created>
+      <updated>1409748932779</updated>
+    </task>
+    <task id="LOCAL-00100" summary="narrow columns">
+      <created>1409748973620</created>
+      <updated>1409748973620</updated>
+    </task>
+    <task id="LOCAL-00101" summary="only show list when there are some items">
+      <created>1409750088266</created>
+      <updated>1409750088266</updated>
+    </task>
+    <task id="LOCAL-00102" summary="generator stubs for RoR and Django">
+      <created>1409750106339</created>
+      <updated>1409750106339</updated>
+    </task>
+    <task id="LOCAL-00103" summary="add support for default (empty) policy">
+      <created>1409750656893</created>
+      <updated>1409750656893</updated>
+    </task>
+    <task id="LOCAL-00104" summary="need these menus to be a bit wider">
+      <created>1409750715185</created>
+      <updated>1409750715185</updated>
+    </task>
+    <task id="LOCAL-00105" summary="fix for..in loop">
+      <created>1409751239302</created>
+      <updated>1409751239302</updated>
+    </task>
+    <task id="LOCAL-00106" summary="fixes in loop processing">
+      <created>1409751470804</created>
+      <updated>1409751470804</updated>
+    </task>
+    <task id="LOCAL-00107" summary="invalid variable name">
+      <created>1409751561806</created>
+      <updated>1409751561806</updated>
+    </task>
+    <task id="LOCAL-00108" summary="fix sources list iteration logic">
+      <created>1409752566494</created>
+      <updated>1409752566494</updated>
+    </task>
+    <task id="LOCAL-00109" summary="move default policy reset into a clickable function">
+      <created>1409753494465</created>
+      <updated>1409753494465</updated>
+    </task>
+    <task id="LOCAL-00110" summary="create whitelist/blacklist entries, report errors">
+      <created>1409757513559</created>
+      <updated>1409757513559</updated>
+    </task>
+    <task id="LOCAL-00111" summary="minor">
+      <created>1409757522190</created>
+      <updated>1409757522190</updated>
+    </task>
+    <task id="LOCAL-00112" summary="add simple run time profiling">
+      <created>1409758423740</created>
+      <updated>1409758423740</updated>
+    </task>
+    <task id="LOCAL-00113" summary="add known_list view">
+      <created>1409759664506</created>
+      <updated>1409759664506</updated>
+    </task>
+    <task id="LOCAL-00114" summary="initial known list support">
+      <created>1409760683001</created>
+      <updated>1409760683001</updated>
+    </task>
+    <task id="LOCAL-00115" summary="fix view name">
+      <created>1409760826796</created>
+      <updated>1409760826796</updated>
+    </task>
+    <task id="LOCAL-00116" summary="include_docs is invalid for reduce">
+      <created>1409760887986</created>
+      <updated>1409760887986</updated>
+    </task>
+    <task id="LOCAL-00117" summary="use strict">
+      <created>1409770484563</created>
+      <updated>1409770484563</updated>
+    </task>
+    <task id="LOCAL-00118" summary="use strict">
+      <created>1409771304434</created>
+      <updated>1409771304434</updated>
+    </task>
+    <task id="LOCAL-00119" summary="if URI is not http fall back to original URI">
+      <created>1409771426691</created>
+      <updated>1409771426691</updated>
+    </task>
+    <task id="LOCAL-00120" summary="known lists check fixes">
+      <created>1409771693555</created>
+      <updated>1409771693555</updated>
+    </task>
+    <task id="LOCAL-00121" summary="disable strict">
+      <created>1409773021291</created>
+      <updated>1409773021292</updated>
+    </task>
+    <task id="LOCAL-00122" summary="change page_id to owner_id for consistency">
+      <created>1409773630247</created>
+      <updated>1409773630247</updated>
+    </task>
+    <task id="LOCAL-00123" summary="owner identifiers need to be passed as text because of JavaScript:&#10;&#10;&gt; parseInt('9018643792216450862')&#10;9018643792216451000﻿">
+      <created>1409774429960</created>
+      <updated>1409774429961</updated>
+    </task>
+    <task id="LOCAL-00124" summary="auto-classify new alerts based on known sources list">
+      <created>1409775159089</created>
+      <updated>1409775159089</updated>
+    </task>
+    <task id="LOCAL-00125" summary="unsafe-inline should be tried first">
+      <created>1409775356516</created>
+      <updated>1409775356516</updated>
+    </task>
+    <task id="LOCAL-00126" summary="unsafe-inline should be tried first">
+      <created>1409775422723</created>
+      <updated>1409775422723</updated>
+    </task>
+    <task id="LOCAL-00127" summary="minor syntax fixes">
+      <created>1409777347715</created>
+      <updated>1409777347715</updated>
+    </task>
+    <task id="LOCAL-00128" summary="remove debug messages, log action, reformat">
+      <created>1409777453364</created>
+      <updated>1409777453364</updated>
+    </task>
+    <task id="LOCAL-00129" summary="improve by_source_type view to only display partial URL">
+      <created>1409777833849</created>
+      <updated>1409777833849</updated>
+    </task>
+    <task id="LOCAL-00130" summary="store JS and CSS locally">
+      <created>1409778848901</created>
+      <updated>1409778848901</updated>
+    </task>
+    <task id="LOCAL-00131" summary="use strict">
+      <created>1409778928428</created>
+      <updated>1409778928428</updated>
+    </task>
+    <task id="LOCAL-00132" summary="remove debugging log">
+      <created>1409779104348</created>
+      <updated>1409779104349</updated>
+    </task>
+    <task id="LOCAL-00133" summary="query URIs without terminating slash">
+      <created>1409780533369</created>
+      <updated>1409780533369</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Bootstrap must be loaded from CDN, otherwise fonts will be requested locally">
+      <created>1409781140844</created>
+      <updated>1409781140844</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Bootstrap must be loaded from CDN, otherwise fonts will be requested locally">
+      <created>1409781155355</created>
+      <updated>1409781155355</updated>
+    </task>
+    <task id="LOCAL-00136" summary="add unminified version of ng-infinite-scroll">
+      <created>1409807965474</created>
+      <updated>1409807965474</updated>
+    </task>
+    <task id="LOCAL-00137" summary="nminified angular.js">
+      <created>1409808205309</created>
+      <updated>1409808205309</updated>
+    </task>
+    <task id="LOCAL-00138" summary="nminified angular.js">
+      <created>1409808386420</created>
+      <updated>1409808386420</updated>
+    </task>
+    <task id="LOCAL-00139" summary="fix ng-infinite-scroll">
+      <created>1409808686543</created>
+      <updated>1409808686544</updated>
+    </task>
+    <task id="LOCAL-00140" summary="ng-infinite-scroll is already loaded in controller">
+      <created>1409808805993</created>
+      <updated>1409808805993</updated>
+    </task>
+    <task id="LOCAL-00141" summary="add infinite-scroll-distance">
+      <created>1409808819279</created>
+      <updated>1409808819279</updated>
+    </task>
+    <task id="LOCAL-00142" summary="decrease number of rows to display">
+      <created>1409809170047</created>
+      <updated>1409809170047</updated>
+    </task>
+    <task id="LOCAL-00143" summary="compensate number of rows for line spacing">
+      <created>1409809275435</created>
+      <updated>1409809275435</updated>
+    </task>
+    <task id="LOCAL-00144" summary="change name to screen_rows, clearer syntax">
+      <created>1409809479548</created>
+      <updated>1409809479548</updated>
+    </task>
+    <task id="LOCAL-00145" summary="already compensated for line spacing">
+      <created>1409809679546</created>
+      <updated>1409809679546</updated>
+    </task>
+    <task id="LOCAL-00146" summary="reduce scroll distance">
+      <created>1409809744870</created>
+      <updated>1409809744870</updated>
+    </task>
+    <task id="LOCAL-00147" summary="less rows">
+      <created>1409809784226</created>
+      <updated>1409809784226</updated>
+    </task>
+    <task id="LOCAL-00148" summary="less rows">
+      <created>1409811670731</created>
+      <updated>1409811670731</updated>
+    </task>
+    <task id="LOCAL-00149" summary="remove infinite-scroll">
+      <created>1409811742749</created>
+      <updated>1409811742749</updated>
+    </task>
+    <task id="LOCAL-00150" summary="less records per page">
+      <created>1409811859179</created>
+      <updated>1409811859180</updated>
+    </task>
+    <task id="LOCAL-00151" summary="fix match template for known list checking">
+      <created>1409833382909</created>
+      <updated>1409833382909</updated>
+    </task>
+    <task id="LOCAL-00152" summary="local JQuery 2.1.1">
+      <created>1409833933895</created>
+      <updated>1409833933895</updated>
+    </task>
+    <task id="LOCAL-00153" summary="move files to directories">
+      <created>1409838027958</created>
+      <updated>1409838027958</updated>
+    </task>
+    <task id="LOCAL-00154" summary="move policy functions to separate file">
+      <created>1409838043156</created>
+      <updated>1409838043156</updated>
+    </task>
+    <task id="LOCAL-00155" summary="initial support for improved source logic">
+      <created>1409841200161</created>
+      <updated>1409841200161</updated>
+    </task>
+    <task id="LOCAL-00156" summary="fix static template paths">
+      <created>1409841313924</created>
+      <updated>1409841313924</updated>
+    </task>
+    <task id="LOCAL-00157" summary="more debugging">
+      <created>1409841586426</created>
+      <updated>1409841586426</updated>
+    </task>
+    <task id="LOCAL-00158" summary="temp disable hide">
+      <created>1409841669744</created>
+      <updated>1409841669744</updated>
+    </task>
+    <task id="LOCAL-00159" summary="approval logic fixes">
+      <created>1409842781700</created>
+      <updated>1409842781700</updated>
+    </task>
+    <task id="LOCAL-00160" summary="uncenter">
+      <created>1409843043403</created>
+      <updated>1409843043403</updated>
+    </task>
+    <task id="LOCAL-00161" summary="strip URI part after ?, show one more variant">
+      <created>1409843219703</created>
+      <updated>1409843219704</updated>
+    </task>
+    <task id="LOCAL-00162" summary="fix the radio list with ng-repeat-start/end">
+      <created>1409843789114</created>
+      <updated>1409843789114</updated>
+    </task>
+    <task id="LOCAL-00163" summary="fix the radio list - one more">
+      <created>1409844038884</created>
+      <updated>1409844038884</updated>
+    </task>
+    <task id="LOCAL-00164" summary="one name to radio buttons">
+      <created>1409844122338</created>
+      <updated>1409844122338</updated>
+    </task>
+    <task id="LOCAL-00165" summary="de-init policy_choice">
+      <created>1409844227014</created>
+      <updated>1409844227014</updated>
+    </task>
+    <task id="LOCAL-00166" summary="init policy_choice">
+      <created>1409844549427</created>
+      <updated>1409844549427</updated>
+    </task>
+    <task id="LOCAL-00167" summary="one more attempt">
+      <created>1409845067805</created>
+      <updated>1409845067805</updated>
+    </task>
+    <task id="LOCAL-00168" summary="fix for model isolation issue in AngularJS http://stackoverflow.com/questions/24600953/broken-ngmodel-on-radio-buttons-with-an-ngrepeat?rq=1">
+      <created>1409863958406</created>
+      <updated>1409863958406</updated>
+    </task>
+    <task id="LOCAL-00169" summary="initial support for API">
+      <created>1409921704712</created>
+      <updated>1409921704712</updated>
+    </task>
+    <task id="LOCAL-00170" summary="redundant parens">
+      <created>1409923458386</created>
+      <updated>1409923458386</updated>
+    </task>
+    <task id="LOCAL-00171" summary="project file">
+      <created>1409923484328</created>
+      <updated>1409923484328</updated>
+    </task>
+    <task id="LOCAL-00172" summary="reimplement CSP collector in Flask">
+      <created>1409925563364</created>
+      <updated>1409925563364</updated>
+    </task>
+    <task id="LOCAL-00173" summary="fixes">
+      <created>1409927781304</created>
+      <updated>1409927781304</updated>
+    </task>
+    <task id="LOCAL-00174" summary="remove XHR, use $http.delete on API">
+      <created>1409927832690</created>
+      <updated>1409927832690</updated>
+    </task>
+    <task id="LOCAL-00175" summary="add $http to controller">
+      <created>1409939848943</created>
+      <updated>1409939848943</updated>
+    </task>
+    <task id="LOCAL-00176" summary="more logging">
+      <created>1409940729140</created>
+      <updated>1409940729140</updated>
+    </task>
+    <task id="LOCAL-00177" summary="load owner_id as string">
+      <created>1409941933568</created>
+      <updated>1409941933568</updated>
+    </task>
+    <task id="LOCAL-00178" summary="improve null source guesswork">
+      <created>1409942624431</created>
+      <updated>1409942624431</updated>
+    </task>
+    <task id="LOCAL-00179" summary="track by $index">
+      <created>1409942721654</created>
+      <updated>1409942721654</updated>
+    </task>
+    <task id="LOCAL-00180" summary="should return array">
+      <created>1409942811971</created>
+      <updated>1409942811971</updated>
+    </task>
+    <task id="LOCAL-00181" summary="limit blocked URI width to 70 chars">
+      <created>1410278126899</created>
+      <updated>1410278126900</updated>
+    </task>
+    <task id="LOCAL-00182" summary="display policy message if set">
+      <created>1410278140176</created>
+      <updated>1410278140176</updated>
+    </task>
+    <task id="LOCAL-00183" summary="change 'take' to 'read'">
+      <created>1410278249730</created>
+      <updated>1410278249730</updated>
+    </task>
+    <task id="LOCAL-00184" summary="return structure with 'message' and 'sources'">
+      <created>1410278509505</created>
+      <updated>1410278509505</updated>
+    </task>
+    <task id="LOCAL-00185" summary="minor syntax bugs">
+      <created>1410279109608</created>
+      <updated>1410279109608</updated>
+    </task>
+    <task id="LOCAL-00186" summary="make the details tab resizable">
+      <created>1410279515479</created>
+      <updated>1410279515479</updated>
+    </task>
+    <task id="LOCAL-00187" summary="make the details tab resizable">
+      <created>1410279589722</created>
+      <updated>1410279589722</updated>
+    </task>
+    <task id="LOCAL-00188" summary="unfix the details tab">
+      <created>1410279809257</created>
+      <updated>1410279809257</updated>
+    </task>
+    <task id="LOCAL-00189" summary="unfix the details tab">
+      <created>1410279964980</created>
+      <updated>1410279964980</updated>
+    </task>
+    <task id="LOCAL-00190" summary="reformat, add left tab">
+      <created>1410284428597</created>
+      <updated>1410284428597</updated>
+    </task>
+    <task id="LOCAL-00191" summary="use new view, sort return values client-side">
+      <created>1410288320499</created>
+      <updated>1410288320499</updated>
+    </task>
+    <task id="LOCAL-00192" summary="make cols wider">
+      <created>1410288547506</created>
+      <updated>1410288547506</updated>
+    </task>
+    <task id="LOCAL-00193" summary="remove old styles">
+      <created>1410288728874</created>
+      <updated>1410288728874</updated>
+    </task>
+    <task id="LOCAL-00194" summary="limit blocked URI column width to 70 chars">
+      <created>1410288815113</created>
+      <updated>1410288815113</updated>
+    </task>
+    <task id="LOCAL-00195" summary="remove obsolete row">
+      <created>1410289092297</created>
+      <updated>1410289092297</updated>
+    </task>
+    <task id="LOCAL-00196" summary="wrap in container, make right column narrower">
+      <created>1410289223870</created>
+      <updated>1410289223870</updated>
+    </task>
+    <task id="LOCAL-00197" summary="typo">
+      <created>1410289328121</created>
+      <updated>1410289328121</updated>
+    </task>
+    <task id="LOCAL-00198" summary="make columns equal width">
+      <created>1410289402919</created>
+      <updated>1410289402919</updated>
+    </task>
+    <task id="LOCAL-00199" summary="add 'wait' icon, remove on div level">
+      <created>1410289553595</created>
+      <updated>1410289553595</updated>
+    </task>
+    <task id="LOCAL-00200" summary="add debug statement">
+      <created>1410290086582</created>
+      <updated>1410290086582</updated>
+    </task>
+    <task id="LOCAL-00201" summary="fix details view">
+      <created>1410291974980</created>
+      <updated>1410291974980</updated>
+    </task>
+    <task id="LOCAL-00202" summary="fix view name">
+      <created>1410292507569</created>
+      <updated>1410292507569</updated>
+    </task>
+    <task id="LOCAL-00203" summary="fix base URI logic">
+      <created>1410293082243</created>
+      <updated>1410293082243</updated>
+    </task>
+    <task id="LOCAL-00204" summary="limit number of variants returned">
+      <created>1410293367475</created>
+      <updated>1410293367475</updated>
+    </task>
+    <task id="LOCAL-00205" summary="limit number of URI levels to return">
+      <created>1410294910197</created>
+      <updated>1410294910198</updated>
+    </task>
+    <task id="LOCAL-00206" summary="display wait icon when db2 query is active">
+      <created>1410294944281</created>
+      <updated>1410294944281</updated>
+    </task>
+    <task id="LOCAL-00207" summary="close button is not really necessary">
+      <created>1410294987858</created>
+      <updated>1410294987858</updated>
+    </task>
+    <task id="LOCAL-00208" summary="add review type &amp; source API&#10;fix in URL template in read report API">
+      <created>1410296518710</created>
+      <updated>1410296518710</updated>
+    </task>
+    <task id="LOCAL-00209" summary="add stub for known list editor">
+      <created>1410300826747</created>
+      <updated>1410300826747</updated>
+    </task>
+    <task id="LOCAL-00210" summary="new API for reviewing known source">
+      <created>1410300871802</created>
+      <updated>1410300871802</updated>
+    </task>
+    <task id="LOCAL-00211" summary="the known sources view no longer uses reduce">
+      <created>1410301376816</created>
+      <updated>1410301376816</updated>
+    </task>
+    <task id="LOCAL-00212" summary="forgot to include $http">
+      <created>1410301566801</created>
+      <updated>1410301566801</updated>
+    </task>
+    <task id="LOCAL-00213" summary="request.form is a dict">
+      <created>1410301700574</created>
+      <updated>1410301700574</updated>
+    </task>
+    <task id="LOCAL-00214" summary="read JSON instead of query params">
+      <created>1410337981562</created>
+      <updated>1410337981562</updated>
+    </task>
+    <task id="LOCAL-00215" summary="disable reduce in known list view query">
+      <created>1410338109018</created>
+      <updated>1410338109018</updated>
+    </task>
+    <task id="LOCAL-00216" summary="reimplement the known list update">
+      <created>1410338751138</created>
+      <updated>1410338751138</updated>
+    </task>
+    <task id="LOCAL-00217" summary="save timestamp as isoformat">
+      <created>1410338906821</created>
+      <updated>1410338906821</updated>
+    </task>
+    <task id="LOCAL-00218" summary="update to match new field names">
+      <created>1410339067653</created>
+      <updated>1410339067654</updated>
+    </task>
+    <task id="LOCAL-00219" summary="reformat">
+      <created>1410340663233</created>
+      <updated>1410340663234</updated>
+    </task>
+    <task id="LOCAL-00220" summary="fix base_uri() logic">
+      <created>1410341067177</created>
+      <updated>1410341067177</updated>
+    </task>
+    <task id="LOCAL-00221" summary="support 'self' source in known list">
+      <created>1410341585731</created>
+      <updated>1410341585731</updated>
+    </task>
+    <task id="LOCAL-00222" summary="mark item as reviewed after successful API update">
+      <created>1410345330141</created>
+      <updated>1410345330141</updated>
+    </task>
+    <task id="LOCAL-00223" summary="add green tick in details tab">
+      <created>1410346467250</created>
+      <updated>1410346467250</updated>
+    </task>
+    <task id="LOCAL-00224" summary="add TODO">
+      <created>1410346991679</created>
+      <updated>1410346991679</updated>
+    </task>
+    <task id="LOCAL-00225" summary="remove tick">
+      <created>1410347121626</created>
+      <updated>1410347121626</updated>
+    </task>
+    <task id="LOCAL-00226" summary="clean up on detail open">
+      <created>1410347858185</created>
+      <updated>1410347858185</updated>
+    </task>
+    <task id="LOCAL-00227" summary="add map &amp; reduce function">
+      <created>1410353259877</created>
+      <updated>1410353259877</updated>
+    </task>
+    <task id="LOCAL-00228" summary="use known_list view">
+      <created>1410353676059</created>
+      <updated>1410353676059</updated>
+    </task>
+    <task id="LOCAL-00229" summary="move config block to a separate file - it was too big to be readable">
+      <created>1410353816810</created>
+      <updated>1410353816810</updated>
+    </task>
+    <task id="LOCAL-00230" summary="put policy into container-fluid">
+      <created>1410353887980</created>
+      <updated>1410353887980</updated>
+    </task>
+    <task id="LOCAL-00231" summary="produce generic CSP on page load, clean ups">
+      <created>1410354145764</created>
+      <updated>1410354145764</updated>
+    </task>
+    <task id="LOCAL-00232" summary="doesn't need to be fluid">
+      <created>1410354199068</created>
+      <updated>1410354199068</updated>
+    </task>
+    <task id="LOCAL-00233" summary="add debug message">
+      <created>1410354512146</created>
+      <updated>1410354512146</updated>
+    </task>
+    <task id="LOCAL-00234" summary="update main list if detail open returns empty result set">
+      <created>1410354679560</created>
+      <updated>1410354679560</updated>
+    </task>
+    <task id="LOCAL-00235" summary="now obsolete">
+      <created>1410356881101</created>
+      <updated>1410356881101</updated>
+    </task>
+    <task id="LOCAL-00236" summary="review API was setting doc status to 'accept' while the rest expected 'accepted'">
+      <created>1410357264085</created>
+      <updated>1410357264085</updated>
+    </task>
+    <task id="LOCAL-00237" summary="typo">
+      <created>1410357298304</created>
+      <updated>1410357298305</updated>
+    </task>
+    <task id="LOCAL-00238" summary="fix further bugs in review logic">
+      <created>1410361976375</created>
+      <updated>1410361976375</updated>
+    </task>
+    <task id="LOCAL-00239" summary="save known list entry that was used to review the item">
+      <created>1410362470981</created>
+      <updated>1410362470981</updated>
+    </task>
+    <task id="LOCAL-00240" summary="fix known list entry saving">
+      <created>1410362648972</created>
+      <updated>1410362648972</updated>
+    </task>
+    <task id="LOCAL-00241" summary="add debugging print()">
+      <created>1410363110267</created>
+      <updated>1410363110267</updated>
+    </task>
+    <task id="LOCAL-00242" summary="add debugging print()">
+      <created>1410364156559</created>
+      <updated>1410364156559</updated>
+    </task>
+    <task id="LOCAL-00243" summary="fix accept vs accepted in known lists">
+      <created>1410384100926</created>
+      <updated>1410384100926</updated>
+    </task>
+    <task id="LOCAL-00244" summary="rewrite pattern matching logic using fnmatch()">
+      <created>1410446407132</created>
+      <updated>1410446407132</updated>
+    </task>
+    <task id="LOCAL-00245" summary="do not make API call if there are no docs">
+      <created>1410446466166</created>
+      <updated>1410446466166</updated>
+    </task>
+    <task id="LOCAL-00246" summary="further fixes in known list management logic">
+      <created>1410451059410</created>
+      <updated>1410451059410</updated>
+    </task>
+    <task id="LOCAL-00247" summary="derive number of updated records from array size">
+      <created>1410451220246</created>
+      <updated>1410451220246</updated>
+    </task>
+    <task id="LOCAL-00248" summary="document-uri can be about:blank">
+      <created>1410451713031</created>
+      <updated>1410451713031</updated>
+    </task>
+    <task id="LOCAL-00249" summary="further fixes, more debugging">
+      <created>1410452168846</created>
+      <updated>1410452168846</updated>
+    </task>
+    <task id="LOCAL-00250" summary="further fixes, more debugging">
+      <created>1410452863029</created>
+      <updated>1410452863029</updated>
+    </task>
+    <task id="LOCAL-00251" summary="typo">
+      <created>1410453482573</created>
+      <updated>1410453482573</updated>
+    </task>
+    <task id="LOCAL-00252" summary="minor fixes in user interface">
+      <created>1410468243437</created>
+      <updated>1410468243437</updated>
+    </task>
+    <task id="LOCAL-00253" summary="additional logging">
+      <created>1410468503281</created>
+      <updated>1410468503281</updated>
+    </task>
+    <task id="LOCAL-00254" summary="enable debugging">
+      <created>1410468577738</created>
+      <updated>1410468577738</updated>
+    </task>
+    <task id="LOCAL-00255" summary="more debugging">
+      <created>1410469380584</created>
+      <updated>1410469380584</updated>
+    </task>
+    <task id="LOCAL-00256" summary="do not loop if match was found">
+      <created>1410469625077</created>
+      <updated>1410469625077</updated>
+    </task>
+    <task id="LOCAL-00257" summary="fixes in 'self' processing">
+      <created>1410472275970</created>
+      <updated>1410472275970</updated>
+    </task>
+    <task id="LOCAL-00258" summary="fix missing variable">
+      <created>1410472436125</created>
+      <updated>1410472436125</updated>
+    </task>
+    <task id="LOCAL-00259" summary="approved_list debug no longer needed">
+      <created>1410473037958</created>
+      <updated>1410473037959</updated>
+    </task>
+    <task id="LOCAL-00260" summary="add text field for custom policy">
+      <created>1410475716280</created>
+      <updated>1410475716280</updated>
+    </task>
+    <task id="LOCAL-00261" summary="add actual radio button">
+      <created>1410475833428</created>
+      <updated>1410475833428</updated>
+    </task>
+    <task id="LOCAL-00262" summary="add to policy_choice  group">
+      <created>1410475892997</created>
+      <updated>1410475892997</updated>
+    </task>
+    <task id="LOCAL-00263" summary="add SSL certs &amp; keys">
+      <created>1410816173674</created>
+      <updated>1410816173674</updated>
+    </task>
+    <task id="LOCAL-00264" summary="add some more descriptive messages">
+      <created>1410817198820</created>
+      <updated>1410817198820</updated>
+    </task>
+    <task id="LOCAL-00265" summary="add support for plugin-types and reflected-xss">
+      <created>1410818523095</created>
+      <updated>1410818523095</updated>
+    </task>
+    <task id="LOCAL-00266" summary="fix ng-model">
+      <created>1410818695620</created>
+      <updated>1410818695621</updated>
+    </task>
+    <task id="LOCAL-00267" summary="forgot referrer">
+      <created>1410818766011</created>
+      <updated>1410818766011</updated>
+    </task>
+    <task id="LOCAL-00268" summary="add support for plugin-types">
+      <created>1410818916754</created>
+      <updated>1410818916754</updated>
+    </task>
+    <task id="LOCAL-00269" summary="add space between plugin types">
+      <created>1410818965996</created>
+      <updated>1410818965996</updated>
+    </task>
+    <task id="LOCAL-00270" summary="init plugin choice to be []">
+      <created>1410819037417</created>
+      <updated>1410819037417</updated>
+    </task>
+    <task id="LOCAL-00271" summary="add support for reflected-xss">
+      <created>1410819214721</created>
+      <updated>1410819214721</updated>
+    </task>
+    <option name="localTasksCounter" value="272" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="697" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1564734" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19709209" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -451,101 +1855,70 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="update CouchDB port" />
-    <option name="LAST_COMMIT_MESSAGE" value="update CouchDB port" />
+    <MESSAGE value="further fixes in known list management logic" />
+    <MESSAGE value="derive number of updated records from array size" />
+    <MESSAGE value="document-uri can be about:blank" />
+    <MESSAGE value="further fixes, more debugging" />
+    <MESSAGE value="typo" />
+    <MESSAGE value="minor fixes in user interface" />
+    <MESSAGE value="additional logging" />
+    <MESSAGE value="enable debugging" />
+    <MESSAGE value="more debugging" />
+    <MESSAGE value="do not loop if match was found" />
+    <MESSAGE value="fixes in 'self' processing" />
+    <MESSAGE value="fix missing variable" />
+    <MESSAGE value="approved_list debug no longer needed" />
+    <MESSAGE value="add text field for custom policy" />
+    <MESSAGE value="add actual radio button" />
+    <MESSAGE value="add to policy_choice  group" />
+    <MESSAGE value="add SSL certs &amp; keys" />
+    <MESSAGE value="add some more descriptive messages" />
+    <MESSAGE value="add support for plugin-types and reflected-xss" />
+    <MESSAGE value="fix ng-model" />
+    <MESSAGE value="forgot referrer" />
+    <MESSAGE value="add support for plugin-types" />
+    <MESSAGE value="add space between plugin types" />
+    <MESSAGE value="init plugin choice to be []" />
+    <MESSAGE value="add support for reflected-xss" />
+    <option name="LAST_COMMIT_MESSAGE" value="add support for reflected-xss" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/collector/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1575" max-vertical-offset="1740">
+          <caret line="105" column="58" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/policy.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="525">
-          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="855">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="1230">
-          <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="689" max-vertical-offset="2700">
+          <caret line="69" column="63" selection-start-line="69" selection-start-column="63" selection-end-line="69" selection-end-column="63" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="872" max-vertical-offset="1965">
-          <caret line="89" column="53" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/analysis.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="540">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="465">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/top-menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="330">
-          <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1575">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="330">
-          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="872" max-vertical-offset="1965">
-          <caret line="89" column="53" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/analysis.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="540">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="210">
-          <caret line="6" column="2048" selection-start-line="6" selection-start-column="2028" selection-end-line="6" selection-end-column="2048" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="1380">
-          <caret line="23" column="58" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="435">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -553,7 +1926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="210">
           <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -561,11 +1933,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="375">
           <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="1470">
           <caret line="66" column="36" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
@@ -586,13 +1957,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1380">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="885">
@@ -600,7 +1964,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="450">
           <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
@@ -614,13 +1978,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1380">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="885">
@@ -628,7 +1985,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="450">
           <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
@@ -642,13 +1999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1380">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="570">
@@ -656,7 +2006,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="570">
           <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
@@ -667,13 +2017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="490" max-vertical-offset="1095">
           <caret line="60" column="26" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="1275">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -691,145 +2034,240 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/angular-cornercouch.js">
+    <entry file="file://$PROJECT_DIR$/static/js/angular-cornercouch.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.20037453" vertical-offset="3182" max-vertical-offset="6765">
           <caret line="205" column="39" selection-start-line="205" selection-start-column="35" selection-end-line="205" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/index_big.html">
+    <entry file="file://$PROJECT_DIR$/static/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5675676" vertical-offset="315" max-vertical-offset="930">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.14150943" vertical-offset="0" max-vertical-offset="530">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/uwsgi.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.32374102" vertical-offset="0" max-vertical-offset="556">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/collector/collector.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13274336" vertical-offset="0" max-vertical-offset="565">
+        <state vertical-scroll-proportion="0.13297872" vertical-offset="0" max-vertical-offset="564">
           <caret line="5" column="59" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.py">
+    <entry file="file://$PROJECT_DIR$/static/js/angular.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32352942" vertical-offset="653" max-vertical-offset="1320">
-          <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="329385">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/test.py">
+    <entry file="file://$PROJECT_DIR$/collector/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8674912" vertical-offset="994" max-vertical-offset="1650">
-          <caret line="105" column="58" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.4061372" vertical-offset="0" max-vertical-offset="554">
+          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/reports.html">
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/grouped_types_sources/reduce.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10810811" vertical-offset="150" max-vertical-offset="1050">
-          <caret line="14" column="88" selection-start-line="14" selection-start-column="88" selection-end-line="14" selection-end-column="88" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/analysis.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5405405" vertical-offset="570" max-vertical-offset="1200">
-          <caret line="58" column="43" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/live.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.054054055" vertical-offset="0" max-vertical-offset="555">
-          <caret line="2" column="69" selection-start-line="2" selection-start-column="69" selection-end-line="2" selection-end-column="69" />
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="120">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="69" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/policy.html">
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/known_list/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="525">
-          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
-          <folding />
+        <state vertical-scroll-proportion="0.1559792" vertical-offset="0" max-vertical-offset="577">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/index.html">
+    <entry file="file://$PROJECT_DIR$/static/reports.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3783784" vertical-offset="0" max-vertical-offset="555">
-          <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
-          <folding />
+        <state vertical-scroll-proportion="0.33206832" vertical-offset="140" max-vertical-offset="1125">
+          <caret line="21" column="67" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="67" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/login.html">
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/approved_reports/reduce.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.125" vertical-offset="0" max-vertical-offset="210">
-          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-          <folding />
+        <state vertical-scroll-proportion="0.10398614" vertical-offset="0" max-vertical-offset="577">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/top-menu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="390">
-          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.27124774" vertical-offset="0" max-vertical-offset="553">
+          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7323689" vertical-offset="0" max-vertical-offset="585">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/approved_reports/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11904762" vertical-offset="0" max-vertical-offset="378">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/grouped_types_sources/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51993066" vertical-offset="0" max-vertical-offset="577">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/etc/rsa-key.pem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.433213" vertical-offset="0" max-vertical-offset="900">
+          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/etc/rsa-cert.pem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9494585" vertical-offset="74" max-vertical-offset="690">
+          <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collector/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.86702126" vertical-offset="996" max-vertical-offset="1650">
+          <caret line="105" column="58" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/app/policy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0" vertical-offset="876" max-vertical-offset="1800">
+          <caret line="96" column="34" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/policy-config.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13837638" vertical-offset="75" max-vertical-offset="1755">
+          <caret line="10" column="120" selection-start-line="10" selection-start-column="120" selection-end-line="10" selection-end-column="120" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/policy.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="795">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3075" max-vertical-offset="4125">
+          <caret line="205" column="27" selection-start-line="205" selection-start-column="27" selection-end-line="205" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
+    <entry file="file://$PROJECT_DIR$/static/analysis.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="555" max-vertical-offset="1350">
-          <caret line="60" column="10" selection-start-line="60" selection-start-column="10" selection-end-line="60" selection-end-column="10" />
+        <state vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="1680">
+          <caret line="32" column="20" selection-start-line="15" selection-start-column="12" selection-end-line="32" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/known.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="495">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
-          <caret line="27" column="10" selection-start-line="23" selection-start-column="8" selection-end-line="27" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1695">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspLoginController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-          <caret line="0" column="89" selection-start-line="0" selection-start-column="89" selection-end-line="0" selection-end-column="89" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3375">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspReportsController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1410">
-          <caret line="4" column="73" selection-start-line="4" selection-start-column="73" selection-end-line="4" selection-end-column="73" />
-          <folding />
-        </state>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-          <caret line="0" column="50" selection-start-line="0" selection-start-column="50" selection-end-line="0" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.24368231" vertical-offset="0" max-vertical-offset="1680">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>

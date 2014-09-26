@@ -21,11 +21,6 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
             'plugin_choice': []
         };
 
-        $scope.owner_id = $cookieStore.get('owner_id');
-        if (!$scope.owner_id) {
-            $window.location.href = '/static/#/login';
-        }
-
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "known_list",
             {

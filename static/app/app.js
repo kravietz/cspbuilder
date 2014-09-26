@@ -4,6 +4,12 @@
 
 "use strict";
 
+// check if user is logged in
+$scope.owner_id = $cookieStore.get('owner_id');
+if (!$scope.owner_id) {
+    $window.location.href = '/static/#/login';
+}
+
 var couchdb_url = 'http://new.cspbuilder.info:8080';
 
 var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cspControllers']);
