@@ -41,7 +41,7 @@ def base_uri_match(a, b):
     if not r:
         return False
     b = r.group(1)
-
+s
     return a == b
 
 
@@ -80,13 +80,15 @@ def update_known_list(owner_id):
                 row.doc['review_source'] = review_source
                 row.doc['review_method'] = 'user'
                 db.save(row.doc)
+                print('KL {} {} matched {} {} and is longer, update'.format(row.key[1], row.key[2], review_directive, review_source))
                 print('update_known_list saved updated KL entry {}'.format(row.doc))
                 match = True
                 break
             elif row.key[2] == review_source:
-                print('update_known_list already have value {}'.format(review_source))
+                print('KL {} {} matched {} {}, skip and do not add new one'.format(row.key[1], row.key[2], review_directive, review_source))
+                match = True
             else:
-                print('update_known_list don\'t know what to do with {} {}'.format(review_directive, review_source))
+                print('KL {} {} does not match {} {}, skip as it will be added'.format(row.key[1], row.key[2], review_directive, review_source))
 
     if not match:
         # means the KL was not updated, create a new entry
@@ -200,6 +202,7 @@ def read_csp_report(owner_id):
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
+    print('read_csp_report known_list={}'.format(results))
 
     for row in results:
         # sample:
