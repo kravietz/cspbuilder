@@ -16,6 +16,12 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$cook
             })
             .success(function () {
                 console.log('data loading finished');
+
+                // sort entries by action
+                $scope.db.rows.sort(function (a, b) {
+                    return a.key[3] - b.key[3];
+                });
+
                 $scope.blocked = false;
             })
             .error(function(resp) {
