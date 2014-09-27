@@ -31,8 +31,8 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$cook
                 $scope.error = resp;
             });
 
-        $scope.delete_kl_entry = function (key) {
-            console.log('delete_kl_entry ' + key);
+        $scope.delete_kl_entry = function (id) {
+            console.log('delete_kl_entry ' + id);
         };
 
     }
