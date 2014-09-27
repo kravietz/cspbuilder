@@ -19,12 +19,14 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$cook
 
                 // sort entries by action
                 $scope.db.rows.sort(function (a, b) {
-                    return a.key[3] - b.key[3];
+                    if (a[1] < b[1]) return -1;
+                    if (a[1] > b[1]) return 1;
+                    return 0;
                 });
 
                 $scope.blocked = false;
             })
-            .error(function(resp) {
+            .error(function (resp) {
                 $scope.blocked = false;
                 $scope.error = resp;
             });
