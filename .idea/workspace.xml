@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/known.html" afterPath="$PROJECT_DIR$/static/known.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -51,8 +50,8 @@
       <file leaf-file-name="CspKnownController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7920277" vertical-offset="53" max-vertical-offset="660">
-              <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.8180243" vertical-offset="53" max-vertical-offset="660">
+              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -143,8 +142,8 @@
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/static/top-menu.html" />
         <option value="$PROJECT_DIR$/static/index.html" />
-        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
         <option value="$PROJECT_DIR$/static/known.html" />
+        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
       </list>
     </option>
   </component>
@@ -1712,7 +1711,11 @@
       <created>1411807292398</created>
       <updated>1411807292398</updated>
     </task>
-    <option name="localTasksCounter" value="283" />
+    <task id="LOCAL-00283" summary="placeholder for delete_kl_entry">
+      <created>1411807957791</created>
+      <updated>1411807957791</updated>
+    </task>
+    <option name="localTasksCounter" value="284" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1756,7 +1759,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="fix missing variable" />
     <MESSAGE value="approved_list debug no longer needed" />
     <MESSAGE value="add text field for custom policy" />
     <MESSAGE value="add actual radio button" />
@@ -1781,7 +1783,8 @@
     <MESSAGE value="sort entries by action" />
     <MESSAGE value="minor fix" />
     <MESSAGE value="sort function for strings" />
-    <option name="LAST_COMMIT_MESSAGE" value="sort function for strings" />
+    <MESSAGE value="placeholder for delete_kl_entry" />
+    <option name="LAST_COMMIT_MESSAGE" value="placeholder for delete_kl_entry" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2160,8 +2163,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7920277" vertical-offset="53" max-vertical-offset="660">
-          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.8180243" vertical-offset="53" max-vertical-offset="660">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
           <folding />
         </state>
       </provider>
