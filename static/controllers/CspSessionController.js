@@ -8,9 +8,16 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$w
     function ($scope, $cookieStore, $window) {
 
         // check if user is logged in
-        $scope.owner_id = $cookieStore.get('owner_id');
-        if (!$scope.owner_id) {
+        var owner_id = $cookieStore.get('owner_id');
+        console.log('CspSessionController owner_id=' + owner_id)
+        if (!owner_id) {
             $window.location.href = '/static/#/login';
+        }
+        $rootScope.owner_id = owner_id;
+
+        $scope.logout = function () {
+            delete $rootScope.owner_id;
+            $window.location.href = '/';
         }
 
 }]);
