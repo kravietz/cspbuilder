@@ -13,7 +13,10 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$w
         if (!owner_id) {
             $window.location.href = '/static/#/login';
         }
-        $rootScope.owner_id = owner_id;
+        // need to decode from hex
+        var ns = "";
+        for(var i=0; i < s.length; i += 2) { ns += String.fromCharCode(parseInt(s.substr(i, 2), 16)); }
+        $rootScope.owner_id = ns;
 
         $scope.logout = function () {
             console.log('CspSessionController logout');
