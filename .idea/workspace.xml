@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspSessionController.js" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.407767" vertical-offset="525" max-vertical-offset="4875">
-              <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+              <caret line="49" column="82" selection-start-line="49" selection-start-column="82" selection-end-line="49" selection-end-column="82" />
               <folding>
                 <element signature="e#46#74#0" expanded="true" />
               </folding>
@@ -165,8 +164,8 @@
         <option value="$PROJECT_DIR$/static/known.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
         <option value="$PROJECT_DIR$/static/login.html" />
-        <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
+        <option value="$PROJECT_DIR$/api/api.py" />
       </list>
     </option>
   </component>
@@ -1798,7 +1797,11 @@
       <created>1411940651033</created>
       <updated>1411940651033</updated>
     </task>
-    <option name="localTasksCounter" value="299" />
+    <task id="LOCAL-00299" summary="implement hex encoded owner_id">
+      <created>1411941951826</created>
+      <updated>1411941951826</updated>
+    </task>
+    <option name="localTasksCounter" value="300" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1842,7 +1845,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="move login check to separate controller" />
     <MESSAGE value="display navbar only if logged in" />
     <MESSAGE value="add descriptions" />
     <MESSAGE value="ng-show syntax" />
@@ -1867,7 +1869,8 @@
     <MESSAGE value="delete cookies on logout, explicitly declare owner_id as string" />
     <MESSAGE value="quote owner_id to prevent automatic conversion to int by $cookieStore" />
     <MESSAGE value="temporarily do not redirect on logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="temporarily do not redirect on logout" />
+    <MESSAGE value="implement hex encoded owner_id" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement hex encoded owner_id" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2254,7 +2257,7 @@
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.407767" vertical-offset="525" max-vertical-offset="4875">
-          <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+          <caret line="49" column="82" selection-start-line="49" selection-start-column="82" selection-end-line="49" selection-end-column="82" />
           <folding>
             <element signature="e#46#74#0" expanded="true" />
           </folding>
