@@ -20,7 +20,7 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$w
             delete $rootScope.owner_id;
             $cookieStore.remove('owner_id');
             $cookieStore.remove('XSRF-TOKEN');
-            $window.location.href = '/';
+            //$window.location.href = '/';
         }
 
 }]);
