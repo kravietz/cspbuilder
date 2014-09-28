@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspSessionController.js" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -27,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="api.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="4860">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.407767" vertical-offset="510" max-vertical-offset="4860">
+              <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
               <folding>
                 <element signature="e#47#66#0" expanded="true" />
               </folding>
@@ -99,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CspSessionController.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CspSessionController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18953069" vertical-offset="0" max-vertical-offset="554">
-              <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+              <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -163,9 +164,9 @@
         <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
         <option value="$PROJECT_DIR$/static/known.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
-        <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/login.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
+        <option value="$PROJECT_DIR$/api/api.py" />
       </list>
     </option>
   </component>
@@ -1777,7 +1778,11 @@
       <created>1411939244351</created>
       <updated>1411939244351</updated>
     </task>
-    <option name="localTasksCounter" value="294" />
+    <task id="LOCAL-00294" summary="inject $rootScope">
+      <created>1411939307362</created>
+      <updated>1411939307362</updated>
+    </task>
+    <option name="localTasksCounter" value="295" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1821,7 +1826,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add space between plugin types" />
     <MESSAGE value="init plugin choice to be []" />
     <MESSAGE value="add support for reflected-xss" />
     <MESSAGE value="move login check to app.js" />
@@ -1846,7 +1850,8 @@
     <MESSAGE value="encode CSRF_KEY as bytes()" />
     <MESSAGE value="call verify_csrf_report()" />
     <MESSAGE value="store owner_id in $rootScope" />
-    <option name="LAST_COMMIT_MESSAGE" value="store owner_id in $rootScope" />
+    <MESSAGE value="inject $rootScope" />
+    <option name="LAST_COMMIT_MESSAGE" value="inject $rootScope" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2176,16 +2181,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4860">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#47#66#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3375">
@@ -2234,9 +2229,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18953069" vertical-offset="0" max-vertical-offset="554">
-          <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.407767" vertical-offset="510" max-vertical-offset="4860">
+          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+          <folding>
+            <element signature="e#47#66#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
