@@ -30,8 +30,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.055762082" vertical-offset="0" max-vertical-offset="4770">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4860">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#47#66#0" expanded="true" />
               </folding>
@@ -1735,7 +1735,11 @@
       <created>1411938190839</created>
       <updated>1411938190839</updated>
     </task>
-    <option name="localTasksCounter" value="291" />
+    <task id="LOCAL-00291" summary="encode CSRF_KEY as bytes()">
+      <created>1411938393293</created>
+      <updated>1411938393293</updated>
+    </task>
+    <option name="localTasksCounter" value="292" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1779,7 +1783,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="fix ng-model" />
     <MESSAGE value="forgot referrer" />
     <MESSAGE value="add support for plugin-types" />
     <MESSAGE value="add space between plugin types" />
@@ -1804,7 +1807,8 @@
     <MESSAGE value="only pass index to delete_kl" />
     <MESSAGE value="implement login as POST to API" />
     <MESSAGE value="convert owner_to bytes() before passing to hmac()" />
-    <option name="LAST_COMMIT_MESSAGE" value="convert owner_to bytes() before passing to hmac()" />
+    <MESSAGE value="encode CSRF_KEY as bytes()" />
+    <option name="LAST_COMMIT_MESSAGE" value="encode CSRF_KEY as bytes()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2188,8 +2192,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.055762082" vertical-offset="0" max-vertical-offset="4770">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4860">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#47#66#0" expanded="true" />
           </folding>

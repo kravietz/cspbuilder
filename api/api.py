@@ -96,6 +96,9 @@ def update_known_list(owner_id):
     start_time = datetime.now(timezone.utc)
     client_ip = request.environ.get('REMOTE_ADDR')
 
+    if not verify_csrf_token():
+        return '', 400, []
+
     data = request.json
 
     try:
@@ -186,6 +189,9 @@ def update_known_list(owner_id):
 def delete_all_reports(owner_id):
     start_time = datetime.now(timezone.utc)
     client_ip = request.environ.get('REMOTE_ADDR')
+
+    if not verify_csrf_token():
+        return '', 400, []
 
     docs = []
     for row in db.view('csp/all_by_owner', key=owner_id, include_docs=True):
