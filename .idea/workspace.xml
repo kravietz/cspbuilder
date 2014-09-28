@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/known.html" afterPath="$PROJECT_DIR$/static/known.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -47,21 +47,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CspKnownController.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CspKnownController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.88388216" vertical-offset="45" max-vertical-offset="705">
+            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="705">
               <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="known.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="known.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/known.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="495">
-              <caret line="21" column="114" selection-start-line="21" selection-start-column="114" selection-end-line="21" selection-end-column="114" />
+            <state vertical-scroll-proportion="0.56962025" vertical-offset="0" max-vertical-offset="553">
+              <caret line="21" column="103" selection-start-line="21" selection-start-column="103" selection-end-line="21" selection-end-column="103" />
               <folding />
             </state>
           </provider>
@@ -122,8 +122,8 @@
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/static/top-menu.html" />
         <option value="$PROJECT_DIR$/static/index.html" />
-        <option value="$PROJECT_DIR$/static/known.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+        <option value="$PROJECT_DIR$/static/known.html" />
       </list>
     </option>
   </component>
@@ -1707,7 +1707,11 @@
       <created>1411836733960</created>
       <updated>1411836733960</updated>
     </task>
-    <option name="localTasksCounter" value="287" />
+    <task id="LOCAL-00287" summary="use GetQueryDoc() to remove the document">
+      <created>1411891080386</created>
+      <updated>1411891080386</updated>
+    </task>
+    <option name="localTasksCounter" value="288" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1751,7 +1755,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add to policy_choice  group" />
     <MESSAGE value="add SSL certs &amp; keys" />
     <MESSAGE value="add some more descriptive messages" />
     <MESSAGE value="add support for plugin-types and reflected-xss" />
@@ -1776,7 +1779,8 @@
     <MESSAGE value="typo" />
     <MESSAGE value="use id as key for delete" />
     <MESSAGE value="actually delete the entry and hide row" />
-    <option name="LAST_COMMIT_MESSAGE" value="actually delete the entry and hide row" />
+    <MESSAGE value="use GetQueryDoc() to remove the document" />
+    <option name="LAST_COMMIT_MESSAGE" value="use GetQueryDoc() to remove the document" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2149,18 +2153,18 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/known.html">
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="495">
-          <caret line="21" column="114" selection-start-line="21" selection-start-column="114" selection-end-line="21" selection-end-column="114" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="705">
+          <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
+    <entry file="file://$PROJECT_DIR$/static/known.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88388216" vertical-offset="45" max-vertical-offset="705">
-          <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.56962025" vertical-offset="0" max-vertical-offset="553">
+          <caret line="21" column="103" selection-start-line="21" selection-start-column="103" selection-end-line="21" selection-end-column="103" />
           <folding />
         </state>
       </provider>
