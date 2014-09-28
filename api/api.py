@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import configparser
 import hashlib
 import os
@@ -19,7 +20,7 @@ config.read(('collector.ini', os.path.join('collector', 'collector.ini'),
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
-CSRF_KEY = 'fxwL8Ole62zSUXOk8LYKQlMweLs'
+CSRF_KEY = b'fxwL8Ole62zSUXOk8LYKQlMweLs'
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 

@@ -30,10 +30,10 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72490704" vertical-offset="525" max-vertical-offset="4755">
-              <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
+            <state vertical-scroll-proportion="0.055762082" vertical-offset="0" max-vertical-offset="4770">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding>
-                <element signature="e#46#65#0" expanded="true" />
+                <element signature="e#47#66#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1731,7 +1731,11 @@
       <created>1411938001423</created>
       <updated>1411938001424</updated>
     </task>
-    <option name="localTasksCounter" value="290" />
+    <task id="LOCAL-00290" summary="convert owner_to bytes() before passing to hmac()">
+      <created>1411938190839</created>
+      <updated>1411938190839</updated>
+    </task>
+    <option name="localTasksCounter" value="291" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1775,7 +1779,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add support for plugin-types and reflected-xss" />
     <MESSAGE value="fix ng-model" />
     <MESSAGE value="forgot referrer" />
     <MESSAGE value="add support for plugin-types" />
@@ -1800,7 +1803,8 @@
     <MESSAGE value="use GetQueryDoc() to remove the document" />
     <MESSAGE value="only pass index to delete_kl" />
     <MESSAGE value="implement login as POST to API" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement login as POST to API" />
+    <MESSAGE value="convert owner_to bytes() before passing to hmac()" />
+    <option name="LAST_COMMIT_MESSAGE" value="convert owner_to bytes() before passing to hmac()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2184,10 +2188,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72490704" vertical-offset="525" max-vertical-offset="4755">
-          <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.055762082" vertical-offset="0" max-vertical-offset="4770">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="e#46#65#0" expanded="true" />
+            <element signature="e#47#66#0" expanded="true" />
           </folding>
         </state>
       </provider>
