@@ -1801,7 +1801,11 @@
       <created>1411941951826</created>
       <updated>1411941951826</updated>
     </task>
-    <option name="localTasksCounter" value="300" />
+    <task id="LOCAL-00300" summary="need to encode/decode as ascii">
+      <created>1411942227003</created>
+      <updated>1411942227003</updated>
+    </task>
+    <option name="localTasksCounter" value="301" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1845,7 +1849,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="display navbar only if logged in" />
     <MESSAGE value="add descriptions" />
     <MESSAGE value="ng-show syntax" />
     <MESSAGE value="initial implementation of known list editor" />
@@ -1870,7 +1873,8 @@
     <MESSAGE value="quote owner_id to prevent automatic conversion to int by $cookieStore" />
     <MESSAGE value="temporarily do not redirect on logout" />
     <MESSAGE value="implement hex encoded owner_id" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement hex encoded owner_id" />
+    <MESSAGE value="need to encode/decode as ascii" />
+    <option name="LAST_COMMIT_MESSAGE" value="need to encode/decode as ascii" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
