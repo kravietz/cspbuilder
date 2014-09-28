@@ -48,7 +48,7 @@ def login():
     token = hmac.new(CSRF_KEY, bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
     resp.set_cookie('XSRF-TOKEN', token)
-    resp.set_cookie('owner_id', b64encode(owner_id))
+    resp.set_cookie('owner_id', b64encode(bytes(owner_id, 'ascii')))
     print('login setting token cookie {}'.format(token))
     return resp
 

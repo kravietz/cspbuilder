@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspSessionController.js" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,8 +30,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37864077" vertical-offset="540" max-vertical-offset="4890">
-              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.407767" vertical-offset="540" max-vertical-offset="4890">
+              <caret line="50" column="66" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
               <folding>
                 <element signature="e#46#74#0" expanded="true" />
               </folding>
@@ -1810,7 +1809,11 @@
       <created>1411942373087</created>
       <updated>1411942373087</updated>
     </task>
-    <option name="localTasksCounter" value="302" />
+    <task id="LOCAL-00302" summary="use BASE64 instead of hex, which is also messing with parseInt()">
+      <created>1411942807200</created>
+      <updated>1411942807200</updated>
+    </task>
+    <option name="localTasksCounter" value="303" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1854,7 +1857,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="ng-show syntax" />
     <MESSAGE value="initial implementation of known list editor" />
     <MESSAGE value="add KnownController and SessionController" />
     <MESSAGE value="container, not fluid" />
@@ -1879,7 +1881,8 @@
     <MESSAGE value="implement hex encoded owner_id" />
     <MESSAGE value="need to encode/decode as ascii" />
     <MESSAGE value="wrong hexlify call" />
-    <option name="LAST_COMMIT_MESSAGE" value="wrong hexlify call" />
+    <MESSAGE value="use BASE64 instead of hex, which is also messing with parseInt()" />
+    <option name="LAST_COMMIT_MESSAGE" value="use BASE64 instead of hex, which is also messing with parseInt()" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2265,8 +2268,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37864077" vertical-offset="540" max-vertical-offset="4890">
-          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.407767" vertical-offset="540" max-vertical-offset="4890">
+          <caret line="50" column="66" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
           <folding>
             <element signature="e#46#74#0" expanded="true" />
           </folding>
