@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspLoginController.js" afterPath="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/login.html" afterPath="$PROJECT_DIR$/static/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -29,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="api.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.884615" vertical-offset="0" max-vertical-offset="4755">
-              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.72490704" vertical-offset="525" max-vertical-offset="4755">
+              <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
               <folding>
                 <element signature="e#46#65#0" expanded="true" />
               </folding>
@@ -61,10 +59,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.054249547" vertical-offset="0" max-vertical-offset="553">
+            <state vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="225">
               <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
               <folding />
             </state>
@@ -135,9 +133,9 @@
         <option value="$PROJECT_DIR$/static/index.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
         <option value="$PROJECT_DIR$/static/known.html" />
-        <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
         <option value="$PROJECT_DIR$/static/login.html" />
+        <option value="$PROJECT_DIR$/api/api.py" />
       </list>
     </option>
   </component>
@@ -1729,7 +1727,11 @@
       <created>1411891174501</created>
       <updated>1411891174501</updated>
     </task>
-    <option name="localTasksCounter" value="289" />
+    <task id="LOCAL-00289" summary="implement login as POST to API">
+      <created>1411938001423</created>
+      <updated>1411938001424</updated>
+    </task>
+    <option name="localTasksCounter" value="290" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1773,7 +1775,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add some more descriptive messages" />
     <MESSAGE value="add support for plugin-types and reflected-xss" />
     <MESSAGE value="fix ng-model" />
     <MESSAGE value="forgot referrer" />
@@ -1798,7 +1799,8 @@
     <MESSAGE value="actually delete the entry and hide row" />
     <MESSAGE value="use GetQueryDoc() to remove the document" />
     <MESSAGE value="only pass index to delete_kl" />
-    <option name="LAST_COMMIT_MESSAGE" value="only pass index to delete_kl" />
+    <MESSAGE value="implement login as POST to API" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement login as POST to API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2156,16 +2158,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.884615" vertical-offset="0" max-vertical-offset="4755">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding>
-            <element signature="e#46#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/known.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="495">
@@ -2184,9 +2176,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.054249547" vertical-offset="0" max-vertical-offset="553">
+        <state vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="225">
           <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72490704" vertical-offset="525" max-vertical-offset="4755">
+          <caret line="61" column="64" selection-start-line="61" selection-start-column="64" selection-end-line="61" selection-end-column="64" />
+          <folding>
+            <element signature="e#46#65#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

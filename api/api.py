@@ -42,7 +42,7 @@ def login():
         print('login missing owner_id')
         return '', 400, []
 
-    token = hmac.new(CSRF_KEY, owner_id, hashlib.sha512).hexdigest()
+    token = hmac.new(CSRF_KEY, bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
     resp.set_cookie('XSRF-TOKEN', token)
     resp.set_cookie('owner_id', owner_id)
@@ -59,7 +59,7 @@ def verify_csrf_token():
         print('verify_csrf_token missing owner_id or request token')
         return False
 
-    expected_token = hmac.new(CSRF_KEY, owner_id, hashlib.sha512).hexdigest()
+    expected_token = hmac.new(CSRF_KEY, bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
 
     if hmac.compare_digest(request_token, expected_token):
         return True
