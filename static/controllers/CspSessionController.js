@@ -16,6 +16,7 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$w
         $rootScope.owner_id = owner_id;
 
         $scope.logout = function () {
+            console.log('CspSessionController logout');
             delete $rootScope.owner_id;
             $cookieStore.remove('owner_id');
             $cookieStore.remove('XSRF-TOKEN');
