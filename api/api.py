@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import configparser
+import hashlib
 import os
 from datetime import datetime, timezone
-from flask import Flask, request, abort
+from flask import Flask, request, abort, make_response, redirect
 from couchdb import Server
 from fnmatch import fnmatch
 from http.client import BadStatusLine
 import re
+import hmac
 
 __author__ = 'pawelkrawczyk'
 
@@ -17,6 +19,7 @@ config.read(('collector.ini', os.path.join('collector', 'collector.ini'),
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
+CSRF_KEY = 'fxwL8Ole62zSUXOk8LYKQlMweLs'
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
@@ -24,6 +27,45 @@ app = Flask(__name__)
 app.debug = True
 server = Server('http://localhost:5984/')
 db = server['csp']
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    start_time = datetime.now(timezone.utc)
+    client_ip = request.environ.get('REMOTE_ADDR')
+
+    owner_id = request.form.get('owner_id')
+
+    print('login {} {} owner_id={}'.format(start_time, client_ip, owner_id))
+
+    if not owner_id:
+        print('login missing owner_id')
+        return '', 400, []
+
+    token = hmac.new(CSRF_KEY, owner_id, hashlib.sha512).hexdigest()
+    resp = make_response(redirect('/static/#/analysis'))
+    resp.set_cookie('XSRF-TOKEN', token)
+    resp.set_cookie('owner_id', owner_id)
+    print('login setting token cookie {}'.format(token))
+    return resp
+
+
+def verify_csrf_token():
+    request_token = request.headers.get('X-XSRF-TOKEN')
+    owner_id = request.cookies.get('owner_id')
+    print('verify_csrf_token owner_id={} request_token={}'.format(owner_id, request_token))
+
+    if not (owner_id or request_token):
+        print('verify_csrf_token missing owner_id or request token')
+        return False
+
+    expected_token = hmac.new(CSRF_KEY, owner_id, hashlib.sha512).hexdigest()
+
+    if hmac.compare_digest(request_token, expected_token):
+        return True
+
+    print('verify_csrf_token token mismatch expected_token={}'.format(expected_token))
+    return False
 
 
 def base_uri_match(a, b):

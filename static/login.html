@@ -1,8 +1,10 @@
-<div id="login" class="row warning">
-    <div class="col-md-1">
-        <form>
-            <input type="text" placeholder="Enter owner id" ng-model="owner_id">
-            <input type="submit" value="Login" ng-click="login()">
-        </form>
+<div class="container" id="login">
+    <div class="row">
+        <div class="col-md-3">
+            <form action="/login" method="POST">
+                <input type="text" placeholder="Enter owner id" name="owner_id">
+                <input type="submit" value="Login">
+            </form>
+        </div>
     </div>
 </div>
