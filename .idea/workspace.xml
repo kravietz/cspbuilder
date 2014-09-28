@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspSessionController.js" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,8 +30,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.407767" vertical-offset="510" max-vertical-offset="4860">
-              <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.37864077" vertical-offset="510" max-vertical-offset="4860">
+              <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
               <folding>
                 <element signature="e#47#66#0" expanded="true" />
               </folding>
@@ -1782,7 +1781,11 @@
       <created>1411939307362</created>
       <updated>1411939307362</updated>
     </task>
-    <option name="localTasksCounter" value="295" />
+    <task id="LOCAL-00295" summary="delete cookies on logout, explicitly declare owner_id as string">
+      <created>1411939771566</created>
+      <updated>1411939771566</updated>
+    </task>
+    <option name="localTasksCounter" value="296" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1826,7 +1829,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="init plugin choice to be []" />
     <MESSAGE value="add support for reflected-xss" />
     <MESSAGE value="move login check to app.js" />
     <MESSAGE value="move login check to separate controller" />
@@ -1851,7 +1853,8 @@
     <MESSAGE value="call verify_csrf_report()" />
     <MESSAGE value="store owner_id in $rootScope" />
     <MESSAGE value="inject $rootScope" />
-    <option name="LAST_COMMIT_MESSAGE" value="inject $rootScope" />
+    <MESSAGE value="delete cookies on logout, explicitly declare owner_id as string" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete cookies on logout, explicitly declare owner_id as string" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2237,8 +2240,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.407767" vertical-offset="510" max-vertical-offset="4860">
-          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.37864077" vertical-offset="510" max-vertical-offset="4860">
+          <caret line="47" column="40" selection-start-line="47" selection-start-column="40" selection-end-line="47" selection-end-column="40" />
           <folding>
             <element signature="e#47#66#0" expanded="true" />
           </folding>
