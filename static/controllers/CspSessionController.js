@@ -4,8 +4,8 @@
 
 "use strict";
 
-cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$window',
-    function ($scope, $cookieStore, $window) {
+cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$window', '$rootScope',
+    function ($scope, $cookieStore, $window, $rootScope) {
 
         // check if user is logged in
         var owner_id = $cookieStore.get('owner_id');

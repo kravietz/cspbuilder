@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspSessionController.js" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/login.html" afterPath="$PROJECT_DIR$/static/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -103,8 +102,8 @@
       <file leaf-file-name="CspSessionController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35198557" vertical-offset="0" max-vertical-offset="554">
-              <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.18953069" vertical-offset="0" max-vertical-offset="554">
+              <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -1774,7 +1773,11 @@
       <created>1411938629130</created>
       <updated>1411938629130</updated>
     </task>
-    <option name="localTasksCounter" value="293" />
+    <task id="LOCAL-00293" summary="store owner_id in $rootScope">
+      <created>1411939244351</created>
+      <updated>1411939244351</updated>
+    </task>
+    <option name="localTasksCounter" value="294" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1818,7 +1821,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add support for plugin-types" />
     <MESSAGE value="add space between plugin types" />
     <MESSAGE value="init plugin choice to be []" />
     <MESSAGE value="add support for reflected-xss" />
@@ -1843,7 +1845,8 @@
     <MESSAGE value="convert owner_to bytes() before passing to hmac()" />
     <MESSAGE value="encode CSRF_KEY as bytes()" />
     <MESSAGE value="call verify_csrf_report()" />
-    <option name="LAST_COMMIT_MESSAGE" value="call verify_csrf_report()" />
+    <MESSAGE value="store owner_id in $rootScope" />
+    <option name="LAST_COMMIT_MESSAGE" value="store owner_id in $rootScope" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2231,8 +2234,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35198557" vertical-offset="0" max-vertical-offset="554">
-          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.18953069" vertical-offset="0" max-vertical-offset="554">
+          <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
           <folding />
         </state>
       </provider>
