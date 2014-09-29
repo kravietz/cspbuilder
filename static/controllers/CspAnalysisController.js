@@ -89,16 +89,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 })
                 .success(function () {
                     console.log('review source completed');
-                    $scope.reviewed = true;
-                    // add green tick in details tab
-                    // TODO: fix HTML selectors
-                    //$('input:checked').parent().add('span').addClass('text-success glyphicon glyphicon-ok');
-                    // highlight processed row according to its state
-                    if (allow) {
-                        $('#report-row-' + $scope.index).addClass('bg-success');
-                    } else {
-                        $('#report-row-' + $scope.index).addClass('bg-warning');
-                    }
+                    $('#report-row-' + $scope.index).hide();
+                    $scope.detail_open($scope.index + 1);
                 });
 
         }; // review_source
