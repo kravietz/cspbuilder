@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" afterPath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="simplify review process-  hide current line and open next one">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/known.html" afterPath="$PROJECT_DIR$/static/known.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collector/couchdb/known_list/map.js" afterPath="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -47,21 +49,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CspAnalysisController.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
+      <file leaf-file-name="CspKnownController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.59165156" vertical-offset="1024" max-vertical-offset="1575">
-              <caret line="90" column="59" selection-start-line="90" selection-start-column="59" selection-end-line="90" selection-end-column="59" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="705">
+              <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analysis.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/analysis.html">
+      <file leaf-file-name="map.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/collector/couchdb/known_list/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.42" vertical-offset="924" max-vertical-offset="1680">
-              <caret line="73" column="40" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.20797227" vertical-offset="0" max-vertical-offset="577">
+              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="known.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/known.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="495">
+              <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -102,7 +114,6 @@
         <option value="$PROJECT_DIR$/collector/couchdb/grouped_types_sources/reduce.js" />
         <option value="$PROJECT_DIR$/static/styles.css" />
         <option value="$PROJECT_DIR$/collector/couchdb/known_list/reduce.js" />
-        <option value="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
         <option value="$PROJECT_DIR$/collector/couchdb/approved_reports/map.js" />
         <option value="$PROJECT_DIR$/collector/couchdb/approved_reports/reduce.js" />
         <option value="$PROJECT_DIR$/collector/couchdb/grouped_types_sources/map.js" />
@@ -117,13 +128,14 @@
         <option value="$PROJECT_DIR$/static/app/app.js" />
         <option value="$PROJECT_DIR$/static/top-menu.html" />
         <option value="$PROJECT_DIR$/static/index.html" />
-        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
-        <option value="$PROJECT_DIR$/static/known.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
         <option value="$PROJECT_DIR$/static/login.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
+        <option value="$PROJECT_DIR$/static/known.html" />
+        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+        <option value="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
       </list>
     </option>
   </component>
@@ -1779,7 +1791,11 @@
       <created>1412004405790</created>
       <updated>1412004405790</updated>
     </task>
-    <option name="localTasksCounter" value="305" />
+    <task id="LOCAL-00305" summary="simplify review process-  hide current line and open next one">
+      <created>1412004685184</created>
+      <updated>1412004685184</updated>
+    </task>
+    <option name="localTasksCounter" value="306" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1823,7 +1839,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="container, not fluid" />
     <MESSAGE value="sort entries by action" />
     <MESSAGE value="minor fix" />
     <MESSAGE value="sort function for strings" />
@@ -1848,7 +1863,8 @@
     <MESSAGE value="use BASE64 instead of hex, which is also messing with parseInt()" />
     <MESSAGE value="need to use bytes() again" />
     <MESSAGE value="decode owner_id from B64" />
-    <option name="LAST_COMMIT_MESSAGE" value="decode owner_id from B64" />
+    <MESSAGE value="simplify review process-  hide current line and open next one" />
+    <option name="LAST_COMMIT_MESSAGE" value="simplify review process-  hide current line and open next one" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2040,13 +2056,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/couchdb/known_list/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1559792" vertical-offset="0" max-vertical-offset="577">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/reports.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33206832" vertical-offset="140" max-vertical-offset="1125">
@@ -2065,13 +2074,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11904762" vertical-offset="0" max-vertical-offset="378">
           <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collector/couchdb/grouped_types_sources/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51993066" vertical-offset="0" max-vertical-offset="577">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -2131,14 +2133,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88388216" vertical-offset="45" max-vertical-offset="705">
-          <caret line="37" column="45" selection-start-line="37" selection-start-column="45" selection-end-line="37" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspReportsController.js">
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
@@ -2177,14 +2171,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/known.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.081374325" vertical-offset="0" max-vertical-offset="553">
-          <caret line="3" column="21" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/top-menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="553">
@@ -2212,6 +2198,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59165156" vertical-offset="1024" max-vertical-offset="1575">
+          <caret line="90" column="59" selection-start-line="90" selection-start-column="59" selection-end-line="90" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/analysis.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33268481" vertical-offset="924" max-vertical-offset="1680">
+          <caret line="73" column="40" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.5" vertical-offset="0" max-vertical-offset="225">
@@ -2220,21 +2225,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/analysis.html">
+    <entry file="file://$PROJECT_DIR$/static/known.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.42" vertical-offset="924" max-vertical-offset="1680">
-          <caret line="73" column="40" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="40" />
+        <state vertical-scroll-proportion="-3.75" vertical-offset="0" max-vertical-offset="495">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59165156" vertical-offset="1024" max-vertical-offset="1575">
-          <caret line="90" column="59" selection-start-line="90" selection-start-column="59" selection-end-line="90" selection-end-column="59" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="705">
+          <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/grouped_types_sources/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.51993066" vertical-offset="0" max-vertical-offset="577">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collector/couchdb/known_list/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20797227" vertical-offset="0" max-vertical-offset="577">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
           <folding />
         </state>
       </provider>

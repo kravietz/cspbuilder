@@ -18,9 +18,9 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$cook
                 console.log('data loading finished');
 
                 // sort entries by action
-                $scope.db.rows.sort(function (a, b) {
-                    if (a[1] < b[1]) return -1;
-                    if (a[1] > b[1]) return 1;
+                $scope.db.rows.sort(function (doc1, doc2) {
+                    if (doc1.value[2][0] < doc2.value[2][0]) return -1;
+                    if (doc1.value[2][0] > doc2.value[2][0]) return 1;
                     return 0;
                 });
 

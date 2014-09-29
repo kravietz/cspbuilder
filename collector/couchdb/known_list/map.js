@@ -3,7 +3,7 @@
  */
 function (doc) {
     if (doc['owner_id'] && doc['review_type'] && doc['review_source'] && doc['review_action']) {
-        emit([doc['owner_id'], doc['review_type'], doc['review_source'], doc['review_action']]
-            , null)
+        emit([doc['owner_id']], [doc['review_type'], doc['review_source'], doc['review_action'],
+            , null])
     }
 }
