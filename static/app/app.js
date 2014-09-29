@@ -40,6 +40,10 @@ cspbuilderApp.config(['$routeProvider',
                 controller: 'CspLoginController'
             }
         ).
+            when('/feedback', {
+                templateUrl: '/static/feedback.html'
+            }
+        ).
             otherwise({
                 redirectTo: '/login'
             }
