@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="simplify review process-  hide current line and open next one">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/known.html" afterPath="$PROJECT_DIR$/static/known.html" />
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collector/couchdb/known_list/map.js" afterPath="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -62,8 +60,8 @@
       <file leaf-file-name="map.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/collector/couchdb/known_list/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20797227" vertical-offset="0" max-vertical-offset="577">
-              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.12998267" vertical-offset="0" max-vertical-offset="577">
+              <caret line="5" column="93" selection-start-line="5" selection-start-column="93" selection-end-line="5" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -1795,7 +1793,11 @@
       <created>1412004685184</created>
       <updated>1412004685184</updated>
     </task>
-    <option name="localTasksCounter" value="306" />
+    <task id="LOCAL-00306" summary="fix the known_list view">
+      <created>1412005167669</created>
+      <updated>1412005167669</updated>
+    </task>
+    <option name="localTasksCounter" value="307" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1839,7 +1841,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="sort entries by action" />
     <MESSAGE value="minor fix" />
     <MESSAGE value="sort function for strings" />
     <MESSAGE value="placeholder for delete_kl_entry" />
@@ -1864,7 +1865,8 @@
     <MESSAGE value="need to use bytes() again" />
     <MESSAGE value="decode owner_id from B64" />
     <MESSAGE value="simplify review process-  hide current line and open next one" />
-    <option name="LAST_COMMIT_MESSAGE" value="simplify review process-  hide current line and open next one" />
+    <MESSAGE value="fix the known_list view" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix the known_list view" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2251,8 +2253,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/collector/couchdb/known_list/map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20797227" vertical-offset="0" max-vertical-offset="577">
-          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.12998267" vertical-offset="0" max-vertical-offset="577">
+          <caret line="5" column="93" selection-start-line="5" selection-start-column="93" selection-end-line="5" selection-end-column="93" />
           <folding />
         </state>
       </provider>
