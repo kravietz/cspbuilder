@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from base64 import b64encode
-from binascii import hexlify
+from base64 import b64encode, b64decode
 
 import configparser
 import hashlib
@@ -55,14 +54,14 @@ def login():
 
 def verify_csrf_token():
     request_token = request.headers.get('X-XSRF-TOKEN')
-    owner_id = request.cookies.get('owner_id')
+    owner_id = b64decode(request.cookies.get('owner_id'))
     print('verify_csrf_token owner_id={} request_token={}'.format(owner_id, request_token))
 
     if not (owner_id or request_token):
         print('verify_csrf_token missing owner_id or request token')
         return False
 
-    expected_token = hmac.new(CSRF_KEY, bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
+    expected_token = hmac.new(CSRF_KEY, owner_id, hashlib.sha512).hexdigest()
 
     if hmac.compare_digest(request_token, expected_token):
         return True
