@@ -90,8 +90,6 @@ def base_uri_match(a, b):
     return a == b
 
 
-# TODO: set & verify CSRF headers
-# TODO: authentication
 @app.route('/api/<owner_id>/review', methods=['POST'])
 def update_known_list(owner_id):
     start_time = datetime.now(timezone.utc)
@@ -258,11 +256,10 @@ def read_csp_report(owner_id):
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     try:
         results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
-    except BadStatusLine as e:
+        print('read_csp_report {} known_list={}'.format(len(results), results))
+    except Exception as e:
         print('read_csp_report exception {}'.format(e))
         return '', 204, []
-
-    print('read_csp_report {} known_list={}'.format(len(results), results))
 
     for row in results:
         # sample:
