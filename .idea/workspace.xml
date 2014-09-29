@@ -70,8 +70,8 @@
       <file leaf-file-name="feedback.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/feedback.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5153707" vertical-offset="0" max-vertical-offset="553">
-              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.108499095" vertical-offset="0" max-vertical-offset="553">
+              <caret line="4" column="47" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -1790,7 +1790,11 @@
       <created>1412006096612</created>
       <updated>1412006096612</updated>
     </task>
-    <option name="localTasksCounter" value="309" />
+    <task id="LOCAL-00309" summary="pack into col-md-4">
+      <created>1412006308774</created>
+      <updated>1412006308774</updated>
+    </task>
+    <option name="localTasksCounter" value="310" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1834,7 +1838,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="placeholder for delete_kl_entry" />
     <MESSAGE value="typo" />
     <MESSAGE value="use id as key for delete" />
     <MESSAGE value="actually delete the entry and hide row" />
@@ -1859,7 +1862,8 @@
     <MESSAGE value="fix the known_list view" />
     <MESSAGE value="minor fix to the view" />
     <MESSAGE value="feedback page" />
-    <option name="LAST_COMMIT_MESSAGE" value="feedback page" />
+    <MESSAGE value="pack into col-md-4" />
+    <option name="LAST_COMMIT_MESSAGE" value="pack into col-md-4" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2250,8 +2254,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/feedback.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5153707" vertical-offset="0" max-vertical-offset="553">
-          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.108499095" vertical-offset="0" max-vertical-offset="553">
+          <caret line="4" column="47" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
           <folding />
         </state>
       </provider>
