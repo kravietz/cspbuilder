@@ -4,8 +4,8 @@
 
 "use strict";
 
-cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'cornercouch', '$window', '$http',
-    function ($scope, $cookieStore, cornercouch, $window, $http) {
+cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
+    function ($scope, $rootScope, cornercouch, $window, $http) {
 
         $scope.blocked = true; // for infinite scroll
         $('#reports-prev-button').addClass('disabled');

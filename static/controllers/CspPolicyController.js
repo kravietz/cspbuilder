@@ -4,8 +4,8 @@
 
 "use strict";
 
-cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cornercouch', '$window',
-    function ($scope, $cookieStore, cornercouch, $window) {
+cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$window', '$rootScope',
+    function ($scope, cornercouch, $rootScope) {
 
         $scope.csp_config = {
             'enforce': false,

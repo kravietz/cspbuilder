@@ -4,8 +4,8 @@
 
 "use strict";
 
-cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$cookieStore',
-    function ($scope, cornercouch) {
+cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$rootScope',
+    function ($scope, cornercouch, $rootScope) {
         console.log('CspKnownController');
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');

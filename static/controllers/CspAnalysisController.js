@@ -4,8 +4,8 @@
 
 "use strict";
 
-cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'cornercouch', '$window', '$http',
-    function ($scope, $cookieStore, cornercouch, $window, $http) {
+cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
+    function ($scope, $rootScope, cornercouch, $window, $http) {
 
         $scope.blocked = true;
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
