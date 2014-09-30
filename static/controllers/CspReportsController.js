@@ -7,6 +7,8 @@
 cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
     function ($scope, $rootScope, cornercouch, $window, $http) {
 
+        console.log('CspReportsController owner_id=' + $rootScope.owner_id);
+
         $scope.blocked = true; // for infinite scroll
         $('#reports-prev-button').addClass('disabled');
         $scope.index = 0;

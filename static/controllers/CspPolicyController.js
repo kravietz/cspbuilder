@@ -4,8 +4,10 @@
 
 "use strict";
 
-cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$window', '$rootScope',
+cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$rootScope',
     function ($scope, cornercouch, $rootScope) {
+
+        console.log('CspPolicyController owner_id=' + $rootScope.owner_id);
 
         $scope.csp_config = {
             'enforce': false,

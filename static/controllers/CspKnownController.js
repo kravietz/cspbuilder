@@ -6,7 +6,8 @@
 
 cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$rootScope',
     function ($scope, cornercouch, $rootScope) {
-        console.log('CspKnownController');
+
+        console.log('CspKnownController owner_id=' + $rootScope.owner_id);
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "known_list",

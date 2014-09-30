@@ -6,6 +6,7 @@
 
 cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
     function ($scope, $rootScope, cornercouch, $window, $http) {
+
         console.log('CspAnalysisController owner_id=' + $rootScope.owner_id);
 
         $scope.blocked = true;
