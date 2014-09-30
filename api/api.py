@@ -113,24 +113,24 @@ def update_known_list(owner_id):
     for row in db.query('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}]):
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         # filter by directive
-        if row.key[1] == review_directive:
+        if row['key'][1] == review_directive:
             # filter by source
             # so we might be adding "font-src","https://fonts.gstatic.com"
             # while "font-src","https://fonts.gstatic.com/some/other/" is already there
-            if fnmatch(row.key[2], review_source + '*'):
+            if fnmatch(row['key'][2], review_source + '*'):
                 # new entry is shorter and more general - use it
-                row.doc['review_source'] = review_source
-                row.doc['review_method'] = 'user'
-                db.save(row.doc)
-                print('KL {} {} matched {} {} and is longer, update'.format(row.key[1], row.key[2], review_directive, review_source))
-                print('update_known_list saved updated KL entry {}'.format(row.doc))
+                row['doc']['review_source'] = review_source
+                row['doc']['review_method'] = 'user'
+                db.save(row['doc'])
+                print('KL {} {} matched {} {} and is longer, update'.format(row['key'][1], row['key'][2], review_directive, review_source))
+                print('update_known_list saved updated KL entry {}'.format(row['doc']))
                 match = True
                 break
-            elif row.key[2] == review_source:
-                print('KL {} {} matched {} {}, skip and do not add new one'.format(row.key[1], row.key[2], review_directive, review_source))
+            elif row['key'][2] == review_source:
+                print('KL {} {} matched {} {}, skip and do not add new one'.format(row['key'][1], row['key'][2], review_directive, review_source))
                 match = True
             else:
-                print('KL {} {} does not match {} {}, skip as it will be added'.format(row.key[1], row.key[2], review_directive, review_source))
+                print('KL {} {} does not match {} {}, skip as it will be added'.format(row['key'][1], row['key'][2], review_directive, review_source))
 
     if not match:
         # means the KL was not updated, create a new entry
@@ -156,9 +156,9 @@ def update_known_list(owner_id):
                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
         # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
         # this if covers two conditions: standard known list URI match, and 'self' URI match
-        if (review_source == '\'self\'' and base_uri_match(row.key[2], row.doc['csp-report']['blocked-uri'])) \
-                or fnmatch(row.key[2], review_source + '*'):
-            doc = row.doc
+        if (review_source == '\'self\'' and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri'])) \
+                or fnmatch(row['key'][2], review_source + '*'):
+            doc = row['doc']
             doc['reviewed'] = report_status
             # save the known list entry used to review this report
             doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
@@ -186,7 +186,7 @@ def delete_all_reports(owner_id):
 
     docs = []
     for row in db.query('csp/all_by_owner', key=owner_id, include_docs=True):
-        doc = row.doc
+        doc = row['doc']
         doc['_deleted'] = True
         docs.append(doc)
 
@@ -251,9 +251,9 @@ def read_csp_report(owner_id):
     for row in results:
         # sample:
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
-        known_directive = row.key[1]
+        known_directive = row['key'][1]
         # append '*' so that 'http://api.google.com/blah/file.js' matches ''http://*.google.com'
-        known_src = row.key[2]
+        known_src = row['key'][2]
         got_match = False
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
@@ -271,9 +271,9 @@ def read_csp_report(owner_id):
 
             if got_match:
                 # save the known list entry used to autoreview this report
-                review_rule = row.key
+                review_rule = row['key']
                 # actually copy the action from KL
-                action = row.key[3]
+                action = row['key'][3]
                 # stop processing other entries
                 break
 

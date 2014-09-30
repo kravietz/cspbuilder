@@ -30,8 +30,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27695167" vertical-offset="1366" max-vertical-offset="4485">
-              <caret line="111" column="17" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.33271375" vertical-offset="1591" max-vertical-offset="4485">
+              <caret line="128" column="27" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -110,7 +110,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
+    <option name="x" value="1760" />
+    <option name="y" value="230" />
     <option name="width" value="1280" />
     <option name="height" value="697" />
   </component>
@@ -1795,11 +1796,15 @@
       <created>1412089223018</created>
       <updated>1412089223018</updated>
     </task>
-    <option name="localTasksCounter" value="330" />
+    <task id="LOCAL-00330" summary="db.view should be db.query">
+      <created>1412089420381</created>
+      <updated>1412089420381</updated>
+    </task>
+    <option name="localTasksCounter" value="331" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="697" extended-state="6" />
+    <frame x="1760" y="230" width="1280" height="697" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1839,7 +1844,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="simplify review process-  hide current line and open next one" />
     <MESSAGE value="fix the known_list view" />
     <MESSAGE value="minor fix to the view" />
     <MESSAGE value="feedback page" />
@@ -1864,7 +1868,8 @@
     <MESSAGE value="use strict inside controllers" />
     <MESSAGE value="log cookies on logout" />
     <MESSAGE value="fix cookie decoding logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix cookie decoding logic" />
+    <MESSAGE value="db.view should be db.query" />
+    <option name="LAST_COMMIT_MESSAGE" value="db.view should be db.query" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2246,8 +2251,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27695167" vertical-offset="1366" max-vertical-offset="4485">
-          <caret line="111" column="17" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.33271375" vertical-offset="1591" max-vertical-offset="4485">
+          <caret line="128" column="27" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
           <folding />
         </state>
       </provider>
