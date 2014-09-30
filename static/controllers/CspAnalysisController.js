@@ -14,8 +14,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
             include_docs: false,
             // CouchDB idiom used to narrow search
             // ref: http://docs.couchdb.org/en/latest/couchapp/views/collation.html#string-ranges
-            startkey: [$scope.owner_id],
-            endkey: [$scope.owner_id, {}],
+            startkey: [$rootScope.owner_id],
+            endkey: [$rootScope.owner_id, {}],
             // group & reduce required for grouping to work
             reduce: true,
             group: true
@@ -27,12 +27,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
                 });
                 $scope.blocked = false;
             });
-
-        $scope.logout = function () {
-            console.log('logout');
-            $cookieStore.remove('owner_id');
-            $window.location.href = '/static/#/login';
-        };
 
         $scope.detail_open = function (index) {
             console.log('detail_open ' + index);
@@ -79,7 +73,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$cookieStore', 'c
 
             console.log('review_source allow=' + allow + ' policy_choice=' + $scope.policy_choice);
 
-            $http.post('/api/' + $scope.owner_id + '/review', {
+            $http.post('/api/' + $rootScope.owner_id + '/review', {
                     'review_type': $scope.policy_type,
                     'review_source': $scope.policy_choice,
                     'review_action': allow ? 'accept' : 'reject'
