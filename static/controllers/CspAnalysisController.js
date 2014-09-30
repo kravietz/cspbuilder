@@ -2,10 +2,8 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-"use strict";
-
 cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
-    function ($scope, $rootScope, cornercouch, $window, $http) {
+    function ($scope, $rootScope, cornercouch, $window, $http) { "use strict";
 
         console.log('CspAnalysisController owner_id=' + $rootScope.owner_id);
 

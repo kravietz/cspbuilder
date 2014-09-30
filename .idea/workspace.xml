@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" afterPath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" afterPath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspReportsController.js" afterPath="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspSessionController.js" afterPath="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -30,18 +34,8 @@
       <file leaf-file-name="CspPolicyController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4615386" vertical-offset="0" max-vertical-offset="3315">
-              <caret line="6" column="74" selection-start-line="6" selection-start-column="74" selection-end-line="6" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CspKnownController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="720">
-              <caret line="25" column="19" selection-start-line="20" selection-start-column="16" selection-end-line="25" selection-end-column="19" />
+            <state vertical-scroll-proportion="-1.1538461" vertical-offset="0" max-vertical-offset="3285">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -50,18 +44,8 @@
       <file leaf-file-name="CspReportsController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspReportsController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1620">
-              <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CspAnalysisController.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.433213" vertical-offset="195" max-vertical-offset="1560">
-              <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1590">
+              <caret line="5" column="78" selection-start-line="5" selection-start-column="78" selection-end-line="5" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -70,28 +54,48 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1050">
+            <state vertical-scroll-proportion="0.0" vertical-offset="473" max-vertical-offset="1050">
               <caret line="38" column="49" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/index.html">
+      <file leaf-file-name="policy.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/app/policy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.541667" vertical-offset="47" max-vertical-offset="600">
-              <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+            <state vertical-scroll-proportion="2.6617374" vertical-offset="0" max-vertical-offset="1800">
+              <caret line="96" column="34" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="analysis.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/analysis.html">
+      <file leaf-file-name="CspKnownController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1680">
-              <caret line="0" column="47" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+              <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="4530">
+              <caret line="62" column="56" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CspSessionController.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+              <caret line="5" column="72" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -141,7 +145,6 @@
         <option value="$PROJECT_DIR$/static/policy-config.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspLoginController.js" />
         <option value="$PROJECT_DIR$/static/login.html" />
-        <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/static/known.html" />
         <option value="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -152,10 +155,11 @@
         <option value="$PROJECT_DIR$/static/top-menu.html" />
         <option value="$PROJECT_DIR$/static/index.html" />
         <option value="$PROJECT_DIR$/static/analysis.html" />
-        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
-        <option value="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
-        <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+        <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
+        <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
+        <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+        <option value="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
       </list>
     </option>
   </component>
@@ -1829,7 +1833,11 @@
       <created>1412083959291</created>
       <updated>1412083959291</updated>
     </task>
-    <option name="localTasksCounter" value="326" />
+    <task id="LOCAL-00326" summary="sort from largest number of alerts">
+      <created>1412084134660</created>
+      <updated>1412084134660</updated>
+    </task>
+    <option name="localTasksCounter" value="327" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1873,7 +1881,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="wrong hexlify call" />
     <MESSAGE value="use BASE64 instead of hex, which is also messing with parseInt()" />
     <MESSAGE value="need to use bytes() again" />
     <MESSAGE value="decode owner_id from B64" />
@@ -1898,7 +1905,8 @@
     <MESSAGE value="move controller definition to outer div, otherwise it's loading after top menu is included" />
     <MESSAGE value="try to run session controller in body" />
     <MESSAGE value="log start of controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="log start of controller" />
+    <MESSAGE value="sort from largest number of alerts" />
+    <option name="LAST_COMMIT_MESSAGE" value="sort from largest number of alerts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2110,13 +2118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app/policy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0" vertical-offset="876" max-vertical-offset="1800">
-          <caret line="96" column="34" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/live.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="120">
@@ -2169,27 +2170,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33203885" vertical-offset="3594" max-vertical-offset="4680">
-          <caret line="251" column="84" selection-start-line="251" selection-start-column="84" selection-end-line="251" selection-end-column="84" />
-          <folding>
-            <element signature="e#46#85#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1050">
-          <caret line="38" column="49" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/top-menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="480">
@@ -2214,30 +2194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/analysis.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1680">
-          <caret line="0" column="47" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46028882" vertical-offset="0" max-vertical-offset="554">
-          <caret line="17" column="65" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.541667" vertical-offset="47" max-vertical-offset="600">
-          <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.028301887" vertical-offset="0" max-vertical-offset="530">
@@ -2246,10 +2202,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67450273" vertical-offset="47" max-vertical-offset="600">
+          <caret line="28" column="42" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/analysis.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1680">
+          <caret line="0" column="47" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="4530">
+          <caret line="62" column="56" selection-start-line="62" selection-start-column="56" selection-end-line="62" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0779896" vertical-offset="0" max-vertical-offset="1530">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+          <caret line="5" column="72" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4615386" vertical-offset="0" max-vertical-offset="3315">
-          <caret line="6" column="74" selection-start-line="6" selection-start-column="74" selection-end-line="6" selection-end-column="74" />
+        <state vertical-scroll-proportion="-1.1538461" vertical-offset="0" max-vertical-offset="3285">
+          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -2259,8 +2266,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspReportsController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1620">
-          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1590">
+          <caret line="5" column="78" selection-start-line="5" selection-start-column="78" selection-end-line="5" selection-end-column="78" />
           <folding />
         </state>
       </provider>
@@ -2268,23 +2275,23 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="720">
-          <caret line="25" column="19" selection-start-line="20" selection-start-column="16" selection-end-line="25" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.433213" vertical-offset="195" max-vertical-offset="1560">
-          <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="1050">
+          <caret line="38" column="49" selection-start-line="38" selection-start-column="49" selection-end-line="38" selection-end-column="49" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/app/policy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6617374" vertical-offset="0" max-vertical-offset="1800">
+          <caret line="96" column="34" selection-start-line="96" selection-start-column="30" selection-end-line="96" selection-end-column="34" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

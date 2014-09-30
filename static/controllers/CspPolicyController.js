@@ -2,10 +2,8 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-"use strict";
-
 cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$rootScope',
-    function ($scope, cornercouch, $rootScope) {
+    function ($scope, cornercouch, $rootScope) { "use strict";
 
         console.log('CspPolicyController owner_id=' + $rootScope.owner_id);
 
