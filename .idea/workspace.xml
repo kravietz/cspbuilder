@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspKnownController.js" afterPath="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" afterPath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspReportsController.js" afterPath="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -49,10 +47,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CspSessionController.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CspSessionController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46028882" vertical-offset="0" max-vertical-offset="554">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
               <caret line="17" column="65" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="65" />
               <folding />
             </state>
@@ -75,6 +73,18 @@
             <state vertical-scroll-proportion="-7.3461537" vertical-offset="934" max-vertical-offset="1485">
               <caret line="75" column="52" selection-start-line="75" selection-start-column="44" selection-end-line="75" selection-end-column="52" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/api/api.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.33203885" vertical-offset="3594" max-vertical-offset="4680">
+              <caret line="251" column="84" selection-start-line="251" selection-start-column="84" selection-end-line="251" selection-end-column="84" />
+              <folding>
+                <element signature="e#46#85#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -172,12 +182,12 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/static/feedback.html" />
         <option value="$PROJECT_DIR$/collector/collector.ini" />
-        <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/analysis.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
+        <option value="$PROJECT_DIR$/api/api.py" />
       </list>
     </option>
   </component>
@@ -1801,7 +1811,11 @@
       <created>1412080244486</created>
       <updated>1412080244486</updated>
     </task>
-    <option name="localTasksCounter" value="318" />
+    <task id="LOCAL-00318" summary="use $rootScope instead of $scope, remove obsolete logout() functions - now handled by session controller">
+      <created>1412080372732</created>
+      <updated>1412080372732</updated>
+    </task>
+    <option name="localTasksCounter" value="319" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1845,7 +1859,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="call verify_csrf_report()" />
     <MESSAGE value="store owner_id in $rootScope" />
     <MESSAGE value="inject $rootScope" />
     <MESSAGE value="delete cookies on logout, explicitly declare owner_id as string" />
@@ -1870,7 +1883,8 @@
     <MESSAGE value="fully move to pycouchdb API" />
     <MESSAGE value="use $rootScope instead of $scope" />
     <MESSAGE value="also display number of records" />
-    <option name="LAST_COMMIT_MESSAGE" value="also display number of records" />
+    <MESSAGE value="use $rootScope instead of $scope, remove obsolete logout() functions - now handled by session controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="use $rootScope instead of $scope, remove obsolete logout() functions - now handled by session controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2138,16 +2152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46601942" vertical-offset="3615" max-vertical-offset="4710">
-          <caret line="257" column="87" selection-start-line="257" selection-start-column="10" selection-end-line="257" selection-end-column="87" />
-          <folding>
-            <element signature="e#46#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/feedback.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.254717" vertical-offset="0" max-vertical-offset="530">
@@ -2258,9 +2262,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46028882" vertical-offset="0" max-vertical-offset="554">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
           <caret line="17" column="65" selection-start-line="17" selection-start-column="55" selection-end-line="17" selection-end-column="65" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33203885" vertical-offset="3594" max-vertical-offset="4680">
+          <caret line="251" column="84" selection-start-line="251" selection-start-column="84" selection-end-line="251" selection-end-column="84" />
+          <folding>
+            <element signature="e#46#85#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

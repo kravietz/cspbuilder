@@ -9,7 +9,6 @@ from datetime import datetime, timezone
 from flask import Flask, request, abort, make_response, redirect
 import pycouchdb
 from fnmatch import fnmatch
-from http.client import BadStatusLine
 import re
 import hmac
 
@@ -251,7 +250,6 @@ def read_csp_report(owner_id):
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     results = db.query('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
-    print('read_csp_report {} known_list={}'.format(len(results), results))
 
     for row in results:
         # sample:
