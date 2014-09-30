@@ -17,10 +17,12 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$w
 
         $scope.logout = function () {
             console.log('CspSessionController logout');
+            console.log('logout coookies before=' + document.cookie);
             delete $rootScope.owner_id;
             $cookieStore.remove('owner_id');
             $cookieStore.remove('XSRF-TOKEN');
             //$window.location.href = '/';
+            console.log('logout coookies after=' + document.cookie);
         }
 
 }]);
