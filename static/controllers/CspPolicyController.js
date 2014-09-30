@@ -30,10 +30,10 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                 var current_list = {};
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
-                    // ["9018643792216450862", "connect-src", "http://platform.twitter.com", "accept"]
-                    var type = item.value[1];
-                    var src = item.value[2];
-                    var action = item.value[3];
+                    // {"id":"00b68742da0e40848f0982f95dfdf8dc","key":"9018643792216450862","value":["script-src","about","reject",null]},
+                    var type = item.value[0];
+                    var src = item.value[1];
+                    var action = item.value[2];
 
                     if (action == 'accept') {
 
