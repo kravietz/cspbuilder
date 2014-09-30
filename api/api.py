@@ -109,11 +109,8 @@ def update_known_list(owner_id):
 
     # update known list entry
     # first check if there's such entry already
-    results = db.query('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}])
-
     match = False
-
-    for row in results:
+    for row in db.query('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}]):
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         # filter by directive
         if row.key[1] == review_directive:
@@ -155,7 +152,7 @@ def update_known_list(owner_id):
     report_status = action_to_status[review_action]
     docs = []
     # the view does type filtering already
-    for row in db.view('csp/1000_owner_type_src', include_docs=True,
+    for row in db.query('csp/1000_owner_type_src', include_docs=True,
                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
         # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
         # this if covers two conditions: standard known list URI match, and 'self' URI match
