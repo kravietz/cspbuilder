@@ -36,8 +36,7 @@ cspbuilderApp.config(['$routeProvider',
             }
         ).
             when('/login', {
-                templateUrl: '/static/login.html',
-                controller: 'CspLoginController'
+                templateUrl: '/static/login.html'
             }
         ).
             when('/feedback', {
