@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/controllers/CspLoginController.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/app/app.js" afterPath="$PROJECT_DIR$/static/app/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/index.html" afterPath="$PROJECT_DIR$/static/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" afterPath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -39,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/index.html">
+      <file leaf-file-name="CspAnalysisController.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5117541" vertical-offset="47" max-vertical-offset="600">
-              <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
+            <state vertical-scroll-proportion="0.33795494" vertical-offset="0" max-vertical-offset="1500">
+              <caret line="13" column="57" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -104,10 +102,10 @@
         <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspReportsController.js" />
-        <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspKnownController.js" />
         <option value="$PROJECT_DIR$/static/app/app.js" />
         <option value="$PROJECT_DIR$/static/index.html" />
+        <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
       </list>
     </option>
   </component>
@@ -1761,7 +1759,11 @@
       <created>1412080679280</created>
       <updated>1412080679280</updated>
     </task>
-    <option name="localTasksCounter" value="321" />
+    <task id="LOCAL-00321" summary="delete obsolete login controller (now handled by API)">
+      <created>1412080737362</created>
+      <updated>1412080737362</updated>
+    </task>
+    <option name="localTasksCounter" value="322" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1805,7 +1807,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="delete cookies on logout, explicitly declare owner_id as string" />
     <MESSAGE value="quote owner_id to prevent automatic conversion to int by $cookieStore" />
     <MESSAGE value="temporarily do not redirect on logout" />
     <MESSAGE value="implement hex encoded owner_id" />
@@ -1830,7 +1831,8 @@
     <MESSAGE value="use $rootScope instead of $scope, remove obsolete logout() functions - now handled by session controller" />
     <MESSAGE value="minor fixes" />
     <MESSAGE value="inject $rootScope, get rid of obsolete $cookieStores" />
-    <option name="LAST_COMMIT_MESSAGE" value="inject $rootScope, get rid of obsolete $cookieStores" />
+    <MESSAGE value="delete obsolete login controller (now handled by API)" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete obsolete login controller (now handled by API)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2155,17 +2157,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19056262" vertical-offset="0" max-vertical-offset="1485">
-          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspKnownController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19056262" vertical-offset="0" max-vertical-offset="705">
@@ -2201,6 +2192,14 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3761302" vertical-offset="47" max-vertical-offset="600">
+          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="225">
@@ -2209,12 +2208,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/index.html">
+    <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5117541" vertical-offset="47" max-vertical-offset="600">
-          <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.33795494" vertical-offset="0" max-vertical-offset="1500">
+          <caret line="13" column="57" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
       </provider>
     </entry>
   </component>
