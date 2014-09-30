@@ -24,8 +24,8 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "known_list",
             {
-                startkey: [$scope.owner_id, , , ],
-                endkey: [$scope.owner_id, {}, {}, {}]
+                startkey: [$rootScope.owner_id, , , ],
+                endkey: [$rootScope.owner_id, {}, {}, {}]
             })
             .success(function () {
                 console.log('data loading finished');
@@ -73,12 +73,6 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
 
             }
         );
-
-        $scope.logout = function () {
-            console.log('logout');
-            $cookieStore.remove('owner_id');
-            $window.location.href = '/static/#/login';
-        };
 
         // TODO: add various types from https://www.owasp.org/index.php/Content_Security_Policy
         // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
@@ -131,7 +125,7 @@ cspControllers.controller('CspPolicyController', ['$scope', '$cookieStore', 'cor
                 header += '-Report-Only';
             }
 
-            var policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $scope.owner_id + '; ';
+            var policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $rootScope.owner_id + '; ';
 
             for (var i = 0; i < $scope.approved_list.length; i++) {
                 var src_list = $scope.approved_list[i];

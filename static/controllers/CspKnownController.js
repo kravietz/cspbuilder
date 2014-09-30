@@ -12,7 +12,7 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$cook
         $scope.db.query("csp", "known_list",
             {
                 include_docs: true,
-                key: $scope.owner_id
+                key: $rootScope.owner_id
             })
             .success(function () {
                 console.log('data loading finished');

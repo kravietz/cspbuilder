@@ -15,7 +15,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
         $scope.db.query("csp", "all_by_owner",
             {
                 include_docs: true,
-                key: $scope.owner_id,
+                key: $rootScope.owner_id,
                 limit: screen_rows('#reports-left-list') // need to compensate for spacing
             })
             .success(function () {
@@ -27,12 +27,6 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
                 $scope.blocked = false;
                 $scope.error = resp;
             });
-
-        $scope.logout = function () {
-            console.log('logout');
-            $cookieStore.remove('owner_id');
-            $window.location.href = '/static/#/login';
-        };
 
         $scope.detail_show = function (index) {
             console.log('detail_show ' + index);
@@ -98,7 +92,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$cookieStore', 'co
             if(!confirm('Are you sure?')) { return }
 
             // TODO: add CSRF protection
-            $http.delete('/api/' + $scope.owner_id + '/all-reports');
+            $http.delete('/api/' + $rootScope.owner_id + '/all-reports');
 
         };
 
