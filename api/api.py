@@ -7,7 +7,7 @@ import hashlib
 import os
 from datetime import datetime, timezone
 from flask import Flask, request, abort, make_response, redirect
-from couchdb import Server
+import pycouchdb
 from fnmatch import fnmatch
 from http.client import BadStatusLine
 import re
@@ -21,14 +21,14 @@ config.read(('collector.ini', os.path.join('collector', 'collector.ini'),
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
-CSRF_KEY = b'fxwL8Ole62zSUXOk8LYKQlMweLs'
+CSRF_KEY = config.get('api', 'api_key')
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
 app = Flask(__name__)
 app.debug = True
-server = Server('http://localhost:5984/')
-db = server['csp']
+server = pycouchdb.Server(COUCHDB_SERVER)
+db = server.database('csp')
 
 
 @app.route('/login', methods=['POST'])
@@ -44,7 +44,7 @@ def login():
         print('login missing owner_id')
         return '', 400, []
 
-    token = hmac.new(CSRF_KEY, bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
+    token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
     resp.set_cookie('XSRF-TOKEN', token)
     resp.set_cookie('owner_id', b64encode(bytes(owner_id, 'ascii')))
@@ -61,7 +61,7 @@ def verify_csrf_token():
         print('verify_csrf_token missing owner_id or request token')
         return False
 
-    expected_token = hmac.new(CSRF_KEY, owner_id, hashlib.sha512).hexdigest()
+    expected_token = hmac.new(bytes(CSRF_KEY, 'ascii'), owner_id, hashlib.sha512).hexdigest()
 
     if hmac.compare_digest(request_token, expected_token):
         return True
