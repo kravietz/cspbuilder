@@ -40,8 +40,8 @@
       <file leaf-file-name="CspSessionController.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49393415" vertical-offset="0" max-vertical-offset="577">
-              <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.36395147" vertical-offset="0" max-vertical-offset="577">
+              <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -1787,7 +1787,11 @@
       <created>1412084979094</created>
       <updated>1412084979094</updated>
     </task>
-    <option name="localTasksCounter" value="328" />
+    <task id="LOCAL-00328" summary="log cookies on logout">
+      <created>1412089115989</created>
+      <updated>1412089115990</updated>
+    </task>
+    <option name="localTasksCounter" value="329" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1831,7 +1835,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="need to use bytes() again" />
     <MESSAGE value="decode owner_id from B64" />
     <MESSAGE value="simplify review process-  hide current line and open next one" />
     <MESSAGE value="fix the known_list view" />
@@ -1856,7 +1859,8 @@
     <MESSAGE value="log start of controller" />
     <MESSAGE value="sort from largest number of alerts" />
     <MESSAGE value="use strict inside controllers" />
-    <option name="LAST_COMMIT_MESSAGE" value="use strict inside controllers" />
+    <MESSAGE value="log cookies on logout" />
+    <option name="LAST_COMMIT_MESSAGE" value="log cookies on logout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2238,8 +2242,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49393415" vertical-offset="0" max-vertical-offset="577">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.36395147" vertical-offset="0" max-vertical-offset="577">
+          <caret line="14" column="66" selection-start-line="14" selection-start-column="66" selection-end-line="14" selection-end-column="66" />
           <folding />
         </state>
       </provider>

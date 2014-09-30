@@ -9,11 +9,13 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookieStore', '$w
         var owner_id = $cookieStore.get('owner_id');
         console.log('CspSessionController owner_id=' + owner_id + ' (encoded)');
         if (!owner_id) {
+            // redirect to login page
             $window.location.href = '/static/#/login';
+        } else {
+            // decode owner_id from BASE64 and store in root scope
+            $rootScope.owner_id = window.atob(owner_id);
+            console.log('CspSessionController owner_id=' + $rootScope.owner_id + ' (decoded)')
         }
-        // need to decode
-        $rootScope.owner_id = window.atob(owner_id);
-        console.log('CspSessionController owner_id=' + $rootScope.owner_id + ' (decoded)')
 
         $scope.logout = function () {
             console.log('CspSessionController logout');
