@@ -22,11 +22,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
         };
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
-        $scope.db.query("csp", "known_list",
-            {
-                startkey: [$rootScope.owner_id, , , ],
-                endkey: [$rootScope.owner_id, {}, {}, {}]
-            })
+        $scope.db.query("csp", "known_list", { key: $rootScope.owner_id })
             .success(function () {
                 console.log('data loading finished');
                 $scope.approved_list = [];
@@ -35,9 +31,9 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
                     // ["9018643792216450862", "connect-src", "http://platform.twitter.com", "accept"]
-                    var type = item.key[1];
-                    var src = item.key[2];
-                    var action = item.key[3];
+                    var type = item.value[1];
+                    var src = item.value[2];
+                    var action = item.value[3];
 
                     if (action == 'accept') {
 
