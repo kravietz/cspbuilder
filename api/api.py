@@ -110,11 +110,7 @@ def update_known_list(owner_id):
 
     # update known list entry
     # first check if there's such entry already
-    try:
-        results = db.view('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}])
-    except (AttributeError, BadStatusLine) as e:
-        print('read_csp_report exception {}'.format(e))
-        return '', 204, []
+    results = db.query('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}])
 
     match = False
 
@@ -174,7 +170,7 @@ def update_known_list(owner_id):
             docs.append(doc)
 
     if docs:
-        db.update(docs)
+        db.save_bulk(docs)
 
     print('update_known_list updated status of {} existing reports'.format(len(docs)))
 
@@ -193,13 +189,13 @@ def delete_all_reports(owner_id):
         return '', 400, []
 
     docs = []
-    for row in db.view('csp/all_by_owner', key=owner_id, include_docs=True):
+    for row in db.query('csp/all_by_owner', key=owner_id, include_docs=True):
         doc = row.doc
         doc['_deleted'] = True
         docs.append(doc)
 
     if docs:
-        db.update(docs)
+        db.save_bulk(docs)
 
     stop_time = datetime.now(timezone.utc)
     print('delete_all_reports {} {} {} {} deleted {} reports'.format(start_time, client_ip, request.url,
@@ -254,12 +250,8 @@ def read_csp_report(owner_id):
     review_rule = 'default'
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
-    try:
-        results = db.view('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
-        print('read_csp_report {} known_list={}'.format(len(results), results))
-    except Exception as e:
-        print('read_csp_report exception {}'.format(e))
-        return '', 204, []
+    results = db.query('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
+    print('read_csp_report {} known_list={}'.format(len(results), results))
 
     for row in results:
         # sample:
