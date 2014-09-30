@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" afterPath="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/analysis.html" afterPath="$PROJECT_DIR$/static/analysis.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -1742,7 +1741,11 @@
       <created>1412079153798</created>
       <updated>1412079153799</updated>
     </task>
-    <option name="localTasksCounter" value="316" />
+    <task id="LOCAL-00316" summary="use $rootScope instead of $scope">
+      <created>1412080224857</created>
+      <updated>1412080224857</updated>
+    </task>
+    <option name="localTasksCounter" value="317" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1786,7 +1789,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="convert owner_to bytes() before passing to hmac()" />
     <MESSAGE value="encode CSRF_KEY as bytes()" />
     <MESSAGE value="call verify_csrf_report()" />
     <MESSAGE value="store owner_id in $rootScope" />
@@ -1811,7 +1813,8 @@
     <MESSAGE value="try to handle the API exception" />
     <MESSAGE value="use pycouchdb, move server URL to ini file" />
     <MESSAGE value="fully move to pycouchdb API" />
-    <option name="LAST_COMMIT_MESSAGE" value="fully move to pycouchdb API" />
+    <MESSAGE value="use $rootScope instead of $scope" />
+    <option name="LAST_COMMIT_MESSAGE" value="use $rootScope instead of $scope" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

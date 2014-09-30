@@ -16,7 +16,7 @@
             <table class="table table-condensed">
                 <thead>
                 <tr>
-
+                    <th>Number</th>
                     <th>Type</th>
                     <th>Resource origin</th>
                 </tr>
@@ -25,7 +25,7 @@
                 <tbody>
                 <tr ng-repeat="report in db.rows track by $index" title="{{report}}" id="report-row-{{$index}}"
                     ng-click="detail_open($index)">
-
+                    <td>{{report.value}}</td>
                     <td>{{report.key[1]}}</td>
                     <td>{{report.key[2] | limitTo: 70}}</td>
                 </tr>
