@@ -24,9 +24,12 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
         })
             .success(function () {
                 console.log('data loading finished');
+
+                // sort
                 $scope.db.rows.sort(function (a, b) {
-                    return a.value - b.value;
+                    return b.value - a.value;
                 });
+
                 $scope.blocked = false;
             });
 
