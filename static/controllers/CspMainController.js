@@ -2,7 +2,7 @@
  * Created by pawelkrawczyk on 01/10/2014.
  */
 
-cspControllers.controller('CspAnalysisController', ['$scope',
+cspControllers.controller('CspMainController', ['$scope',
     function ($scope) { "use strict";
 
         $scope.new_csp = function () {
