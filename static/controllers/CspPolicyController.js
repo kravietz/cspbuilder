@@ -121,7 +121,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                 header += '-Report-Only';
             }
 
-            var policy = 'report-uri http://new.cspbuilder.info:8080/report/' + $rootScope.owner_id + '; ';
+            var policy = 'report-uri http://cspbuilder.info/report/' + $rootScope.owner_id + '/; ';
 
             for (var i = 0; i < $scope.approved_list.length; i++) {
                 var src_list = $scope.approved_list[i];
