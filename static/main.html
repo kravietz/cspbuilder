@@ -7,11 +7,9 @@
 
                 <li>Configure your website to set the following HTTP header
 
-                    <button type="button" class="btn btn-default" ng-click="new_csp()">Generate</button>
+                    <button type="button" class="btn btn-default" ng-click="new_csp()" ng-hide="new_policy">Generate</button>
 
-                    <pre ng-show="new_policy">
-                        {{new_policy}}
-                    </pre>
+                    <pre ng-show="new_policy">{{new_policy}}</pre>
                 </li>
 
                 <li>Click here when ready.

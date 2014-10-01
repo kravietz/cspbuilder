@@ -30,6 +30,22 @@ server = pycouchdb.Server(COUCHDB_SERVER)
 db = server.database('csp')
 
 
+def login_response(owner_id):
+    token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
+    resp = make_response(redirect('/static/#/analysis'))
+    resp.set_cookie('XSRF-TOKEN', token)
+    resp.set_cookie('owner_id', b64encode(bytes(owner_id, 'ascii')))
+    print('login_response setting token cookie {}'.format(token))
+    return resp
+
+@app.route('/policy/<owner_id>/', methods=['GET'])
+def policy(owner_id):
+    start_time = datetime.now(timezone.utc)
+    client_ip = request.environ.get('REMOTE_ADDR')
+    print('policy login {} {} owner_id={}'.format(start_time, client_ip, owner_id))
+    return login_response(owner_id)
+
+
 @app.route('/login', methods=['POST'])
 def login():
     start_time = datetime.now(timezone.utc)
@@ -43,13 +59,7 @@ def login():
         print('login missing owner_id')
         return '', 400, []
 
-    token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
-    resp = make_response(redirect('/static/#/analysis'))
-    resp.set_cookie('XSRF-TOKEN', token)
-    resp.set_cookie('owner_id', b64encode(bytes(owner_id, 'ascii')))
-    print('login setting token cookie {}'.format(token))
-    return resp
-
+    return login_response(owner_id)
 
 def verify_csrf_token():
     request_token = request.headers.get('X-XSRF-TOKEN')
