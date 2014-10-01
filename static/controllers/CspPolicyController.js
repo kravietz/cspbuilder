@@ -70,18 +70,6 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
             }
         );
 
-        // TODO: add various types from https://www.owasp.org/index.php/Content_Security_Policy
-        // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
-        function ror_generator() {
-            // TODO: https://github.com/twitter/secureheaders
-            return null;
-        }
-
-        function django_generator() {
-            // TODO: https://github.com/kravietz/django-security
-            return null;
-        }
-
         // Cycle between default (empty) policy and original, generated policy array
         $scope.default_policy = function () {
             // check if we're not cycling back from default policy
@@ -91,118 +79,14 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                 return
             }
             $scope.approved_list_backup = $scope.approved_list;
-            $scope.approved_list = [];
-            // report-uri and default-src will be added automatically
-            var types = ['connect-src', 'child-src', 'font-src', 'form-action', 'frame-ancestors', 'frame-src',
-                'img-src', 'media-src', 'object-src', 'script-src', 'style-src'];
-            types.forEach(function (type) {
-                $scope.approved_list.push(
-                    {'type': type, 'sources': {'\'none\'': true}}
-                );
-            });
+            $scope.approved_list = empty_approved_list();
         };
 
         $scope.generate_csp = function (format) {
 
-            // select CSP header format
-            switch ($scope.csp_config.header_format) {
-                case 'xcsp':
-                    var header = 'X-Content-Security-Policy';
-                    break;
-                case 'webkit':
-                    var header = 'X-WebKit-CSP';
-                    break;
-                default:
-                    var header = 'Content-Security-Policy';
-            }
-
-            // append RO if enforcenement is not selected
-            if (!$scope.csp_config.enforce) {
-                header += '-Report-Only';
-            }
-
-            var policy = 'report-uri http://cspbuilder.info/report/' + $rootScope.owner_id + '/; ';
-
-            for (var i = 0; i < $scope.approved_list.length; i++) {
-                var src_list = $scope.approved_list[i];
-                policy += src_list.type + ' ';
-                var sources = Object.keys(src_list.sources);
-                for (var j = 0; j < sources.length; j++) {
-                    if (src_list.sources[sources[j]]) {
-                        policy += ' ' + sources[j];
-                    }
-                }
-                policy += '; ';
-            }
-
-            // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
-            switch($scope.reflected_xss) {
-                case 'block':
-                    policy += 'reflected-xss block; ';
-                    break;
-                case 'filter':
-                    policy += 'reflected-xss filter; ';
-                    break;
-                case 'allow':
-                    policy += 'reflected-xss allow; ';
-                    break;
-            }
-
-            // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-referrer
-            switch($scope.csp_config.referrer) {
-                case 'no-referrer':
-                    policy += 'referrer no-referrer; '
-                    break;
-                case 'no-referrer-when-downgrade':
-                    policy += 'referrer no-referrer-when-downgrade; '
-                    break;
-                case 'origin':
-                    policy += 'referrer origin; '
-                    break;
-                case 'origin-when-cross-origin':
-                    policy += 'referrer origin-when-cross-origin; '
-                    break;
-                case 'unsafe-url':
-                    policy += 'referrer unsafe-url; '
-                    break;
-                default: // none
-                    // do nothing, do not add the directive
-            }
-
-            // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-plugin-types
-            if($scope.csp_config.plugin_choice.length) {
-                policy += 'plugin-types ';
-                for (var i = 0; i < $scope.csp_config.plugin_choice.length; i++) {
-                    policy += $scope.csp_config.plugin_choice[i];
-                    policy += ' ';
-                }
-                policy += '; ';
-            }
-
-            // add default source
-            policy += 'default-src \'none\';';
-
-            // produce final formatted output depending on requested format
-            switch (format) {
-                case 'nginx':
-                    $scope.policy = 'add_header ' + header + ' "' + policy + '";';
-                    break;
-                case 'apache':
-                    $scope.policy = 'Header set ' + header + ' "' + policy + '"';
-                    break;
-                case 'php':
-                    $scope.policy = 'header("' + header + ': ' + policy + '");';
-                    break;
-                case 'ror':
-                    $scope.policy_message = 'Use <a href="https://github.com/twitter/secureheaders">secureheaders</a>.';
-                    $scope.policy = ror_generator();
-                    break;
-                case 'django':
-                    $scope.policy_message = 'Use <a href="https://github.com/kravietz/django-security">django-security</a>.';
-                    $scope.policy = django_generator();
-                default:
-                    $scope.policy = header + ': ' + policy;
-            }
+            var result = policy_generator(format, $scope.csp_config, $scope.approved_list);
+            $scope.policy = result[0];
+            $scope.policy_message = result[1];
 
         };
 
