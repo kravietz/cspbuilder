@@ -16,6 +16,10 @@
                 pulling scripts, images and frames from tens of 3<sup><small>rd</small></sup> party websites.
                 Here's where CspBuilder comes handy.
             </p>
+            </div></div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8">
 
             <h2>How it works?</h2>
 
@@ -32,29 +36,24 @@
                 initial draft policy.  CspBuilder will suggest improvements, you update your policy, try again...
                 and in a few steps you will end up with a CSP that can be used in production.
             </p>
+            </div></div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8">
 
             <h2>How to start?</h2>
 
             <p>First, generate a new empty policy header with your new, unique identifier:</p>
 
-            <button type="button" class="text-center btn btn-default" ng-click="new_csp()" ng-hide="new_policy">Generate</button>
+            <p class="text-center"><button type="button" class="text-center btn btn-default" ng-click="new_csp()" ng-hide="new_policy">Get header</button></p>
 
             <pre ng-show="new_policy">{{new_policy}}</pre>
 
             <p>Add it to your web server, reload your website and click here when ready:</p>
 
-            <a class="text-center btn btn-success" href="/policy/{{new_owner_id}}/">Start receiving alerts</a>
+            <p class="text-center"><a class="btn btn-success" href="/policy/{{new_owner_id}}/">Start receiving alerts</a></p>
 
 
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <form action="/login" method="POST">
-                <input type="text" placeholder="Enter owner id" name="owner_id" ng-model="owner_id">
-                <input type="submit" value="Login">
-            </form>
         </div>
     </div>
 

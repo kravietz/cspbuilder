@@ -30,8 +30,8 @@
       <file leaf-file-name="main.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5555556" vertical-offset="345" max-vertical-offset="1125">
-              <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.25" vertical-offset="570" max-vertical-offset="1110">
+              <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -1978,7 +1978,11 @@
       <created>1412179693189</created>
       <updated>1412179693189</updated>
     </task>
-    <option name="localTasksCounter" value="352" />
+    <task id="LOCAL-00352" summary="add more text">
+      <created>1412180613152</created>
+      <updated>1412180613152</updated>
+    </task>
+    <option name="localTasksCounter" value="353" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2022,7 +2026,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="sort from largest number of alerts" />
     <MESSAGE value="use strict inside controllers" />
     <MESSAGE value="log cookies on logout" />
     <MESSAGE value="fix cookie decoding logic" />
@@ -2047,7 +2050,8 @@
     <MESSAGE value="implement GET login via /policy URL" />
     <MESSAGE value="reenable /policy URLs" />
     <MESSAGE value="close A tag" />
-    <option name="LAST_COMMIT_MESSAGE" value="close A tag" />
+    <MESSAGE value="add more text" />
+    <option name="LAST_COMMIT_MESSAGE" value="add more text" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2439,8 +2443,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5555556" vertical-offset="345" max-vertical-offset="1125">
-          <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+        <state vertical-scroll-proportion="0.25" vertical-offset="570" max-vertical-offset="1110">
+          <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
           <folding />
         </state>
       </provider>
