@@ -4,7 +4,7 @@
 
 "use strict";
 
-var couchdb_url = 'http://new.cspbuilder.info:8080';
+var couchdb_url = 'http://cspbuilder.info';
 
 var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cspControllers']);
 
