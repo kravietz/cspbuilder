@@ -84,7 +84,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
 
         $scope.generate_csp = function (format) {
 
-            var result = policy_generator(format, $scope.csp_config, $scope.approved_list);
+            var result = policy_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
             $scope.policy = result[0];
             $scope.policy_message = result[1];
 

@@ -137,7 +137,23 @@ function empty_approved_list() {
     return approved_list;
 } // empty_approved_list
 
-function policy_generator(format, csp_config, approved_list) {
+function default_csp_config() {
+   return {
+            'enforce': false,
+            'default': false, // TODO: this setting should be taken into account by policy generator
+            'referrer': 'none',
+            'reflected_xss': 'block',
+            'header_format': 'standard',
+            'plugin_types': [
+                'application/pdf',
+                'application/x-shockwave-flash',
+                'application/java'
+            ],
+            'plugin_choice': []
+        } ;
+} // default_csp_config
+
+function policy_generator(owner_id, format, csp_config, approved_list) {
     // select CSP header format
             switch (csp_config.header_format) {
                 case 'xcsp':
@@ -155,7 +171,7 @@ function policy_generator(format, csp_config, approved_list) {
                 header += '-Report-Only';
             }
 
-            var policy = 'report-uri http://cspbuilder.info/report/' + $rootScope.owner_id + '/; ';
+            var policy = 'report-uri http://cspbuilder.info/report/' + owner_id + '/; ';
 
             for (var i = 0; i < approved_list.length; i++) {
                 var src_list = approved_list[i];

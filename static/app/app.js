@@ -11,6 +11,11 @@ var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cs
 cspbuilderApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
+            when('/main/', {
+                templateUrl: '/static/main.html',
+                controller: 'CspMainController'
+
+            }).
             when('/analysis/', {
                 templateUrl: '/static/analysis.html',
                 controller: 'CspAnalysisController'
