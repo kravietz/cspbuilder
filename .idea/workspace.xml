@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="upgrade CouchDB to production">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" afterPath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -28,10 +27,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CspPolicyController.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CspPolicyController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22118959" vertical-offset="1726" max-vertical-offset="3225">
+            <state vertical-scroll-proportion="-4.576923" vertical-offset="1726" max-vertical-offset="3225">
               <caret line="123" column="95" selection-start-line="123" selection-start-column="95" selection-end-line="123" selection-end-column="95" />
               <folding />
             </state>
@@ -58,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2826" max-vertical-offset="4485">
-              <caret line="202" column="31" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
+            <state vertical-scroll-proportion="-0.19680852" vertical-offset="3171" max-vertical-offset="4530">
+              <caret line="214" column="34" selection-start-line="214" selection-start-column="34" selection-end-line="214" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -135,8 +134,8 @@
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
         <option value="$PROJECT_DIR$/static/app/app.js" />
-        <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+        <option value="$PROJECT_DIR$/api/api.py" />
       </list>
     </option>
   </component>
@@ -1887,7 +1886,11 @@
       <created>1412167476177</created>
       <updated>1412167476177</updated>
     </task>
-    <option name="localTasksCounter" value="335" />
+    <task id="LOCAL-00335" summary="add trailing slash at the end of /report/XXX/ URI">
+      <created>1412168180676</created>
+      <updated>1412168180676</updated>
+    </task>
+    <option name="localTasksCounter" value="336" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1931,7 +1934,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="pack into col-md-4" />
     <MESSAGE value="a bit wider" />
     <MESSAGE value="workspace.xml" />
     <MESSAGE value="link to personal profile" />
@@ -1956,7 +1958,8 @@
     <MESSAGE value="because pycouchdb does not expose rows as objects, the results need to be called as row['key'] instead of row.key" />
     <MESSAGE value="known_list view now returns owner_id as the only key item" />
     <MESSAGE value="upgrade CouchDB to production" />
-    <option name="LAST_COMMIT_MESSAGE" value="upgrade CouchDB to production" />
+    <MESSAGE value="add trailing slash at the end of /report/XXX/ URI" />
+    <option name="LAST_COMMIT_MESSAGE" value="add trailing slash at the end of /report/XXX/ URI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2309,14 +2312,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2826" max-vertical-offset="4485">
-          <caret line="202" column="31" selection-start-line="202" selection-start-column="31" selection-end-line="202" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/policy.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.16636528" vertical-offset="92" max-vertical-offset="795">
@@ -2335,13 +2330,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspPolicyController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22118959" vertical-offset="1726" max-vertical-offset="3225">
+        <state vertical-scroll-proportion="-4.576923" vertical-offset="1726" max-vertical-offset="3225">
           <caret line="123" column="95" selection-start-line="123" selection-start-column="95" selection-end-line="123" selection-end-column="95" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.19680852" vertical-offset="3171" max-vertical-offset="4530">
+          <caret line="214" column="34" selection-start-line="214" selection-start-column="34" selection-end-line="214" selection-end-column="34" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
