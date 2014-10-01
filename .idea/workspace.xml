@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspMainController.js" afterPath="$PROJECT_DIR$/static/controllers/CspMainController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/main.html" afterPath="$PROJECT_DIR$/static/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uwsgi.ini" afterPath="$PROJECT_DIR$/uwsgi.ini" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -28,11 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3254973" vertical-offset="60" max-vertical-offset="705">
+            <state vertical-scroll-proportion="-7.5" vertical-offset="60" max-vertical-offset="705">
               <caret line="16" column="78" selection-start-line="16" selection-start-column="78" selection-end-line="16" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="uwsgi.ini" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/uwsgi.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3119584" vertical-offset="0" max-vertical-offset="577">
+              <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -147,11 +156,11 @@
         <option value="$PROJECT_DIR$/static/index.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/static/offline.html" />
-        <option value="$PROJECT_DIR$/uwsgi.ini" />
         <option value="$PROJECT_DIR$/static/app/policy.js" />
         <option value="$PROJECT_DIR$/api/api.py" />
         <option value="$PROJECT_DIR$/static/controllers/CspMainController.js" />
         <option value="$PROJECT_DIR$/static/main.html" />
+        <option value="$PROJECT_DIR$/uwsgi.ini" />
       </list>
     </option>
   </component>
@@ -1957,7 +1966,11 @@
       <created>1412179506381</created>
       <updated>1412179506381</updated>
     </task>
-    <option name="localTasksCounter" value="349" />
+    <task id="LOCAL-00349" summary="implement GET login via /policy URL">
+      <created>1412179603894</created>
+      <updated>1412179603894</updated>
+    </task>
+    <option name="localTasksCounter" value="350" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2001,7 +2014,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="move controller definition to outer div, otherwise it's loading after top menu is included" />
     <MESSAGE value="try to run session controller in body" />
     <MESSAGE value="log start of controller" />
     <MESSAGE value="sort from largest number of alerts" />
@@ -2026,7 +2038,8 @@
     <MESSAGE value="add offline message on main page" />
     <MESSAGE value="generate new policy on request" />
     <MESSAGE value="implement GET login" />
-    <option name="LAST_COMMIT_MESSAGE" value="implement GET login" />
+    <MESSAGE value="implement GET login via /policy URL" />
+    <option name="LAST_COMMIT_MESSAGE" value="implement GET login via /policy URL" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2328,14 +2341,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uwsgi.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18953069" vertical-offset="0" max-vertical-offset="555">
-          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/offline.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4528302" vertical-offset="0" max-vertical-offset="530">
@@ -2418,8 +2423,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3254973" vertical-offset="60" max-vertical-offset="705">
+        <state vertical-scroll-proportion="-7.5" vertical-offset="60" max-vertical-offset="705">
           <caret line="16" column="78" selection-start-line="16" selection-start-column="78" selection-end-line="16" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uwsgi.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3119584" vertical-offset="0" max-vertical-offset="577">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
           <folding />
         </state>
       </provider>
