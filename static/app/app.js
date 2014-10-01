@@ -49,7 +49,7 @@ cspbuilderApp.config(['$routeProvider',
             }
         ).
             otherwise({
-                redirectTo: '/login'
+                redirectTo: '/main'
             }
         );
     }
