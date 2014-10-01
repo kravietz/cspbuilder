@@ -3,21 +3,49 @@
         <div class="col-xs-12 col-sm-6 col-md-8">
             <h1>Content Security Policy Builder</h1>
 
-            <ol>
+            <p>
+                <a href="http://en.wikipedia.org/wiki/Content_Security_Policy">Content Security Policy</a>
+                is a new HTML5 web security feature. Your website can now explicitly tell browsers what
+                sources of content &mdash; images, scripts, frames etc &mdash; are to be trusted. A new
+                <code>Content-Security-Policy</code> HTTP header is used to announce that policy.
+            </p>
 
-                <li>Configure your website to set the following HTTP header
+            <p>
+                Building a new CSP in mashup era is challenging, because you use content from so many
+                external sites. Add a single Facebook button or Google ad, and your browser will end up
+                pulling scripts, images and frames from tens of 3<sup><small>rd</small></sup> party websites.
+                Here's where CspBuilder comes handy.
+            </p>
 
-                    <button type="button" class="btn btn-default" ng-click="new_csp()" ng-hide="new_policy">Generate</button>
+            <h2>How it works?</h2>
 
-                    <pre ng-show="new_policy">{{new_policy}}</pre>
-                </li>
+            <p>
+                Two things: CSP report-only mode and violation reports. The former will tell the browser to
+                block no content that would be otherwise blocked by your website's CSP, but instead report
+                these URLs in JavaScript console. The latter will send these reports to a remote server for
+                analysis.
+            </p>
 
-                <li>Click here when ready.
+            <p>
+                <strong>CspBuilder.info is such a CSP report collection server with advanced analytics.</strong>
+                You can review alerts from your website and see what content <em>would be blocked</em> under an
+                initial draft policy.  CspBuilder will suggest improvements, you update your policy, try again...
+                and in a few steps you will end up with a CSP that can be used in production.
+            </p>
 
-                    <a class="btn btn-success" href="/policy/{{new_owner_id}}/">Start receiving alerts</a>
-                </li>
+            <h2>How to start?</h2>
 
-            </ol>
+            <p>First, generate a new empty policy header with your new, unique identifier:</p>
+
+            <button type="button" class="text-center btn btn-default" ng-click="new_csp()" ng-hide="new_policy">Generate</button>
+
+            <pre ng-show="new_policy">{{new_policy}}</pre>
+
+            <p>Add it to your web server, reload your website and click here when ready:</p>
+
+            <a class="text-center btn btn-success" href="/policy/{{new_owner_id}}/">Start receiving alerts</a>
+
+
         </div>
     </div>
 
