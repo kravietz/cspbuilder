@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="sanity checks - Content-Type and csp-report">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" afterPath="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/app/policy.js" afterPath="$PROJECT_DIR$/static/app/policy.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -41,8 +40,28 @@
       <file leaf-file-name="policy.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/app/policy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.17021276" vertical-offset="2076" max-vertical-offset="3780">
-              <caret line="132" column="16" selection-start-line="132" selection-start-column="16" selection-end-line="132" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.20194174" vertical-offset="2461" max-vertical-offset="3795">
+              <caret line="171" column="42" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="policy.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/policy.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="5.9583335" vertical-offset="143" max-vertical-offset="795">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="policy-config.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/policy-config.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.625" vertical-offset="135" max-vertical-offset="1755">
+              <caret line="10" column="120" selection-start-line="10" selection-start-column="120" selection-end-line="10" selection-end-column="120" />
               <folding />
             </state>
           </provider>
@@ -147,8 +166,8 @@
         <option value="$PROJECT_DIR$/collector/couchdb/known_list/map.js" />
         <option value="$PROJECT_DIR$/static/app/app.js" />
         <option value="$PROJECT_DIR$/api/api.py" />
-        <option value="$PROJECT_DIR$/static/app/policy.js" />
         <option value="$PROJECT_DIR$/static/controllers/CspPolicyController.js" />
+        <option value="$PROJECT_DIR$/static/app/policy.js" />
       </list>
     </option>
   </component>
@@ -1906,7 +1925,11 @@
       <created>1412168414173</created>
       <updated>1412168414173</updated>
     </task>
-    <option name="localTasksCounter" value="337" />
+    <task id="LOCAL-00337" summary="move actual policy generation to library so that it can be reused on main page">
+      <created>1412170601528</created>
+      <updated>1412170601528</updated>
+    </task>
+    <option name="localTasksCounter" value="338" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1950,7 +1973,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="workspace.xml" />
     <MESSAGE value="link to personal profile" />
     <MESSAGE value="try to handle the API exception" />
     <MESSAGE value="use pycouchdb, move server URL to ini file" />
@@ -1975,7 +1997,8 @@
     <MESSAGE value="upgrade CouchDB to production" />
     <MESSAGE value="add trailing slash at the end of /report/XXX/ URI" />
     <MESSAGE value="sanity checks - Content-Type and csp-report" />
-    <option name="LAST_COMMIT_MESSAGE" value="sanity checks - Content-Type and csp-report" />
+    <MESSAGE value="move actual policy generation to library so that it can be reused on main page" />
+    <option name="LAST_COMMIT_MESSAGE" value="move actual policy generation to library so that it can be reused on main page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2222,13 +2245,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/policy-config.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1755">
-          <caret line="10" column="120" selection-start-line="10" selection-start-column="120" selection-end-line="10" selection-end-column="120" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/top-menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="480">
@@ -2319,29 +2335,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1050">
-          <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
           <caret line="12" column="52" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/policy.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.437613" vertical-offset="242" max-vertical-offset="795">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2357,10 +2354,37 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/app/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1050">
+          <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/policy.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.9583335" vertical-offset="143" max-vertical-offset="795">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/policy-config.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="135" max-vertical-offset="1755">
+          <caret line="10" column="120" selection-start-line="10" selection-start-column="120" selection-end-line="10" selection-end-column="120" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/app/policy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.17021276" vertical-offset="2076" max-vertical-offset="3780">
-          <caret line="132" column="16" selection-start-line="132" selection-start-column="16" selection-end-line="132" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.20194174" vertical-offset="2461" max-vertical-offset="3795">
+          <caret line="171" column="42" selection-start-line="171" selection-start-column="42" selection-end-line="171" selection-end-column="42" />
           <folding />
         </state>
       </provider>

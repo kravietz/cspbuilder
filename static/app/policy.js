@@ -169,6 +169,7 @@ function policy_generator(format, csp_config, approved_list) {
                 policy += '; ';
             }
 
+            // TODO: not working currently
             // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
             switch(csp_config.reflected_xss) {
                 case 'block':
