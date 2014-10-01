@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/main.html" afterPath="$PROJECT_DIR$/static/main.html" />
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="simpler contact page">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/offline.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uwsgi.ini" afterPath="$PROJECT_DIR$/uwsgi.ini" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -37,16 +38,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="policy.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/app/policy.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.576923" vertical-offset="2154" max-vertical-offset="4035">
-              <caret line="155" column="34" selection-start-line="155" selection-start-column="26" selection-end-line="155" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CspSessionController.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -57,11 +48,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6320755" vertical-offset="265" max-vertical-offset="795">
+            <state vertical-scroll-proportion="-13.958333" vertical-offset="265" max-vertical-offset="795">
               <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="offline.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/offline.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="405">
+              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="uwsgi.ini" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/uwsgi.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.32490975" vertical-offset="0" max-vertical-offset="555">
+              <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -112,18 +123,8 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5" vertical-offset="150" max-vertical-offset="720">
-              <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CspAnalysisController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/controllers/CspAnalysisController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1530">
-              <caret line="5" column="78" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="78" />
+            <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="720">
+              <caret line="10" column="54" selection-start-line="6" selection-start-column="4" selection-end-line="10" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -150,7 +151,6 @@
         <option value="$PROJECT_DIR$/static/live.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspListController.js" />
         <option value="$PROJECT_DIR$/collector/test.py" />
-        <option value="$PROJECT_DIR$/uwsgi.ini" />
         <option value="$PROJECT_DIR$/collector/util.py" />
         <option value="$PROJECT_DIR$/static/controllers/test.js" />
         <option value="$PROJECT_DIR$/collector/init_views.py" />
@@ -190,6 +190,8 @@
         <option value="$PROJECT_DIR$/static/index.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspSessionController.js" />
         <option value="$PROJECT_DIR$/static/main.html" />
+        <option value="$PROJECT_DIR$/static/offline.html" />
+        <option value="$PROJECT_DIR$/uwsgi.ini" />
       </list>
     </option>
   </component>
@@ -1979,7 +1981,11 @@
       <created>1412177441293</created>
       <updated>1412177441293</updated>
     </task>
-    <option name="localTasksCounter" value="345" />
+    <task id="LOCAL-00345" summary="simpler contact page">
+      <created>1412177874991</created>
+      <updated>1412177874991</updated>
+    </task>
+    <option name="localTasksCounter" value="346" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2023,7 +2029,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="minor fixes" />
     <MESSAGE value="inject $rootScope, get rid of obsolete $cookieStores" />
     <MESSAGE value="delete obsolete login controller (now handled by API)" />
     <MESSAGE value="log owner_id" />
@@ -2048,7 +2053,8 @@
     <MESSAGE value="should be Main controller" />
     <MESSAGE value="add Main controller" />
     <MESSAGE value="do not redirect to /login if user not logged in" />
-    <option name="LAST_COMMIT_MESSAGE" value="do not redirect to /login if user not logged in" />
+    <MESSAGE value="simpler contact page" />
+    <option name="LAST_COMMIT_MESSAGE" value="simpler contact page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2056,13 +2062,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/top-menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="210">
-          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="375">
@@ -2172,13 +2171,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.20037453" vertical-offset="3182" max-vertical-offset="6765">
           <caret line="205" column="39" selection-start-line="205" selection-start-column="35" selection-end-line="205" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/uwsgi.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32374102" vertical-offset="0" max-vertical-offset="556">
-          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -2393,14 +2385,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="225">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspMainController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
@@ -2422,14 +2406,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5" vertical-offset="150" max-vertical-offset="720">
-          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/controllers/CspSessionController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
@@ -2440,8 +2416,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6320755" vertical-offset="265" max-vertical-offset="795">
+        <state vertical-scroll-proportion="-13.958333" vertical-offset="265" max-vertical-offset="795">
           <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="225">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="720">
+          <caret line="10" column="54" selection-start-line="6" selection-start-column="4" selection-end-line="10" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/offline.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="405">
+          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uwsgi.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32490975" vertical-offset="0" max-vertical-offset="555">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
           <folding />
         </state>
       </provider>
