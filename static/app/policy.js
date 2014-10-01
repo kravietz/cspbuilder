@@ -154,6 +154,8 @@ function default_csp_config() {
 } // default_csp_config
 
 function policy_generator(owner_id, format, csp_config, approved_list) {
+    console.log('policy_generator owner_id=' + owner_id);
+
     // select CSP header format
             switch (csp_config.header_format) {
                 case 'xcsp':

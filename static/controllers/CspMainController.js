@@ -13,7 +13,8 @@ cspControllers.controller('CspMainController', ['$scope',
             var approved_list = empty_approved_list();
             var csp_config = default_csp_config();
             var format = 'generic';
-            $scope.new_policy = policy_generator(new_owner_id, format, csp_config, approved_list);
+            var policy = policy_generator(new_owner_id, format, csp_config, approved_list);
+            $scope.new_policy = policy[0];
         }
 
     }]);
