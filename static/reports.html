@@ -1,8 +1,9 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
-<div class="row" id="reports-left-list">
+<div class="row">
+    <div class="col-xs-6">
 
-      <ol>
+    <ol>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
             <small>{{report.doc.meta.timestamp | limitTo: 19}}
                    {{report.doc['csp-report']['violated-directive'].split(' ')[0]}}
@@ -17,11 +18,11 @@
        <button type="button" class="btn btn-default" ng-click="load_next_page()">Load more...</button>
     </div>
 
-</div>
+    </div>
 
-<div class="row" id="reports-details-fixed" ng-hide="db.queryActive">
+    <div class="col-xs-6" id="reports-details-fixed" ng-hide="db.queryActive">
 
-   <div class="row text-center">
+    <div class="row text-center">
        <button id="reports-prev-button" type="button" class="btn btn-default" ng-click="detail_prev()">Previous</button>
        <button id="reports-next-button" type="button" class="btn btn-default" ng-click="detail_next()">Next</button>
        <button id="reports-delete-button" type="button" class="btn btn-warning" ng-click="delete_all()">Delete all</button>
@@ -66,4 +67,5 @@
         original-policy {{csp['original-policy'] | json}}
     </pre>
 
+</div>
 </div>
