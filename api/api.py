@@ -33,14 +33,18 @@ db = server.database('csp')
 
 
 def get_client_ip():
-    client_ip = request.environ.get('REMOTE_ADDR')
-    if IPAddress(client_ip) in CLOUDFLARE_IPS:
-        cf_ip = request.headers.get('CF-Connecting-IP')
-        if cf_ip:
-            return cf_ip
-        else:
-            print('get_client_ip request came from CloduFlare IP {} but did not contain CF-Connecting-IP'.format(client_ip))
-    return client_ip
+    client_ip = IPAddress(request.environ.get('REMOTE_ADDR'))
+    for net in CLOUDFLARE_IPS:
+
+        if client_ip in net:
+            # this is CloudFlare network, try to extract real IP
+            cf_ip = request.headers.get('CF-Connecting-IP')
+            if cf_ip:
+                return cf_ip
+            else:
+                print('get_client_ip request came from CloduFlare IP {} but did not contain CF-Connecting-IP'.format(client_ip))
+    # return original IP otherwise
+    return str(client_ip)
 
 
 def login_response(owner_id):

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collector/collector.ini" afterPath="$PROJECT_DIR$/collector/collector.ini" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -51,8 +50,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47026023" vertical-offset="4487" max-vertical-offset="5025">
-              <caret line="316" column="112" selection-start-line="316" selection-start-column="103" selection-end-line="316" selection-end-column="112" />
+            <state vertical-scroll-proportion="0.5297398" vertical-offset="390" max-vertical-offset="5085">
+              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -2009,7 +2008,11 @@
       <created>1412246227173</created>
       <updated>1412246227173</updated>
     </task>
-    <option name="localTasksCounter" value="357" />
+    <task id="LOCAL-00357" summary="use netaddr to obtain real IPs from CloudFlare">
+      <created>1412255184091</created>
+      <updated>1412255184092</updated>
+    </task>
+    <option name="localTasksCounter" value="358" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2053,7 +2056,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="because pycouchdb does not expose rows as objects, the results need to be called as row['key'] instead of row.key" />
     <MESSAGE value="known_list view now returns owner_id as the only key item" />
     <MESSAGE value="upgrade CouchDB to production" />
     <MESSAGE value="add trailing slash at the end of /report/XXX/ URI" />
@@ -2078,7 +2080,8 @@
     <MESSAGE value="keepalive and remove offsite page" />
     <MESSAGE value="working uWSGI config on port 80" />
     <MESSAGE value="use scheme independent URLs to work with HTTPS" />
-    <option name="LAST_COMMIT_MESSAGE" value="use scheme independent URLs to work with HTTPS" />
+    <MESSAGE value="use netaddr to obtain real IPs from CloudFlare" />
+    <option name="LAST_COMMIT_MESSAGE" value="use netaddr to obtain real IPs from CloudFlare" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2458,8 +2461,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47026023" vertical-offset="4487" max-vertical-offset="5025">
-          <caret line="316" column="112" selection-start-line="316" selection-start-column="103" selection-end-line="316" selection-end-column="112" />
+        <state vertical-scroll-proportion="0.5297398" vertical-offset="390" max-vertical-offset="5085">
+          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>
