@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="change policy message to info, not warning">
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="remove value tag from custom input field">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/analysis.html" afterPath="$PROJECT_DIR$/static/analysis.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -40,8 +40,8 @@
       <file leaf-file-name="analysis.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/analysis.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5153707" vertical-offset="660" max-vertical-offset="1680">
-              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.37974682" vertical-offset="630" max-vertical-offset="1545">
+              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1987,7 +1987,11 @@
       <created>1412262992823</created>
       <updated>1412262992823</updated>
     </task>
-    <option name="localTasksCounter" value="369" />
+    <task id="LOCAL-00369" summary="remove value tag from custom input field">
+      <created>1412263723588</created>
+      <updated>1412263723588</updated>
+    </task>
+    <option name="localTasksCounter" value="370" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2032,7 +2036,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="should be Main controller" />
     <MESSAGE value="add Main controller" />
     <MESSAGE value="do not redirect to /login if user not logged in" />
     <MESSAGE value="simpler contact page" />
@@ -2057,7 +2060,8 @@
     <MESSAGE value="formatting" />
     <MESSAGE value="use inline form" />
     <MESSAGE value="change policy message to info, not warning" />
-    <option name="LAST_COMMIT_MESSAGE" value="change policy message to info, not warning" />
+    <MESSAGE value="remove value tag from custom input field" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove value tag from custom input field" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -2432,8 +2436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/analysis.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5153707" vertical-offset="660" max-vertical-offset="1680">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.37974682" vertical-offset="630" max-vertical-offset="1545">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>

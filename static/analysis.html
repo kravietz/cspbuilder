@@ -55,53 +55,44 @@
                     </label>
                 </div>
 
-                <div class="radio">
-                    <label>
-                        <input name="policy_choice" type="radio">
-                        Custom: <input name="policy_choice" type="text" ng-model="$parent.policy_choice">
-                    </label>
+                <div class="alert alert-info" role="alert" ng-show="policy_message">
+                    {{policy_message}}
                 </div>
 
+                <div class="text-center">
+                    <button type="button"
+                            class="btn btn-success btn-default"
+                            ng-click="review_source(true)"
+                            title="Add this origin and resource to policy">
+                        <span>Allow</span>
+                    </button>
+
+                    <button type="button"
+                            class="btn btn-warning"
+                            ng-click="review_source(false)"
+                            title="Reset all approved sources">
+                        <span>Disallow</span>
+                    </button>
+
+                </div>
+
+                <h3>Sample</h3>
+
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <small>Date received <tt>{{meta.timestamp}}</tt></small>
+
+                    <li class="list-group-item">
+                        <small>User agent: <tt>{{meta.user_agent}}</tt></small>
+
+                    <li class="list-group-item">
+                        <small>Remote IP: <tt>{{meta.remote_ip}}</tt></small>
+                </ul>
+
+                <pre class="pre-scrollable" id="raw-report">{{csp | json}}</pre>
+
+
             </div>
-
-            <div class="alert alert-info" role="alert" ng-show="policy_message">
-            {{policy_message}}
-            </div>
-
-            <div class="text-center">
-                <button type="button"
-                        class="btn btn-success btn-default"
-                        ng-click="review_source(true)"
-                        title="Add this origin and resource to policy">
-                    <span>Allow</span>
-                </button>
-
-                <button type="button"
-                        class="btn btn-warning"
-                        ng-click="review_source(false)"
-                        title="Reset all approved sources">
-                    <span>Disallow</span>
-                </button>
-
-            </div>
-
-            <h3>Sample</h3>
-
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <small>Date received <tt>{{meta.timestamp}}</tt></small>
-
-                <li class="list-group-item">
-                    <small>User agent: <tt>{{meta.user_agent}}</tt></small>
-
-                <li class="list-group-item">
-                    <small>Remote IP: <tt>{{meta.remote_ip}}</tt></small>
-            </ul>
-
-            <pre class="pre-scrollable" id="raw-report">{{csp | json}}</pre>
-
-
         </div>
-    </div>
 
-</div>
+    </div>
