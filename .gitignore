@@ -2,4 +2,4 @@
 bin/
 lib/
 include/
-workspace.xml
+.idea/workspace.xml
