@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/api.py" afterPath="$PROJECT_DIR$/api/api.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/feedback.html" afterPath="$PROJECT_DIR$/static/feedback.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="b18b63b0-4284-45c1-8374-55209c1c7060" name="Idea" comment="" />
@@ -30,7 +30,7 @@
       <file leaf-file-name="main.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="534" max-vertical-offset="1110">
+            <state vertical-scroll-proportion="-7.125" vertical-offset="534" max-vertical-offset="1110">
               <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
               <folding />
             </state>
@@ -47,10 +47,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="api.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55018586" vertical-offset="289" max-vertical-offset="5070">
+            <state vertical-scroll-proportion="-8.5" vertical-offset="364" max-vertical-offset="5070">
               <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
@@ -59,51 +59,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="collector.ini" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/collector/collector.ini">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-              <caret line="7" column="128" selection-start-line="7" selection-start-column="111" selection-end-line="7" selection-end-column="128" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/app/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
+            <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1125">
               <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CspMainController.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/controllers/CspMainController.js">
+      <file leaf-file-name="feedback.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/feedback.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="390">
-              <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="policy.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/app/policy.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2098" max-vertical-offset="4065">
-              <caret line="175" column="37" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="720">
-              <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+            <state vertical-scroll-proportion="0.24412297" vertical-offset="0" max-vertical-offset="553">
+              <caret line="9" column="105" selection-start-line="9" selection-start-column="105" selection-end-line="9" selection-end-column="105" />
               <folding />
             </state>
           </provider>
@@ -153,7 +123,6 @@
         <option value="$PROJECT_DIR$/static/login.html" />
         <option value="$PROJECT_DIR$/static/known.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/static/feedback.html" />
         <option value="$PROJECT_DIR$/static/top-menu.html" />
         <option value="$PROJECT_DIR$/static/analysis.html" />
         <option value="$PROJECT_DIR$/static/controllers/CspAnalysisController.js" />
@@ -171,6 +140,9 @@
         <option value="$PROJECT_DIR$/static/app/policy.js" />
         <option value="$PROJECT_DIR$/collector/collector.ini" />
         <option value="$PROJECT_DIR$/api/api.py" />
+        <option value="$PROJECT_DIR$/static/js/disqus.js" />
+        <option value="$PROJECT_DIR$/static/disqus.html" />
+        <option value="$PROJECT_DIR$/static/feedback.html" />
       </list>
     </option>
   </component>
@@ -256,6 +228,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csp2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2028,7 +2018,11 @@
       <created>1412257039663</created>
       <updated>1412257039663</updated>
     </task>
-    <option name="localTasksCounter" value="362" />
+    <task id="LOCAL-00362" summary="delete debug">
+      <created>1412257060412</created>
+      <updated>1412257060412</updated>
+    </task>
+    <option name="localTasksCounter" value="363" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2072,7 +2066,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="sanity checks - Content-Type and csp-report" />
     <MESSAGE value="move actual policy generation to library so that it can be reused on main page" />
     <MESSAGE value="add known bug with reflected-xss" />
     <MESSAGE value="add noscript section" />
@@ -2097,7 +2090,8 @@
     <MESSAGE value="fix in the CloudFlare detection logic" />
     <MESSAGE value="add debugging message to CF-Connecting-IP" />
     <MESSAGE value="map must be converted to list() so that it doesn't disappear on first use" />
-    <option name="LAST_COMMIT_MESSAGE" value="map must be converted to list() so that it doesn't disappear on first use" />
+    <MESSAGE value="delete debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete debug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2105,20 +2099,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="375">
-          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/app/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="990" max-vertical-offset="1470">
-          <caret line="66" column="36" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/analysis.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="480">
@@ -2402,13 +2382,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/feedback.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43399638" vertical-offset="0" max-vertical-offset="553">
-          <caret line="16" column="116" selection-start-line="7" selection-start-column="12" selection-end-line="16" selection-end-column="116" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="225">
@@ -2426,7 +2399,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="534" max-vertical-offset="1110">
+        <state vertical-scroll-proportion="-7.125" vertical-offset="534" max-vertical-offset="1110">
           <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
           <folding />
         </state>
@@ -2440,17 +2413,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.5" vertical-offset="364" max-vertical-offset="5070">
+          <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
+          <folding>
+            <element signature="e#46#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="720">
+        <state vertical-scroll-proportion="0.4528302" vertical-offset="0" max-vertical-offset="720">
           <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collector/collector.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1861702" vertical-offset="0" max-vertical-offset="564">
+          <caret line="7" column="128" selection-start-line="7" selection-start-column="111" selection-end-line="7" selection-end-column="128" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
+        <state vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1125">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
           <folding />
         </state>
@@ -2461,27 +2452,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/app/policy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2098" max-vertical-offset="4065">
+        <state vertical-scroll-proportion="1.0407802" vertical-offset="2038" max-vertical-offset="4065">
           <caret line="175" column="37" selection-start-line="175" selection-start-column="37" selection-end-line="175" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collector/collector.ini">
+    <entry file="file://$PROJECT_DIR$/static/feedback.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
-          <caret line="7" column="128" selection-start-line="7" selection-start-column="111" selection-end-line="7" selection-end-column="128" />
+        <state vertical-scroll-proportion="0.24412297" vertical-offset="0" max-vertical-offset="553">
+          <caret line="9" column="105" selection-start-line="9" selection-start-column="105" selection-end-line="9" selection-end-column="105" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55018586" vertical-offset="289" max-vertical-offset="5070">
-          <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
-          <folding>
-            <element signature="e#46#85#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
