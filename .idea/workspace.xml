@@ -50,8 +50,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4182156" vertical-offset="390" max-vertical-offset="5100">
-              <caret line="41" column="70" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="70" />
+            <state vertical-scroll-proportion="0.55018586" vertical-offset="259" max-vertical-offset="5100">
+              <caret line="37" column="63" selection-start-line="37" selection-start-column="63" selection-end-line="37" selection-end-column="63" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -2016,7 +2016,11 @@
       <created>1412256049342</created>
       <updated>1412256049342</updated>
     </task>
-    <option name="localTasksCounter" value="359" />
+    <task id="LOCAL-00359" summary="add debugging message to CF-Connecting-IP">
+      <created>1412256416435</created>
+      <updated>1412256416435</updated>
+    </task>
+    <option name="localTasksCounter" value="360" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2060,7 +2064,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="upgrade CouchDB to production" />
     <MESSAGE value="add trailing slash at the end of /report/XXX/ URI" />
     <MESSAGE value="sanity checks - Content-Type and csp-report" />
     <MESSAGE value="move actual policy generation to library so that it can be reused on main page" />
@@ -2085,7 +2088,8 @@
     <MESSAGE value="use scheme independent URLs to work with HTTPS" />
     <MESSAGE value="use netaddr to obtain real IPs from CloudFlare" />
     <MESSAGE value="fix in the CloudFlare detection logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix in the CloudFlare detection logic" />
+    <MESSAGE value="add debugging message to CF-Connecting-IP" />
+    <option name="LAST_COMMIT_MESSAGE" value="add debugging message to CF-Connecting-IP" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2465,8 +2469,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4182156" vertical-offset="390" max-vertical-offset="5100">
-          <caret line="41" column="70" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="70" />
+        <state vertical-scroll-proportion="0.55018586" vertical-offset="259" max-vertical-offset="5100">
+          <caret line="37" column="63" selection-start-line="37" selection-start-column="63" selection-end-line="37" selection-end-column="63" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>
