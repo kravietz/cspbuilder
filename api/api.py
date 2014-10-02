@@ -11,6 +11,7 @@ import pycouchdb
 from fnmatch import fnmatch
 import re
 import hmac
+from netaddr import IPNetwork, IPAddress
 
 __author__ = 'pawelkrawczyk'
 
@@ -21,6 +22,7 @@ config.read(('collector.ini', os.path.join('collector', 'collector.ini'),
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
 CSRF_KEY = config.get('api', 'api_key')
+CLOUDFLARE_IPS = map(IPNetwork, config.get('api', 'cloudflare_ips').split())
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
@@ -28,6 +30,17 @@ app = Flask(__name__)
 app.debug = True
 server = pycouchdb.Server(COUCHDB_SERVER)
 db = server.database('csp')
+
+
+def get_client_ip():
+    client_ip = request.environ.get('REMOTE_ADDR')
+    if IPAddress(client_ip) in CLOUDFLARE_IPS:
+        cf_ip = request.headers.get('CF-Connecting-IP')
+        if cf_ip:
+            return cf_ip
+        else:
+            print('get_client_ip request came from CloduFlare IP {} but did not contain CF-Connecting-IP'.format(client_ip))
+    return client_ip
 
 
 def login_response(owner_id):
@@ -41,7 +54,7 @@ def login_response(owner_id):
 @app.route('/policy/<owner_id>/', methods=['GET'])
 def policy(owner_id):
     start_time = datetime.now(timezone.utc)
-    client_ip = request.environ.get('REMOTE_ADDR')
+    client_ip = get_client_ip()
     print('policy login {} {} owner_id={}'.format(start_time, client_ip, owner_id))
     return login_response(owner_id)
 
@@ -49,7 +62,7 @@ def policy(owner_id):
 @app.route('/login', methods=['POST'])
 def login():
     start_time = datetime.now(timezone.utc)
-    client_ip = request.environ.get('REMOTE_ADDR')
+    client_ip = get_client_ip()
 
     owner_id = request.form.get('owner_id')
 
@@ -102,7 +115,7 @@ def base_uri_match(a, b):
 @app.route('/api/<owner_id>/review', methods=['POST'])
 def update_known_list(owner_id):
     start_time = datetime.now(timezone.utc)
-    client_ip = request.environ.get('REMOTE_ADDR')
+    client_ip = get_client_ip()
 
     if not verify_csrf_token():
         return '', 400, []
@@ -189,7 +202,7 @@ def update_known_list(owner_id):
 @app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
 def delete_all_reports(owner_id):
     start_time = datetime.now(timezone.utc)
-    client_ip = request.environ.get('REMOTE_ADDR')
+    client_ip = get_client_ip()
 
     if not verify_csrf_token():
         return '', 400, []
@@ -233,7 +246,7 @@ def read_csp_report(owner_id):
     user_agent = request.environ.get('HTTP_USER_AGENT')
     meta['user_agent'] = user_agent
 
-    client_ip = request.environ.get('REMOTE_ADDR')
+    client_ip = get_client_ip()
     # save client's IP address
     meta['remote_ip'] = client_ip
 
