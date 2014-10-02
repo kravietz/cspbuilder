@@ -1,7 +1,7 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
 <div class="row">
-    <div class="col-xs-6" id="reports-left-list ">
+    <div class="col-xs-6" id="reports-left-list">
 
     <ol>
         <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
