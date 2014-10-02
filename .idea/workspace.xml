@@ -30,8 +30,8 @@
       <file leaf-file-name="main.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6388889" vertical-offset="630" max-vertical-offset="1275">
-              <caret line="65" column="79" selection-start-line="65" selection-start-column="79" selection-end-line="65" selection-end-column="79" />
+            <state vertical-scroll-proportion="0.75" vertical-offset="630" max-vertical-offset="1305">
+              <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -2036,7 +2036,11 @@
       <created>1412260561683</created>
       <updated>1412260561684</updated>
     </task>
-    <option name="localTasksCounter" value="364" />
+    <task id="LOCAL-00364" summary="add login form to main page">
+      <created>1412260833873</created>
+      <updated>1412260833873</updated>
+    </task>
+    <option name="localTasksCounter" value="365" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2080,7 +2084,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add known bug with reflected-xss" />
     <MESSAGE value="add noscript section" />
     <MESSAGE value="add main page" />
     <MESSAGE value="route to main page if not logged in" />
@@ -2105,7 +2108,8 @@
     <MESSAGE value="map must be converted to list() so that it doesn't disappear on first use" />
     <MESSAGE value="delete debug" />
     <MESSAGE value="add Disqus" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Disqus" />
+    <MESSAGE value="add login form to main page" />
+    <option name="LAST_COMMIT_MESSAGE" value="add login form to main page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2475,8 +2479,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6388889" vertical-offset="630" max-vertical-offset="1275">
-          <caret line="65" column="79" selection-start-line="65" selection-start-column="79" selection-end-line="65" selection-end-column="79" />
+        <state vertical-scroll-proportion="0.75" vertical-offset="630" max-vertical-offset="1305">
+          <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
           <folding />
         </state>
       </provider>
