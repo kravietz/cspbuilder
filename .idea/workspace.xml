@@ -50,8 +50,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18773234" vertical-offset="259" max-vertical-offset="5100">
-              <caret line="24" column="82" selection-start-line="24" selection-start-column="82" selection-end-line="24" selection-end-column="82" />
+            <state vertical-scroll-proportion="0.55018586" vertical-offset="289" max-vertical-offset="5070">
+              <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -2024,7 +2024,11 @@
       <created>1412256734223</created>
       <updated>1412256734223</updated>
     </task>
-    <option name="localTasksCounter" value="361" />
+    <task id="LOCAL-00361" summary="map must be converted to list() so that it doesn't disappear on first use">
+      <created>1412257039663</created>
+      <updated>1412257039663</updated>
+    </task>
+    <option name="localTasksCounter" value="362" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2068,7 +2072,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add trailing slash at the end of /report/XXX/ URI" />
     <MESSAGE value="sanity checks - Content-Type and csp-report" />
     <MESSAGE value="move actual policy generation to library so that it can be reused on main page" />
     <MESSAGE value="add known bug with reflected-xss" />
@@ -2093,7 +2096,8 @@
     <MESSAGE value="use netaddr to obtain real IPs from CloudFlare" />
     <MESSAGE value="fix in the CloudFlare detection logic" />
     <MESSAGE value="add debugging message to CF-Connecting-IP" />
-    <option name="LAST_COMMIT_MESSAGE" value="add debugging message to CF-Connecting-IP" />
+    <MESSAGE value="map must be converted to list() so that it doesn't disappear on first use" />
+    <option name="LAST_COMMIT_MESSAGE" value="map must be converted to list() so that it doesn't disappear on first use" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2473,8 +2477,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18773234" vertical-offset="259" max-vertical-offset="5100">
-          <caret line="24" column="82" selection-start-line="24" selection-start-column="82" selection-end-line="24" selection-end-column="82" />
+        <state vertical-scroll-proportion="0.55018586" vertical-offset="289" max-vertical-offset="5070">
+          <caret line="39" column="59" selection-start-line="39" selection-start-column="59" selection-end-line="39" selection-end-column="59" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>
