@@ -22,7 +22,7 @@ config.read(('collector.ini', os.path.join('collector', 'collector.ini'),
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
 CSRF_KEY = config.get('api', 'api_key')
-CLOUDFLARE_IPS = map(IPNetwork, config.get('api', 'cloudflare_ips').split())
+CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
