@@ -173,7 +173,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
                 header += '-Report-Only';
             }
 
-            var policy = 'report-uri http://cspbuilder.info/report/' + owner_id + '/; ';
+            var policy = 'report-uri //cspbuilder.info/report/' + owner_id + '/; ';
 
             for (var i = 0; i < approved_list.length; i++) {
                 var src_list = approved_list[i];
