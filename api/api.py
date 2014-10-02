@@ -39,10 +39,11 @@ def get_client_ip():
         if client_ip in net:
             # this is CloudFlare network, try to extract real IP
             cf_ip = request.headers.get('CF-Connecting-IP')
+            print('get_client_ip got CF-Connecting-IP {}'.format(cf_ip))
             if cf_ip:
                 return cf_ip
             else:
-                print('get_client_ip request came from CloduFlare IP {} but did not contain CF-Connecting-IP'.format(client_ip))
+                print('get_client_ip request came from CloudFlare IP {} but did not contain CF-Connecting-IP'.format(client_ip))
     # return original IP otherwise
     return str(client_ip)
 

@@ -40,8 +40,8 @@
       <file leaf-file-name="uwsgi.ini" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/uwsgi.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="795">
-              <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="795">
+              <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -50,8 +50,8 @@
       <file leaf-file-name="api.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5297398" vertical-offset="390" max-vertical-offset="5085">
-              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.4182156" vertical-offset="390" max-vertical-offset="5100">
+              <caret line="41" column="70" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="70" />
               <folding>
                 <element signature="e#46#85#0" expanded="true" />
               </folding>
@@ -2012,7 +2012,11 @@
       <created>1412255184091</created>
       <updated>1412255184092</updated>
     </task>
-    <option name="localTasksCounter" value="358" />
+    <task id="LOCAL-00358" summary="fix in the CloudFlare detection logic">
+      <created>1412256049342</created>
+      <updated>1412256049342</updated>
+    </task>
+    <option name="localTasksCounter" value="359" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2056,7 +2060,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="known_list view now returns owner_id as the only key item" />
     <MESSAGE value="upgrade CouchDB to production" />
     <MESSAGE value="add trailing slash at the end of /report/XXX/ URI" />
     <MESSAGE value="sanity checks - Content-Type and csp-report" />
@@ -2081,7 +2084,8 @@
     <MESSAGE value="working uWSGI config on port 80" />
     <MESSAGE value="use scheme independent URLs to work with HTTPS" />
     <MESSAGE value="use netaddr to obtain real IPs from CloudFlare" />
-    <option name="LAST_COMMIT_MESSAGE" value="use netaddr to obtain real IPs from CloudFlare" />
+    <MESSAGE value="fix in the CloudFlare detection logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix in the CloudFlare detection logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2418,8 +2422,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/uwsgi.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="795">
-          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="30" max-vertical-offset="795">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -2461,8 +2465,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5297398" vertical-offset="390" max-vertical-offset="5085">
-          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.4182156" vertical-offset="390" max-vertical-offset="5100">
+          <caret line="41" column="70" selection-start-line="41" selection-start-column="70" selection-end-line="41" selection-end-column="70" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
           </folding>
