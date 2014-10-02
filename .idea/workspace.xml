@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="disallow only CouchDB paths">
+    <list default="true" id="59a17880-a4a9-4e97-8890-5f35b40b4544" name="Default" comment="try to fix reports tab">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/reports.html" afterPath="$PROJECT_DIR$/static/reports.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -40,8 +40,8 @@
       <file leaf-file-name="reports.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/reports.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.8055556" vertical-offset="75" max-vertical-offset="1155">
-              <caret line="70" column="10" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.083333336" vertical-offset="0" max-vertical-offset="1155">
+              <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -61,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/static/styles.css">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
-              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -130,8 +130,8 @@
         <option value="$PROJECT_DIR$/static/main.html" />
         <option value="$PROJECT_DIR$/static/analysis.html" />
         <option value="$PROJECT_DIR$/static/robots.txt" />
-        <option value="$PROJECT_DIR$/static/reports.html" />
         <option value="$PROJECT_DIR$/static/styles.css" />
+        <option value="$PROJECT_DIR$/static/reports.html" />
       </list>
     </option>
   </component>
@@ -1957,7 +1957,11 @@
       <created>1412263993641</created>
       <updated>1412263993641</updated>
     </task>
-    <option name="localTasksCounter" value="372" />
+    <task id="LOCAL-00372" summary="try to fix reports tab">
+      <created>1412264344321</created>
+      <updated>1412264344321</updated>
+    </task>
+    <option name="localTasksCounter" value="373" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2001,7 +2005,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="simpler contact page" />
     <MESSAGE value="add offline message on main page" />
     <MESSAGE value="generate new policy on request" />
     <MESSAGE value="implement GET login" />
@@ -2026,7 +2029,8 @@
     <MESSAGE value="remove value tag from custom input field" />
     <MESSAGE value="remove custom input as it's not working now" />
     <MESSAGE value="disallow only CouchDB paths" />
-    <option name="LAST_COMMIT_MESSAGE" value="disallow only CouchDB paths" />
+    <MESSAGE value="try to fix reports tab" />
+    <option name="LAST_COMMIT_MESSAGE" value="try to fix reports tab" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -2404,15 +2408,15 @@
     <entry file="file://$PROJECT_DIR$/static/styles.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/reports.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.8055556" vertical-offset="75" max-vertical-offset="1155">
-          <caret line="70" column="10" selection-start-line="70" selection-start-column="10" selection-end-line="70" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.083333336" vertical-offset="0" max-vertical-offset="1155">
+          <caret line="3" column="48" selection-start-line="3" selection-start-column="48" selection-end-line="3" selection-end-column="48" />
           <folding />
         </state>
       </provider>
