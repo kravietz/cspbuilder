@@ -212,7 +212,7 @@ def delete_all_reports(owner_id):
         return '', 400, []
 
     docs = []
-    for row in db.query('csp/all_by_owner', key=owner_id, include_docs=True):
+    for row in db.query('csp/1200_all', key=owner_id, include_docs=True):
         doc = row['doc']
         doc['_deleted'] = True
         docs.append(doc)
