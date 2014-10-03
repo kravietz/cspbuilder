@@ -13,6 +13,7 @@ from flask import Flask, request, abort, make_response, redirect
 import pycouchdb
 from netaddr import IPNetwork, IPAddress
 
+
 __author__ = 'pawelkrawczyk'
 
 config = configparser.ConfigParser()
@@ -136,7 +137,7 @@ def update_known_list(owner_id):
     # update known list entry
     # first check if there's such entry already
     match = False
-    for row in db.query('csp/known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}]):
+    for row in db.query('csp/1000_known_list', include_docs=True, startkey=[owner_id], endkey=[owner_id, {}]):
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         # filter by directive
         if row['key'][1] == review_directive:
@@ -275,7 +276,7 @@ def read_csp_report(owner_id):
     review_rule = 'default'
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
-    results = db.query('csp/known_list', startkey=[owner_id], endkey=[owner_id, {}])
+    results = db.query('csp/1000_known_list', startkey=[owner_id], endkey=[owner_id, {}])
 
     for row in results:
         # sample:

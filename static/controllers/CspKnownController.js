@@ -8,7 +8,7 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$root
         console.log('CspKnownController owner_id=' + $rootScope.owner_id);
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
-        $scope.db.query("csp", "known_list",
+        $scope.db.query("csp", "1000_known_list",
             {
                 include_docs: true,
                 key: $rootScope.owner_id

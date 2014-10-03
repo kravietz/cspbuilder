@@ -22,7 +22,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
         };
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
-        $scope.db.query("csp", "known_list", { key: $rootScope.owner_id })
+        $scope.db.query("csp", "1000_known_list", { key: $rootScope.owner_id })
             .success(function () {
                 console.log('data loading finished');
                 $scope.approved_list = [];
