@@ -12,7 +12,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
         $scope.index = 0;
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
-        $scope.db.query("csp", "all_by_owner",
+        $scope.db.query("csp", "1200_all",
             {
                 include_docs: true,
                 key: $rootScope.owner_id,

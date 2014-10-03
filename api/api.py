@@ -179,7 +179,7 @@ def update_known_list(owner_id):
     report_status = action_to_status[review_action]
     docs = []
     # the view does type filtering already
-    for row in db.query('csp/1000_owner_type_src', include_docs=True,
+    for row in db.query('csp/1300_unknown', include_docs=True,
                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
         # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
         # this if covers two conditions: standard known list URI match, and 'self' URI match
@@ -212,7 +212,7 @@ def delete_all_reports(owner_id):
         return '', 400, []
 
     docs = []
-    for row in db.query('csp/all_by_owner', key=owner_id, include_docs=True):
+    for row in db.query('csp/1200_all', key=owner_id, include_docs=True):
         doc = row['doc']
         doc['_deleted'] = True
         docs.append(doc)
