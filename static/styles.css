@@ -10,3 +10,7 @@
 #reports-left-list {
     width: 52%;
 }
+
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}

@@ -58,7 +58,7 @@ function screen_rows(obj) {
     return Math.floor(window.innerHeight / font_size / 1.8);
 }
 
-var cspControllers = angular.module('cspControllers', ['CornerCouch']);
+var cspControllers = angular.module('cspControllers', ['CornerCouch', 'ui.bootstrap']);
 
 
 
