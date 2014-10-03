@@ -10,7 +10,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
         $scope.blocked = true;
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.index = 0;
-        $scope.db.query("csp", "grouped_types_sources", {
+        $scope.db.query("csp", "1100_source_groups", {
             include_docs: false,
             // CouchDB idiom used to narrow search
             // ref: http://docs.couchdb.org/en/latest/couchapp/views/collation.html#string-ranges
@@ -44,11 +44,11 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
             $('#report-row-' + $scope.index).addClass('bg-info'); // highlight current row
             // sources list already contains the key we can use to fetch sample report
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            $scope.db2.query('csp', 'grouped_types_sources',
+            $scope.db2.query('csp', '1100_source_groups',
                 {
                     reduce: false,
                     limit: 1,
-                    key: $scope.db.rows[index].key, // endkey not needed because limit=1
+                    key: $scope.db.rows[index].key, 
                     include_docs: true
                 })
                 .success(function () {
