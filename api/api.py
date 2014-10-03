@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from base64 import b64encode, b64decode
-
 import configparser
 import hashlib
 import os
 from datetime import datetime, timezone
-from flask import Flask, request, abort, make_response, redirect
-import pycouchdb
 from fnmatch import fnmatch
 import re
 import hmac
+
+from flask import Flask, request, abort, make_response, redirect
+import pycouchdb
 from netaddr import IPNetwork, IPAddress
 
 __author__ = 'pawelkrawczyk'
@@ -306,13 +306,15 @@ def read_csp_report(owner_id):
                 # stop processing other entries
                 break
 
-    output['review_rule'] = review_rule
-    output['review_method'] = 'auto'
-    action_to_status = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
-    output['reviewed'] = action_to_status[action]
+    # only store reports from unknown and accepted sources
+    if action in ['unknown', 'reject']:
+        output['review_rule'] = review_rule
+        output['review_method'] = 'auto'
+        action_to_status = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
+        output['reviewed'] = action_to_status[action]
 
-    # save current report to CouchDB
-    db.save(output)
+        # save current report to CouchDB
+        db.save(output)
 
     stop_time = datetime.now(timezone.utc)
 
