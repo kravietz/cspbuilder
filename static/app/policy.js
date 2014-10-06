@@ -33,19 +33,31 @@ function null_url_guesswork(csp) {
 
     var blocked_type = csp['violated-directive'].split(' ')[0];
     var violated_directive = csp['violated-directive'];
+    var script_sample = csp['script-sample'];
     var eval_first = ['\'unsafe-eval\'', '\'unsafe-inline\''];
-    var inline_first = ['\'unsafe-inline\'', '\'unsafe-eval\''];
+    var inline_first = eval_first.reverse();
+
+    var msg = 'In CSP 1.0 there is no good way to distinguish eval() and inline reports. ';
+    var eval_msg = 'We guess you should allow eval(). ';
+    var inline_msg = 'We guess you should allow inline code. ';
 
     // styles
     if (blocked_type === 'style-src') {
 
+        if (script_sample && script_sample.indexOf('eval()') > 0) {
+            // "script-sample": "call to eval() or related function blocked by CSP",
+            // Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0
+            var hint = 'Browser hint suggests this in script-sample field. '
+            return { 'message': msg + eval_msg + hint, 'sources': eval_first};
+        }
+
         // check if inline was already allowed on blocked page
         if (violated_directive.indexOf('unsafe-inline') > 0) {
-            // yes, it must have been eval()
-            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow eval().', 'sources':eval_first};
+            // inline was allowed, so it must have been eval()
+            return { 'message': msg + eval_msg, 'sources': eval_first};
         } else {
             // no, try inline first
-            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow inline.', 'sources':inline_first};
+            return {'message': msg + inline_msg, 'sources': inline_first};
         }
 
     // scripts
@@ -53,12 +65,17 @@ function null_url_guesswork(csp) {
 
         // the same heuristics as above
         if (violated_directive.indexOf('unsafe-inline') > 0) {
-            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow eval().', 'sources':eval_first};
+            return {'message': msg + eval_msg, 'sources': eval_first};
         } else {
-            return {'message':'In CSP 1.0 there is no good way to distinguish eval() and inline reports, but in this case we guess you should allow inline.', 'sources':inline_first};
+            return {'message': msg + inline_msg, 'sources': inline_first};
         }
 
     // something else?
+    } else if (blocked_type === 'object-src') {
+        // The only case where I saw this was Savings Slider PUP
+        // http://stackoverflow.com/questions/14618646/has-my-app-been-hacked-mysterious-dom-manipulation-injects-flash
+        var object_msg = 'This inline object (usually SWF) is most likely loaded by an extension, potentially malware. Be careful.';
+        return {'message': object_msg, 'sources': ['\'unsafe-inline\'']};
     } else {
         console.warn('Unrecognized \'null\' source for type ' + blocked_type + ' in:' + JSON.stringify(csp));
     }
