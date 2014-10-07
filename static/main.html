@@ -20,9 +20,9 @@
             </p>
 
             <div class="alert alert-warning" role="alert">
-                CspBuilder is still in <em>beta</em> which means for example that anyone can currently
-                view anyone's reports and edit your known sources list. The database of alerts can
-                be also reset from time to time.
+                CspBuilder is still in <em>beta</em> which means that anyone can currently
+                view anyone's reports and edit your known sources list (you just need
+                to know the page id). The database of alerts can be also reset from time to time.
             </div>
 
         </div>
@@ -34,10 +34,10 @@
             <h2>How it works?</h2>
 
             <p>
-                Two things: CSP report-only mode and violation reports. The former will tell the browser to
-                block no content that would be otherwise blocked by your website's CSP, but instead report
-                these URLs in JavaScript console. The latter will send these reports to a remote server for
-                analysis.
+                CspBuilder is based on two key concepts: CSP report-only mode and violation reports.
+                Report-only mode allows the browser to just report that a content <em>would be</em>
+                blocked by your website's policy. Remote reporting allows it to send these reports
+                to a remote server for analysis.
             </p>
 
             <p>
