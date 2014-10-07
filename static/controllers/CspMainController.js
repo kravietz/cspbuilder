@@ -9,7 +9,7 @@ cspControllers.controller('CspMainController', ['$scope',
             var a = Math.random().toString().replace('.','');
             var b = Math.random().toString().replace('.','');
             var new_owner_id = a + b;
-            new_owner_id = new_owner_id.substring(0, 19);
+            new_owner_id = new_owner_id.substring(1, 19); // skip leading 0
             var approved_list = empty_approved_list();
             var csp_config = default_csp_config();
             var format = 'generic';
