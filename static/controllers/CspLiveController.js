@@ -6,29 +6,26 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-cspControllers.controller('CspLiveController', ['$scope', '$rootScope',
-    function ($scope, $rootScope) {
+cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interval',
+    function ($scope, $rootScope, $interval) {
         "use strict";
 
         console.log('CspLiveController owner_id=' + $rootScope.owner_id);
         mixpanel.track("View live");
 
-        var ws = new WebSocket("ws://cspbuilder.info/csp/_changes?feed=continuous&filter=csp/owner&owner_id=" + $rootScope.owner_id);
+        $scope.reports = [];
 
-        ws.onopen = function () {
-            console.log("Socket has been opened!");
-        };
-
-        ws.onmessage = function (message) {
-            console.log('onmessage:', message);
-            listener(message.data);
-        };
-
-        function listener(data) {
-            var messageObj = data;
-            console.log("listener: ", messageObj);
-            $scope.report = data;
-        };
+        var promise = $interval(function () {
+            $http.get('/csp/_changes?feed=longpoll&filter=csp/owner&owner_id=' + $rootScope.owner_id)
+                .success(function (data, status, headers, config) {
+                    console.log('get', data);
+                    $scope.reports = data.results;
+                    $scope.last_seq = data.last_seq;
+                })
+                .error(function (data, status, headers, config) {
+                    $scope.error = data;
+                });
+        }, 2000);
 
     }
 ]);

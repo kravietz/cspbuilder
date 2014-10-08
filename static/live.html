@@ -1,7 +1,12 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
 <div class="row">
-    <div class="col-xs-6" id="reports-left-list">
-        {{report}}
+    <div class="col-xs-6">
+        <h2>Last seq: {{last_seq}}</h2>
+        <ul>
+            <li ng-repeat="report in reports">
+                {{report}}
+            </li>
+        </ul>
     </div>
 </div>
