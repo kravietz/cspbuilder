@@ -6,8 +6,8 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interval',
-    function ($scope, $rootScope, $interval) {
+cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interval', '$http',
+    function ($scope, $rootScope, $interval, $http) {
         "use strict";
 
         console.log('CspLiveController owner_id=' + $rootScope.owner_id);
