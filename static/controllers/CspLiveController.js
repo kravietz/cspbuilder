@@ -27,6 +27,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope',
         function listener(data) {
             var messageObj = data;
             console.log("listener: ", messageObj);
+            $scope.report = data;
         };
 
     }
