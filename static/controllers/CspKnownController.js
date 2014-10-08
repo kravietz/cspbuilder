@@ -29,6 +29,7 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$root
                 $scope.blocked = false;
                 $scope.error = resp;
             });
+        mixpanel.track("View known");
 
         $scope.delete_kl_entry = function (index) {
             console.log('delete_kl_entry ' + index);

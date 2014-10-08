@@ -28,6 +28,8 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
                 $scope.error = resp;
             });
 
+        mixpanel.track("View reports");
+
         $scope.detail_show = function (index) {
             console.log('detail_show ' + index);
             $('#reports-li-' + $scope.index).removeClass('bg-info'); // remove highlight from previous
@@ -48,6 +50,8 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
             } else {
                 $('#reports-next-button').removeClass('disabled');
             }
+
+            mixpanel.track("View reports detail");
 
         };
 
@@ -93,6 +97,8 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
 
             // TODO: add CSRF protection
             $http.delete('/api/' + $rootScope.owner_id + '/all-reports');
+
+            mixpanel.track("Delete all reports");
 
         };
 
