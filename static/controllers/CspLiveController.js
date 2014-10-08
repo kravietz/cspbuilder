@@ -13,7 +13,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope',
         console.log('CspLiveController owner_id=' + $rootScope.owner_id);
         mixpanel.track("View live");
 
-        var ws = new WebSocket("/csp/_changes?feed=continuous&filter=csp/owner&owner_id=" + $rootScope.owner_id);
+        var ws = new WebSocket("ws://cspbuilder.info/csp/_changes?feed=continuous&filter=csp/owner&owner_id=" + $rootScope.owner_id);
 
         ws.onopen = function () {
             console.log("Socket has been opened!");
