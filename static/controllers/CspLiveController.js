@@ -16,7 +16,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interv
         $scope.reports = [];
 
         var promise = $interval(function () {
-            $http.get('/csp/_changes?feed=longpoll&filter=csp/owner&owner_id=' + $rootScope.owner_id)
+            $http.get('/csp/_changes?feed=longpoll&filter=csp/owner&limit=10&owner_id=' + $rootScope.owner_id)
                 .success(function (data, status, headers, config) {
                     console.log('get', data);
                     $scope.reports = data.results;
@@ -26,6 +26,10 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interv
                     $scope.error = data;
                 });
         }, 2000);
+
+        $scope.stop = function () {
+            $interval.cancel(promise);
+        }
 
     }
 ]);
