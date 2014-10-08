@@ -70,8 +70,9 @@
 
                 <li>Add it to your web server, reload your website and click here when ready:
 
-                    <p class="text-center"><a class="btn btn-success" href="/policy/{{new_owner_id}}/">Start receiving
-                        alerts</a>
+                    <p class="text-center">
+                        <a class="btn btn-success" ng-disabled="!new_owner_id" href="/policy/{{new_owner_id}}/">Start
+                            receiving alerts</a>
                     </p>
             </ol>
 
