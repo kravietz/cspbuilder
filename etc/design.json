@@ -1,7 +1,6 @@
-// _design/csp
 {
     "_id": "_design/csp",
-    "_rev": "10-eb493ac67a3efaa2c4df1aeebf8a9c02",
+    "_rev": "4-a17886b45764aed4a71c49736759003d",
     "language": "javascript",
     "views": {
         "1000_known_list": {
@@ -20,6 +19,9 @@
         "1900_unique_sites": {
             "map": "function(doc) {\n  if(doc.owner_id && doc['csp-report']) {\n  var base_uri = doc['csp-report']['document-uri'].split('/').splice(0,3).join('/');\n  emit([doc.owner_id, base_uri], 1);\n }\n}",
             "reduce": "function(k,v,re) { return sum(v); }"
+        },
+        "filters": {
+            "owner": "function(doc, req) { if(doc.owner_id && doc.owner_id == req.query.owner_id) { return true; } else { return false; }}"
         }
     }
 }
