@@ -3,7 +3,8 @@
  */
 
 cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
-    function ($scope, $rootScope, cornercouch, $window, $http) { "use strict";
+    function ($scope, $rootScope, cornercouch, $window, $http) {
+        "use strict";
 
         console.log('CspReportsController owner_id=' + $rootScope.owner_id);
 
@@ -23,7 +24,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
                 $scope.blocked = false;
                 $scope.detail_show(0);
             })
-            .error(function(resp) {
+            .error(function (resp) {
                 $scope.blocked = false;
                 $scope.error = resp;
             });
@@ -93,9 +94,10 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
 
         $scope.delete_all = function () {
 
-            if(!confirm('Are you sure?')) { return }
+            if (!confirm('Are you sure?')) {
+                return
+            }
 
-            // TODO: add CSRF protection
             $http.delete('/api/' + $rootScope.owner_id + '/all-reports');
 
             mixpanel.track("Delete all reports");
