@@ -16,6 +16,8 @@ cspControllers.controller('CspMainController', ['$scope',
             var policy = policy_generator(new_owner_id, format, csp_config, approved_list);
             $scope.new_policy = policy[0];
             $scope.new_owner_id = new_owner_id;
+
+            mixpanel.track("Get code");
         }
 
     }]);
