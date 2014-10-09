@@ -3,10 +3,9 @@
 <div class="row">
     <div class="col-xs-6">
         <h2>Last seq: {{last_seq}}</h2>
-        <button ng-click="stop()">Stop</button>
         <ul>
             <li ng-repeat="report in reports track by $index">
-            {{report}}
+                {{report}}
             </li>
         </ul>
     </div>
