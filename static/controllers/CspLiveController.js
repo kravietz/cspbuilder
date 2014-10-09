@@ -16,7 +16,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
         $scope.reports = [];
         var last_seq = null;
         var poll_interval = 1000; // every 1 second
-        $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
+        var db = cornercouch(couchdb_url, 'GET').getDB('csp');
 
         // start polling
         // each successful poll response schedules another poll
@@ -46,14 +46,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
                         data.results.forEach(function (item) {
                             if (item) {
                                 var id = item.id;
-                                $scope.db.getDoc(id)
-                                    .success(function (data) {
-                                        // add to list of reports on page
-                                        $scope.reports.push(data);
-                                    })
-                                    .error(function (data) {
-                                        $scope.error = data;
-                                    })
+                                $scope.reports.push(db.getDoc(id));
                             }
                         });
                     last_seq = data.last_seq;
