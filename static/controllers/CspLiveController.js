@@ -39,10 +39,12 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
             $http.get(req)
                 .success(function (data) {
                     console.log('poll received', data);
+
                     if (typeof(data) == 'object') {
-                        $scope.data.forEach(function (item) {
+                        // the response has data.response and data.last_seq
+                        // results is an an array of objects
+                        $scope.data.results.forEach(function (item) {
                             if (item) {
-                                // the API returns an array of {}'s
                                 var id = item.id;
                                 $scope.db.getDoc(id)
                                     .success(function (data) {
@@ -54,8 +56,9 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
                                     })
                             }
                         });
-                    }
                     last_seq = data.last_seq;
+                    }
+
                     // schedule next check
                     $timeout(poll, poll_interval);
                 })
