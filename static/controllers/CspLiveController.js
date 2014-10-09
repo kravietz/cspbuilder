@@ -6,8 +6,8 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interval', '$http',
-    function ($scope, $rootScope, $interval, $http) {
+cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeout', '$http',
+    function ($scope, $rootScope, $timeout, $http) {
         "use strict";
 
         console.log('CspLiveController owner_id=' + $rootScope.owner_id);
@@ -16,9 +16,8 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interv
         $scope.reports = [];
         var last_seq = null;
 
-        var promise = $interval(function () {
-            poll();
-        }, 2000);
+        // start polling
+        poll();
 
         function poll() {
             // build changes feed URL with parameters
@@ -28,26 +27,23 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interv
             req += '&filter=csp/owner';
             req += '&limit=10';
             req += '&owner_id=' + $rootScope.owner_id;
-            // not on first call
+            // only on subsequent calls
             if (last_seq) {
                 req += '&last_seq=' + last_seq;
             }
             $http.get(req)
-                .success(function (data, status, headers, config) {
-                    console.log('get', data);
+                .success(function (data) {
+                    console.log('poll received', data);
                     $scope.reports.push(data.results);
                     last_seq = data.last_seq;
+                    // schedule next check
+                    $timeout(poll, 1000);
                 })
-                .error(function (data, status, headers, config) {
+                .error(function (data) {
                     $scope.error = data;
                 });
 
         };
-
-        $scope.stop = function () {
-            console.log('Cancelled');
-            $interval.cancel(promise);
-        }
 
     }
 ]);
