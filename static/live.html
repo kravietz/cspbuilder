@@ -2,12 +2,33 @@
 
 <div class="row">
     <div class="col-xs-6">
-        <h2>Last seq: {{last_seq}}</h2>
-        <ul>
-            <li ng-repeat="report in reports track by $index">
-                {{report}}
-            </li>
-        </ul>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Source</th>
+                <th>IP</th>
+                <th>Page</th>
+                <th>Browser</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="report in reports track by $index">
+                <td>{{report['csp-report']['violated-directive'].split(' ')[0]}}</td>
+                <td>{{report['csp-report']['blocked-uri']}}</td>
+                <td>{{report.meta.remote_ip}}</td>
+                <td>{{report['csp-report']['document-uri'].split('/').slice(0,3).join('/')}}</td>
+                <td>{{report.meta.user_agent}}</td>
+                <td>
+                    <button>?</button>
+                </td>
+            </tr>
+            </tbody>
+
+            <li>
+        </table>
     </div>
 </div>
 
