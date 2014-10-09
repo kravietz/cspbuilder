@@ -2,8 +2,9 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$rootScope',
-    function ($scope, cornercouch, $rootScope) { "use strict";
+cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$rootScope', '$sce',
+    function ($scope, cornercouch, $rootScope, $sce) {
+        "use strict";
 
         console.log('CspPolicyController owner_id=' + $rootScope.owner_id);
 
@@ -88,7 +89,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
 
             var result = policy_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
             $scope.policy = result[0];
-            $scope.policy_message = result[1];
+            $scope.policy_message = $sce.trustAsHtml(result[1]);
 
             mixpanel.track("Generate policy " + format);
 
