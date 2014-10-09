@@ -6,8 +6,8 @@
  * Created by pawelkrawczyk on 04/09/2014.
  */
 
-cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeout', '$http',
-    function ($scope, $rootScope, $timeout, $http) {
+cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeout', '$http', 'cornercouch',
+    function ($scope, $rootScope, $timeout, $http, cornercouch) {
         "use strict";
 
         console.log('CspLiveController owner_id=' + $rootScope.owner_id);
@@ -15,8 +15,11 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
 
         $scope.reports = [];
         var last_seq = null;
+        var poll_interval = 1000; // every 1 second
+        $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
 
         // start polling
+        // each successful poll response schedules another poll
         poll();
 
         function poll() {
@@ -31,13 +34,30 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
             if (last_seq) {
                 req += '&last_seq=' + last_seq;
             }
+            // speak to CouchDB polling API
+            // http://docs.couchdb.org/en/latest/api/database/changes.html
             $http.get(req)
                 .success(function (data) {
                     console.log('poll received', data);
-                    $scope.reports.push(data.results);
+                    if (typeof(data) == 'object') {
+                        $scope.data.forEach(function (item) {
+                            if (item) {
+                                // the API returns an array of {}'s
+                                var id = item.id;
+                                $scope.db.getDoc(id)
+                                    .success(function (data) {
+                                        // add to list of reports on page
+                                        $scope.reports.push(data);
+                                    })
+                                    .error(function (data) {
+                                        $scope.error = data;
+                                    })
+                            }
+                        });
+                    }
                     last_seq = data.last_seq;
                     // schedule next check
-                    $timeout(poll, 1000);
+                    $timeout(poll, poll_interval);
                 })
                 .error(function (data) {
                     $scope.error = data;
