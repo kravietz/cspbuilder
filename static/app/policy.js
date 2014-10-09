@@ -5,7 +5,8 @@
 "use strict";
 
 /*
-    For blocked_uri like 'http://webcookies.info/dajaxice/register_site.status/'
+ This function returns variants of a blocked URI for the user to choose. Example:
+ For blocked_uri like 'http://webcookies.info/dajaxice/register_site.status/'
     returns array of
     ['http://webcookies.info/dajaxice/register_site.status','http://webcookies.info/dajaxice',http://webcookies.info']
  */
@@ -24,24 +25,33 @@ function gen_uri_variants(blocked_uri) {
         variants = variants.slice(0, 5);
     }
     console.log('variants=' + variants);
-    return {'message':'Choose URI pattern to allow. Shorter patterns will allow all the longer patterns as well.', 'sources':variants};
+    return {'message': 'Choose URI pattern to allow. Shorter patterns will cover all the longer patterns as well.',
+        'sources': variants};
 
 }
 
+/*
+ This function attempts to guess the best way to handle reports with blocked-uri: null. These
+ are usually generated for eval() or inline objects, but in CSP 1.0 there's no way to distinguish them.
+ We're using all available hints and heuristics to suggest the best solution.
+ */
 function null_url_guesswork(csp) {
     console.log('null_url_guesswork');
 
     var blocked_type = csp['violated-directive'].split(' ')[0];
     var violated_directive = csp['violated-directive'];
     var script_sample = csp['script-sample'];
+
+    // response templates
     var eval_first = ['\'unsafe-eval\'', '\'unsafe-inline\''];
     var inline_first = eval_first.reverse();
 
+    // response message templates
     var msg = 'In CSP 1.0 there is no good way to distinguish eval() and inline reports. ';
     var eval_msg = 'We guess you should allow eval(). ';
     var inline_msg = 'We guess you should allow inline code. ';
 
-    // styles
+    // heuristics for style-src
     if (blocked_type === 'style-src') {
 
         if (script_sample && script_sample.indexOf('eval()') > 0) {
@@ -60,7 +70,7 @@ function null_url_guesswork(csp) {
             return {'message': msg + inline_msg, 'sources': inline_first};
         }
 
-    // scripts
+        // heuristics for script-src
     } else if (blocked_type === 'script-src') {
 
         // the same heuristics as above
@@ -70,7 +80,7 @@ function null_url_guesswork(csp) {
             return {'message': msg + inline_msg, 'sources': inline_first};
         }
 
-    // something else?
+        // heuristics for object-src
     } else if (blocked_type === 'object-src') {
         // The only case where I saw this was Savings Slider PUP
         // http://stackoverflow.com/questions/14618646/has-my-app-been-hacked-mysterious-dom-manipulation-injects-flash
@@ -98,7 +108,8 @@ function source_to_policy_statement(csp) {
 
     // for 'data:image/png' return 'data:'
     if (blocked_uri.lastIndexOf('data', 0) === 0) {
-        return {'message':null, 'sources':['data:']};
+        return {'message': 'The source type of data: is usually for images or fonts stored inline in the HTML code.',
+            'sources': ['data:']};
     }
 
     // for 'http://url.com:80/path/path' return 'http://url.com:80/'
@@ -111,7 +122,7 @@ function source_to_policy_statement(csp) {
         // check if blocked URI was not in the same domain as CSP website
         if (blocked_site === document_site) {
             // yes, return 'self'
-            return {'message':null, 'sources':['\'self\'']};
+            return {'message': 'Content loaded from own domain is usually safe.', 'sources': ['\'self\'']};
         } else {
             // no, return URI variants
             return gen_uri_variants(blocked_uri);
@@ -125,7 +136,7 @@ function source_to_policy_statement(csp) {
 
     console.log('policy statement ' + blocked_uri + ' for ' + JSON.stringify(csp));
 
-    return  {'message':null, 'sources':[blocked_uri]};
+    return  {'message': 'Please review this source and decide if it\'s trusted.', 'sources': [blocked_uri]};
 } // source_to_policy_statement
 
 
@@ -204,7 +215,6 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
                 policy += '; ';
             }
 
-            // TODO: not working currently
             // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
             switch(csp_config.reflected_xss) {
                 case 'block':
