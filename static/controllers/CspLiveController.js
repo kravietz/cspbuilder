@@ -43,7 +43,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
                     if (typeof(data) == 'object') {
                         // the response has data.response and data.last_seq
                         // results is an an array of objects
-                        $scope.data.results.forEach(function (item) {
+                        data.results.forEach(function (item) {
                             if (item) {
                                 var id = item.id;
                                 $scope.db.getDoc(id)
