@@ -17,19 +17,25 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$interv
         var last_seq = null;
 
         var promise = $interval(function () {
-            poll($rootScope.owner_id, last_seq);
+            poll();
         }, 2000);
 
-        function poll(owner_id, last_seq) {
-            var req = '/csp/_changes?descending=true&feed=longpoll&filter=csp/owner&limit=10';
-            req += '&owner_id=' + owner_id;
+        function poll() {
+            // build changes feed URL with parameters
+            var req = '/csp/_changes';
+            req += '?descending=true&';
+            req += 'feed=longpoll';
+            req += '&filter=csp/owner';
+            req += '&limit=10';
+            req += '&owner_id=' + $rootScope.owner_id;
+            // not on first call
             if (last_seq) {
                 req += '&last_seq=' + last_seq;
             }
             $http.get(req)
                 .success(function (data, status, headers, config) {
                     console.log('get', data);
-                    $scope.reports = data.results;
+                    $scope.reports.push(data.results);
                     last_seq = data.last_seq;
                 })
                 .error(function (data, status, headers, config) {
