@@ -14,7 +14,7 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookies', '$windo
         console.log('CspSessionController owner_id=' + owner_id + ' (encoded)');
         if (owner_id) {
             // decode owner_id from BASE64 and store in root scope
-            $rootScope.owner_id = window.atob(owner_id);
+            $rootScope.owner_id = owner_id;
             console.log('CspSessionController owner_id=' + $rootScope.owner_id + ' (decoded)');
         }
 
@@ -22,8 +22,8 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookies', '$windo
             console.log('CspSessionController logout');
             console.log('logout coookies before=' + document.cookie);
             delete $rootScope.owner_id;
-            $cookies.owner_id = '';
-            $cookies['XSRF-TOKEN'] = '';
+            delete $cookies.owner_id;
+            delete $cookies['XSRF-TOKEN'];
             $window.location.href = '/';
             console.log('logout coookies after=' + document.cookie);
         }

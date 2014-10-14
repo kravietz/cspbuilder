@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from base64 import b64encode, b64decode
 import configparser
 import hashlib
 import os
@@ -51,7 +50,7 @@ def login_response(owner_id):
     token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
     resp.set_cookie('XSRF-TOKEN', token)
-    resp.set_cookie('owner_id', b64encode(bytes(owner_id, 'ascii')))
+    resp.set_cookie('owner_id', owner_id)
     print('login_response setting token cookie {}'.format(token))
     return resp
 
@@ -80,7 +79,7 @@ def login():
 
 def verify_csrf_token():
     request_token = request.headers.get('X-XSRF-TOKEN')
-    owner_id = b64decode(request.cookies.get('owner_id'))
+    owner_id = request.cookies.get('owner_id')
     print('verify_csrf_token owner_id={} request_token={}'.format(owner_id, request_token))
 
     if not (owner_id or request_token):
