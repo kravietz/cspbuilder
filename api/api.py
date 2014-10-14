@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from fnmatch import fnmatch
 import re
 import hmac
+import threading
 
 from flask import Flask, request, abort, make_response, redirect
 import pycouchdb
@@ -173,13 +174,31 @@ def update_known_list(owner_id):
         db.save(known_list_doc)
         print('update_known_list saved new KL entry {}'.format(known_list_doc))
 
+    # this take a long time so push into a separate thread
+    t = threading.Thread(target=review_old_reports,
+                         args=(owner_id, review_directive, review_source, review_action),
+                         daemon=True)
+    t.start()
+    print('update_known_list started thread {} {} alive={}'.format(t.name, t.ident, t.is_alive()))
+
+    stop_time = datetime.now(timezone.utc)
+    print('update_known_list {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
+
+    return '', 204, []
+
+
+def review_old_reports(owner_id, review_directive, review_source, review_action):
+    print('starting review_old_reports thread')
+    locals = threading.local()
+    locals.start_time = stop_time = datetime.now(timezone.utc)
+
     # review old reports matching the pattern (using bulk interface)
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
-    docs = []
+    locals.docs = []
     # the view does type filtering already
     for row in db.query('csp/1300_unknown', include_docs=True,
-                       startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
+                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
         # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
         # this if covers two conditions: standard known list URI match, and 'self' URI match
         if (review_source == '\'self\'' and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri'])) \
@@ -189,17 +208,14 @@ def update_known_list(owner_id):
             # save the known list entry used to review this report
             doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
             doc['review_method'] = 'user'
-            docs.append(doc)
+            locals.docs.append(doc)
 
-    if docs:
-        db.save_bulk(docs)
+    if locals.docs:
+        db.save_bulk(locals.docs)
 
-    print('update_known_list updated status of {} existing reports'.format(len(docs)))
+    locals.run_time = locals.start_time - datetime.now(timezone.utc)
 
-    stop_time = datetime.now(timezone.utc)
-    print('update_known_list {} {} {} {}'.format(start_time, client_ip, request.url, stop_time - start_time))
-
-    return '', 204, []
+    print('update_known_list updated status of {} existing reports, time {}'.format(len(locals.docs, locals.run_time)))
 
 
 @app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
