@@ -201,8 +201,11 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
                 header += '-Report-Only';
             }
 
+    // initialize the policy string putting report-uri in front
             var policy = 'report-uri //cspbuilder.info/report/' + owner_id + '/; ';
 
+    // cycle through the items on 'approved' list creating a policy
+    // statement for each of them
             for (var i = 0; i < approved_list.length; i++) {
                 var src_list = approved_list[i];
                 policy += src_list.type + ' ';
