@@ -112,6 +112,12 @@ function source_to_policy_statement(csp) {
             'sources': ['data:']};
     }
 
+    // at least Firefox/32 is sending "blocked-uri: self"
+    if (blocked_uri == 'self') {
+        // return 'self'
+        return {'message': 'Content loaded from own domain is usually safe.', 'sources': ['\'self\'']};
+    }
+
     // for 'http://url.com:80/path/path' return 'http://url.com:80/'
     if (/^https?:\/\/[a-zA-Z0-9.:-]+/.test(blocked_uri)) {
 
