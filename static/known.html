@@ -6,18 +6,18 @@
                 <thead>
                 <tr>
 
-                    <th>Type</th>
-                    <th>Resource origin</th>
+                    <th>Known type</th>
+                    <th>Known source</th>
                     <th>Action</th>
-                    <th>Tools</th>
+                    <th>Change</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 <tr ng-repeat="src in db.rows track by $index" title="{{src}}" id="report-row-{{$index}}">
+                    <td>{{src.value[0]}}</td>
                     <td>{{src.value[1]}}</td>
                     <td>{{src.value[2]}}</td>
-                    <td>{{src.value[3]}}</td>
                     <td>
                         <span class="text-danger glyphicon glyphicon-remove" ng-click="delete_kl_entry($index)"></span>
                     </td>
