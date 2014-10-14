@@ -217,7 +217,6 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
             # this if covers two conditions: standard known list URI match, and 'self' URI match
             lv.match = False
-            print(row)
             if review_source == "'self'" and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri']):
                 lv.match = True
             if fnmatch(row['key'][2], review_source + '*'):
