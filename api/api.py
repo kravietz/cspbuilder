@@ -215,7 +215,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
 
     locals.run_time = locals.start_time - datetime.now(timezone.utc)
 
-    print('update_known_list updated status of {} existing reports, time {}'.format(len(locals.docs, locals.run_time)))
+    print('update_known_list updated status of {} existing reports, time {}'.format(len(locals.docs), locals.run_time))
 
 
 @app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
