@@ -200,7 +200,6 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     # review old reports matching the pattern (using bulk interface)
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
-    lv.docs = []
 
     lv.results = True
     lv.total = 0
@@ -209,6 +208,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     while lv.results:
         lv.i = 0
         lv.docs = []
+
         for row in db.query('csp/1300_unknown', include_docs=True,
                             startkey=[owner_id, review_directive],
                             endkey=[owner_id, review_directive, {}],
@@ -217,8 +217,6 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
             # this if covers two conditions: standard known list URI match, and 'self' URI match
             lv.match = False
-            # we did get some rows, so update counter
-            lv.i += 1
             print(row)
             if review_source == "'self'" and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri']):
                 lv.match = True
@@ -231,11 +229,15 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
                 lv.doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
                 lv.doc['review_method'] = 'user'
                 lv.docs.append(lv.doc)
-                lv.total += 1
+            # total is used as offset for skip
+            lv.total += 1
+            # i is used to see if we got any rows at all
+            lv.i += 1
 
         # does the database still return results?
         # it's done this way because py-couchdb returns generator
         results = lv.i > 0
+        print('i=', lv.i, 'total=', lv.total)
         if results:
             print('update_known_list updating', lv.total)
             db.save_bulk(lv.docs)
