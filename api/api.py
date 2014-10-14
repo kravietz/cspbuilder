@@ -206,7 +206,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     lv.total = 0
     # updating is done in batches; views can return thousands
     # of documents, which ends up in timeouts and excessive memory usage
-    while results:
+    while lv.results:
         lv.i = 0
         lv.docs = []
         for row in db.query('csp/1300_unknown', include_docs=True,
