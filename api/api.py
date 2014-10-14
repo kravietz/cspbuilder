@@ -189,8 +189,8 @@ def update_known_list(owner_id):
 
 def review_old_reports(owner_id, review_directive, review_source, review_action):
     print('starting review_old_reports thread')
-    local_vars = threading.local()
-    local_vars.start_time = datetime.now(timezone.utc)
+    lv = threading.local()
+    lv.start_time = datetime.now(timezone.utc)
 
     # rewrite the policy entry back into alert language
     # otherwise these reports will be never reviewed in the database
@@ -200,28 +200,47 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     # review old reports matching the pattern (using bulk interface)
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
-    local_vars.docs = []
-    # the view does type filtering already
-    for row in db.query('csp/1300_unknown', include_docs=True,
-                        startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
-        # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
-        # this if covers two conditions: standard known list URI match, and 'self' URI match
-        if (review_source == '\'self\'' and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri'])) \
-                or fnmatch(row['key'][2], review_source + '*'):
-            doc = row['doc']
-            doc['reviewed'] = report_status
-            # save the known list entry used to review this report
-            doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
-            doc['review_method'] = 'user'
-            local_vars.docs.append(doc)
+    lv.docs = []
 
-    if len(local_vars.docs):
-        db.save_bulk(local_vars.docs)
+    lv.results = True
+    lv.total = 0
+    # updating is done in batches; views can return thousands
+    # of documents, which ends up in timeouts and excessive memory usage
+    while results:
+        lv.i = 0
+        lv.docs = []
+        for row in db.query('csp/1300_unknown', include_docs=True,
+                            startkey=[owner_id, review_directive],
+                            endkey=[owner_id, review_directive, {}],
+                            limit=100,
+                            skip=lv.total):
+            # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
+            # this if covers two conditions: standard known list URI match, and 'self' URI match
+            lv.match = False
+            if review_source == "'self'" and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri']):
+                lv.match = True
+            if fnmatch(row['key'][2], review_source + '*'):
+                lv.match = True
+            if lv.match:
+                lv.doc = row['doc']
+                lv.doc['reviewed'] = report_status
+                # save the known list entry used to review this report
+                lv.doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
+                lv.doc['review_method'] = 'user'
+                lv.docs.append(lv.doc)
+            lv.i += 1
+            lv.total += 1
+        # does the database still return results?
+        # it's done this way because py-couchdb returns generator
+        results = lv.i > 0
+        if results:
+            print('update_known_list updating', lv.total)
+            db.save_bulk(lv.docs)
 
-    local_vars.run_time = datetime.now(timezone.utc) - local_vars.start_time
+    lv.run_time = datetime.now(timezone.utc) - lv.start_time
 
-    print('update_known_list updated status of {} existing reports, time {}'.format(len(local_vars.docs),
-                                                                                    local_vars.run_time))
+    print('update_known_list updated status of {} existing reports, time {}'.format(len(lv.docs),
+                                                                                    lv.run_time))
 
 
 @app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
