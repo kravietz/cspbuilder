@@ -236,9 +236,9 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
         # does the database still return results?
         # it's done this way because py-couchdb returns generator
         results = lv.i > 0
-        print('i=', lv.i, 'total=', lv.total)
-        if results:
-            print('update_known_list updating', lv.total)
+        print('i=', lv.i, 'total=', lv.total, 'lv.docs=', len(lv.docs))
+        if len(lv.docs):
+            # print('update_known_list updating', lv.total)
             db.save_bulk(lv.docs)
 
     lv.run_time = datetime.now(timezone.utc) - lv.start_time
