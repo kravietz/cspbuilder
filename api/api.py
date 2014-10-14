@@ -212,7 +212,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
         for row in db.query('csp/1300_unknown', include_docs=True,
                             startkey=[owner_id, review_directive],
                             endkey=[owner_id, review_directive, {}],
-                            limit=100,
+                            limit=1000,
                             skip=lv.total):
             # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
             # this if covers two conditions: standard known list URI match, and 'self' URI match
