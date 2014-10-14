@@ -217,6 +217,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
             // iterating through 'source1', 'source2'...
             policy += src + ' ';
         });
+        policy += '; ';
     });
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
