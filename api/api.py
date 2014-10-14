@@ -189,8 +189,8 @@ def update_known_list(owner_id):
 
 def review_old_reports(owner_id, review_directive, review_source, review_action):
     print('starting review_old_reports thread')
-    locals = threading.local()
-    locals.start_time = stop_time = datetime.now(timezone.utc)
+    local_vars = threading.local()
+    local_vars.start_time = datetime.now(timezone.utc)
 
     # rewrite the policy entry back into alert language
     # otherwise these reports will be never reviewed in the database
@@ -200,7 +200,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     # review old reports matching the pattern (using bulk interface)
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
-    locals.docs = []
+    local_vars.docs = []
     # the view does type filtering already
     for row in db.query('csp/1300_unknown', include_docs=True,
                         startkey=[owner_id, review_directive], endkey=[owner_id, review_directive, {}]):
@@ -213,14 +213,15 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # save the known list entry used to review this report
             doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
             doc['review_method'] = 'user'
-            locals.docs.append(doc)
+            local_vars.docs.append(doc)
 
-    if len(locals.docs):
-        db.save_bulk(locals.docs)
+    if len(local_vars.docs):
+        db.save_bulk(local_vars.docs)
 
-    locals.run_time = datetime.now(timezone.utc) - locals.start_time
+    local_vars.run_time = datetime.now(timezone.utc) - local_vars.start_time
 
-    print('update_known_list updated status of {} existing reports, time {}'.format(len(locals.docs), locals.run_time))
+    print('update_known_list updated status of {} existing reports, time {}'.format(len(local_vars.docs),
+                                                                                    local_vars.run_time))
 
 
 @app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
