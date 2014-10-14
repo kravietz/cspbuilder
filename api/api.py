@@ -86,7 +86,7 @@ def verify_csrf_token():
         print('verify_csrf_token missing owner_id or request token')
         return False
 
-    expected_token = hmac.new(bytes(CSRF_KEY, 'ascii'), owner_id, hashlib.sha512).hexdigest()
+    expected_token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
 
     if hmac.compare_digest(request_token, expected_token):
         return True
