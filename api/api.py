@@ -192,6 +192,11 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     locals = threading.local()
     locals.start_time = stop_time = datetime.now(timezone.utc)
 
+    # rewrite the policy entry back into alert language
+    # otherwise these reports will be never reviewed in the database
+    if review_directive in ["'unsafe-inline'", "'unsafe-eval'"]:
+        review_directive = 'null'
+
     # review old reports matching the pattern (using bulk interface)
     action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
     report_status = action_to_status[review_action]
