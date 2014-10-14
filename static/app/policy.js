@@ -206,17 +206,14 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
 
     // cycle through the items on 'approved' list creating a policy
     // statement for each of them
-    for (var i = 0; i < approved_list.length; i++) {
-        var src_list = approved_list[i];
-        policy += src_list.type + ' ';
-        var sources = Object.keys(src_list.sources);
-        for (var j = 0; j < sources.length; j++) {
-            if (src_list.sources[sources[j]]) {
-                policy += ' ' + sources[j];
-            }
-        }
-        policy += '; ';
-    }
+    Object.keys(approved_list).forEach(function (type) {
+        // iterating through 'type1', 'type2'...
+        policy += type + ' ';
+        Object.keys(type).forEach(function (src) {
+            // iterating through 'source1', 'source2'...
+            policy += src + ' ';
+        });
+    });
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
     switch (csp_config.reflected_xss) {

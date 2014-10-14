@@ -26,9 +26,9 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
         $scope.db.query("csp", "1000_known_list", { key: $rootScope.owner_id })
             .success(function () {
                 console.log('data loading finished');
-                $scope.approved_list = [];
-                var current_type = null;
-                var current_list = {};
+
+                $scope.approved_list = {};
+
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
                     // {"id":"00b68742da0e40848f0982f95dfdf8dc","key":"9018643792216450862","value":["script-src","about","reject",null]},
@@ -36,35 +36,26 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                     var src = item.value[1];
                     var action = item.value[2];
 
+                    // only items with 'accept' action go into the CSP
                     if (action == 'accept') {
+                        /*
+                         Output from this loop:
+                         {
+                         'script-src' : {'source1':true, 'sourc2':true },
+                         'style-src' : {'source3':true, 'sourc4':true }
+                         }
+                         */
 
-                        if (current_type == type) {
-                            // item inside one type - add to "sources" dictionary
-                            current_list[src] = true;
-                        } else {
-                            // new type - open new dictionary
-                            if (current_type && current_list) { // save items added previously
-                                $scope.approved_list.push({
-                                    'type': current_type,
-                                    'sources': current_list
-                                });
-                            }
-                            current_type = type;
-                            current_list = {};
-                            // by default all sources are checked - the list is built
-                            // from items accepted by user in Analysis tab
-                            current_list[src] = true;
+                        if (!$scope.approved_list[type]) {
+                            $scope.approved_list[type] = {};
                         }
+
+                        $scope.approved_list[type][src] = true;
+
                     }
+                    console.log('policy_dict=', JSON.stringify($scope.approved_list));
 
                 });
-                if(current_type && current_list) {
-                    // save items added as last, intentionally stays outside of the forEach loop
-                    $scope.approved_list.push({
-                        'type': current_type,
-                        'sources': current_list
-                    });
-                }
                 // finally generate the generic CSP on the page
                 $scope.generate_csp();
 
