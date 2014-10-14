@@ -206,9 +206,11 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
 
     // cycle through the items on 'approved' list creating a policy
     // statement for each of them
+    console.log('approved list', JSON.stringify(approved_list));
     for (var i = 0; i < approved_list.length; i++) {
         var src_list = approved_list[i];
         policy += src_list.type + ' ';
+        console.log('policy=', policy);
         var sources = Object.keys(src_list.sources);
         for (var j = 0; j < sources.length; j++) {
             if (src_list.sources[sources[j]]) {
