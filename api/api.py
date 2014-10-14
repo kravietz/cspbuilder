@@ -210,10 +210,10 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             doc['review_method'] = 'user'
             locals.docs.append(doc)
 
-    if locals.docs:
+    if len(locals.docs):
         db.save_bulk(locals.docs)
 
-    locals.run_time = locals.start_time - datetime.now(timezone.utc)
+    locals.run_time = datetime.now(timezone.utc) - locals.start_time
 
     print('update_known_list updated status of {} existing reports, time {}'.format(len(locals.docs), locals.run_time))
 
