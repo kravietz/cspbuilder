@@ -213,7 +213,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         // iterating through 'type1', 'type2'...
         policy += type + ' ';
         console.log('type ', typeof type, type);
-        Object.keys(type).forEach(function (src) {
+        Object.keys(approved_list[type]).forEach(function (src) {
             // iterating through 'source1', 'source2'...
             policy += src + ' ';
         });
