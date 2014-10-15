@@ -101,7 +101,7 @@ def cleanup():
 
     lv.run_time = datetime.now(timezone.utc) - lv.start_time
 
-    print('cleanup updated status of {} existing reports, time {}'.format(lv.total, lv.run_time))
+    print('cleanup deleted {} old reports, time {}'.format(lv.total, lv.run_time))
 
 
 @app.route('/policy/<owner_id>/', methods=['GET'])
