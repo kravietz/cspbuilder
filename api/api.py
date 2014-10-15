@@ -372,7 +372,6 @@ def read_csp_report(owner_id):
         # sample:
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         known_directive = row['key'][1]
-        # append '*' so that 'http://api.google.com/blah/file.js' matches ''http://*.google.com'
         known_src = row['key'][2]
         got_match = False
         # only process relevant directives
