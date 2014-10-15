@@ -47,6 +47,9 @@ def get_client_ip():
     return str(client_ip)
 
 
+def get_client_geo():
+    return request.headers.get('CF-IPCountry')
+
 def login_response(owner_id):
     token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
@@ -107,19 +110,17 @@ def cleanup():
 @app.route('/policy/<owner_id>/', methods=['GET'])
 def policy(owner_id):
     start_time = datetime.now(timezone.utc)
-    client_ip = get_client_ip()
-    print('policy login {} {} owner_id={}'.format(start_time, client_ip, owner_id))
+    print('policy login {} {} {} owner_id={}'.format(start_time, get_client_ip(), get_client_geo(), owner_id))
     return login_response(owner_id)
 
 
 @app.route('/login', methods=['POST'])
 def login():
     start_time = datetime.now(timezone.utc)
-    client_ip = get_client_ip()
 
     owner_id = request.form.get('owner_id')
 
-    print('login {} {} owner_id={}'.format(start_time, client_ip, owner_id))
+    print('login {} {} {} owner_id={}'.format(start_time, get_client_ip(), get_client_geo(), owner_id))
 
     if not owner_id:
         print('login missing owner_id')
