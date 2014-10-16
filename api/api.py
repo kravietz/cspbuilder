@@ -372,8 +372,8 @@ def read_csp_report(owner_id):
     for row in results:
         # sample:
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
-        known_directive = row['key'][1]
-        known_src = row['value'][2]
+        known_directive = row['value'][0]
+        known_src = row['value'][1]
         got_match = False
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
@@ -397,9 +397,9 @@ def read_csp_report(owner_id):
 
             if got_match:
                 # save the known list entry used to autoreview this report
-                review_rule = row['key']
+                review_rule = row['value']
                 # actually copy the action from KL
-                action = row['key'][3]
+                action = row['value'][2]
                 # stop processing other KL entries
                 break
 
