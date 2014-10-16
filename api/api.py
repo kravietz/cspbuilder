@@ -377,8 +377,7 @@ def read_csp_report(owner_id):
         got_match = False
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
-        print('read_csp_report debug violated_directive={} known_directive={}'.format(violated_directive,
-                                                                                      known_directive))
+
         if violated_directive == known_directive:
             print('read_csp_report matched directive violated_directive={} on blocked_uri={}'.format(violated_directive, blocked_uri))
             # if blocked resource's URI is the same as origin document's URI then
