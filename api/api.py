@@ -379,7 +379,6 @@ def read_csp_report(owner_id):
         # ownership is already limited at view level (key)
 
         if violated_directive == known_directive:
-            print('read_csp_report matched directive violated_directive={} on blocked_uri={}'.format(violated_directive, blocked_uri))
             # save the known list entry used to autoreview this report
             review_rule = row['value']
             # actually copy the action from KL
