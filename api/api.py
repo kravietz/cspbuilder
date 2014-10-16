@@ -376,34 +376,30 @@ def read_csp_report(owner_id):
         known_src = row['value'][1]
         got_match = False
         # only process relevant directives
-        # ownership is already limited at view level (startkey,endkey)
+        # ownership is already limited at view level (key)
 
         if violated_directive == known_directive:
             print('read_csp_report matched directive violated_directive={} on blocked_uri={}'.format(violated_directive, blocked_uri))
+            # save the known list entry used to autoreview this report
+            review_rule = row['value']
+            # actually copy the action from KL
+            action = row['value'][2]
             # if blocked resource's URI is the same as origin document's URI then
             # check if it's not allowed by 'self' entry
             if known_src == '\'self\'' and blocked_uri == 'self':
-                print('read_csp_report match \'self\' on blocked_uri={}'.format(blocked_uri))
                 got_match = True
+                break
 
             if known_src == '\'self\'' and base_uri_match(blocked_uri, document_uri):
-                print('read_csp_report match \'self\' on blocked_uri={} and document_uri={}'.format(blocked_uri, document_uri))
                 got_match = True
+                break
 
             if fnmatch(blocked_uri, known_src + '*'):
-                print('read_csp_report match on KL blocked_uri={} and known_src={}'.format(blocked_uri, known_src))
                 got_match = True
-
-            if got_match:
-                # save the known list entry used to autoreview this report
-                review_rule = row['value']
-                # actually copy the action from KL
-                action = row['value'][2]
-                # stop processing other KL entries
                 break
 
     # only store reports from unknown sources
-    if action == 'unknown':
+    if got_match and action == 'unknown':
         output['review_rule'] = review_rule
         output['review_method'] = 'auto'
         action_to_status = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
