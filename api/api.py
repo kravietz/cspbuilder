@@ -34,7 +34,11 @@ db = server.database('csp')
 
 
 def get_client_ip():
-    client_ip = IPAddress(request.environ.get('REMOTE_ADDR'))
+    client_ip = request.environ.get('REMOTE_ADDR')
+    if not client_ip:
+        return None
+    # parse into IP
+    client_ip = IPAddress(client_ip)
     for net in CLOUDFLARE_IPS:
         if client_ip in net:
             # this is CloudFlare network, try to extract real IP
