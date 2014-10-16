@@ -373,7 +373,7 @@ def read_csp_report(owner_id):
         # sample:
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         known_directive = row['key'][1]
-        known_src = row['key'][2]
+        known_src = row['value'][2]
         got_match = False
         # only process relevant directives
         # ownership is already limited at view level (startkey,endkey)
