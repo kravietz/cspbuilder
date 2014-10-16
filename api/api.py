@@ -368,13 +368,14 @@ def read_csp_report(owner_id):
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     results = db.query('csp/1000_known_list', key=owner_id)
+    got_match = False
 
     for row in results:
         # sample:
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         known_directive = row['value'][0]
         known_src = row['value'][1]
-        got_match = False
+
         # only process relevant directives
         # ownership is already limited at view level (key)
 
