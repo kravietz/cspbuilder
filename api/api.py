@@ -367,7 +367,7 @@ def read_csp_report(owner_id):
     review_rule = 'default'
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
-    results = db.query('csp/1000_known_list', startkey=[owner_id], endkey=[owner_id, {}])
+    results = db.query('csp/1000_known_list', key=owner_id)
 
     for row in results:
         # sample:
