@@ -395,9 +395,17 @@ def read_csp_report(owner_id):
         # ownership is already limited at view level (key)
 
         if violated_directive == known_directive:
+
             # source URI just matches known pattern
             if fnmatch(blocked_uri, known_src + '*'):
                 got_match = True
+
+            # in case of "null" blocked URI we don't really know
+            # if it's eval or inline, so any of these approves this
+            if blocked_uri == "null":
+                # TODO: we could check for presence of either of them in the original-policy
+                if known_src == "'unsafe-inline'" or known_src == "'unsafe-eval'":
+                    got_match = True
 
             # check for 'self' entries
             # variant 1 - report contains literal 'self' source
