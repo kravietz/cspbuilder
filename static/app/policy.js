@@ -166,7 +166,7 @@ function empty_approved_list() {
     var types = ['connect-src', 'child-src', 'font-src', 'form-action', 'frame-ancestors', 'frame-src',
         'img-src', 'media-src', 'object-src', 'script-src', 'style-src'];
     types.forEach(function (type) {
-        approved_list[type] = { 'none': true };
+        approved_list[type] = { "'none'": true };
     });
     return approved_list;
 } // empty_approved_list
