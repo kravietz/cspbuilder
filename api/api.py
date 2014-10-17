@@ -22,8 +22,8 @@ config.read(('collector.ini', os.path.join('..', 'collector.ini')))
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
 CSRF_KEY = config.get('api', 'api_key')
-STORE_REJECTED = config.get('api', 'store_accepted')
-STORE_ACCEPTED = config.get('api', 'store_rejected')
+STORE_REJECTED = config.get('collector', 'store_accepted')
+STORE_ACCEPTED = config.get('collector', 'store_rejected')
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
 
