@@ -24,6 +24,7 @@ ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types'
 CSRF_KEY = config.get('api', 'api_key')
 STORE_REJECTED = config.get('collector', 'store_accepted')
 STORE_ACCEPTED = config.get('collector', 'store_rejected')
+DEBUG = config.get('collector', 'debug')
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
 
@@ -382,47 +383,49 @@ def read_csp_report(owner_id):
 
     # TODO: violated_directive could be used in CouchDB filter as it's static string
     results = db.query('csp/1000_known_list', key=owner_id)
-    got_match = False
 
     for row in results:
         # sample:
         # "key":["9018643792216450862","font-src","https://fonts.gstatic.com","accept"]
         known_directive = row['value'][0]
         known_src = row['value'][1]
+        got_match = False
 
         # only process relevant directives
         # ownership is already limited at view level (key)
 
         if violated_directive == known_directive:
-            # save the known list entry used to autoreview this report
-            review_rule = row['value']
-            # actually copy the action from KL
-            action = row['value'][2]
-            # if blocked resource's URI is the same as origin document's URI then
-            # check if it's not allowed by 'self' entry
-            if known_src == '\'self\'' and blocked_uri == 'self':
-                got_match = True
-                break
-
-            if known_src == '\'self\'' and base_uri_match(blocked_uri, document_uri):
-                got_match = True
-                break
-
+            # source URI just matches known pattern
             if fnmatch(blocked_uri, known_src + '*'):
                 got_match = True
+
+            # check for 'self' entries
+            # variant 1 - report contains literal 'self' source
+            if known_src == '\'self\'' and blocked_uri == 'self':
+                got_match = True
+            # variant 2 - blocked URI is the same as document URI
+            if known_src == '\'self\'' and base_uri_match(blocked_uri, document_uri):
+                got_match = True
+
+            if got_match:
+                # save the known list entry used to autoreview this report
+                review_rule = row['value']
+                # execute the action from known list
+                action = row['value'][2]
                 break
 
-    # only store reports from unknown sources
+    # known reports are only stored if configured to do so
     store = False
     if action == 'reject' and STORE_REJECTED:
         store = True
     if action == 'accept' and STORE_ACCEPTED:
         store = True
+    # unknown reports are stored always
     if action == 'unknown':
         store = True
 
     # add metadata and store result
-    if got_match and store:
+    if store:
         output['review_rule'] = review_rule
         output['review_method'] = 'auto'
         output['reviewed'] = ACTION_MAP[action]
