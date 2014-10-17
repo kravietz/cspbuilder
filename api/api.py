@@ -395,6 +395,8 @@ def read_csp_report(owner_id):
         # ownership is already limited at view level (key)
 
         if violated_directive == known_directive:
+            if DEBUG: print(
+                'read_csp_report: KL blocked uri={} type={}, KL={}'.format(blocked_uri, violated_directive, row))
 
             # source URI just matches known pattern
             if fnmatch(blocked_uri, known_src + '*'):
