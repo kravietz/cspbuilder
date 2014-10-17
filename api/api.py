@@ -22,6 +22,8 @@ config.read(('collector.ini', os.path.join('..', 'collector.ini')))
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
 CSRF_KEY = config.get('api', 'api_key')
+STORE_REJECTED = config.get('api', 'store_accepted')
+STORE_ACCEPTED = config.get('api', 'store_rejected')
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
@@ -409,7 +411,16 @@ def read_csp_report(owner_id):
                 break
 
     # only store reports from unknown sources
-    if got_match and action == 'unknown':
+    store = False
+    if action == 'reject' and STORE_REJECTED:
+        store = True
+    if action == 'accept' and STORE_ACCEPTED:
+        store = True
+    if action == 'unknown':
+        store = True
+
+    # add metadata and store result
+    if got_match and store:
         output['review_rule'] = review_rule
         output['review_method'] = 'auto'
         action_to_status = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
