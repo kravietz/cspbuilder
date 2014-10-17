@@ -358,10 +358,15 @@ def read_csp_report(owner_id):
     # copy metadata into the final report object
     output['meta'] = meta
 
-    # if blocked-uri is empty, replace it with null value
-    # otherwise JS views will not be able to find it
+    # if blocked-uri is empty, replace it with "null" string
+    # otherwise JS views in CouchDB will not be able to find it
     if output['csp-report']['blocked-uri'] == "":
         output['csp-report']['blocked-uri'] = "null"
+
+    # trim data: URIs removing potentially large BASE64 blobs
+    # this is purely for performance and space-saving reasons
+    if output['csp-report']['blocked-uri'].startswith('data:'):
+        output['csp-report']['blocked-uri'] = output['csp-report']['blocked-uri'].split(',')[0]
 
     violated_directive = output['csp-report']['violated-directive'].split()[0]
     blocked_uri = output['csp-report']['blocked-uri']
