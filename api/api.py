@@ -25,6 +25,7 @@ CSRF_KEY = config.get('api', 'api_key')
 STORE_REJECTED = config.get('api', 'store_accepted')
 STORE_ACCEPTED = config.get('api', 'store_rejected')
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
+ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
@@ -254,8 +255,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
         review_directive = 'null'
 
     # review old reports matching the pattern (using bulk interface)
-    action_to_status = {'accept': 'accepted', 'reject': 'rejected'}
-    report_status = action_to_status[review_action]
+    report_status = ACTION_MAP[review_action]
 
     lv.results = True
     lv.total = 0
@@ -423,8 +423,7 @@ def read_csp_report(owner_id):
     if got_match and store:
         output['review_rule'] = review_rule
         output['review_method'] = 'auto'
-        action_to_status = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
-        output['reviewed'] = action_to_status[action]
+        output['reviewed'] = ACTION_MAP[action]
 
         # save current report to CouchDB
         db.save(output)
