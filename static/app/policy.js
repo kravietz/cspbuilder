@@ -174,7 +174,7 @@ function empty_approved_list() {
 function default_csp_config() {
     return {
         'enforce': false,
-        'default': false, // TODO: this setting should be taken into account by policy generator
+        'default': false,
         'referrer': 'none',
         'reflected_xss': 'block',
         'header_format': 'standard',
