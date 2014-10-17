@@ -17,8 +17,7 @@ from netaddr import IPNetwork, IPAddress
 __author__ = 'pawelkrawczyk'
 
 config = configparser.ConfigParser()
-config.read(('collector.ini', os.path.join('collector', 'collector.ini'),
-             os.path.join('..', 'collector', 'collector.ini')))
+config.read(('collector.ini', os.path.join('..', 'collector.ini')))
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
