@@ -365,6 +365,7 @@ def read_csp_report(owner_id):
 
     # trim data: URIs removing potentially large BASE64 blobs
     # this is purely for performance and space-saving reasons
+    # https://tools.ietf.org/html/rfc2397
     if output['csp-report']['blocked-uri'].startswith('data:'):
         output['csp-report']['blocked-uri'] = output['csp-report']['blocked-uri'].split(',')[0]
 
