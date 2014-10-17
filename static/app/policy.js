@@ -159,14 +159,14 @@ function django_generator() {
 }
 
 function empty_approved_list() {
-    var approved_list = [];
+    // return dict like
+    // { 'script-src': { 'none': true }... }
+    var approved_list = {};
     // report-uri and default-src will be added automatically
     var types = ['connect-src', 'child-src', 'font-src', 'form-action', 'frame-ancestors', 'frame-src',
         'img-src', 'media-src', 'object-src', 'script-src', 'style-src'];
-    types.forEach(function (type) {
-        approved_list.push(
-            {'type': type, 'sources': {'\'none\'': true}}
-        );
+    types.forEach(function (i) {
+        approved_list[types[i]] = { 'none': true };
     });
     return approved_list;
 } // empty_approved_list
