@@ -54,6 +54,7 @@ def get_client_ip():
 def get_client_geo():
     return request.headers.get('CF-IPCountry')
 
+
 def login_response(owner_id):
     token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
