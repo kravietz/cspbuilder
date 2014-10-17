@@ -10,7 +10,7 @@ cspControllers.controller('CspMainController', ['$scope',
             var b = Math.random().toString().replace('.','');
             var new_owner_id = a + b;
             new_owner_id = new_owner_id.substring(1, 19); // skip leading 0
-            var approved_list = empty_approved_list();
+            var approved_list = {};
             var csp_config = default_csp_config();
             var format = 'generic';
             var policy = policy_generator(new_owner_id, format, csp_config, approved_list);
