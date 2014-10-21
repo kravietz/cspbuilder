@@ -363,8 +363,7 @@ def str_in_policy(p, t, s):
     :param s: string to find
     :return: True if found, False otherwise
     """
-    statements = [s.strip p.split(';')]
-    for st in statements:
+    for st in map(s.strip, p.split(';')):
         if st.startswith(t):
             if st.find(s):
                 return True
