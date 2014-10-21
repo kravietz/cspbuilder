@@ -355,6 +355,22 @@ def delete_all_reports(owner_id):
     return '', 204, []
 
 
+def str_in_policy(p, t, s):
+    """
+    Find string s in statement of type t in CSP policy p.
+    :param p: full policy string
+    :param t: policy type to search in, such as script-src, style-src etc
+    :param s: string to find
+    :return: True if found, False otherwise
+    """
+    statements = [s.strip p.split(';')]
+    for st in statements:
+        if st.startswith(t):
+            if st.find(s):
+                return True
+    return False
+
+
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id):
     start_time = datetime.now(timezone.utc)
@@ -402,6 +418,7 @@ def read_csp_report(owner_id):
     violated_directive = output['csp-report']['violated-directive'].split()[0]
     blocked_uri = output['csp-report']['blocked-uri']
     document_uri = output['csp-report']['document-uri']
+    original_policy = output['csp-report']['original-policy']
 
     # check list of known sources
     action = 'unknown'
@@ -429,9 +446,14 @@ def read_csp_report(owner_id):
             # in case of "null" blocked URI we don't really know
             # if it's eval or inline, so any of these approves this
             if blocked_uri == "null":
-                # TODO: we could check for presence of either of them in the original-policy
-                if known_src == "'unsafe-inline'" or known_src == "'unsafe-eval'":
-                    got_match = True
+                # attempt to use simple heuristics: if eval was allowed, then
+                # it must have been inline - and vice versa
+                if str_in_policy(original_policy, violated_directive, "'unsafe-inline'"):
+                    if known_src == "'unsafe-eval'":
+                        got_match = True
+                if str_in_policy(original_policy, violated_directive, "'unsafe-eval'"):
+                    if known_src == "'unsafe-inline'":
+                        got_match = True
 
             # check for 'self' entries
             # variant 1 - report contains literal 'self' source
