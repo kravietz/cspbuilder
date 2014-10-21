@@ -119,6 +119,9 @@ def cleanup():
 
 @app.route('/policy/<owner_id>/', methods=['GET'])
 def policy(owner_id):
+    """
+    Quick login path via URL.
+    """
     start_time = datetime.now(timezone.utc)
     print('policy login {} {} {} owner_id={}'.format(start_time, get_client_ip(), get_client_geo(), owner_id))
     return login_response(owner_id)
@@ -126,6 +129,9 @@ def policy(owner_id):
 
 @app.route('/login', methods=['POST'])
 def login():
+    """
+    Standard login via form and POST request.
+    """
     start_time = datetime.now(timezone.utc)
 
     owner_id = request.form.get('owner_id')
@@ -139,6 +145,12 @@ def login():
     return login_response(owner_id)
 
 def verify_csrf_token():
+    """
+    Utility function to verify CSRF token on API calls. Uses secret configured in .ini file
+    and the owner_id from request.
+    :param request: global HTTP request object
+    :return: True if token correct, False if incorrect
+    """
     request_token = request.headers.get('X-XSRF-TOKEN')
     owner_id = request.cookies.get('owner_id')
     print('verify_csrf_token owner_id={} request_token={}'.format(owner_id, request_token))
@@ -276,10 +288,21 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
             # this if covers two conditions: standard known list URI match, and 'self' URI match
             lv.match = False
-            if review_source == "'self'" and base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri']):
+            # null URLs can be matched by either inline or eval entries, per limitation of CSP 1.0
+            if row['key'][2] == 'null' and review_source in ["'unsafe-inline", "'unsafe-eval"]:
                 lv.match = True
+            # self type matches
+            if review_source == "'self'":
+                # blocked URL matching document domain
+                if base_uri_match(row['key'][2], row['doc']['csp-report']['blocked-uri']):
+                    lv.match = True
+                # literal "self" entry in report
+                if row['key'][2] == "self":
+                    lv.match = True
+            # and finally, actual blocked URL is on known list
             if fnmatch(row['key'][2], review_source + '*'):
                 lv.match = True
+            # review report if match was found
             if lv.match:
                 lv.doc = row['doc']
                 lv.doc['reviewed'] = report_status
