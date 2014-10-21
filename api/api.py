@@ -310,6 +310,8 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
                 lv.doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
                 lv.doc['review_method'] = 'user'
                 lv.docs.append(lv.doc)
+                if lv.total == 1:
+                    print('review_old_reports example: {}'.format(lv.doc.get('_id')))
             # total is used as offset for skip
             lv.total += 1
             # i is used to see if we got any rows at all
