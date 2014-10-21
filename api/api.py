@@ -285,7 +285,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
                             endkey=[owner_id, review_directive, {}],
                             limit=1000,
                             skip=lv.total):
-            print('review_old_reports report={} review source={}'.format(row['doc'], review_source))
+
             # ["9018643792216450862", "img-src", "http://webcookies.info/static/no_photo_small.gif"]
             # this if covers two conditions: standard known list URI match, and 'self' URI match
             lv.match = False
@@ -303,17 +303,16 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # and finally, actual blocked URL is on known list
             if fnmatch(row['key'][2], review_source + '*'):
                 lv.match = True
+                
             # review report if match was found
             if lv.match:
-                print('review_old_reports got match')
                 lv.doc = row['doc']
                 lv.doc['reviewed'] = report_status
                 # save the known list entry used to review this report
                 lv.doc['review_rule'] = [owner_id, review_directive, review_source, review_action]
                 lv.doc['review_method'] = 'user'
                 lv.docs.append(lv.doc)
-                if lv.total == 1:
-                    print('review_old_reports example: {}'.format(lv.doc.get('_id')))
+
             # total is used as offset for skip
             lv.total += 1
             # i is used to see if we got any rows at all
