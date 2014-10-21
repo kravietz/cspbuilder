@@ -245,19 +245,19 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-referrer
     switch (csp_config.referrer) {
         case 'no-referrer':
-            policy += 'referrer no-referrer; '
+            policy += 'referrer no-referrer; ';
             break;
         case 'no-referrer-when-downgrade':
-            policy += 'referrer no-referrer-when-downgrade; '
+            policy += 'referrer no-referrer-when-downgrade; ';
             break;
         case 'origin':
-            policy += 'referrer origin; '
+            policy += 'referrer origin; ';
             break;
         case 'origin-when-cross-origin':
-            policy += 'referrer origin-when-cross-origin; '
+            policy += 'referrer origin-when-cross-origin; ';
             break;
         case 'unsafe-url':
-            policy += 'referrer unsafe-url; '
+            policy += 'referrer unsafe-url; ';
             break;
         default: // none
         // do nothing, do not add the directive
