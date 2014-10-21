@@ -213,7 +213,8 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     console.log('approved_list type', typeof approved_list);
     console.log('approved_list', JSON.stringify(approved_list));
 
-    // overwrite default-src
+    // overwrite default-src with 'none'
+    approved_list['default-src'] = {};
     approved_list['default-src']["'none'"] = true;
 
     // cycle through the items on 'approved' list creating a policy
