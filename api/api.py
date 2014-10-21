@@ -417,7 +417,7 @@ def read_csp_report(owner_id):
     violated_directive = output['csp-report']['violated-directive'].split()[0]
     blocked_uri = output['csp-report']['blocked-uri']
     document_uri = output['csp-report']['document-uri']
-    original_policy = output['csp-report']['original-policy']
+    original_policy = output['csp-report'].get('original-policy')
 
     # check list of known sources
     action = 'unknown'
@@ -447,10 +447,10 @@ def read_csp_report(owner_id):
             if blocked_uri == "null":
                 # attempt to use simple heuristics: if eval was allowed, then
                 # it must have been inline - and vice versa
-                if str_in_policy(original_policy, violated_directive, "'unsafe-inline'"):
+                if original_policy and str_in_policy(original_policy, violated_directive, "'unsafe-inline'"):
                     if known_src == "'unsafe-eval'":
                         got_match = True
-                if str_in_policy(original_policy, violated_directive, "'unsafe-eval'"):
+                if original_policy and str_in_policy(original_policy, violated_directive, "'unsafe-eval'"):
                     if known_src == "'unsafe-inline'":
                         got_match = True
 
