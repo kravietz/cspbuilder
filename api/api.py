@@ -290,7 +290,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # this if covers two conditions: standard known list URI match, and 'self' URI match
             lv.match = False
             # null URLs can be matched by either inline or eval entries, per limitation of CSP 1.0
-            if row['key'][2] == 'null' and review_source in ["'unsafe-inline", "'unsafe-eval"]:
+            if row['key'][2] == 'null' and review_source in ["'unsafe-inline", "'unsafe-eval'"]:
                 lv.match = True
             # self type matches
             if review_source == "'self'":
