@@ -304,6 +304,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
                 lv.match = True
             # review report if match was found
             if lv.match:
+                print('review_old_reports got match')
                 lv.doc = row['doc']
                 lv.doc['reviewed'] = report_status
                 # save the known list entry used to review this report
