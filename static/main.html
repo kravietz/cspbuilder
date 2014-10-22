@@ -58,10 +58,15 @@
 
                 <li>First, generate a new empty policy header with your new, unique identifier:
 
-                    <p class="text-center">
-                        <button type="button" class="text-center btn btn-default" ng-click="new_csp()"
-                                ng-hide="new_policy">Get code
-                        </button>
+                    <p class="text-center" ng-hide="new_policy">
+
+                        <button class="btn btn-xs" ng-click="new_csp()">Generic</button>
+                        <button class="btn btn-xs" ng-click="new_csp('nginx')">Nginx</button>
+                        <button class="btn btn-xs" ng-click="new_csp('apache')">Apache</button>
+                        <button class="btn btn-xs" ng-click="new_csp('php')">PHP</button>
+                        <button class="btn btn-xs" ng-click="new_csp('ror')">Ruby on Rails</button>
+                        <button class="btn btn-xs" ng-click="new_csp('django')">Django</button>
+
                     </p>
 
                     <pre ng-show="new_policy">{{new_policy}}</pre>
