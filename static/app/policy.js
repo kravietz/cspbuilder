@@ -54,6 +54,20 @@ function null_url_guesswork(csp) {
     // heuristics for style-src
     if (blocked_type === 'style-src') {
 
+        // check if inline was already allowed on blocked page
+        if (violated_directive.indexOf('unsafe-inline') > 0) {
+            // inline was allowed, so it must have been eval()
+            var hint = 'Your policy already allows inline styles and we still see empty blocked-uri.';
+            return { 'message': msg + eval_msg + hint, 'sources': eval_first};
+        } else {
+            // no, try inline first
+            var hint = 'Inline styles are what usually results in these messages in the first place.';
+            return {'message': msg + inline_msg + hint, 'sources': inline_first};
+        }
+
+        // heuristics for script-src
+    } else if (blocked_type === 'script-src') {
+
         if (script_sample && script_sample.indexOf('eval()') > 0) {
             // "script-sample": "call to eval() or related function blocked by CSP",
             // Mozilla/5.0 (Windows NT 5.1; rv:32.0) Gecko/20100101 Firefox/32.0
@@ -61,23 +75,13 @@ function null_url_guesswork(csp) {
             return { 'message': msg + eval_msg + hint, 'sources': eval_first};
         }
 
-        // check if inline was already allowed on blocked page
-        if (violated_directive.indexOf('unsafe-inline') > 0) {
-            // inline was allowed, so it must have been eval()
-            return { 'message': msg + eval_msg, 'sources': eval_first};
-        } else {
-            // no, try inline first
-            return {'message': msg + inline_msg, 'sources': inline_first};
-        }
-
-        // heuristics for script-src
-    } else if (blocked_type === 'script-src') {
-
         // the same heuristics as above
         if (violated_directive.indexOf('unsafe-inline') > 0) {
-            return {'message': msg + eval_msg, 'sources': eval_first};
+            var hint = 'Your policy already allows inline scripts and we still see empty blocked-uri.';
+            return {'message': msg + eval_msg + hint, 'sources': eval_first};
         } else {
-            return {'message': msg + inline_msg, 'sources': inline_first};
+            var hint = 'Inline scripts are  what usually results in these messages in the first place.';
+            return {'message': msg + inline_msg + hint, 'sources': inline_first};
         }
 
         // heuristics for object-src
