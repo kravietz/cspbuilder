@@ -61,8 +61,8 @@ def get_client_geo():
 def login_response(owner_id):
     token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
-    resp.set_cookie('XSRF-TOKEN', token)
-    resp.set_cookie('owner_id', owner_id)
+    resp.set_cookie('XSRF-TOKEN', token, secure=True)
+    resp.set_cookie('owner_id', owner_id, secure=True)
     print('login_response setting token cookie {}'.format(token))
     return resp
 
