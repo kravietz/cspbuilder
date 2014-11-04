@@ -498,8 +498,8 @@ def read_csp_report(owner_id):
         # save current report to CouchDB
         db.save(output)
         stop_time = datetime.now(timezone.utc)
-        print('read_csp_report {} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time,
-                                                                                                           client_ip,
+        print('read_csp_report {} {} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time,
+                                                                                                           get_client_ip(), get_client_geo(),
                                                                                                            request.url,
                                                                                                            stop_time - start_time,
                                                                                                            action,
