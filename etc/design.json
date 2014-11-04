@@ -1,6 +1,5 @@
 {
     "_id": "_design/csp",
-    "_rev": "8-0adbc0230909b0cb242c4e95981eb8c8",
     "language": "javascript",
     "views": {
         "1000_known_list": {
