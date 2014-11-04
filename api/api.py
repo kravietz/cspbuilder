@@ -55,7 +55,13 @@ def get_client_ip():
 
 
 def get_client_geo():
-    return request.headers.get('CF-IPCountry')
+    ret = request.headers.get('CF-IPCountry')
+    if ret:
+        return ret
+    ret = request.env.get('GEOIP_COUNTRY')
+    if ret:
+        return ret
+    return None
 
 
 def login_response(owner_id):
