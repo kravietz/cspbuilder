@@ -58,7 +58,7 @@ def get_client_geo():
     ret = request.headers.get('CF-IPCountry')
     if ret:
         return ret
-    ret = request.env.get('GEOIP_COUNTRY')
+    ret = request.environ.get('GEOIP_COUNTRY')
     if ret:
         return ret
     return None
