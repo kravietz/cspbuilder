@@ -24,7 +24,7 @@ ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types'
 CSRF_KEY = config.get('api', 'api_key')
 STORE_REJECTED = config.get('collector', 'store_accepted')
 STORE_ACCEPTED = config.get('collector', 'store_rejected')
-DEBUG = config.get('collector', 'debug')
+DEBUG = config.get('collector', 'debug') == 'True'
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
 
