@@ -345,20 +345,42 @@ def delete_all_reports(owner_id):
     if not verify_csrf_token():
         return '', 400, []
 
-    docs = []
-    for row in db.query('csp/1200_all', key=owner_id, include_docs=True):
-        doc = row['doc']
-        doc['_deleted'] = True
-        docs.append(doc)
+    # this take a long time so push into a separate thread
+    t = threading.Thread(target=delete_all_reports_thread, args=(owner_id,), daemon=True)
 
-    if docs:
-        db.save_bulk(docs)
+    t.start()
 
-    stop_time = datetime.now(timezone.utc)
-    print('delete_all_reports {} {} {} {} deleted {} reports'.format(start_time, client_ip, request.url,
-                                                                     stop_time - start_time, len(docs)))
+    print('delete_all_reports {} {} {} started background task {}'.format(start_time, client_ip, owner_id, t.ident))
 
     return '', 204, []
+
+
+def delete_all_reports_thread(owner_id):
+    lv = threading.local()
+
+    lv.start_time = datetime.now(timezone.utc)
+
+    print('delete_all_reports_thread starting for {} at {}'.format(owner_id, lv.start_time))
+
+    lv.docs = []
+    lv.i = 0
+
+    # cycle through all reports for this user
+    for row in db.query('csp/1200_all', key=owner_id, include_docs=True):
+        # copy the document's crucial parts (id, rev), adding the _deleted flag
+        lv.doc = {'_id': row['doc']['_id'], '_rev': row['doc']['_rev'], '_deleted': True}
+        lv.docs.append(lv.doc)
+        lv.i += 1
+
+    print('delete_all_reports_thread {} found {} records to delete'.format(owner_id, lv.i))
+
+    # actually delete these reports
+    if lv.docs:
+        db.save_bulk(lv.docs)
+
+    lv.stop_time = datetime.now(timezone.utc)
+
+    print('delete_all_reports_thread {} completed at {}'.format(owner_id, lv.stop_time))
 
 
 def str_in_policy(p, t, s):
