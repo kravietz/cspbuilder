@@ -1,33 +1,53 @@
-<ng-include src="'top-menu.html'"></ng-include>
-
 <div class="container">
     <div class="row">
         <h1>CspBuilder Documentation</h1>
     </div>
-    
+
     <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-8" id="referrer">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="referrer">
             <h2>Referrer policy</h2>
 
             <p>
-                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-referrer">includes</a> a new
-                directive <code>referrer</code> to instruct browser on <code>Referer</code> behaviour. Details of this
+                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-referrer">introduces</a> a new
+                directive <code>referrer</code> to instruct browser on the
+                <a href="https://en.wikipedia.org/wiki/HTTP_referer">HTTP Referer</a> behaviour. Details of this
                 directive are described in yet another standard
                 <a href="https://w3c.github.io/webappsec/specs/referrer-policy/">Referrer Policy</a>.
                 The directive allows the following scenarios that are reflected in CspBuilder policy generation engine:
             </p>
 
-            <ul>
-                <li><code>none</code> &mdash; suppress <code>Referer</code> header completely
-                <li><code>none-when-downgrade</code> &mdash; suppress the header when moving from
-                    a <a href="https://en.wikipedia.org/wiki/HTTP_Secure">TLS page</a> to a plaintext page
-                <li><code>origin</code> &mdash; the header will only contain URL's base domain (origin), not the whole
-                    URL
-                <li><code>origin-when-cross-origin</code> &mdash; same as above, but only if moving to another website;
-                    browser will send full URL if moving with the same origin
-                <li><code>unsafe-url</code> &mdash; retain the default behaviour of sending full URL in
-                    <code>Referer</code>
-            </ul>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tr>
+                    <td><code>none</code>
+                    <td> suppress Referer header completely
+                <tr>
+                    <td><code>none-when-downgrade</code>
+                    <td> suppress the header when moving from
+                        a <a href="https://en.wikipedia.org/wiki/HTTP_Secure">TLS page</a> to a plaintext page
+                <tr>
+                    <td><code>origin</code>
+                    <td> the header will only contain URL's base domain (origin), not the whole
+                        URL
+                <tr>
+                    <td><code>origin-when-cross-origin</code>
+                    <td> same as above, but only if moving to another website;
+                        browser will send full URL if moving with the same origin
+                <tr>
+                    <td><code>unsafe-url</code>
+                    <td> retain the default behaviour of sending full URL in
+                        <code>Referer</code>
+                </tbody>
+            </table>
+
 
             <p>
                 By default, CspBuilder offers <code>origin-when-cross-origin</code> as default setting because it seems
