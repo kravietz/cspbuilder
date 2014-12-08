@@ -3,3 +3,5 @@ bin/
 lib/
 include/
 .idea/
+*.gz
+etc/public.key
