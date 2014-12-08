@@ -27,7 +27,22 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
             .success(function () {
                 console.log('data loading finished');
 
-                $scope.approved_list = {};
+                // the initial list needs to include all content types
+                // so that the output policy contains proper 'none' entries
+                // and browsers do not need to fall back to default-src
+                $scope.approved_list = {
+                    'connect-src': {},
+                    'child-src': {},
+                    'font-src': {},
+                    'form-action': {},
+                    'frame-ancestors': {},
+                    'frame-src': {},
+                    'img-src': {},
+                    'media-src': {},
+                    'object-src': {},
+                    'script-src': {},
+                    'style-src': {}
+                };
 
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
@@ -41,14 +56,10 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                         /*
                          Output from this loop:
                          {
-                         'script-src' : {'source1':true, 'sourc2':true },
-                         'style-src' : {'source3':true, 'sourc4':true }
+                         'script-src' : {'source1':true, 'source2':true },
+                         'style-src' : {'source3':true, 'source4':true }
                          }
                          */
-
-                        if (!$scope.approved_list[type]) {
-                            $scope.approved_list[type] = {};
-                        }
 
                         $scope.approved_list[type][src] = true;
 

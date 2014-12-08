@@ -227,6 +227,13 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         // iterating through 'type1', 'type2'...
         policy += type + ' ';
         console.log('type ', typeof type, type);
+
+        // handle empty types - they should have a 'none' entry
+        if (Object.keys[type].length == 0) {
+            approved_list[type]["'none'"] = true;
+        }
+
+        // cycle through sources in each type and build policy entry out of them
         Object.keys(approved_list[type]).forEach(function (src) {
             // iterating through 'source1', 'source2'...
             policy += src + ' ';
