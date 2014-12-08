@@ -229,7 +229,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         console.log('type ', typeof type, type);
 
         // handle empty types - they should have a 'none' entry
-        if (Object.keys[type].length == 0) {
+        if (Object.keys(approved_list[type]).length == 0) {
             approved_list[type]["'none'"] = true;
         }
 
