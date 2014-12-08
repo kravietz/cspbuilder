@@ -12,7 +12,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
             'enforce': false,
             'default': false,
             'referrer': 'origin-when-cross-origin',
-            'reflected_xss': 'block',
+            'reflected_xss': 'filter',
             'header_format': 'standard',
             'plugin_types': [
                 'application/pdf',

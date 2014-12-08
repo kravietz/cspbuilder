@@ -55,4 +55,60 @@
             </p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="reflected-xss">
+            <h2>Reflected XSS</h2>
+
+            <p>
+                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-reflected-xss">introduces</a> a
+                new
+                directive <code>reflected-xss</code> that controls browser's built-in anti-XSS filter. These filters
+                will, with more or less success, detect and block <a
+                    href="https://en.wikipedia.org/wiki/Cross-site_scripting#Reflected_.28non-persistent.29">reflected
+                Cross-Site Scripting attacks</a>.
+                The directive is pretty much a
+                drop-in replacement for the
+                <a href="http://blogs.msdn.com/b/ieinternals/archive/2011/01/31/controlling-the-internet-explorer-xss-filter-with-the-x-xss-protection-http-header.aspx">X-XSS-Protection</a>
+                header.
+                The directive allows the following scenarios that are reflected in CspBuilder policy generation engine:
+            </p>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Value</th>
+                    <th>Description</th>
+                    <th>X-XSS-Protection</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>allow</code></td>
+                    <td>disable the XSS filter; usually not recommended, unless you have a specific reason to do so</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><code>filter</code></td>
+                    <td>discard the offending content and continue rendering the page; alert is logged to the JavaScript
+                        console
+                    </td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><code>block</code></td>
+                    <td>stop rendering the page when offending content is detected and display a warning to the user
+                    </td>
+                    <td>1; mode=block</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
+            <p>
+                By default, CspBuilder offers <code>filter</code> as default.
+            </p>
+        </div>
+    </div>
 </div>
