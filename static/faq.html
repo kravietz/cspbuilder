@@ -4,7 +4,69 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="referrer">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="enforcement-mode">
+            <h2>Enforcement mode</h2>
+
+            <p>
+                Content Security Policy can be announced by websites in two modes: <strong>enforcement</strong>
+                and <strong>report-only</strong>. The formed happens if you annonuce the policy via <code>Content-Security-Policy</code>
+                header, the latter is set with <code>Content-Security-Policy-Report-Only</code>.
+            </p>
+
+            <p>
+                Enforcement is, well, enforcement &mdash; if your CSP is not allowing <em>everything</em> that needs to
+                be
+                allowd your website will just stop rendering. In report-only mode though the browsers will report
+                whatever
+                it <em>would</em> block in the JavaScript console and to the CSP violation reports. CspBuilder makes use
+                of these
+                reports to gradually learn what content the website really loads and allow you to make decisions which
+                of these
+                should be allowed.
+            </p>
+
+            <p>
+                In reality, this is more difficult than it looks at first look. Most websites will load much more
+                content than
+                is directly visible in their HTML code. It's because when you start using
+                JavaScript frameworks or 3
+                <small><sup>rd</sup></small>
+                party code (like Google Adsense) it becomes
+                a chain reaction. One script loads another one, then another one, then that one creates some additional
+                HTML elements, open frames etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="default-policy">
+            <h2>Default empty policy</h2>
+
+            <p>
+                CspBuilder will initially recommend you a very restrictive Content Security Policy that basically
+                disallows
+                any content from loading, but in report-only mode, such as this one:
+            </p>
+
+            <pre>
+                Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/487710497807711360/; connect-src 'none' ;
+                child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ;
+                media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ;
+                reflected-xss block; referrer origin-when-cross-origin;
+            </pre>
+
+            <p>
+                This usually results in an avalanche of CSP violation reports which CspBuilder captures and looks what
+                should be allowed.
+                If you ever need to revert to this empty policy after you've collected some events you can do so by
+                selecting the
+                <strong>Default (empty) policy</strong> in the <a href="#/policy/">Policy generation</a> tab.
+
+        </div>
+    </div>
+
+    <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="referrer">
             <h2>Referrer policy</h2>
 
             <p>
@@ -132,4 +194,25 @@
             </p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="plugin-types">
+            <h2>Plugin types</h2>
+
+            <p>
+                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-plugin-types">introduces</a> a
+                new directive <code>plugin-types</code> that can be used to specify a list of MIME types of plugins
+                allowed to run at this page.
+            </p>
+
+            <p>
+                For example, if your page allows PDF documents to be rendered in-line by 3
+                <small><sup>rd</sup></small>
+                &nbsp;party
+                plugins you might select <code>application/pdf</code> as the value for this directive. For Flash plugins
+                it would be <code>application/x-shockwave-flash</code> etc.
+            </p>
+        </div>
+    </div>
+
 </div>
