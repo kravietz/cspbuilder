@@ -44,6 +44,10 @@ cspbuilderApp.config(['$routeProvider',
                 templateUrl: '/static/feedback.html'
             }
         ).
+            when('/faq', {
+                templateUrl: '/static/faq.html'
+            }
+        ).
             otherwise({
                 redirectTo: '/main'
             }
