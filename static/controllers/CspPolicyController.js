@@ -11,7 +11,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
         $scope.csp_config = {
             'enforce': false,
             'default': false,
-            'referrer': 'none',
+            'referrer': 'origin-when-cross-origin',
             'reflected_xss': 'block',
             'header_format': 'standard',
             'plugin_types': [

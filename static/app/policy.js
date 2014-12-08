@@ -179,7 +179,7 @@ function default_csp_config() {
     return {
         'enforce': false,
         'default': false,
-        'referrer': 'none',
+        'referrer': 'origin-when-cross-origin',
         'reflected_xss': 'block',
         'header_format': 'standard',
         'plugin_types': [
