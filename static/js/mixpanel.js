@@ -32,7 +32,7 @@
         a = f.createElement("script");
         a.type = "text/javascript";
         a.async = !0;
-        a.src = "//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";
+        a.src = "/mixpanel-2.2.min.js";
         e = f.getElementsByTagName("script")[0];
         e.parentNode.insertBefore(a, e)
     }
