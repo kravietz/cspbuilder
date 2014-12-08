@@ -48,12 +48,10 @@
                 any content from loading, but in report-only mode, such as this one:
             </p>
 
-            <pre>
-                Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/487710497807711360/; connect-src 'none' ;
-                child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ;
-                media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ;
-                reflected-xss block; referrer origin-when-cross-origin;
-            </pre>
+<pre>
+Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/487710497807711360/; connect-src 'none' ; child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ;
+media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ; reflected-xss block; referrer origin-when-cross-origin;
+</pre>
 
             <p>
                 This usually results in an avalanche of CSP violation reports which CspBuilder captures and looks what
