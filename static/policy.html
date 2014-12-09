@@ -4,15 +4,15 @@
     <div class="row">
         <div class="col-md-12">
 
-        <h3>Policy generator</h3>
+            <h3>Policy generator</h3>
 
-    <div class="row">
-        <div class="alert alert-info" role="alert">
-            These sources have been accepted by you already. Please review them for the last time and press
-            <strong>Generate</strong>
-            button to produce the CSP header.
-        </div>
-    </div>
+            <div class="row">
+                <div class="alert alert-info" role="alert">
+                    These sources have been accepted by you already. Please review them for the last time and press
+                    <strong>Generate</strong>
+                    button to produce the CSP header.
+                </div>
+            </div>
         </div>
     </div>
 
@@ -40,20 +40,37 @@
         <div class="col-md-12">
             <h4>Output</h4>
 
-
-            <button class="btn btn-default" ng-click="generate_csp()">Generate</button>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" ng-click="generate_csp('raw')"
+                        title="Raw content security policy string">
+                    Generic
+                </button>
+                <button class="btn btn-default" ng-click="generate_csp('http')"
+                        title="Content security policy string formatted as HTTP header">HTTP
+                </button>
+            </div>
 
             Alternative formats
 
             <div class="btn-group" role="group">
-                <button class="btn btn-default" ng-click="generate_csp('nginx')">Nginx</button>
-                <button class="btn btn-default" ng-click="generate_csp('apache')">Apache</button>
-                <button class="btn btn-default" ng-click="generate_csp('php')">PHP</button>
-                <button class="btn btn-default" ng-click="generate_csp('ror')">Ruby on Rails</button>
-                <button class="btn btn-default" ng-click="generate_csp('django')">Django</button>
+                <button class="btn btn-default" ng-click="generate_csp('nginx')"
+                        title="CSP wrapped into Nginx add_header option">Nginx
+                </button>
+                <button class="btn btn-default" ng-click="generate_csp('apache')"
+                        title="CSP wrapped into Apache Header option">Apache
+                </button>
+                <button class="btn btn-default" ng-click="generate_csp('php')"
+                        title="CSP wrapped in to PHP header() function">PHP
+                </button>
+                <button class="btn btn-default" ng-click="generate_csp('ror')"
+                        title="CSP formatted for Ruby on Rails secureheaders module ">Ruby on Rails
+                </button>
+                <button class="btn btn-default" ng-click="generate_csp('django')"
+                        title="CSP formatted for django-security module">Django
+                </button>
             </div>
 
-            <div class="alert alert-info" role="alert" ng-show="policy_message" ng-bind-html="policy_message"></div>
+            <p class="alert alert-info" role="alert" ng-show="policy_message" ng-bind-html="policy_message"></p>
 
             <pre>{{policy }}</pre>
 
