@@ -40,9 +40,12 @@
         <div class="col-md-12">
             <h4>Output</h4>
 
+
+            <button class="btn btn-default" ng-click="generate_csp()">Generate</button>
+
+            Alternative formats
+
             <div class="btn-group" role="group">
-                <button class="btn btn-default" ng-click="generate_csp()">Generate</button>
-                Other formats
                 <button class="btn btn-default" ng-click="generate_csp('nginx')">Nginx</button>
                 <button class="btn btn-default" ng-click="generate_csp('apache')">Apache</button>
                 <button class="btn btn-default" ng-click="generate_csp('php')">PHP</button>
