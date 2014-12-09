@@ -51,8 +51,6 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                     var src = item.value[1];
                     var action = item.value[2];
 
-                    console.log('known list', type, src, action);
-
                     // only items with 'accept' action go into the CSP
                     if (action == 'accept') {
                         /*
@@ -68,8 +66,6 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                     }
 
                 });
-
-                console.log('approved_list=', JSON.stringify($scope.approved_list));
 
                 // finally generate the generic CSP on the page
                 $scope.generate_csp();

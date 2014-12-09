@@ -201,8 +201,6 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     // initialize the policy string putting report-uri in front
     var policy = 'report-uri //cspbuilder.info/report/' + owner_id + '/; ';
 
-    console.log('approved_list', JSON.stringify(approved_list));
-
     // overwrite default-src with 'none'
     approved_list['default-src'] = {};
     approved_list['default-src']["'none'"] = true;
@@ -212,7 +210,6 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     Object.keys(approved_list).forEach(function (type) {
         // iterating through 'type1', 'type2'...
         policy += type + ' ';
-        console.log('type ', typeof type, type);
 
         // handle empty types - they should have a 'none' entry
         if (Object.keys(approved_list[type]).length == 0) {

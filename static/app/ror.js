@@ -28,6 +28,7 @@ function ror_generator(owner_id, format, csp_config, approved_list) {
         // handle empty types - they should have a 'nil' entry
         // in approved_list they will look empty dict
         //  'img-src': {},
+        console.log('ror', ror_type, Object.keys(approved_list[type]).length, approved_list[type]);
         if (Object.keys(approved_list[type]).length == 0) {
             policy += "\t:" + ror_type + " => nil,\n";
         } else {
