@@ -40,6 +40,9 @@ function ror_generator(owner_id, format, csp_config, approved_list) {
                 if (src == "'unsafe-eval'") {
                     src = 'eval';
                 }
+                if (src == "'self'") {
+                    src = 'self';
+                }
 
                 // append to sources list
                 sources += src + " ";
