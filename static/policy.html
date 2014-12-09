@@ -40,17 +40,19 @@
         <div class="col-md-12">
             <h4>Output</h4>
 
+            Basic formats:
+
             <div class="btn-group" role="group">
                 <button class="btn btn-default" ng-click="generate_csp('raw')"
                         title="Raw content security policy string">
                     Generic
                 </button>
                 <button class="btn btn-default" ng-click="generate_csp('http')"
-                        title="Content security policy string formatted as HTTP header">HTTP
+                        title="Full CSP HTTP header">HTTP
                 </button>
             </div>
 
-            Alternative formats
+            Alternative formats:
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default" ng-click="generate_csp('nginx')"
