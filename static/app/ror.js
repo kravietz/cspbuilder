@@ -25,29 +25,31 @@ function ror_generator(owner_id, format, csp_config, approved_list) {
         var ror_type = type.replace('-', '_');
         var sources = "";
 
-        // handle empty types - they should have a 'none' entry
+        // handle empty types - they should have a 'nil' entry
+        // in approved_list they will look empty dict
+        //  'img-src': {},
         if (Object.keys(approved_list[type]).length == 0) {
-            approved_list[type]["'none'"] = true;
+            policy += "\t:" + ror_type + " => nil,\n";
+        } else {
+            // otherwise cycle through sources in each type and build policy entry out of them
+            Object.keys(approved_list[type]).forEach(function (src) {
+                // iterating through 'source1', 'source2'...
+
+                // convert to RoR syntax
+                if (src == "'unsafe-inline'") {
+                    src = 'inline';
+                }
+                if (src == "'unsafe-eval'") {
+                    src = 'eval';
+                }
+
+                // append to sources list
+                sources += src + " ";
+            });
+
+            // append to policy
+            policy += "\t :" + ror_type + " => '" + sources + "',\n";
         }
-
-        // cycle through sources in each type and build policy entry out of them
-        Object.keys(approved_list[type]).forEach(function (src) {
-            // iterating through 'source1', 'source2'...
-
-            // convert to RoR syntax
-            if (src == "'unsafe-inline'") {
-                src = 'inline';
-            }
-            if (src == "'unsafe-eval'") {
-                src = 'eval';
-            }
-
-            // append to sources list
-            sources += src + " ";
-        });
-
-        // append to policy
-        policy += "\t :" + ror_type + " => '" + sources + "',\n";
 
     });
 
