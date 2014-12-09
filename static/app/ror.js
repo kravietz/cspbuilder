@@ -15,7 +15,6 @@ function ror_generator(owner_id, csp_config, approved_list) {
 
     // :report_uri => '//cspbuilder.info/report/123/',
     policy += "\t:report_uri => '//cspbuilder.info/report/" + owner_id + "/',\n";
-    policy += "\t:default_src => nil,\n";
 
     // cycle through the items on 'approved' list creating a policy
     // statement for each of them
