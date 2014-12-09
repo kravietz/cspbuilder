@@ -48,7 +48,7 @@ function ror_generator(owner_id, csp_config, approved_list) {
             });
 
             // append to policy
-            policy += "\t :" + ror_type + " => '" + sources + "',\n";
+            policy += "\t:" + ror_type + " => '" + sources + "',\n";
         }
 
     });
