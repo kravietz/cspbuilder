@@ -37,6 +37,10 @@ db = server.database('csp')
 
 
 def get_client_ip():
+    """
+    Obtain client IP from either standard REMOTE_ADDR variable or CloudFlare header.
+    :return: IP address
+    """
     client_ip = request.environ.get('REMOTE_ADDR')
     if not client_ip:
         return None
@@ -55,6 +59,10 @@ def get_client_ip():
 
 
 def get_client_geo():
+    """
+    Get client geolocation country from Nginx or CloudFlare variable.
+    :return: country code like PL
+    """
     ret = request.headers.get('CF-IPCountry')
     if ret:
         return ret
@@ -73,7 +81,7 @@ def login_response(owner_id):
     return resp
 
 
-@app.route('/cleanup/week', methods=['POST'])
+@app.route('/api/cleanup/week', methods=['POST'])
 def cleanup_api():
     """
     Delete alerts that are older than 7 days. This function is gateway to the actual
@@ -400,6 +408,10 @@ def str_in_policy(p, t, s):
 
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id):
+    """
+    Critical API call that actually reads CSP violation reports.
+    :param owner_id: 19 digit identifier of the owner of the page
+    """
     start_time = datetime.now(timezone.utc)
 
     # sanity checks
