@@ -51,6 +51,8 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                     var src = item.value[1];
                     var action = item.value[2];
 
+                    console.log('known list', type, src, action);
+
                     // only items with 'accept' action go into the CSP
                     if (action == 'accept') {
                         /*
