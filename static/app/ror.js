@@ -56,7 +56,7 @@ function ror_generator(owner_id, csp_config, approved_list) {
     policy += "}";
 
     var policy_message = 'This format is intended to be directly usable with <a href="https://github.com/twitter/secureheaders">secureheaders</a>.'
-    ' Note that secureheaders does not support various CSP headers.';
+    ' It <strong>does not</strong> support the CSP 1.1 directives';
 
     return [policy, policy_message];
 }

@@ -32,7 +32,8 @@ function django_generator(owner_id, csp_config, approved_list) {
 
     policy += "}";
 
-    var policy_message = 'This format is intended to be directly usable with <a href="https://github.com/kravietz/django-security">django-security</a>.';
+    var policy_message = 'This format is intended to be directly usable with <a href="https://github.com/kravietz/django-security">django-security</a>.'
+    ' It <strong>does not</strong> support the CSP 1.1 directives';
 
     return [policy, policy_message];
 }
