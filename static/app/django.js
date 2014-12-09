@@ -21,7 +21,7 @@ function django_generator(owner_id, csp_config, approved_list) {
         Object.keys(approved_list[type]).forEach(function (src) {
             // iterating through 'source1', 'source2'...
             // append to sources list
-            sources.append(src);
+            sources.push(src);
         });
 
         // append to policy
