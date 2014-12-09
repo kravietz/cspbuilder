@@ -53,9 +53,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                         $scope.approved_list[type][src] = true;
 
                         // delete the default 'none' entry
-                        delete $scope.approved_list["'none'"];
-
-                        console.log($scope.approved_list);
+                        delete $scope.approved_list[type]["'none'"];
                     }
 
                 });
