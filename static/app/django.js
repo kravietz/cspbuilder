@@ -5,7 +5,7 @@
 function django_generator(owner_id, csp_config, approved_list) {
     // Output policy dictionary compatible with https://github.com/kravietz/django-security
     console.log('django_generator owner_id=' + owner_id);
-    var policy = "CSP_MODE = '" + csp_config.enforce ? 'enforce' : 'report-only' + "'\n";
+    var policy = "CSP_MODE = '" + (csp_config.enforce ? 'enforce' : 'report-only') + "'\n";
 
     policy += "CSP_DICT = {\n";
 
@@ -25,7 +25,7 @@ function django_generator(owner_id, csp_config, approved_list) {
         });
 
         // append to policy
-        policy += "\t''" + type + "': " + JSON.stringify(sources) + ",\n";
+        policy += '\t"' + type + '": ' + JSON.stringify(sources) + ',\n';
 
 
     });
