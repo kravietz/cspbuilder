@@ -267,6 +267,9 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     var policy_message = '';
     // produce final formatted output depending on requested format
     switch (format) {
+        case 'raw':
+            policy_text = policy;
+            break
         case 'nginx':
             policy_text = 'add_header ' + header + ' "' + policy + '";';
             break;
@@ -276,13 +279,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         case 'php':
             policy_text = 'header("' + header + ': ' + policy + '");';
             break;
-        case 'ror':
-            policy_message = 'Use <a href="https://github.com/twitter/secureheaders">secureheaders</a>.';
-            policy = ror_generator();
-            break;
-        case 'django':
-            policy_message = 'Use <a href="https://github.com/kravietz/django-security">django-security</a>.';
-            policy_text = django_generator();
+        case 'http':
         default:
             policy_text = header + ': ' + policy;
     }

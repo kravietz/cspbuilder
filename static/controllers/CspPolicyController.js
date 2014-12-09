@@ -81,7 +81,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
         $scope.generate_csp = function (format) {
 
             if (format == 'ror') {
-                var result = ror_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
+                var result = ror_generator($rootScope.owner_id, $scope.csp_config, $scope.approved_list);
             } else {
                 var result = policy_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
             }

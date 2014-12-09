@@ -3,7 +3,7 @@
  */
 
 // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
-function ror_generator(owner_id, format, csp_config, approved_list) {
+function ror_generator(owner_id, csp_config, approved_list) {
     "use strict";
     // Designed to be compatible with https://github.com/twitter/secureheaders
     console.log('ror_generator owner_id=' + owner_id);
