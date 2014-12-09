@@ -30,19 +30,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                 // the initial list needs to include all content types
                 // so that the output policy contains proper 'none' entries
                 // and browsers do not need to fall back to default-src
-                $scope.approved_list = {
-                    'connect-src': {},
-                    'child-src': {},
-                    'font-src': {},
-                    'form-action': {},
-                    'frame-ancestors': {},
-                    'frame-src': {},
-                    'img-src': {},
-                    'media-src': {},
-                    'object-src': {},
-                    'script-src': {},
-                    'style-src': {}
-                };
+                $scope.approved_list = empty_approved_list();
 
                 // rewrite the list of accepted items into a dictionary
                 $scope.db.rows.forEach(function (item) {
@@ -61,8 +49,11 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                          }
                          */
 
+                        // add the known source to approved list
                         $scope.approved_list[type][src] = true;
 
+                        // delete the default 'none' entry
+                        delete $scope.approved_list["'none'"];
                     }
 
                 });

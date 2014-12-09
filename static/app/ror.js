@@ -25,12 +25,9 @@ function ror_generator(owner_id, format, csp_config, approved_list) {
         var ror_type = type.replace('-', '_');
         var sources = "";
 
-        // handle empty types - they should have a 'nil' entry
-        // in approved_list they will look empty dict
-        //  'img-src': {},
-        console.log('ror', ror_type, Object.keys(approved_list[type]).length, approved_list[type]);
-        if (Object.keys(approved_list[type]).length == 0) {
-            policy += "\t:" + ror_type + " => nil,\n";
+        // handle 'nones' as they need to be written as 'nil'
+        if ("'none'" in approved_list[type]) {
+            policy += "\t :" + ror_type + " => nil,\n";
         } else {
             // otherwise cycle through sources in each type and build policy entry out of them
             Object.keys(approved_list[type]).forEach(function (src) {
