@@ -66,6 +66,9 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
                     }
 
                 });
+
+                console.log('approved_list=', JSON.stringify($scope.approved_list));
+
                 // finally generate the generic CSP on the page
                 $scope.generate_csp();
 

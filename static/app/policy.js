@@ -201,7 +201,6 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     // initialize the policy string putting report-uri in front
     var policy = 'report-uri //cspbuilder.info/report/' + owner_id + '/; ';
 
-    console.log('approved_list type', typeof approved_list);
     console.log('approved_list', JSON.stringify(approved_list));
 
     // overwrite default-src with 'none'
