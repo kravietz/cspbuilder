@@ -149,19 +149,6 @@ function source_to_policy_statement(csp) {
     return  {'message': 'Please review this source and decide if it\'s trusted.', 'sources': [blocked_uri]};
 } // source_to_policy_statement
 
-
-// TODO: add various types from https://www.owasp.org/index.php/Content_Security_Policy
-// https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
-function ror_generator() {
-    // TODO: https://github.com/twitter/secureheaders
-    return null;
-}
-
-function django_generator() {
-    // TODO: https://github.com/kravietz/django-security
-    return null;
-}
-
 function empty_approved_list() {
     // return dict like
     // { 'script-src': { 'none': true }... }

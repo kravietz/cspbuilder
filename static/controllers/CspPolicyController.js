@@ -88,7 +88,12 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
 
         $scope.generate_csp = function (format) {
 
-            var result = policy_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
+            if (format == 'ror') {
+                var result = ror_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
+            } else {
+                var result = policy_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
+            }
+
             $scope.policy = result[0];
             $scope.policy_message = $sce.trustAsHtml(result[1]);
 
