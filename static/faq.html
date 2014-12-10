@@ -49,13 +49,12 @@
             </p>
 
 <pre>
-Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/487710497807711360/; connect-src 'none' ; child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ;
-media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ; reflected-xss block; referrer origin-when-cross-origin;
+Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/487710497807711360/; connect-src 'none' ; child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ; media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ; reflected-xss block; referrer origin-when-cross-origin;
 </pre>
 
             <p>
-                This usually results in an avalanche of CSP violation reports which CspBuilder captures and looks what
-                should be allowed.
+                This very restrictive policy usually results in an avalanche of CSP violation reports
+                which CspBuilder happily captures to find out what should be allowed.
                 If you ever need to revert to this empty policy after you've collected some events you can do so by
                 selecting the
                 <strong>Default (empty) policy</strong> in the <a href="#/policy/">Policy generation</a> tab.
@@ -159,7 +158,7 @@ media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; de
                     <td><code>block</code></td>
                     <td>stop rendering the page when offending content is detected and display a warning to the user
                     </td>
-                    <td>1; mode=block</td>
+                    <td>1;&nbsp;mode=block</td>
                 </tr>
 
                 </tbody>
@@ -167,7 +166,7 @@ media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; de
 
 
             <p>
-                By default, CspBuilder offers <code>filter</code> as default.
+                CspBuilder sets <code>filter</code> as default.
             </p>
         </div>
     </div>
