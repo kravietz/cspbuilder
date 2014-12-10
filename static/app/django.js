@@ -9,7 +9,7 @@ function django_generator(owner_id, csp_config, approved_list) {
 
     policy += "CSP_DICT = {\n";
 
-    policy += "\t'report-uri': '//cspbuilder.info/report/" + owner_id + "/',\n";
+    policy += '\t"report-uri": //cspbuilder.info/report/' + owner_id + '/,\n';
 
     // cycle through the items on 'approved' list creating a policy
     // statement for each of them
@@ -29,6 +29,40 @@ function django_generator(owner_id, csp_config, approved_list) {
 
 
     });
+
+    // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
+    switch (csp_config.reflected_xss) {
+        case 'block':
+            policy += '\t"reflected-xss": "block",\n';
+            break;
+        case 'filter':
+            policy += '\t"reflected-xss": "filter",\n';
+            break;
+        case 'allow':
+            policy += '\t"reflected-xss": "allow"\n';
+            break;
+    }
+
+    // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-referrer
+    switch (csp_config.referrer) {
+        case 'no-referrer':
+            policy += '\t"referrer": "no-referrer",\n';
+            break;
+        case 'no-referrer-when-downgrade':
+            policy += '\t"referrer": "no-referrer-when-downgrade",\n';
+            break;
+        case 'origin':
+            policy += '\t"referrer": "origin",\n';
+            break;
+        case 'origin-when-cross-origin':
+            policy += '\t"referrer": "origin-when-cross-origin",\n';
+            break;
+        case 'unsafe-url':
+            policy += '\t"referrer": "unsafe-url",\n';
+            break;
+        default: // none
+        // do nothing, do not add the directive
+    }
 
     policy += "}";
 
