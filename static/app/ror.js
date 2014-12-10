@@ -26,7 +26,7 @@ function ror_generator(owner_id, csp_config, approved_list) {
 
         // handle 'nones' as they need to be written as 'nil'
         if ("'none'" in approved_list[type]) {
-            policy += "\t :" + ror_type + " => nil,\n";
+            policy += "\t:" + ror_type + " => nil,\n";
         } else {
             // otherwise cycle through sources in each type and build policy entry out of them
             Object.keys(approved_list[type]).forEach(function (src) {
