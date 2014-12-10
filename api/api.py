@@ -35,6 +35,10 @@ app.debug = True
 server = pycouchdb.Server(COUCHDB_SERVER)
 db = server.database('csp')
 
+# per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
+import newrelic.agent
+
+newrelic.agent.initialize('newrelic.ini')
 
 def get_client_ip():
     """
