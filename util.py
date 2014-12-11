@@ -6,7 +6,7 @@ import pycouchdb
 server = pycouchdb.Server('http://localhost:5984/')
 db = server.database('csp')
 
-for row in db.query('csp/1910_week_old', include_docs=True, limit=10):
+for row in db.query('csp/1910_stale', include_docs=True, limit=10):
     print(row)
 
 exit()

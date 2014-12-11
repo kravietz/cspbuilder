@@ -113,7 +113,7 @@ def cleanup():
         lv.i = 0
         lv.docs = []
 
-        for row in db.query('csp/1910_week_old', include_docs=True, limit=1000, skip=lv.total):
+        for row in db.query('csp/1910_stale', include_docs=True, limit=1000, skip=lv.total):
             # if alert is not marked as archived, add it to delete list
             if 'archived' not in row['doc'] or ('archived' in row['doc'] and row['doc']['archived'] != 'true'):
                 # just copy the elements that are required to delete the document
