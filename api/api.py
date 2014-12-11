@@ -534,7 +534,7 @@ def read_csp_report(owner_id):
         output['reviewed'] = ACTION_MAP[action]
 
         # save current report to CouchDB
-        db.save(output)
+        db.save(output, batch=True)
         stop_time = datetime.now(timezone.utc)
         print('read_csp_report {} {} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time,
                                                                                                            get_client_ip(), get_client_geo(),
