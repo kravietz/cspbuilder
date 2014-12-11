@@ -11,9 +11,7 @@ DB = 'csp'
 CLEANUP_VIEW = 'csp/1910_stale'
 
 
-def clean(debug=False):
-    server = pycouchdb.Server(SERVER)
-    db = server.database(DB)
+def clean(db, debug=False):
 
     more_results = True
     total = 0
@@ -44,25 +42,87 @@ def clean(debug=False):
             db.delete_bulk(docs)
 
 
-def init():
-    server = pycouchdb.Server(SERVER)
+def kl_backup(db):
+    known_list = []
+
+    # dump known list
+    for row in db.query('csp/1000_known_list'):
+        doc = db.get(row.id)
+        del doc['_rev']
+        known_list.append(doc)
+
+    filename = 'etc/known_list_backup'
+
+    with open(filename, 'w') as file:
+        json.dump(known_list, file)
+
+    print('KL backup saved to {} with {} entries'.format(filename, len(known_list)))
+
+
+def kl_restore(db, filename='etc/known_list_backup'):
+    i = 0
+
+    with open(filename) as file:
+        kl_entries = json.load(file)
+
+        for entry in kl_entries:
+            db.save(entry)
+            i += 1
+
+    print('Restored {} KL entries from {}'.format(i, filename))
+
+
+def design_backup(db):
+    ddoc = db.get('_design/csp')
+    del ddoc['_rev']
+
+    filename = 'etc/design.json'
+
+    with open(filename, 'w') as file:
+        json.dump(ddoc, file)
+
+
+def design_restore(db, filename='etc/design.json'):
+    with open(filename) as file:
+        doc = json.load(file)
+        db.save(doc)
+
+        print('Restored design doc from', filename)
+
+
+def init(server, db):
+    if input("This will DELETE all reports from the database. Are you sure? yes/[no]: ") != 'yes':
+        sys.exit('Init cancelled')
+
+    kl_backup(db)
+    design_backup(db)
+
+    print('Deleting database...')
     server.delete(DB)
+
+    print('New database...')
     server.create(DB)
 
+    # restore database connection
     db = server.database(DB)
 
-    with open('etc/design.json') as f:
-        doc = json.load(f)
-        db.save(doc)
+    design_restore(db)
+    kl_restore(db)
 
 
 import sys
 
 help_text = """
-util.py (clean|init)
+util.py command
+
+Commands:
 
     clean: clean stale alerts
-    init: destroy database and reinit views
+    init: reset database (preserving known list and design doc)
+    dbackup: backup design doc
+    drestore: restore design doc
+    kbackup: backup known list
+    krestore: restore known list
 
 """
 
@@ -71,8 +131,29 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         sys.exit(help_text)
 
-    if sys.argv[1] == 'init':
-        init()
+    server = pycouchdb.Server(SERVER)
+    database = server.database(DB)
 
-    elif sys.argv[1] == 'clean':
-        clean('debug' in sys.argv)
+    cmd = sys.argv[1]
+
+    if cmd == 'init':
+        init(server, database)
+
+    elif cmd == 'clean':
+        clean(database, 'debug' in sys.argv)
+
+    elif cmd == 'kbackup':
+        kl_backup(database)
+
+    elif cmd == 'dbackup':
+        design_backup(db)
+
+    elif cmd == 'krestore':
+        kl_restore(db)
+
+    elif cmd == 'drestore':
+        design_restore(db)
+
+    else:
+        print('Bad command', cmd)
+        sys.exit(1)
