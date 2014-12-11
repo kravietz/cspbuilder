@@ -48,7 +48,7 @@ def gen_id(owner_id):
     :param owner_id:
     :return: doc id
     """
-    recv_time = (datetime.datetime.now() - epoch).total_seconds()
+    recv_time = (datetime.now() - epoch).total_seconds()
 
     return owner_id + str(recv_time)
 
