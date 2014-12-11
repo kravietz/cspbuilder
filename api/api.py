@@ -34,7 +34,7 @@ app = Flask(__name__)
 app.debug = True
 server = pycouchdb.Server(COUCHDB_SERVER)
 db = server.database('csp')
-epoch = datetime.datetime.utcfromtimestamp(0)
+epoch = datetime.utcfromtimestamp(0)
 
 # per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
 import newrelic.agent
