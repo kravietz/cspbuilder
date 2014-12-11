@@ -47,7 +47,7 @@ def kl_backup(db):
 
     # dump known list
     for row in db.query('csp/1000_known_list'):
-        doc = db.get(row.id)
+        doc = db.get(row[id])
         del doc['_rev']
         known_list.append(doc)
 
