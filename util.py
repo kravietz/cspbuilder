@@ -69,8 +69,8 @@ if __name__ == '__main__':
         print(help_text)
         exit()
 
-    if sys.argv[1] == 'init':
+    if sys.argv[0] == 'init':
         init()
 
-    elif sys.argv[1] == 'clean':
+    elif sys.argv[0] == 'clean':
         clean()
