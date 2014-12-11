@@ -65,12 +65,11 @@ util.py (clean|init)
 
 if __name__ == '__main__':
 
-    if len(sys.argv) == 0:
-        print(help_text)
-        exit()
+    if len(sys.argv) < 2:
+        sys.exit(help_text)
 
-    if sys.argv[0] == 'init':
+    if sys.argv[1] == 'init':
         init()
 
-    elif sys.argv[0] == 'clean':
+    elif sys.argv[1] == 'clean':
         clean()
