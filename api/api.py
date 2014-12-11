@@ -34,11 +34,24 @@ app = Flask(__name__)
 app.debug = True
 server = pycouchdb.Server(COUCHDB_SERVER)
 db = server.database('csp')
+epoch = datetime.datetime.utcfromtimestamp(0)
 
 # per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
 import newrelic.agent
 
 newrelic.agent.initialize('newrelic.ini')
+
+
+def gen_id(owner_id):
+    """
+    Produce a CouchDB document identifer based on owner_id and current time.
+    :param owner_id:
+    :return: doc id
+    """
+    recv_time = (datetime.datetime.now() - epoch).total_seconds()
+
+    return owner_id + str(recv_time)
+
 
 def get_client_ip():
     """
@@ -429,6 +442,10 @@ def read_csp_report(owner_id):
         return 'CSP report missing', 400, []
 
     output['owner_id'] = owner_id
+
+    # add document identifier; this is important for performance
+    # otherwise py-couchdb will add a random one
+    output['_id'] = gen_id(owner_id)
 
     # fill-in metadata for current report from HTTP headers
     meta = {}
