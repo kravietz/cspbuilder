@@ -14,15 +14,13 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
         mixpanel.track("View live");
 
         $scope.reports = [];
+
         var last_seq = null;
         var poll_interval = 1000; // every 1 second
         var db = cornercouch(couchdb_url, 'GET').getDB('csp');
 
-        // start polling
-        // each successful poll response schedules another poll
-        poll();
-
-        function poll() {
+        $scope.poll = function () {
+            $scope.live_active = true;
             // build changes feed URL with parameters
             var req = '/csp/_changes';
             req += '?descending=true&';
@@ -53,13 +51,19 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
                     }
 
                     // schedule next check
-                    $timeout(poll, poll_interval);
+                    if ($scope.live_active) {
+                        $timeout(poll, poll_interval);
+                    }
                 })
                 .error(function (data) {
                     $scope.error = data;
                 });
 
         };
+
+        // start polling
+        // each successful poll response schedules another poll
+        $scope.poll();
 
     }
 ]);

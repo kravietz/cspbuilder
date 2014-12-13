@@ -1,6 +1,18 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
 <div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center">
+                <button type="button" class="btn btn-default" ng-disabled="!live_active" ng-click="live_active=false">
+                    Stop
+                </button>
+                <button type="button" class="btn btn-default" ng-disabled="live_active" ng-click="poll()">Stop</button>
+            </div>
+        </div>
+    </div>
+    
     <div class="row">
         <table class="table table-condensed table-striped">
         <thead>
