@@ -58,7 +58,7 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
 
                     // schedule next check
                     if ($scope.live_enabled) {
-                        $timeout(poll, poll_interval);
+                        $timeout($scope.poll, poll_interval);
                     }
                 })
                 .error(function (data) {
