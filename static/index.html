@@ -6,7 +6,7 @@
     <title>Content Security Policy Builder</title>
 
     <meta name="description"
-          content="Collect CSP alerts, review and approve legitimate content sources. Get a fully functional Content Security Policy for your website in just a few minutes. For free!">
+          content="Collect CSP alerts, review and approve legitimate content sources. Get a fully functional Content Security Policy for your website in just a few minutes.">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -39,6 +39,20 @@
     <script src="/static/controllers/CspPolicyController.js"></script>
     <script src="/static/controllers/CspMainController.js"></script>
     <script src="/static/controllers/CspLiveController.js"></script>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CspBuilder.info">
+    <meta property="og:url" content="https://cspbuilder.info/">
+    <meta property="og:site_name" content="Content Security Policy Builder">
+    <meta property="og:description" content="Content Security Policy report collector and analysis console">
+    <meta property="og:image" content="https://cspbuilder.info/static/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@CspBuilder">
+    <meta name="twitter:title" content="CspBuilder.info">
+    <meta name="twitter:description" content="Content Security Policy report collector and analysis console">
+    <meta name="twitter:domain" content="CspBuilder.info">
+    <meta name="twitter:image:src" content="https://cspbuilder.info/static/logo.png">
 </head>
 
 <body ng-controller="CspSessionController">
@@ -46,10 +60,29 @@
 <div ng-view></div>
 
 <noscript>
-    CspBuilder was fully rewritten using AngularJS for better performance and user experience.
-    If you see this message, you might have JavaScript disabled for this page. Please whitelist
-    it to see the website, or <a href="https://plus.google.com/+PawełKrawczyk/">contact me</a>
-    if you this might be a bug.
+    <h1>CspBuilder.info</h1>
+
+    <p>
+        CspBuilder.info is a web application that helps efficiently develop
+        <strong>Content Security Policy</strong> for websites by capturing
+        CSP violation reports and allowing you accept or reject the captured sources.
+    </p>
+
+    <p>
+        Latest version of CspBuilder was fully rewritten using AngularJS for better performance and user experience.
+        If you see this message, you might have JavaScript disabled for this page. Please whitelist
+        it to see the website, or <a href="https://plus.google.com/+PawełKrawczyk/">contact me</a>
+        if you think this might be a bug.
+    </p>
+
+    <p>
+        In the meantime you can check <a href="faq.html">CspBuilder FAQ</a> for more information
+        on how it works. You can also subscribe to the latest news
+        at <a href="https://www.facebook.com/CspBuilder">CspBuilder at Facebook</a>,
+        <a href="https://plus.google.com/+CspbuilderInfoPage/" rel="publisher">CspBuilder at Google+</a>
+        and <a href="https://twitter.com/CspBuilder">CspBuilder at Twitter</a>. You can also check
+        a sister project <a href="http://webcookies.org/">WebCookies.org</a>.
+    </p>
 </noscript>
 
 </body>
