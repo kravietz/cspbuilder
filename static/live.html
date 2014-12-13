@@ -5,14 +5,17 @@
     <div class="row">
         <div class="col-md-4">
             <div class="text-center">
-                <button type="button" class="btn btn-default" ng-disabled="!live_active" ng-click="live_active=false">
-                    Stop
+                <button type="button" class="btn btn-default" ng-disabled="live_enabled" ng-click="poll()">
+                    <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-default" ng-disabled="live_active" ng-click="poll()">Stop</button>
+                <button type="button" class="btn btn-default" ng-disabled="!live_enabled" ng-click="live_enabled=false">
+                    <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                </button>
+                <span ng-show="polling" class="glyphicon glyphicon-tint" aria-hidden="true"></span>
             </div>
         </div>
     </div>
-    
+
     <div class="row">
         <table class="table table-condensed table-striped">
         <thead>

@@ -14,13 +14,15 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
         mixpanel.track("View live");
 
         $scope.reports = [];
+        $scope.polling = false;
+        $scope.live_enabled = false;
 
         var last_seq = null;
         var poll_interval = 1000; // every 1 second
         var db = cornercouch(couchdb_url, 'GET').getDB('csp');
 
         $scope.poll = function () {
-            $scope.live_active = true;
+            $scope.live_enabled = true;
             // build changes feed URL with parameters
             var req = '/csp/_changes';
             req += '?descending=true&';
@@ -32,11 +34,15 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
             if (last_seq) {
                 req += '&last_seq=' + last_seq;
             }
+            console.log('polling...');
+            $scope.polling = true;
+
             // speak to CouchDB polling API
             // http://docs.couchdb.org/en/latest/api/database/changes.html
             $http.get(req)
                 .success(function (data) {
                     console.log('poll received', data);
+                    $scope.polling = false;
 
                     if (typeof(data) == 'object') {
                         // the response has data.response and data.last_seq
@@ -51,19 +57,16 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
                     }
 
                     // schedule next check
-                    if ($scope.live_active) {
+                    if ($scope.live_enabled) {
                         $timeout(poll, poll_interval);
                     }
                 })
                 .error(function (data) {
                     $scope.error = data;
+                    $scope.polling = false;
                 });
 
         };
-
-        // start polling
-        // each successful poll response schedules another poll
-        $scope.poll();
 
     }
 ]);
