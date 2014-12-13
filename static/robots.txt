@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /report
 Disallow: /_
 Disallow: /csp
+Disallow: /drutex
