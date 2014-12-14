@@ -76,11 +76,12 @@ class TestCspCollection(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
-        self.server = pycouchdb.Server()
-        self.db = self.server.database('csp')
-        for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            print(item)
-            self.db.delete(item['id'])
+        pass
+        # self.server = pycouchdb.Server()
+        # self.db = self.server.database('csp')
+        # for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
+        # print(item)
+        #     self.db.delete(item['id'])
             #self.server.delete('csptest')
             #headers = {'content-type': 'application/csp-report' }
             #for i in range(1,30):
