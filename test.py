@@ -6,6 +6,7 @@ import random
 
 import pycouchdb
 import requests
+from api.sbf import SBF
 
 
 __author__ = 'pawelkrawczyk'
@@ -23,6 +24,15 @@ REPORT = '''
    } }
 '''
 
+
+class TestSbf(unittest.TestCase):
+    def setUp(self):
+        self.server = pycouchdb.Server()
+        self.db = self.server.database('csp')
+
+    def test_sbf(self):
+        self.sbf = SBF(self.db)
+        print(self.db.get(self.sbf.SBF_DOC_ID))
 
 class TestApi(unittest.TestCase):
     def setUp(self):
