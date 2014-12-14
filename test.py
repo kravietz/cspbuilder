@@ -37,8 +37,10 @@ class TestCspCollection(unittest.TestCase):
         # send tainted CSP report
         testval = random.randint(0, 1000)
         self.report['csp-report']['status-code'] = testval
+        print(self.report)
         self.r = requests.post(self.url, data=self.report, headers=headers)
         self.assertTrue(self.r.ok)
+        print(self.r.text)
 
         # ensure report was added
         found = False
