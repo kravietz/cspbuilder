@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import json
+import random
 
 import pycouchdb
 import requests
@@ -22,7 +23,6 @@ REPORT = '''
    } }
 '''
 
-import random
 
 class TestCspCollection(unittest.TestCase):
     def setUp(self):
@@ -33,11 +33,13 @@ class TestCspCollection(unittest.TestCase):
 
     def test_client(self):
         headers = {'content-type': 'application/csp-report'}
+
+        # send tainted CSP report
         testval = random.randint(0, 1000)
         self.report['csp-report']['status-code'] = testval
-        print(self.report['csp-report']['status-code'])
-        self.r = requests.post(self.url, data=REPORT, headers=headers)
+        self.r = requests.post(self.url, data=self.report, headers=headers)
         self.assertTrue(self.r.ok)
+
         # ensure report was added
         found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
