@@ -38,9 +38,10 @@ epoch = datetime.utcfromtimestamp(0)
 
 # per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
 import newrelic.agent
-
 newrelic.agent.initialize('newrelic.ini')
 
+# ScalableBloomFilter
+# sbf = SBF(db)
 
 def gen_id(owner_id):
     """
