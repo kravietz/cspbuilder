@@ -29,10 +29,62 @@ class TestSbf(unittest.TestCase):
     def setUp(self):
         self.server = pycouchdb.Server()
         self.db = self.server.database('csp')
+        self.sbf = SBF(self.db, doc_id='test_bloom')
+        self.report = json.loads(REPORT)
 
-    def test_sbf(self):
-        self.sbf = SBF(self.db)
-        print(self.db.get(self.sbf.SBF_DOC_ID))
+    def test_sbf_init(self):
+        doc = self.db.get(self.sbf.doc_id)
+        self.assertTrue(doc['_id'] == self.sbf.doc_id)
+        self.assertGreater(len(self.db.get_attachment(doc, self.sbf.file_name)), 0)
+
+    def test_sbf_add(self):
+        self.assertFalse(self.sbf.f.add('test'))
+        self.assertTrue(self.sbf.f.add('test'))
+        self.assertTrue(self.sbf.f.add('test'))
+        self.assertFalse(self.sbf.f.add('test2'))
+
+    def test_sbf_in(self):
+        self.assertFalse('test' in self.sbf.f)
+        self.sbf.f.add('test')
+        self.assertTrue('test' in self.sbf.f)
+
+    def test_sbf_error_rate(self):
+        falses = 0.0
+        trues = 0.0
+        # each value is unique but there will be 
+        # apparent collisions because of SBF error rate
+        for val in range(0,10000):
+            ret = self.sbf.f.add(val)
+            if ret:
+                trues += 1
+            else:
+                falses += 1
+        self.assertLessEqual(trues/falses, self.sbf.error_rate)
+
+    def test_fields(self):
+        falses = 0.0
+        trues = 0.0
+        for val in range(0,1000):
+            self.report['csp-report']['status-code'] = val
+            ret = self.sbf.f.add(json.dumps(self.report))
+            if ret:
+                trues += 1
+            else:
+                falses += 1
+        self.assertGreater(falses, 900)
+        self.assertGreater(self.sbf.f.count, 900)
+        self.sbf.save()
+        doc = self.db.get(self.sbf.doc_id)
+        size = len(self.db.get_attachment(doc, self.sbf.file_name))
+        # for 1000 items it will be around 4000 bytes
+        self.assertGreater(size, 1000)
+
+
+    def tearDown(self):
+        self.server = pycouchdb.Server()
+        self.db = self.server.database('csp')
+        self.doc = self.db.get('test_bloom')
+        self.db.delete(self.doc)
 
 class TestApi(unittest.TestCase):
     def setUp(self):
