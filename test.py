@@ -22,6 +22,7 @@ REPORT = '''
    } }
 '''
 
+import random
 
 class TestCspCollection(unittest.TestCase):
     def setUp(self):
@@ -32,12 +33,18 @@ class TestCspCollection(unittest.TestCase):
 
     def test_client(self):
         headers = {'content-type': 'application/csp-report'}
-        self.report['csp-report']['status-code'] = 1
+        testval = random.randint(1000)
+        self.report['csp-report']['status-code'] = testval
+        print(self.report['csp-report']['status-code'])
         self.r = requests.post(self.url, data=REPORT, headers=headers)
         self.assertTrue(self.r.ok)
         # ensure report was added
+        found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            print(item)
+            print(item['doc']['csp-report']['status-code'])
+            if item['doc']['csp-report']['status-code'] == testval:
+                found = True
+        self.assertTrue(found)
 
     # def test_doc(self):
     # headers = {'content-type': 'application/csp-report' }
@@ -67,6 +74,8 @@ class TestCspCollection(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
+        self.server = pycouchdb.Server()
+        self.db = self.server.database('csp')
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
             print(item)
             self.db.delete(item['id'])
