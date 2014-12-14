@@ -435,12 +435,12 @@ def read_csp_report(owner_id):
     # sanity checks
     mimetype = request.headers.get('Content-Type')
     if mimetype not in ALLOWED_CONTENT_TYPES:
-        return 'Invalid content type', 400, []
+        return 'Invalid content type', 400
 
     output = request.get_json(force=True)
 
     if 'csp-report' not in output:
-        return 'CSP report missing', 400, []
+        return 'CSP report missing', 400
 
     output['owner_id'] = owner_id
 
@@ -567,4 +567,4 @@ def read_csp_report(owner_id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=80)
+    app.run(host='0.0.0.0', debug=True, port=8088)
