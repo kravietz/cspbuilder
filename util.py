@@ -59,6 +59,19 @@ def kl_backup(db):
     print('KL backup saved to {} with {} entries'.format(filename, len(known_list)))
 
 
+def dump(db, num=1000):
+    items = []
+
+    for row in db.query('csp/1200_all', limit=num):
+        doc = db.get(row['id'])
+        del doc['_rev']
+        items.append(doc)
+
+    filename = 'etc/dump.json'
+
+    with open(filename, 'w') as file:
+        json.dump(items, file)
+
 def kl_restore(db, filename='etc/known_list_backup'):
     i = 0
 
@@ -123,6 +136,7 @@ Commands:
     drestore: restore design doc
     kbackup: backup known list
     krestore: restore known list
+    dump: dump a number of records (default: 1000)
 
 """
 
@@ -153,6 +167,9 @@ if __name__ == '__main__':
 
     elif cmd == 'drestore':
         design_restore(db)
+
+    elif cmd == 'dump':
+        dump(db)
 
     else:
         print('Bad command', cmd)
