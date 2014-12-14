@@ -24,77 +24,54 @@ REPORT = '''
 '''
 
 
-class TestCspCollection(unittest.TestCase):
+class TestApi(unittest.TestCase):
     def setUp(self):
         self.server = pycouchdb.Server()
         self.db = self.server.database('csp')
-        self.url = 'https://cspbuilder.info/report/{}/'.format(TEST_ID)
+        self.url = 'http://cspbuilder.info:8088/report/{}/'.format(TEST_ID)
         self.report = json.loads(REPORT)
+
+    def _saved(self, testval):
+        found = False
+        for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
+            if item['doc']['csp-report']['status-code'] == testval:
+                found = True
+        return found
 
     def test_client(self):
         headers = {'content-type': 'application/csp-report'}
-
-        # send tainted CSP report
         testval = random.randint(0, 1000)
         self.report['csp-report']['status-code'] = testval
-        print(self.report)
-        self.r = requests.post(self.url, data=self.report, headers=headers)
+        self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
         self.assertTrue(self.r.ok)
-        print(self.r.text)
+        self.assertTrue(self._saved(testval))
 
-        # ensure report was added
-        found = False
-        for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            print(item['doc']['csp-report']['status-code'])
-            if item['doc']['csp-report']['status-code'] == testval:
-                found = True
-        self.assertTrue(found)
-
-    # def test_doc(self):
-    # headers = {'content-type': 'application/csp-report' }
-    #     self.r = requests.post(self.url, data=REPORT, headers=headers)
-    #     self.assertTrue(self.r.ok)
-    #     # but more importantly, check if reports were added
-    #     self.assertGreater(len(self.db), 0)
-    #
-    # def test_content_type(self):
-    #     headers = {'content-type': 'text/plain' }
-    #     self.r = requests.post(SITE_URL, data=CSP_BODY, headers=headers)
-    #     self.assertFalse(self.r.ok)
-    #
-    # def test_csp_report_missing(self):
-    #     headers = {'content-type': 'application/csp-report' }
-    #     self.r = requests.post(SITE_URL, data="", headers=headers)
-    #     self.assertFalse(self.r.ok)
-    #
-    # def test_csp_report_invalid(self):
-    #     headers = {'content-type': 'application/csp-report' }
-    #     self.r = requests.post(SITE_URL, data="{}", headers=headers)
-    #     self.assertFalse(self.r.ok)
-    #
-    # def test_method(self):
-    #     self.r = requests.get(SITE_URL)
-    #     self.assertFalse(self.r.ok)
+    def test_content_type(self):
+        headers = {'content-type': 'text/plain' }
+        self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
+        self.assertFalse(self.r.ok)
+    
+    def test_csp_report_missing(self):
+        headers = {'content-type': 'application/csp-report' }
+        self.r = requests.post(self.url, data="", headers=headers)
+        self.assertFalse(self.r.ok)
+    
+    def test_csp_report_invalid(self):
+        headers = {'content-type': 'application/csp-report' }
+        self.r = requests.post(self.url, data="{}",  headers=headers)
+        self.assertFalse(self.r.ok)
+    
+    def test_invalid_method(self):
+        headers = {'content-type': 'application/csp-report' }
+        self.r = requests.put(self.url, data=json.dumps(self.report), headers=headers)
+        self.assertFalse(self.r.ok)
 
     @classmethod
     def tearDownClass(self):
-        pass
-        # self.server = pycouchdb.Server()
-        # self.db = self.server.database('csp')
-        # for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-        # print(item)
-        #     self.db.delete(item['id'])
-            #self.server.delete('csptest')
-            #headers = {'content-type': 'application/csp-report' }
-            #for i in range(1,30):
-            #    report=CSP_BODY.replace('script-src', random.choice(CSP_SOURCE_DIRECTIVES))
-            #    report=report.replace('http://cdn.shorte.st', random.choice(['http://cdn.shorte.st','http://ipsec.pl','http://echelon.pl','http://google.com']))
-            #    site_url=SITE_URL.replace('9018643792216450862', random.choice(['111','222','221','333']))
-            #    self.r = requests.post(site_url, data=report, headers=headers)
-
-            #db = couchdb.Server(COUCHDB_SERVER)['csp']
-            #ViewDefinition('csp', 'sources_key_owner', map_fun=MAP1, reduce_fun=REDUCE1).sync(db)
-            #ViewDefinition('csp', 'all_by_owner', map_fun=MAP2).sync(db)
+        self.server = pycouchdb.Server()
+        self.db = self.server.database('csp')
+        for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
+            self.db.delete(item['id'])
 
 
 if __name__ == '__main__':
