@@ -33,7 +33,7 @@ class TestCspCollection(unittest.TestCase):
 
     def test_client(self):
         headers = {'content-type': 'application/csp-report'}
-        testval = random.randint(1000)
+        testval = random.randint(0, 1000)
         self.report['csp-report']['status-code'] = testval
         print(self.report['csp-report']['status-code'])
         self.r = requests.post(self.url, data=REPORT, headers=headers)
