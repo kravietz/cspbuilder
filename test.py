@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import json
+import random
 
 import pycouchdb
 import requests
@@ -72,7 +73,6 @@ class TestPublicApi(unittest.TestCase):
 class TestLocalApi(unittest.TestCase):
     def setUp(self):
         self.db = pycouchdb.Server().database(DB)
-        db_clean(self.db)
         self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
         self.report = json.loads(REPORT)
 
@@ -85,7 +85,7 @@ class TestLocalApi(unittest.TestCase):
 
     def test_insert_single_report(self):
         headers = {'content-type': 'application/csp-report'}
-        testval = 8888
+        testval = random.randint(0, 10000)
         self.report['csp-report']['status-code'] = testval
         self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
         self.assertTrue(self.r.ok)
@@ -94,9 +94,9 @@ class TestLocalApi(unittest.TestCase):
     def test_insert_many_reports(self):
         headers = {'content-type': 'application/csp-report'}
         inserted = 0
-        num = 10
+        num = 100
         for testval in range(0, num):
-            self.report['csp-report']['status-code'] = testval
+            self.report['csp-report']['status-code'] = random.randint(0, 10000)
             self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
             self.assertTrue(self.r.ok)
             if self._saved(testval):
