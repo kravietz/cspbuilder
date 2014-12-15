@@ -448,7 +448,7 @@ class Quota(object):
             owner_id = row['key'][0]
             count = row['value']
             if count > self.limit:
-                self.quotas[owner_id]
+                self.quotas[owner_id] = True
             if owner_id in self.quotas and count < self.limit:
                 del self.quotas[owner_id]
         self.last_update = datetime.now(timezone.utc)
