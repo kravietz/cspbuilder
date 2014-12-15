@@ -160,16 +160,16 @@ if __name__ == '__main__':
         kl_backup(database)
 
     elif cmd == 'dbackup':
-        design_backup(db)
+        design_backup(database)
 
     elif cmd == 'krestore':
-        kl_restore(db)
+        kl_restore(database)
 
     elif cmd == 'drestore':
-        design_restore(db)
+        design_restore(database)
 
     elif cmd == 'dump':
-        dump(db)
+        dump(database)
 
     else:
         print('Bad command', cmd)
