@@ -1,19 +1,27 @@
 __author__ = 'pawelkrawczyk'
 
 from io import BytesIO
+from datetime import datetime, timezone
 
 from pybloom import ScalableBloomFilter
 import pycouchdb
 
 
 class SBF(object):
+    """
+    Scalable Bloom Filter wrapper that includes auto-creation, saving to database etc.
+    """
     doc_id = 'bloom_filter'
     file_name = 'sbf.dat'
     db = None
     f = None
-    error_rate = 0.01
+    error_rate = 0.001
+    created = datetime.now(timezone.utc)
 
     def _save_sbf(self):
+        """
+        Store binary SBF as attachmed in CouchDB.
+        """
         buf = BytesIO()
         self.f.tofile(buf)
         buf.seek(0)
@@ -25,9 +33,16 @@ class SBF(object):
         self.db.put_attachment(doc, buf, filename=self.file_name, content_type='application/octet-stream')
 
     def save(self):
+        """
+        Public interface for save operation that also updates save time.
+        """
         self._save_sbf()
+        self.created = datetime.now(timezone.utc)
 
     def _load_sbf(self):
+        """
+        Attempt to load SBF from database.
+        """
         ret = None
         try:
             doc = self.db.get(self.doc_id)
