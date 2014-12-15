@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 import configparser
 import hashlib
+import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from fnmatch import fnmatch
 import re
 import hmac
 import threading
+
+from api.sbf import SBF
 
 from flask import Flask, request, abort, make_response, redirect
 import pycouchdb
@@ -41,7 +44,8 @@ import newrelic.agent
 newrelic.agent.initialize('newrelic.ini')
 
 # ScalableBloomFilter
-# sbf = SBF(db)
+sbf = SBF(db)
+
 
 def gen_id(owner_id):
     """
@@ -424,6 +428,17 @@ def str_in_policy(p, t, s):
     return False
 
 
+def sbf_fields(report):
+    """
+    Select fields from a CSP report that make it unique to use in Bloom filtering.
+    :param report: JSON report
+    :return: string with selected fields
+    """
+    return json.dumps({'csp-report': report['csp-report'],
+                       'meta': report['meta']['user_agent'],
+                       'owner_id': report['owner_id']})
+
+
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id):
     """
@@ -464,6 +479,17 @@ def read_csp_report(owner_id):
 
     # copy metadata into the final report object
     output['meta'] = meta
+
+    # filter out duplicates using Bloom filter
+    if sbf.f.add(sbf_fields(output)):
+        # duplicate, skip further processing
+        return '', 204, []
+
+    # save Bloom filter to database periodically
+    if start_time - sbf.created > timedelta(seconds=60 * 5):
+        sbf.save()
+
+    # ## SANITIZATIONS AND REWRITES ON THE ORIGINAL REPORT
 
     # if blocked-uri is empty, replace it with "null" string
     # otherwise JS views in CouchDB will not be able to find it
