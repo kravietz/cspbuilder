@@ -7,12 +7,11 @@ import pycouchdb
 
 
 SERVER = 'http://localhost:5984/'
-DB = 'csp'
+DB = 'csp_test'
 CLEANUP_VIEW = 'csp/1910_stale'
 
 
 def clean(db, debug=False):
-
     more_results = True
     total = 0
     deleted = 0
@@ -72,6 +71,7 @@ def dump(db, num=1000):
     with open(filename, 'w') as file:
         json.dump(items, file)
 
+
 def kl_restore(db, filename='etc/known_list_backup'):
     i = 0
 
@@ -79,7 +79,10 @@ def kl_restore(db, filename='etc/known_list_backup'):
         kl_entries = json.load(file)
 
         for entry in kl_entries:
-            db.save(entry)
+            try:
+                db.save(entry)
+            except pycouchdb.exceptions.NotFound:
+                return
             i += 1
 
     print('Restored {} KL entries from {}'.format(i, filename))
@@ -103,15 +106,18 @@ def design_restore(db, filename='etc/design.json'):
         print('Restored design doc from', filename)
 
 
-def init(server, db):
+def init(server):
     if input("This will DELETE all reports from the database. Are you sure? yes/[no]: ") != 'yes':
         sys.exit('Init cancelled')
 
-    kl_backup(db)
-    design_backup(db)
-
-    print('Deleting database...')
-    server.delete(DB)
+    try:
+        db = server.database(DB)
+        kl_backup(db)
+        design_backup(db)
+        print('Deleting database...')
+        server.delete(DB)
+    except pycouchdb.exceptions.NotFound:
+        pass
 
     print('New database...')
     server.create(DB)
@@ -120,7 +126,11 @@ def init(server, db):
     db = server.database(DB)
 
     design_restore(db)
-    kl_restore(db)
+
+    try:
+        kl_restore(db)
+    except pycouchdb.exceptions.NotFound:
+        pass
 
 
 import sys
@@ -146,14 +156,16 @@ if __name__ == '__main__':
         sys.exit(help_text)
 
     server = pycouchdb.Server(SERVER)
-    database = server.database(DB)
 
     cmd = sys.argv[1]
 
     if cmd == 'init':
-        init(server, database)
+        init(server)
+        sys.exit(0)
 
-    elif cmd == 'clean':
+    database = server.database(DB)
+
+    if cmd == 'clean':
         clean(database, 'debug' in sys.argv)
 
     elif cmd == 'kbackup':

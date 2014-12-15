@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 import configparser
 import hashlib
+import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from fnmatch import fnmatch
 import re
 import hmac
@@ -27,21 +28,34 @@ STORE_ACCEPTED = config.get('collector', 'store_rejected')
 DEBUG = config.get('collector', 'debug') == 'True'
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
-
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
 app = Flask(__name__)
-app.debug = True
-server = pycouchdb.Server(COUCHDB_SERVER)
-db = server.database('csp')
+
+if __name__ == '__main__':
+    DB = 'csp_test'
+else:
+    DB = 'csp'
+
+server = pycouchdb.Server()
+try:
+    db = server.database(DB)
+except pycouchdb.exceptions.NotFound:
+    db = server.create(DB)
+
+try:
+    db.get('_design/csp')
+except pycouchdb.exceptions.NotFound:
+    with open('etc/design.json') as file:
+        doc = json.load(file)
+        db.save(doc)
+
 epoch = datetime.utcfromtimestamp(0)
 
 # per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
 import newrelic.agent
 newrelic.agent.initialize('newrelic.ini')
 
-# ScalableBloomFilter
-# sbf = SBF(db)
 
 def gen_id(owner_id):
     """
@@ -424,6 +438,33 @@ def str_in_policy(p, t, s):
     return False
 
 
+class Quota(object):
+    quotas = {}
+    limit = 1e6
+    last_update = None
+
+    def _load(self):
+        for row in db.query('csp/1900_unique_sites', group=True, group_level=1, reduce=True):
+            owner_id = row['key'][0]
+            count = row['value']
+            if count > self.limit:
+                self.quotas[owner_id]
+            if owner_id in self.quotas and count < self.limit:
+                del self.quotas[owner_id]
+        self.last_update = datetime.now(timezone.utc)
+
+    def __init__(self):
+        self._load()
+
+    def check(self, owner_id):
+        if datetime.now(timezone.utc) - self.last_update > timedelta(minutes=5):
+            self._load()
+        return owner_id in self.quotas
+
+
+quota = Quota()
+
+
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id):
     """
@@ -431,6 +472,9 @@ def read_csp_report(owner_id):
     :param owner_id: 19 digit identifier of the owner of the page
     """
     start_time = datetime.now(timezone.utc)
+
+    if quota.check(owner_id):
+        return 'Quota exceeded, please delete some reports', 400
 
     # sanity checks
     mimetype = request.headers.get('Content-Type')
@@ -464,6 +508,8 @@ def read_csp_report(owner_id):
 
     # copy metadata into the final report object
     output['meta'] = meta
+
+    # ## SANITIZATIONS AND REWRITES ON THE ORIGINAL REPORT
 
     # if blocked-uri is empty, replace it with "null" string
     # otherwise JS views in CouchDB will not be able to find it
@@ -563,8 +609,7 @@ def read_csp_report(owner_id):
                                                                                                            violated_directive,
                                                                                                            blocked_uri))
 
-    return '', 204, []
-
+    return 'Report accepted', 204, []
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8088)
