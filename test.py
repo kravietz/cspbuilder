@@ -108,7 +108,7 @@ class TestPublicApi(unittest.TestCase):
 
     def test_couchdb(self):
         self.r = requests.get(
-            'https://{}/csp/_design/csp/_view/1900_unique_sites?limit=101&group=true'.self(self.hostname))
+            'https://{}/csp/_design/csp/_view/1900_unique_sites?limit=101&group=true'.format(self.hostname))
         self.assertTrue(self.r.ok)
 
     def test_https_redirect(self):
