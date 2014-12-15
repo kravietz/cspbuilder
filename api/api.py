@@ -4,13 +4,13 @@ import configparser
 import hashlib
 import json
 import os
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from fnmatch import fnmatch
 import re
 import hmac
 import threading
 
-from api.sbf import SBF
+from sbf import SBF
 
 from flask import Flask, request, abort, make_response, redirect
 import pycouchdb
@@ -30,21 +30,37 @@ STORE_ACCEPTED = config.get('collector', 'store_rejected')
 DEBUG = config.get('collector', 'debug') == 'True'
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
-
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
 app = Flask(__name__)
-app.debug = True
-server = pycouchdb.Server(COUCHDB_SERVER)
-db = server.database('csp')
+
+if __name__ == '__main__':
+    DB = 'csp_test'
+else:
+    DB = 'csp'
+
+server = pycouchdb.Server()
+try:
+    db = server.database(DB)
+except pycouchdb.exceptions.NotFound:
+    db = server.create(DB)
+
+try:
+    db.get('_design/csp')
+except pycouchdb.exceptions.NotFound:
+    with open('etc/design.json') as file:
+        doc = json.load(file)
+        db.save(doc)
+
+# ScalableBloomFilter
+# this will create bloom_filter document
+sbf = SBF(db)
+
 epoch = datetime.utcfromtimestamp(0)
 
 # per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
 import newrelic.agent
 newrelic.agent.initialize('newrelic.ini')
-
-# ScalableBloomFilter
-sbf = SBF(db)
 
 
 def gen_id(owner_id):
@@ -428,17 +444,6 @@ def str_in_policy(p, t, s):
     return False
 
 
-def sbf_fields(report):
-    """
-    Select fields from a CSP report that make it unique to use in Bloom filtering.
-    :param report: JSON report
-    :return: string with selected fields
-    """
-    return json.dumps({'csp-report': report['csp-report'],
-                       'meta': report['meta']['user_agent'],
-                       'owner_id': report['owner_id']})
-
-
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id):
     """
@@ -479,15 +484,6 @@ def read_csp_report(owner_id):
 
     # copy metadata into the final report object
     output['meta'] = meta
-
-    # filter out duplicates using Bloom filter
-    if sbf.f.add(sbf_fields(output)):
-        # duplicate, skip further processing
-        return '', 204, []
-
-    # save Bloom filter to database periodically
-    if start_time - sbf.created > timedelta(seconds=60 * 5):
-        sbf.save()
 
     # ## SANITIZATIONS AND REWRITES ON THE ORIGINAL REPORT
 
@@ -590,7 +586,6 @@ def read_csp_report(owner_id):
                                                                                                            blocked_uri))
 
     return '', 204, []
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8088)

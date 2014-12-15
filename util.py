@@ -7,12 +7,11 @@ import pycouchdb
 
 
 SERVER = 'http://localhost:5984/'
-DB = 'csp'
+DB = 'csp_test'
 CLEANUP_VIEW = 'csp/1910_stale'
 
 
 def clean(db, debug=False):
-
     more_results = True
     total = 0
     deleted = 0
@@ -72,6 +71,7 @@ def dump(db, num=1000):
     with open(filename, 'w') as file:
         json.dump(items, file)
 
+
 def kl_restore(db, filename='etc/known_list_backup'):
     i = 0
 
@@ -79,7 +79,10 @@ def kl_restore(db, filename='etc/known_list_backup'):
         kl_entries = json.load(file)
 
         for entry in kl_entries:
-            db.save(entry)
+            try:
+                db.save(entry)
+            except pycouchdb.exceptions.NotFound:
+                return
             i += 1
 
     print('Restored {} KL entries from {}'.format(i, filename))
@@ -129,6 +132,7 @@ def init(server):
     except pycouchdb.exceptions.NotFound:
         pass
 
+
 import sys
 
 help_text = """
@@ -157,6 +161,7 @@ if __name__ == '__main__':
 
     if cmd == 'init':
         init(server)
+        sys.exit(0)
 
     database = server.database(DB)
 
