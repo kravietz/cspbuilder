@@ -474,7 +474,7 @@ def read_csp_report(owner_id):
     start_time = datetime.now(timezone.utc)
 
     if quota.check(owner_id):
-        return 'Quota exceeded, please delete some reports', 400
+        return '', 204, []
 
     # sanity checks
     mimetype = request.headers.get('Content-Type')
@@ -609,7 +609,7 @@ def read_csp_report(owner_id):
                                                                                                            violated_directive,
                                                                                                            blocked_uri))
 
-    return 'Report accepted', 204, []
+    return '', 204, []
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8088)
