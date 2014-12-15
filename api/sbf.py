@@ -52,7 +52,7 @@ class SBF(object):
 
         if ret:
             buf = BytesIO(ret)
-            ret = self.sbf.fromfile(buf)
+            ret = self.f.fromfile(buf)
 
         return ret
 
