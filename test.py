@@ -90,7 +90,7 @@ class TestApi(unittest.TestCase):
     def setUp(self):
         self.server = pycouchdb.Server()
         self.db = self.server.database('csp')
-        self.url = 'http://cspbuilder.info:8088/report/{}/'.format(TEST_ID)
+        self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
         self.report = json.loads(REPORT)
 
     def _saved(self, testval):
