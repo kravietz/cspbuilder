@@ -4,13 +4,11 @@ import configparser
 import hashlib
 import json
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from fnmatch import fnmatch
 import re
 import hmac
 import threading
-
-from sbf import SBF
 
 from flask import Flask, request, abort, make_response, redirect
 import pycouchdb
@@ -51,10 +49,6 @@ except pycouchdb.exceptions.NotFound:
     with open('etc/design.json') as file:
         doc = json.load(file)
         db.save(doc)
-
-# ScalableBloomFilter
-# this will create bloom_filter document
-sbf = SBF(db)
 
 epoch = datetime.utcfromtimestamp(0)
 
@@ -444,6 +438,33 @@ def str_in_policy(p, t, s):
     return False
 
 
+class Quota(object):
+    quotas = {}
+    limit = 1e6
+    last_update = None
+
+    def _load(self):
+        for row in db.query('csp/1900_unique_sites', group=True, grup_level=1, reduce=True, include_docs=True):
+            owner_id = row['key'][0]
+            count = row['value']
+            if count > self.limit:
+                self.quotas[owner_id]
+            if owner_id in self.quotas and count < self.limit:
+                del self.quotas[owner_id]
+        self.last_update = datetime.now(timezone.utc)
+
+    def __init__(self):
+        self._load()
+
+    def check(self, owner_id):
+        if datetime.now(timezone.utc) - self.last_update > timedelta(minutes=5):
+            self._load()
+        return owner_id in self.quotas
+
+
+quota = Quota()
+
+
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id):
     """
@@ -451,6 +472,9 @@ def read_csp_report(owner_id):
     :param owner_id: 19 digit identifier of the owner of the page
     """
     start_time = datetime.now(timezone.utc)
+
+    if quota.check(owner_id):
+        return 'Quota exceeded, please delete some reports', 400
 
     # sanity checks
     mimetype = request.headers.get('Content-Type')
@@ -585,7 +609,7 @@ def read_csp_report(owner_id):
                                                                                                            violated_directive,
                                                                                                            blocked_uri))
 
-    return '', 204, []
+    return 'Report accepted', 204, []
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8088)
