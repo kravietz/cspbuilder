@@ -103,15 +103,18 @@ def design_restore(db, filename='etc/design.json'):
         print('Restored design doc from', filename)
 
 
-def init(server, db):
+def init(server):
     if input("This will DELETE all reports from the database. Are you sure? yes/[no]: ") != 'yes':
         sys.exit('Init cancelled')
 
-    kl_backup(db)
-    design_backup(db)
-
-    print('Deleting database...')
-    server.delete(DB)
+    try:
+        db = server.database(DB)
+        kl_backup(db)
+        design_backup(db)
+        print('Deleting database...')
+        server.delete(DB)
+    except pycouchdb.exceptions.NotFound:
+        pass
 
     print('New database...')
     server.create(DB)
@@ -120,8 +123,11 @@ def init(server, db):
     db = server.database(DB)
 
     design_restore(db)
-    kl_restore(db)
 
+    try:
+        kl_restore(db)
+    except pycouchdb.exceptions.NotFound:
+        pass
 
 import sys
 
@@ -146,14 +152,15 @@ if __name__ == '__main__':
         sys.exit(help_text)
 
     server = pycouchdb.Server(SERVER)
-    database = server.database(DB)
 
     cmd = sys.argv[1]
 
     if cmd == 'init':
-        init(server, database)
+        init(server)
 
-    elif cmd == 'clean':
+    database = server.database(DB)
+
+    if cmd == 'clean':
         clean(database, 'debug' in sys.argv)
 
     elif cmd == 'kbackup':
