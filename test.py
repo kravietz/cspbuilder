@@ -95,8 +95,9 @@ class TestLocalApi(unittest.TestCase):
         headers = {'content-type': 'application/csp-report'}
         inserted = 0
         num = 100
-        for testval in range(0, num):
-            self.report['csp-report']['status-code'] = random.randint(0, 10000)
+        for i in range(0, num):
+            testval = random.randint(0, 10000)
+            self.report['csp-report']['status-code'] = testval
             self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
             self.assertTrue(self.r.ok)
             if self._saved(testval):
