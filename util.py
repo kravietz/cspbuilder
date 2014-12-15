@@ -7,7 +7,7 @@ import pycouchdb
 
 
 SERVER = 'http://localhost:5984/'
-DB = 'csp_test'
+DB = 'csp'
 CLEANUP_VIEW = 'csp/1910_stale'
 
 
