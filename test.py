@@ -79,7 +79,6 @@ class TestSbf(unittest.TestCase):
         # for 1000 items it will be around 4000 bytes
         self.assertGreater(size, 1000)
 
-
     def tearDown(self):
         self.server = pycouchdb.Server()
         self.db = self.server.database('csp')
