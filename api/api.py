@@ -444,7 +444,7 @@ class Quota(object):
     last_update = None
 
     def _load(self):
-        for row in db.query('csp/1900_unique_sites', group=True, grup_level=1, reduce=True, include_docs=True):
+        for row in db.query('csp/1900_unique_sites', group=True, grup_level=1, reduce=True):
             owner_id = row['key'][0]
             count = row['value']
             if count > self.limit:
