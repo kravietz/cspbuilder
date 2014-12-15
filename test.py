@@ -3,6 +3,7 @@
 import unittest
 import json
 import random
+import time
 
 import pycouchdb
 import requests
@@ -22,6 +23,18 @@ REPORT = '''
        "original-policy": "default-src 'self'",
        "violated-directive": "script-src 'self'"
    } }
+'''
+
+KL = '''
+{
+   "owner_id": "732349358731880803",
+   "timestamp": "2014-12-12T22:47:39.491204+00:00",
+   "review_method": "user",
+   "client_ip": "2.98.46.7",
+   "review_action": "accept",
+   "review_type": "script-src",
+   "review_source": "https://assets.example.com"
+}
 '''
 
 
@@ -75,11 +88,20 @@ class TestLocalApi(unittest.TestCase):
         self.db = pycouchdb.Server().database(DB)
         self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
         self.report = json.loads(REPORT)
+        self.db.save(json.loads(KL))
 
     def _saved(self, testval):
         found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            if item['doc']['csp-report']['status-code'] == testval:
+            if 'csp-report' in item['doc'] and item['doc']['csp-report']['status-code'] == testval:
+                found = True
+        return found
+
+    def _accepted(self, testval):
+        found = False
+        for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
+            if 'csp-report' in item['doc'] and item['doc']['csp-report']['status-code'] == testval and item['doc'][
+                'reviewed'] == 'accepted':
                 found = True
         return found
 
@@ -90,21 +112,24 @@ class TestLocalApi(unittest.TestCase):
         self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
         self.assertTrue(self.r.ok)
         self.assertTrue(self._saved(testval))
+        self.assertTrue(self._accepted(testval))
 
     def test_insert_many_reports(self):
         headers = {'content-type': 'application/csp-report'}
-        inserted = 0
         num = 100
+        vals = []
         for i in range(0, num):
             testval = random.randint(0, 10000)
+            vals.append(testval)
             self.report['csp-report']['status-code'] = testval
             self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
             self.assertTrue(self.r.ok)
-            if self._saved(testval):
-                inserted += 1
-        self.assertEqual(inserted, num)
+        time.sleep(1)  # allow to update indexes
+        for testval in vals:
+            self.assertTrue(self._saved(testval), 'Document with id status-code {} was not saved'.format(testval))
+            self.assertTrue(self._accepted(testval))
 
-    def test_content_type(self):
+    def test_invalid_content_type(self):
         headers = {'content-type': 'text/plain'}
         self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
         self.assertFalse(self.r.ok)
@@ -113,8 +138,8 @@ class TestLocalApi(unittest.TestCase):
         headers = {'content-type': 'application/csp-report' }
         self.r = requests.post(self.url, data="", headers=headers)
         self.assertFalse(self.r.ok)
-    
-    def test_csp_report_invalid(self):
+
+    def test_csp_report_invalid_json(self):
         headers = {'content-type': 'application/csp-report' }
         self.r = requests.post(self.url, data="{}",  headers=headers)
         self.assertFalse(self.r.ok)
@@ -123,6 +148,7 @@ class TestLocalApi(unittest.TestCase):
         headers = {'content-type': 'application/csp-report' }
         self.r = requests.put(self.url, data=json.dumps(self.report), headers=headers)
         self.assertFalse(self.r.ok)
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')  # avoid  ResourceWarning: unclosed <socket.socket
