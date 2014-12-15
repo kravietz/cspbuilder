@@ -80,7 +80,6 @@ class TestLocalApi(unittest.TestCase):
         found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
             if item['doc']['csp-report']['status-code'] == testval:
-                print(item['doc']['csp-report']['status-code'])
                 found = True
         return found
 
@@ -102,22 +101,7 @@ class TestLocalApi(unittest.TestCase):
             self.assertTrue(self.r.ok)
             if self._saved(testval):
                 inserted += 1
-        print('test_insert_many_reports', inserted)
         self.assertEqual(inserted, num)
-
-    def test_insert_duplicate_reports(self):
-        headers = {'content-type': 'application/csp-report'}
-        inserted = 0
-        num = 10
-        testval = 3333
-        self.report['csp-report']['status-code'] = testval
-        for testval in range(0, num):
-            self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
-            self.assertTrue(self.r.ok)
-            if self._saved(testval):
-                inserted += 1
-        print('test_insert_duplicate_reports', inserted)
-        self.assertLess(inserted, num)
 
     def test_content_type(self):
         headers = {'content-type': 'text/plain'}
