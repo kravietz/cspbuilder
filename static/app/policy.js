@@ -169,7 +169,7 @@ function default_csp_config() {
         'referrer': 'origin-when-cross-origin',
         'reflected_xss': 'filter',
         'header_format': 'standard',
-        'strict_mixed_content_checking': false,
+        'strict_mixed_content_checking': true,
         'plugin_types': [
             'application/pdf',
             'application/x-shockwave-flash',

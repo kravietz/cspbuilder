@@ -262,4 +262,19 @@ Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/4877104
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="mixed-content">
+            <h2>Strict mixed content checking</h2>
+
+            <p>
+                W3C <a href="https://w3c.github.io/webappsec/specs/mixedcontent/">Mixed Content</a>
+                introduces a new CSP directive <code>strict-mixed-content-checking</code> that is intended to be
+                used as a catch-all hint on pages that do not set a granular policy for each external resource.
+                If enabled, compliant browsers will reject external content loaded from
+                destinations of less security level that the origin &mdash; for example, images on a TLS page
+                loaded from a non-TLS server.
+            </p>
+        </div>
+    </div>
+
 </div>
