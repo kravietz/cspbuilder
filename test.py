@@ -112,7 +112,6 @@ class TestLocalApi(unittest.TestCase):
         self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
         self.assertTrue(self.r.ok)
         self.assertTrue(self._saved(testval))
-        self.assertTrue(self._accepted(testval))
 
     def test_insert_many_reports(self):
         headers = {'content-type': 'application/csp-report'}
@@ -127,25 +126,24 @@ class TestLocalApi(unittest.TestCase):
         time.sleep(1)  # allow to update indexes
         for testval in vals:
             self.assertTrue(self._saved(testval), 'Document with id status-code {} was not saved'.format(testval))
-            self.assertTrue(self._accepted(testval))
 
     def test_invalid_content_type(self):
         headers = {'content-type': 'text/plain'}
         self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
         self.assertFalse(self.r.ok)
-    
+
     def test_csp_report_missing(self):
-        headers = {'content-type': 'application/csp-report' }
+        headers = {'content-type': 'application/csp-report'}
         self.r = requests.post(self.url, data="", headers=headers)
         self.assertFalse(self.r.ok)
 
     def test_csp_report_invalid_json(self):
-        headers = {'content-type': 'application/csp-report' }
-        self.r = requests.post(self.url, data="{}",  headers=headers)
+        headers = {'content-type': 'application/csp-report'}
+        self.r = requests.post(self.url, data="{}", headers=headers)
         self.assertFalse(self.r.ok)
-    
+
     def test_invalid_method(self):
-        headers = {'content-type': 'application/csp-report' }
+        headers = {'content-type': 'application/csp-report'}
         self.r = requests.put(self.url, data=json.dumps(self.report), headers=headers)
         self.assertFalse(self.r.ok)
 
