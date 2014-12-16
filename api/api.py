@@ -1,18 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import configparser
-import hashlib
-import json
 import os
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 from fnmatch import fnmatch
-import re
-import hmac
 import threading
 
-from flask import Flask, request, abort, make_response, redirect
-import pycouchdb
-from netaddr import IPNetwork, IPAddress
+from flask import request, abort
+from netaddr import IPNetwork
 
 
 __author__ = 'pawelkrawczyk'
@@ -22,7 +17,7 @@ config.read(('collector.ini', os.path.join('..', 'collector.ini')))
 
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
-CSRF_KEY = config.get('api', 'api_key')
+
 STORE_REJECTED = config.get('collector', 'store_accepted')
 STORE_ACCEPTED = config.get('collector', 'store_rejected')
 DEBUG = config.get('collector', 'debug') == 'True'
@@ -30,208 +25,11 @@ CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
 
-app = Flask(__name__)
-
-if __name__ == '__main__':
-    DB = 'csp_test'
-else:
-    DB = 'csp'
-
-server = pycouchdb.Server()
-try:
-    db = server.database(DB)
-except pycouchdb.exceptions.NotFound:
-    db = server.create(DB)
-
-try:
-    db.get('_design/csp')
-except pycouchdb.exceptions.NotFound:
-    with open('etc/design.json') as file:
-        doc = json.load(file)
-        db.save(doc)
-
-epoch = datetime.utcfromtimestamp(0)
-
-# per https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-integration#manual-integration
-import newrelic.agent
-newrelic.agent.initialize('newrelic.ini')
 
 
-def gen_id(owner_id):
-    """
-    Produce a CouchDB document identifer based on owner_id and current time.
-    :param owner_id:
-    :return: doc id
-    """
-    recv_time = (datetime.now() - epoch).total_seconds()
-
-    return owner_id + str(recv_time)
 
 
-def get_client_ip():
-    """
-    Obtain client IP from either standard REMOTE_ADDR variable or CloudFlare header.
-    :return: IP address
-    """
-    client_ip = request.environ.get('REMOTE_ADDR')
-    if not client_ip:
-        return None
-    # parse into IP
-    client_ip = IPAddress(client_ip)
-    for net in CLOUDFLARE_IPS:
-        if client_ip in net:
-            # this is CloudFlare network, try to extract real IP
-            cf_ip = request.headers.get('CF-Connecting-IP')
-            if cf_ip:
-                return cf_ip
-            else:
-                print('get_client_ip request came from CloudFlare IP {} but did not contain CF-Connecting-IP'.format(client_ip))
-    # return original IP otherwise
-    return str(client_ip)
 
-
-def get_client_geo():
-    """
-    Get client geolocation country from Nginx or CloudFlare variable.
-    :return: country code like PL
-    """
-    ret = request.headers.get('CF-IPCountry')
-    if ret:
-        return ret
-    ret = request.environ.get('GEOIP_COUNTRY')
-    if ret:
-        return ret
-    return None
-
-
-def login_response(owner_id):
-    token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
-    resp = make_response(redirect('/static/#/analysis'))
-    resp.set_cookie('XSRF-TOKEN', token, secure=True)
-    resp.set_cookie('owner_id', owner_id, secure=True)
-    print('login_response setting token cookie {}'.format(token))
-    return resp
-
-
-@app.route('/api/cleanup/week', methods=['POST'])
-def cleanup_api():
-    """
-    Delete alerts that are older than 7 days. This function is gateway to the actual
-    cleanup function that is started in background thread.
-    """
-    t = threading.Thread(target=cleanup, daemon=True)
-    t.start()
-    print('cleanup_api started thread {} {} alive={}'.format(t.name, t.ident, t.is_alive()))
-    return '', 204, []
-
-
-def cleanup():
-    """
-    Delete alerts that are older than 7 days. This the actual cleanup thread implementation.
-    """
-    print('cleanup thread starting')
-    lv = threading.local()
-    lv.start_time = datetime.now(timezone.utc)
-
-    lv.results = True
-    lv.total = 0
-    # updating is done in batches; views can return thousands
-    # of documents, which ends up in timeouts and excessive memory usage
-    while lv.results:
-        lv.i = 0
-        lv.docs = []
-
-        for row in db.query('csp/1910_stale', include_docs=True, limit=1000, skip=lv.total):
-            # if alert is not marked as archived, add it to delete list
-            if 'archived' not in row['doc'] or ('archived' in row['doc'] and row['doc']['archived'] != 'true'):
-                # just copy the elements that are required to delete the document
-                lv.docs.append({'_id': row['doc']['_id'], '_rev': row['doc']['_rev']})
-            # total is used as offset for skip
-            lv.total += 1
-            # i is used to see if we got any rows at all
-            lv.i += 1
-
-        # does the database still return results?
-        # it's done this way because py-couchdb returns generator
-        lv.results = lv.i > 0
-        print('i=', lv.i, 'total=', lv.total, 'lv.docs=', len(lv.docs))
-        if len(lv.docs):
-            db.delete_bulk(lv.docs)
-
-    lv.run_time = datetime.now(timezone.utc) - lv.start_time
-
-    print('cleanup deleted {} old reports, time {}'.format(lv.total, lv.run_time))
-
-
-@app.route('/policy/<owner_id>/', methods=['GET'])
-def policy(owner_id):
-    """
-    Quick login path via URL.
-    """
-    start_time = datetime.now(timezone.utc)
-    print('policy login {} {} {} owner_id={}'.format(start_time, get_client_ip(), get_client_geo(), owner_id))
-    return login_response(owner_id)
-
-
-@app.route('/login', methods=['POST'])
-def login():
-    """
-    Standard login via form and POST request.
-    """
-    start_time = datetime.now(timezone.utc)
-
-    owner_id = request.form.get('owner_id')
-
-    print('login {} {} {} owner_id={}'.format(start_time, get_client_ip(), get_client_geo(), owner_id))
-
-    if not owner_id:
-        print('login missing owner_id')
-        return '', 400, []
-
-    return login_response(owner_id)
-
-def verify_csrf_token():
-    """
-    Utility function to verify CSRF token on API calls. Uses secret configured in .ini file
-    and the owner_id from request.
-    :param request: global HTTP request object
-    :return: True if token correct, False if incorrect
-    """
-    request_token = request.headers.get('X-XSRF-TOKEN')
-    owner_id = request.cookies.get('owner_id')
-    print('verify_csrf_token owner_id={} request_token={}'.format(owner_id, request_token))
-
-    if not (owner_id or request_token):
-        print('verify_csrf_token missing owner_id or request token')
-        return False
-
-    expected_token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
-
-    if hmac.compare_digest(request_token, expected_token):
-        return True
-
-    print('verify_csrf_token token mismatch expected_token={}'.format(expected_token))
-    return False
-
-
-def base_uri_match(a, b):
-    """
-    Compare origin of two URLs to check if they both come from the same origin.
-    :param a: first URL
-    :param b: second URL
-    :return: True or False
-    """
-    r = re.match(r'^(https?://[^?#/]+)', a)
-    if not r:
-        return False
-    a = r.group(1)
-
-    r = re.match(r'^(https?://[^?#/]+)', b)
-    if not r:
-        return False
-    b = r.group(1)
-
-    return a == b
 
 
 @app.route('/api/<owner_id>/review', methods=['POST'])
@@ -377,92 +175,17 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     print('review_old_reports updated status of {} existing reports, time {}'.format(lv.total, lv.run_time))
 
 
-@app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
-def delete_all_reports(owner_id):
-    start_time = datetime.now(timezone.utc)
-    client_ip = get_client_ip()
-
-    if not verify_csrf_token():
-        return '', 400, []
-
-    # this take a long time so push into a separate thread
-    t = threading.Thread(target=delete_all_reports_thread, args=(owner_id,), daemon=True)
-
-    t.start()
-
-    print('delete_all_reports {} {} {} started background task {}'.format(start_time, client_ip, owner_id, t.ident))
-
-    return '', 204, []
 
 
-def delete_all_reports_thread(owner_id):
-    lv = threading.local()
-
-    lv.start_time = datetime.now(timezone.utc)
-
-    print('delete_all_reports_thread starting for {} at {}'.format(owner_id, lv.start_time))
-
-    lv.docs = []
-    lv.i = 0
-
-    # cycle through all reports for this user
-    for row in db.query('csp/1200_all', key=owner_id, include_docs=True):
-        # copy the document's crucial parts (id, rev), adding the _deleted flag
-        lv.doc = {'_id': row['doc']['_id'], '_rev': row['doc']['_rev'], '_deleted': True}
-        lv.docs.append(lv.doc)
-        lv.i += 1
-
-    print('delete_all_reports_thread {} found {} records to delete'.format(owner_id, lv.i))
-
-    # actually delete these reports
-    if lv.docs:
-        db.save_bulk(lv.docs)
-
-    lv.stop_time = datetime.now(timezone.utc)
-
-    print('delete_all_reports_thread {} completed at {}'.format(owner_id, lv.stop_time))
 
 
-def str_in_policy(p, t, s):
-    """
-    Find string s in statement of type t in CSP policy p.
-    :param p: full policy string
-    :param t: policy type to search in, such as script-src, style-src etc
-    :param s: string to find
-    :return: True if found, False otherwise
-    """
-    for st in map(s.strip, p.split(';')):
-        if st.startswith(t):
-            if st.find(s):
-                return True
-    return False
 
 
-class Quota(object):
-    quotas = {}
-    limit = 1e6
-    last_update = None
-
-    def _load(self):
-        for row in db.query('csp/1900_unique_sites', group=True, group_level=1, reduce=True):
-            owner_id = row['key'][0]
-            count = row['value']
-            if count > self.limit:
-                self.quotas[owner_id] = True
-            if owner_id in self.quotas and count < self.limit:
-                del self.quotas[owner_id]
-        self.last_update = datetime.now(timezone.utc)
-
-    def __init__(self):
-        self._load()
-
-    def check(self, owner_id):
-        if datetime.now(timezone.utc) - self.last_update > timedelta(minutes=5):
-            self._load()
-        return owner_id in self.quotas
 
 
-quota = Quota()
+
+
+
 
 
 @app.route('/report/<owner_id>/', methods=['POST'])
