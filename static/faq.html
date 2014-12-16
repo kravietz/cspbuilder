@@ -17,6 +17,43 @@
     </div>
 
     <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="tos">
+            <h2>What are the terms of the service?</h2>
+
+            <p>
+                Currently CspBuilder is an free service available to everyone in the web security
+                community. As it's still experimental and sometimes coping with large bursts of
+                reports from new websites joining in, the database may be cleared at any time (I will
+                try to preserve your known list records and other settings though).
+            </p>
+
+            <p>
+                There's almost no authentication &mdash; so you should perhaps assume that anyone can view
+                reports from your website if they know your "page identifier" (which is not very hard to find
+                taking into account it's announced in the CSP header). If there's such need, some kind of
+                access control will be added to the analytics console.
+            </p>
+
+            <p>
+                The reports collector API is currently filtering received items to prevent clogging the database
+                with continuous streams of repeated, identical records. Reports from sources you have previously
+                approved or rejected in the console are <em>not saved</em> to the database, so you will only see
+                only unclassified reports there. Reports older than 3 days are discarded.
+            </p>
+
+            <p>
+                There's also a simple quota &mdash; when number of reports for single identifier exceeds 1 million
+                the API will still accept them, but they will not be saved to the database. Remember that you can easily
+                reduce the number of reports in database by simply accepting or rejecting the ones that come most
+                frequently.
+                Each time you do this, the matching old reports get reclassified and make space for the new, yet
+                unclassified
+                ones.
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-8" id="enforcement-mode">
             <h2>Enforcement mode</h2>
 
