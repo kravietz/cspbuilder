@@ -169,6 +169,7 @@ function default_csp_config() {
         'referrer': 'origin-when-cross-origin',
         'reflected_xss': 'filter',
         'header_format': 'standard',
+        'strict_mixed_content_checking': false,
         'plugin_types': [
             'application/pdf',
             'application/x-shockwave-flash',
@@ -218,6 +219,11 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         });
         policy += '; ';
     });
+
+    // https://w3c.github.io/webappsec/specs/mixedcontent/#strict-mode
+    if (csp_config.strict_mixed_content_checking) {
+        policy += 'strict-mixed-content-checking';
+    }
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
     switch (csp_config.reflected_xss) {

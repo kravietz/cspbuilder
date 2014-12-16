@@ -8,19 +8,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
 
         console.log('CspPolicyController owner_id=' + $rootScope.owner_id);
 
-        $scope.csp_config = {
-            'enforce': false,
-            'default': false,
-            'referrer': 'origin-when-cross-origin',
-            'reflected_xss': 'filter',
-            'header_format': 'standard',
-            'plugin_types': [
-                'application/pdf',
-                'application/x-shockwave-flash',
-                'application/java'
-            ],
-            'plugin_choice': []
-        };
+        $scope.csp_config = default_csp_config();
 
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "1000_known_list", { key: $rootScope.owner_id })
