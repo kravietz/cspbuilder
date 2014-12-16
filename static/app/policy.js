@@ -222,7 +222,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
 
     // https://w3c.github.io/webappsec/specs/mixedcontent/#strict-mode
     if (csp_config.strict_mixed_content_checking) {
-        policy += 'strict-mixed-content-checking';
+        policy += 'strict-mixed-content-checking; ';
     }
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
