@@ -3,7 +3,7 @@
         "map": "function (doc) {\n    if (doc['owner_id'] && doc['review_type'] && doc['review_source'] && doc['review_action']) {\n        emit(doc['owner_id'], [doc['review_type'], doc['review_source'], doc['review_action']])\n    }\n}"
     },
     "1200_all": {
-        "map": "function (doc) {\n    if(doc.owner_id) {\n\temit(doc.owner_id, null);\n    }\n}"
+        "map": "function (doc) {\n    if(doc.owner_id && doc['csp-report']) {\n\temit(doc.owner_id, null);\n    }\n}"
     },
     "1920_rejected": {
         "map": "function (doc) {\n if (doc['review_action'] && doc['review_action'] == 'reject') {\n emit([doc['review_type'], doc['review_source']], 1)\n }\n}",
