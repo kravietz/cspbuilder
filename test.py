@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 import json
-import random
+import time
 
+import random
 from api.known import KnownList
 from api.utils import ClientResolver
 from flask import Request
@@ -121,6 +122,47 @@ class TestClientResolver(unittest.TestCase):
         self.assertEqual(self.cr.get_geo(Request({'HTTP_CF_IPCOUNTRY': 'USA'})), 'USA')
 
 
+class TestRetro(unittest.TestCase):
+    def setUp(self):
+        self.db = pycouchdb.Server().database(DB)
+        self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
+        self.report = {
+            "csp-report": {
+                "document-uri": "https://www.example.com/",
+                "blocked-uri": "https://retro.com/test.swf",
+                "violated-directive": "object-src 'self'"
+            },
+            "meta": {
+                "timestamp": "2014-12-17T16:03:12.248527+00:00",
+                "user_agent": "python-requests/2.5.0 CPython/3.4.1 Darwin/14.0.0",
+                "remote_geo": None,
+                "remote_ip": "127.0.0.1"
+            },
+            "owner_id": "732349358731880803"}
+        self.kl = {"owner_id": "732349358731880803", "review_action": "accept",
+                   "review_type": "object-src", "review_source": "https://retro.com"}
+
+    def test_retro(self):
+        """
+        A new report is added that should be classified as "unknown". Then a matching KL entry is added
+        and the report should be reclassifed.
+        """
+        testval = str(random.randint(0, 10000))
+        self.report['_id'] = testval
+        # post message
+        self.db.save(self.report)
+        # check that it's saved as unclassified
+        self.doc = self.db.get(testval)
+        self.assertNotIn('review', self.doc)
+        # now add KL rule
+        self.db.save(self.kl)
+        # check if the report was reclassified
+        time.sleep(1)
+        self.doc = self.db.get(testval)
+        self.assertIn('review', self.doc)
+        self.assertEqual(self.doc['review']['decision'], 'accept')
+
+
 class TestPublicApi(unittest.TestCase):
     def setUp(self):
         self.hostname = 'cspbuilder.info'
@@ -170,14 +212,14 @@ class TestLocalApi(unittest.TestCase):
     def _saved(self, testval):
         found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            if 'csp-report' in item['doc'] and item['doc']['csp-report']['status-code'] == testval:
+            if 'csp-report' in item['doc'] and item['doc']['csp-report'].get('status-code') == testval:
                 found = True
         return found
 
     def _accepted(self, testval):
         found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            if 'csp-report' in item['doc'] and item['doc']['csp-report']['status-code'] == testval \
+            if 'csp-report' in item['doc'] and item['doc']['csp-report'].get('status-code') == testval \
                     and item['doc']['reviewed'] == 'accepted':
                 found = True
         return found

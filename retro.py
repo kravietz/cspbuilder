@@ -26,31 +26,30 @@ def callback(message, db=None):
     doc_id = message['id']
     doc = db.get(doc_id)
 
-    print(message, doc)
-
-    # {'_id': 'ca444ca84a1d4b09a7e88e72b31937d4', 'review_source': "'unsafe-inline'",
-    # 'review_action': 'accept', 'review_type': 'script-src',
-    # '_rev': '1-bb255fee11381c8522ad0d8c1f6b1471', 'owner_id': '732349358731880803'}
-
+    # update Known List with the new entry
     review_action = doc['review_action']
     review_type = doc['review_type']
     review_source = doc['review_source']
+    owner_id = doc['owner_id']
 
-    for report in db.query('csp/1300_unknown', include_docs=True):
+    kl.add(doc['_id'], owner_id, review_type, review_source, review_action)
 
+    # find previously unclassified entries matching these criteria
+    # view returns ["732349358731880803", "img-src", "https://assets.example.com"]
+    # startkey is [owner_id, review_type] because it may be a wildcard
+    # so it must be matched per report
+    for report in db.query('csp/1300_unknown', include_docs=True,
+                           startkey=[owner_id, review_type],
+                           endkey=[owner_id, review_type, {}]):
 
-# if 'csp-report' in doc:
-# owner_id = doc['owner_id']
-#     report = doc['csp-report']
-#     decision = kl.decision(owner_id, report)
-#
-#     review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
-#
-#     doc['review'] = review
-#
-#     print('CLASSIFIED', doc)
-#
-#     db.save(doc)
+        report = report['doc']
+        decision = kl.decision(owner_id, report['csp-report'])
+
+        if decision != 'unknown':
+            review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
+            report['review'] = review
+            print('RECLASSIFY', report)
+            db.save(report)
 
 
 while True:
