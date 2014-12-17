@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import datetime
+
 from fnmatch import fnmatch
 import re
+
 
 __author__ = 'Paweł Krawczyk'
 
@@ -56,33 +58,42 @@ class KnownList(object):
     db = None
     known_list = {}
 
-    def _load(self):
+    def add(self, row):
+        """
+        Add a new row to the known list.
+        """
+        rule_id = row['id']
+        owner_id = row['key']
+
+        # ["script-src", "https://assets.example.com", "accept"]
+        rtype = row['value'][0]
+        origin = row['value'][1]
+        action = row['value'][2]
+
+        # add list entry
+        if owner_id not in self.known_list:
+            self.known_list[owner_id] = {}
+        if rtype not in self.known_list[owner_id]:
+            self.known_list[owner_id][rtype] = {}
+        self.known_list[owner_id][rtype][origin] = {'action': action, 'rule': rule_id}
+
+    def load(self):
         """
         Load all known list entries from database and build a tree-like dictionary structure
         for fast lookups.
         """
         for row in self.db.query('csp/1000_known_list', include_docs=True):
-            rule_id = row['id']
-            owner_id = row['key']
+            self.add(row)
 
-            # ["script-src", "https://assets.example.com", "accept"]
-            rtype = row['value'][0]
-            origin = row['value'][1]
-            action = row['value'][2]
+        if self.auto_update:
+            self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
-            # add list entry
-            if owner_id not in self.known_list:
-                self.known_list[owner_id] = {}
-            if rtype not in self.known_list[owner_id]:
-                self.known_list[owner_id][rtype] = {}
-            self.known_list[owner_id][rtype][origin] = {'action': action, 'rule': rule_id}
-
-        self.last_update = datetime.datetime.now(datetime.timezone.utc)
-
-    def __init__(self, db, minutes=1):
-        self.update_interval = datetime.timedelta(minutes=minutes)
+    def __init__(self, db, minutes=1, auto_update=True):
+        self.auto_update = auto_update
+        if self.auto_update:
+            self.update_interval = datetime.timedelta(minutes=minutes)
         self.db = db
-        self._load()
+        self.load()
 
     def decision(self, owner_id, report):
         """
@@ -94,8 +105,8 @@ class KnownList(object):
                  where action is 'accept', 'reject' or 'unknown'
                  and rule identifier is document id or None
         """
-        if datetime.datetime.now(datetime.timezone.utc) - self.last_update > self.update_interval:
-            self._load()
+        if self.auto_update and datetime.datetime.now(datetime.timezone.utc) - self.last_update > self.update_interval:
+            self.load()
 
         blocked_uri = report['blocked-uri']
         rtype = report['violated-directive'].split(' ')[0]
