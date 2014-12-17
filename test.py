@@ -3,39 +3,51 @@
 import unittest
 import json
 import random
-import time
+
+from api.known import KnownList
 
 import pycouchdb
 import requests
 
 
-__author__ = 'pawelkrawczyk'
+__author__ = 'Paweł Krawczyk'
 
 TEST_ID = '732349358731880803'
 DB = 'csp_test'
 
-REPORT = '''
-{ "csp-report": {
-       "document-uri": "https://www.example.com/eyedea/eyeface",
-       "referrer": "https://www.example.com/explore?page=6",
-       "blocked-uri": "https://assets.example.com",
-       "status-code": 0,
-       "original-policy": "default-src 'self'",
-       "violated-directive": "script-src 'self'"
-   } }
-'''
+REPORTS = [
+    {"csp-report": {
+        "document-uri": "https://www.example.com/",
+        "blocked-uri": "https://assets.example.com",
+        "status-code": 0,
+        "original-policy": "default-src 'self'",
+        "violated-directive": "img-src 'self'"
+    }, "expect": "accept"},
+    {"csp-report": {
+        "document-uri": "https://www.example.com/",
+        "blocked-uri": "https://assets.example.com",
+        "status-code": 0,
+        "original-policy": "default-src 'self'",
+        "violated-directive": "script-src 'self'"
+    }, "expect": "accept"},
+    {"csp-report": {
+        "document-uri": "https://www.example.com/",
+        "blocked-uri": "https://evil.com",
+        "status-code": 0,
+        "original-policy": "default-src 'self'",
+        "violated-directive": "img-src 'self'"
+    }, "expect": "reject"},
 
-KL = '''
-{
-   "owner_id": "732349358731880803",
-   "timestamp": "2014-12-12T22:47:39.491204+00:00",
-   "review_method": "user",
-   "client_ip": "2.98.46.7",
-   "review_action": "accept",
-   "review_type": "script-src",
-   "review_source": "https://assets.example.com"
-}
-'''
+]
+
+KL = [
+    {"owner_id": "732349358731880803", "review_action": "accept",
+     "review_type": "img-src", "review_source": "https:"},
+    {"owner_id": "732349358731880803", "review_action": "accept",
+     "review_type": "script-src", "review_source": "https://assets.example.com"},
+    {"owner_id": "732349358731880803", "review_action": "reject",
+     "review_type": "img-src", "review_source": "https://evil.com"},
+]
 
 
 def db_clean(db):
@@ -49,7 +61,7 @@ class TestPublicApi(unittest.TestCase):
         self.hostname = 'cspbuilder.info'
         self.https_url = 'http://{}/report/{}/'.format(self.hostname, TEST_ID)
         self.http_url = 'http://{}/report/{}/'.format(self.hostname, TEST_ID)
-        self.report = json.loads(REPORT)
+        self.report = REPORTS[0]
 
     def test_valid_post_https(self):
         headers = {'content-type': 'application/csp-report'}
@@ -86,9 +98,9 @@ class TestPublicApi(unittest.TestCase):
 class TestLocalApi(unittest.TestCase):
     def setUp(self):
         self.db = pycouchdb.Server().database(DB)
+        db_clean(self.db)
         self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
-        self.report = json.loads(REPORT)
-        self.db.save(json.loads(KL))
+        self.report = REPORTS[0]
 
     def _saved(self, testval):
         found = False
@@ -100,8 +112,8 @@ class TestLocalApi(unittest.TestCase):
     def _accepted(self, testval):
         found = False
         for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
-            if 'csp-report' in item['doc'] and item['doc']['csp-report']['status-code'] == testval and item['doc'][
-                'reviewed'] == 'accepted':
+            if 'csp-report' in item['doc'] and item['doc']['csp-report']['status-code'] == testval \
+                    and item['doc']['reviewed'] == 'accepted':
                 found = True
         return found
 
@@ -115,7 +127,7 @@ class TestLocalApi(unittest.TestCase):
 
     def test_insert_many_reports(self):
         headers = {'content-type': 'application/csp-report'}
-        num = 100
+        num = 10
         vals = []
         for i in range(0, num):
             testval = random.randint(0, 10000)
@@ -123,7 +135,6 @@ class TestLocalApi(unittest.TestCase):
             self.report['csp-report']['status-code'] = testval
             self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
             self.assertTrue(self.r.ok)
-        time.sleep(1)  # allow to update indexes
         for testval in vals:
             self.assertTrue(self._saved(testval), 'Document with id status-code {} was not saved'.format(testval))
 
@@ -146,6 +157,24 @@ class TestLocalApi(unittest.TestCase):
         headers = {'content-type': 'application/csp-report'}
         self.r = requests.put(self.url, data=json.dumps(self.report), headers=headers)
         self.assertFalse(self.r.ok)
+
+
+class TestKnownList(unittest.TestCase):
+    def setUp(self):
+        self.db = pycouchdb.Server().database(DB)
+        db_clean(self.db)
+        for kl in KL:
+            print(kl)
+            self.db.save(kl)
+        self.kl = KnownList(self.db)
+        print(self.kl.known_list)
+
+    def test_kl(self):
+        for rep in REPORTS:
+            expect = rep['expect']
+            report = rep['csp-report']
+            print(rep, self.kl.decision(TEST_ID, report))
+            self.assertEqual(self.kl.decision(TEST_ID, report), expect, 'Expected "{}" on: {}'.format(expect, report))
 
 
 if __name__ == '__main__':
