@@ -3,7 +3,10 @@
 import datetime
 import random
 
+from flask import request
+
 from netaddr import IPAddress, IPNetwork
+from werkzeug.exceptions import BadRequest
 
 
 __author__ = 'Paweł Krawczyk'
@@ -22,9 +25,6 @@ def str_in_policy(p, t, s):
             if st.find(s):
                 return True
     return False
-
-
-
 
 
 class DocIdGen(object):
@@ -87,3 +87,11 @@ class ClientResolver(object):
         if ret:
             return ret
         return None
+
+
+def on_json_loading_failed(e):
+    """
+    Invoked by Flask when JSON parsing fails on request.get_json() call
+    """
+    print(request.environ.get('REMOTE_ADDR'), request.url, e, request.data)
+    raise BadRequest('Invalid JSON')

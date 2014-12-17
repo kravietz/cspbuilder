@@ -3,7 +3,7 @@
 from api.auth import login_response, verify_csrf_token
 from api.delete import delete_all_reports_task
 from api.quota import Quota
-from api.utils import DocIdGen, ClientResolver
+from api.utils import DocIdGen, ClientResolver, on_json_loading_failed
 
 __author__ = 'Paweł Krawczyk'
 
@@ -122,13 +122,17 @@ def read_csp_report(owner_id):
     # sanity checks
     mime_type = request.headers.get('Content-Type')
     if mime_type not in ALLOWED_CONTENT_TYPES:
-        return 'Invalid content type', 400
+        return 'Invalid content type\n'.format(mime_type), 400
 
-    # TODO: handle unparseable JSON exceptions
+    request.on_json_loading_failed = on_json_loading_failed
     output = request.get_json(force=True)
 
+    # sanity checks on incoming report
     if 'csp-report' not in output:
         return 'CSP report missing', 400
+    for item in ['blocked-uri', 'document-uri', 'violated-directive']:
+        if item not in output['csp-report']:
+            return 'CSP report incomplete\n', 400
 
     output['owner_id'] = owner_id
 

@@ -5,7 +5,6 @@ import json
 import random
 
 from api.known import KnownList
-
 import pycouchdb
 import requests
 
@@ -16,37 +15,64 @@ TEST_ID = '732349358731880803'
 DB = 'csp_test'
 
 REPORTS = [
-    {"csp-report": {
-        "document-uri": "https://www.example.com/",
-        "blocked-uri": "https://assets.example.com",
-        "status-code": 0,
-        "original-policy": "default-src 'self'",
-        "violated-directive": "img-src 'self'"
+    {"csp-report": {  # blocked URI approved by wildcard rule #1 (img-src & https:)
+                      "document-uri": "https://www.example.com/", "blocked-uri": "https://assets.example.com",
+                      "status-code": 0, "violated-directive": "img-src 'self'"
     }, "expect": "accept"},
-    {"csp-report": {
-        "document-uri": "https://www.example.com/",
-        "blocked-uri": "https://assets.example.com",
-        "status-code": 0,
-        "original-policy": "default-src 'self'",
-        "violated-directive": "script-src 'self'"
+    {"csp-report": {  # blocked URI approved by explicit rule #2 (script-src & URI)
+                      "document-uri": "https://www.example.com/", "blocked-uri": "https://assets.example.com",
+                      "status-code": 0, "violated-directive": "script-src 'self'"
     }, "expect": "accept"},
-    {"csp-report": {
-        "document-uri": "https://www.example.com/",
-        "blocked-uri": "https://evil.com",
-        "status-code": 0,
-        "original-policy": "default-src 'self'",
-        "violated-directive": "img-src 'self'"
+    {"csp-report": {  # blocked URI has explicit KL "reject" entry #3
+                      "document-uri": "https://www.example.com/", "blocked-uri": "https://evil.com",
+                      "status-code": 0, "violated-directive": "frame-src 'self'"
     }, "expect": "reject"},
+    {"csp-report": {  # blocked URI and type is not covered by any KL rule
+                      "document-uri": "https://www.wtf.guru/", "blocked-uri": "http://wtf.info",
+                      "status-code": 0, "violated-directive": "img-src 'self'"
+    }, "expect": "unknown"},
+    {"csp-report": {  # blocked URI and document URI are the same, should be allowed by "self" rule #4
+                      "document-uri": "http://www.wtf.com/", "blocked-uri": "http://www.wtf.com/test.html",
+                      "status-code": 0, "violated-directive": "style-src 'self'"
+    }, "expect": "accept"},
+    {"csp-report": {  # blocked URI is literal "self", should be allowed by rule #4
+                      "document-uri": "https://www.wtf.com/", "blocked-uri": "self",
+                      "status-code": 0, "violated-directive": "style-src 'self'"
+    }, "expect": "accept"},
+    {"csp-report": {  # blocked URI should be allowed by explicit rule #5 with hostname wildcard
+                      "document-uri": "http://www.example.com/",
+                      "blocked-uri": "https://images.wildcard.com/some/image.jpg",
+                      "status-code": 0, "violated-directive": "img-src 'self'"
+    }, "expect": "accept"},
+    {"csp-report": {  # blocked URI has different schema, should not match #5
+                      "document-uri": "http://www.example.com/",
+                      "blocked-uri": "http://images.wildcard.com/some/image.jpg",
+                      "status-code": 0, "violated-directive": "img-src 'self'"
+    }, "expect": "unknown"},
+    {"csp-report": {  # empty blocked-uri should be matched by #5
+                      "document-uri": "http://www.example.com/", "blocked-uri": "null",
+                      "status-code": 0, "violated-directive": "script-src 'self'"
+    }, "expect": "accept"},
+    {"csp-report": {  # should not be matched by #6 because of different type (object-src vs script-src)
+                      "document-uri": "http://www.example.com/", "blocked-uri": "null",
+                      "status-code": 0, "violated-directive": "object-src 'self'"
+    }, "expect": "unknown"},
 
 ]
 
 KL = [
-    {"owner_id": "732349358731880803", "review_action": "accept",
+    {"owner_id": "732349358731880803", "review_action": "accept",  # 1
      "review_type": "img-src", "review_source": "https:"},
-    {"owner_id": "732349358731880803", "review_action": "accept",
+    {"owner_id": "732349358731880803", "review_action": "accept",  # 2
      "review_type": "script-src", "review_source": "https://assets.example.com"},
-    {"owner_id": "732349358731880803", "review_action": "reject",
-     "review_type": "img-src", "review_source": "https://evil.com"},
+    {"owner_id": "732349358731880803", "review_action": "reject",  # 3
+     "review_type": "frame-src", "review_source": "https://evil.com"},
+    {"owner_id": "732349358731880803", "review_action": "accept",  # 4
+     "review_type": "style-src", "review_source": "'self'"},
+    {"owner_id": "732349358731880803", "review_action": "accept",  # 5
+     "review_type": "img-src", "review_source": "https://*.wildcard.com"},
+    {"owner_id": "732349358731880803", "review_action": "accept",  # 6
+     "review_type": "script-src", "review_source": "'unsafe-inline'"},
 ]
 
 
@@ -54,6 +80,23 @@ def db_clean(db):
     for item in db.query('csp/1200_all', include_docs=True):
         if not item['id'].startswith('_design'):
             db.delete(item['doc'])
+
+
+class TestKnownList(unittest.TestCase):
+    def setUp(self):
+        self.db = pycouchdb.Server().database(DB)
+        db_clean(self.db)
+        for kl in KL:
+            self.db.save(kl)
+        self.kl = KnownList(self.db)
+
+    def test_kl(self):
+        for rep in REPORTS:
+            expect = rep['expect']
+            report = rep['csp-report']
+            self.assertEqual(self.kl.decision(TEST_ID, report), expect, 'Expected "{}" on: {}'.format(expect, report))
+            self.assertEqual(self.kl.decision("other id", report), "unknown",
+                             'Expected "{}" on: {}'.format("unknown", report))
 
 
 class TestPublicApi(unittest.TestCase):
@@ -148,9 +191,14 @@ class TestLocalApi(unittest.TestCase):
         self.r = requests.post(self.url, data="", headers=headers)
         self.assertFalse(self.r.ok)
 
-    def test_csp_report_invalid_json(self):
+    def test_csp_report_empty_report(self):
         headers = {'content-type': 'application/csp-report'}
         self.r = requests.post(self.url, data="{}", headers=headers)
+        self.assertFalse(self.r.ok)
+
+    def test_csp_report_invalid_json(self):
+        headers = {'content-type': 'application/csp-report'}
+        self.r = requests.post(self.url, data="", headers=headers)
         self.assertFalse(self.r.ok)
 
     def test_invalid_method(self):
@@ -159,22 +207,6 @@ class TestLocalApi(unittest.TestCase):
         self.assertFalse(self.r.ok)
 
 
-class TestKnownList(unittest.TestCase):
-    def setUp(self):
-        self.db = pycouchdb.Server().database(DB)
-        db_clean(self.db)
-        for kl in KL:
-            print(kl)
-            self.db.save(kl)
-        self.kl = KnownList(self.db)
-        print(self.kl.known_list)
-
-    def test_kl(self):
-        for rep in REPORTS:
-            expect = rep['expect']
-            report = rep['csp-report']
-            print(rep, self.kl.decision(TEST_ID, report))
-            self.assertEqual(self.kl.decision(TEST_ID, report), expect, 'Expected "{}" on: {}'.format(expect, report))
 
 
 if __name__ == '__main__':
