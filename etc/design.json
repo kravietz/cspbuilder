@@ -29,5 +29,6 @@
     }
 }, "filters": {
     "owner": "function(doc, req) { if(doc.owner_id && doc.owner_id == req.query.owner_id) { return true; } else { return false; }}",
-    "known_list": "function(doc, req) { if(doc.review_type) { return true; } else { return false; }}"
+    "known_list": "function(doc, req) { if(doc.review_type) { return true; } else { return false; }}",
+    "unclassified": "function(doc, req) { if(!doc.review) { return true; } else { return false; } }"
 }, "_id": "_design/csp", "language": "javascript"}
