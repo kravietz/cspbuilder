@@ -41,7 +41,10 @@ def callback(message, db=None):
 
         print('CLASSIFIED', doc)
 
-        db.save(doc)
+        try:
+            db.save(doc)
+        except pycouchdb.exceptions.Conflict as e:
+            print(e, doc)
 
 
 while True:
