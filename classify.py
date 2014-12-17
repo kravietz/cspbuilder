@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+"""
+Subscribes to CouchDB feed returning any new unclassified documents and classify them in real time.
+Use KnownList object that will update itself automatically on periodic basis.
+"""
+
 from api.known import KnownList
 import pycouchdb
 
@@ -8,6 +14,8 @@ __author__ = 'Paweł Krawczyk'
 database = pycouchdb.Server().database('csp_test')
 
 kl = KnownList(database)
+
+print('KNOWN LIST', kl.known_list)
 
 
 def callback(message, db=None):
