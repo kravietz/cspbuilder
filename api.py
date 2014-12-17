@@ -124,10 +124,13 @@ def read_csp_report(owner_id):
     if mime_type not in ALLOWED_CONTENT_TYPES:
         return 'Invalid content type\n'.format(mime_type), 400
 
+    # replace Flask original JSON error handler with our own (api/utils.py)
     request.on_json_loading_failed = on_json_loading_failed
+    # try to decode JSON from input
     output = request.get_json(force=True)
 
-    # sanity checks on incoming report
+    # if we got here, the JSON was syntactically correct
+    # perform semantic sanity checks on the input
     if 'csp-report' not in output:
         return 'CSP report missing', 400
     for item in ['blocked-uri', 'document-uri', 'violated-directive']:
