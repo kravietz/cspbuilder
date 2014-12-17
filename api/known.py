@@ -79,7 +79,8 @@ class KnownList(object):
 
         self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
-    def __init__(self, db):
+    def __init__(self, db, minutes=1):
+        self.update_interval = datetime.timedelta(minutes=minutes)
         self.db = db
         self._load()
 
@@ -93,7 +94,7 @@ class KnownList(object):
                  where action is 'accept', 'reject' or 'unknown'
                  and rule identifier is document id or None
         """
-        if datetime.datetime.now(datetime.timezone.utc) - self.last_update > datetime.timedelta(minutes=5):
+        if datetime.datetime.now(datetime.timezone.utc) - self.last_update > self.update_interval:
             self._load()
 
         blocked_uri = report['blocked-uri']
