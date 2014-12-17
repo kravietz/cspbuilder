@@ -65,12 +65,12 @@ class ClientResolver(object):
         for net in self.cf_ips:
             if client_ip in net:
                 # this is CloudFlare network, try to extract real IP
-                cf_ip = req.headers.get('CF-Connecting-IP')
+                cf_ip = req.headers.get('Cf-Connecting-Ip')
                 if cf_ip:
                     return cf_ip
                 else:
                     print(
-                        'get_client_ip request came from CloudFlare IP {} but did not contain CF-Connecting-IP'.format(
+                        'get_client_ip request came from CloudFlare IP {} but did not contain Cf-Connecting-IP'.format(
                             client_ip))
         # return original IP otherwise
         return str(client_ip)
