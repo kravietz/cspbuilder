@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import datetime
-import re
 import random
 
 from netaddr import IPAddress, IPNetwork
@@ -25,24 +24,7 @@ def str_in_policy(p, t, s):
     return False
 
 
-def base_uri_match(a, b):
-    """
-    Compare origin of two URLs to check if they both come from the same origin.
-    :param a: first URL
-    :param b: second URL
-    :return: True or False
-    """
-    r = re.match(r'^(https?://[^?#/]+)', a)
-    if not r:
-        return False
-    a = r.group(1)
 
-    r = re.match(r'^(https?://[^?#/]+)', b)
-    if not r:
-        return False
-    b = r.group(1)
-
-    return a == b
 
 
 class DocIdGen(object):

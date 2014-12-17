@@ -2,11 +2,53 @@
 # -*- coding: utf-8 -*-
 import datetime
 from fnmatch import fnmatch
-
-from api.utils import base_uri_match
-
+import re
 
 __author__ = 'Paweł Krawczyk'
+
+
+def _base_uri_match(a, b):
+    """
+    Compare origin of two URLs to check if they both come from the same origin.
+    :param a: first URL
+    :param b: second URL
+    :return: True or False
+    """
+    r = re.match(r'^(https?://[^?#/]+)', a)
+    if not r:
+        return False
+    a = r.group(1)
+
+    r = re.match(r'^(https?://[^?#/]+)', b)
+    if not r:
+        return False
+    b = r.group(1)
+
+    return a == b
+
+
+def _match(pattern, report):
+    match = False
+    blocked_uri = report['blocked-uri']
+    # null URLs can be matched by either inline or eval entries, per limitation of CSP 1.0
+    if blocked_uri == 'null' and pattern in ["'unsafe-inline'", "'unsafe-eval'"]:
+        match = True
+    # self type matches
+    if pattern == "'self'":
+        # blocked URL matching document domain
+        if _base_uri_match(blocked_uri, report['document-uri']):
+            match = True
+        # literal "self" entry in report
+        if blocked_uri == "self":
+            match = True
+    # finally check the blocked URL pattern
+    # because fnmatch() is used this should also cover typical CSP wildcards
+    # http://image.wildcard.com/some/image.jpg vs http://*.wildcard.com -> MATCH
+    # http://image.wildcard.com/some/image.jpg vs https://*.wildcard.com -> NO MATCH
+    if fnmatch(blocked_uri, pattern + '*'):
+        match = True
+
+    return match
 
 
 class KnownList(object):
@@ -30,7 +72,7 @@ class KnownList(object):
             # add list entry
             if owner_id not in self.known_list:
                 self.known_list[owner_id] = {}
-            if type not in self.known_list[owner_id]:
+            if rtype not in self.known_list[owner_id]:
                 self.known_list[owner_id][rtype] = {}
             self.known_list[owner_id][rtype][origin] = action
 
@@ -40,34 +82,12 @@ class KnownList(object):
         self.db = db
         self._load()
 
-    @staticmethod
-    def _match(pattern, report):
-
-        match = False
-        blocked_uri = report['blocked-uri']
-        # null URLs can be matched by either inline or eval entries, per limitation of CSP 1.0
-        if blocked_uri == 'null' and pattern in ["'unsafe-inline'", "'unsafe-eval'"]:
-            match = True
-        # self type matches
-        if pattern == "'self'":
-            # blocked URL matching document domain
-            if base_uri_match(blocked_uri, report['document-uri']):
-                match = True
-            # literal "self" entry in report
-            if blocked_uri == "self":
-                match = True
-        # finally the blocked URL pattern
-        if fnmatch(blocked_uri, pattern + '*'):
-            match = True
-
-        return match
-
     def decision(self, owner_id, report):
         """
         Takes a list composed of owner id, resource type and resource origin and returns an action for that
         set.
 
-        :param triplet: Example: ["732349358731880803", "script-src", "https://assets.example.com"]
+        :param report: CSP report in JSON
         :return: decision string 'accept', 'reject' or 'unknown'
         """
         if datetime.datetime.now(datetime.timezone.utc) - self.last_update > datetime.timedelta(minutes=5):
@@ -85,10 +105,12 @@ class KnownList(object):
 
         decision = 'unknown'
 
-        for pattern, action in self.known_list[owner_id][rtype].items():
-            print('Trying "{}" on {}'.format(pattern, blocked_uri))
-            if self._match(pattern, report):
-                decision = action
-                break
+        try:
+            for pattern, action in self.known_list[owner_id][rtype].items():
+                if _match(pattern, report):
+                    decision = action
+                    break
+        except KeyError:
+            pass
 
         return decision
