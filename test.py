@@ -85,7 +85,7 @@ def db_clean(db):
 class TestKnownList(unittest.TestCase):
     def setUp(self):
         self.db = pycouchdb.Server().database(DB)
-        db_clean(self.db)
+        # db_clean(self.db)
         for kl in KL:
             self.db.save(kl)
         self.kl = KnownList(self.db)
@@ -94,8 +94,9 @@ class TestKnownList(unittest.TestCase):
         for rep in REPORTS:
             expect = rep['expect']
             report = rep['csp-report']
-            self.assertEqual(self.kl.decision(TEST_ID, report), expect, 'Expected "{}" on: {}'.format(expect, report))
-            self.assertEqual(self.kl.decision("other id", report), "unknown",
+            self.assertEqual(self.kl.decision(TEST_ID, report)['action'], expect,
+                             'Expected "{}" on: {}'.format(expect, report))
+            self.assertEqual(self.kl.decision("other id", report)['action'], "unknown",
                              'Expected "{}" on: {}'.format("unknown", report))
 
 
@@ -141,7 +142,7 @@ class TestPublicApi(unittest.TestCase):
 class TestLocalApi(unittest.TestCase):
     def setUp(self):
         self.db = pycouchdb.Server().database(DB)
-        db_clean(self.db)
+        # db_clean(self.db)
         self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
         self.report = REPORTS[0]
 
@@ -193,7 +194,7 @@ class TestLocalApi(unittest.TestCase):
 
     def test_csp_report_empty_report(self):
         headers = {'content-type': 'application/csp-report'}
-        self.r = requests.post(self.url, data="{}", headers=headers)
+        self.r = requests.post(self.url, data="{{{{{{{{", headers=headers)
         self.assertFalse(self.r.ok)
 
     def test_csp_report_invalid_json(self):
@@ -205,8 +206,6 @@ class TestLocalApi(unittest.TestCase):
         headers = {'content-type': 'application/csp-report'}
         self.r = requests.put(self.url, data=json.dumps(self.report), headers=headers)
         self.assertFalse(self.r.ok)
-
-
 
 
 if __name__ == '__main__':

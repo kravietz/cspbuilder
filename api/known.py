@@ -62,6 +62,7 @@ class KnownList(object):
         for fast lookups.
         """
         for row in self.db.query('csp/1000_known_list', include_docs=True):
+            rule_id = row['id']
             owner_id = row['key']
 
             # ["script-src", "https://assets.example.com", "accept"]
@@ -74,7 +75,7 @@ class KnownList(object):
                 self.known_list[owner_id] = {}
             if rtype not in self.known_list[owner_id]:
                 self.known_list[owner_id][rtype] = {}
-            self.known_list[owner_id][rtype][origin] = action
+            self.known_list[owner_id][rtype][origin] = {'action': action, 'rule': rule_id}
 
         self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
@@ -88,7 +89,9 @@ class KnownList(object):
         set.
 
         :param report: CSP report in JSON
-        :return: decision string 'accept', 'reject' or 'unknown'
+        :return: decision dictionary {'action: action, 'rule': rule identifier}
+                 where action is 'accept', 'reject' or 'unknown'
+                 and rule identifier is document id or None
         """
         if datetime.datetime.now(datetime.timezone.utc) - self.last_update > datetime.timedelta(minutes=5):
             self._load()
@@ -103,14 +106,11 @@ class KnownList(object):
         except KeyError:
             pass
 
-        decision = 'unknown'
-
         try:
-            for pattern, action in self.known_list[owner_id][rtype].items():
+            for pattern, decision in self.known_list[owner_id][rtype].items():
                 if _match(pattern, report):
-                    decision = action
-                    break
+                    return decision
         except KeyError:
             pass
 
-        return decision
+        return {'action': 'unknown', 'rule': None}
