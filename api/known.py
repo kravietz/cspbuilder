@@ -58,18 +58,10 @@ class KnownList(object):
     db = None
     known_list = {}
 
-    def add(self, row):
+    def add(self, rule_id, owner_id, rtype, origin, action):
         """
         Add a new row to the known list.
         """
-        rule_id = row['id']
-        owner_id = row['key']
-
-        # ["script-src", "https://assets.example.com", "accept"]
-        rtype = row['value'][0]
-        origin = row['value'][1]
-        action = row['value'][2]
-
         # add list entry
         if owner_id not in self.known_list:
             self.known_list[owner_id] = {}
@@ -83,7 +75,13 @@ class KnownList(object):
         for fast lookups.
         """
         for row in self.db.query('csp/1000_known_list', include_docs=True):
-            self.add(row)
+            rule_id = row['id']
+            owner_id = row['key']
+            # ["script-src", "https://assets.example.com", "accept"]
+            rtype = row['value'][0]
+            origin = row['value'][1]
+            action = row['value'][2]
+            self.add(rule_id, owner_id, rtype, origin, action)
 
         if self.auto_update:
             self.last_update = datetime.datetime.now(datetime.timezone.utc)
