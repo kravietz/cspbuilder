@@ -65,7 +65,7 @@ class ClientResolver(object):
         for net in self.cf_ips:
             if client_ip in net:
                 # this is CloudFlare network, try to extract real IP
-                cf_ip = req.headers.get('Cf-Connecting-Ip')
+                cf_ip = req.environ.get('HTTP_CF_CONNECTING_IP')
                 if cf_ip:
                     return cf_ip
                 else:
@@ -80,7 +80,7 @@ class ClientResolver(object):
         Get client geolocation country from Nginx or CloudFlare variable.
         :return: country code such as PL
         """
-        ret = req.headers.get('CF-IPCountry')
+        ret = req.environ.get('HTTP_CF_IPCOUNTRY')
         if ret:
             return ret
         ret = req.environ.get('GEOIP_COUNTRY')
