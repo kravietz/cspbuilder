@@ -32,8 +32,8 @@ class DocIdGen(object):
         self.epoch = datetime.datetime.utcfromtimestamp(0)
 
     def gen_id(self, owner_id):
-        recv_time = (datetime.datetime.now() - self.epoch).total_seconds()
-        return '{}{}{}'.format(owner_id, str(recv_time).replace('.', ''), random.randint(0, 1000))
+        recv_time = '%020f' % (datetime.datetime.now() - self.epoch).total_seconds()
+        return '{}{}{}'.format(owner_id, recv_time.replace('.', ''), random.randint(0, 1000))
 
 
 class ClientResolver(object):
