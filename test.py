@@ -5,6 +5,8 @@ import json
 import random
 
 from api.known import KnownList
+from api.utils import ClientResolver
+from flask import Request
 import pycouchdb
 import requests
 
@@ -98,6 +100,25 @@ class TestKnownList(unittest.TestCase):
                              'Expected "{}" on: {}'.format(expect, report))
             self.assertEqual(self.kl.decision("other id", report)['action'], "unknown",
                              'Expected "{}" on: {}'.format("unknown", report))
+
+
+class TestClientResolver(unittest.TestCase):
+    def setUp(self):
+        self.cr = ClientResolver()
+
+    def test_cr_ip(self):
+        self.req = Request({'REMOTE_ADDR': '8.8.8.8'})
+        self.assertEqual(self.cr.get_ip(self.req), '8.8.8.8')
+
+    def test_cr_ip_cf(self):
+        self.req = Request({'HTTP_CF_CONNECTING_IP': '8.8.8.8', 'REMOTE_ADDR': '199.27.128.1'})
+        self.assertEqual(self.cr.get_ip(self.req), '8.8.8.8')
+
+    def test_cr_ip_geo(self):
+        self.assertEqual(self.cr.get_geo(Request({'GEOIP_COUNTRY': 'USA'})), 'USA')
+
+    def test_cr_ip_geo_cf(self):
+        self.assertEqual(self.cr.get_geo(Request({'HTTP_CF_IPCOUNTRY': 'USA'})), 'USA')
 
 
 class TestPublicApi(unittest.TestCase):
