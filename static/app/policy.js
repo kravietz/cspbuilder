@@ -173,6 +173,7 @@ function default_csp_config() {
         'referrer': 'origin-when-cross-origin',
         'reflected_xss': 'filter',
         'header_format': 'standard',
+        'experimental': true,
         'strict_mixed_content_checking': true,
         'plugin_types': [
             'application/pdf',
@@ -225,12 +226,12 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     });
 
     // https://w3c.github.io/webappsec/specs/mixedcontent/#strict-mode
-    if (csp_config.strict_mixed_content_checking) {
+    if (csp_config.experimental && csp_config.strict_mixed_content_checking) {
         policy += 'strict-mixed-content-checking; ';
     }
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-reflected-xss
-    switch (csp_config.reflected_xss) {
+    switch (csp_config.experimental && csp_config.reflected_xss) {
         case 'block':
             policy += 'reflected-xss block; ';
             break;
@@ -243,7 +244,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     }
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-referrer
-    switch (csp_config.referrer) {
+    switch (csp_config.experimental && csp_config.referrer) {
         case 'no-referrer':
             policy += 'referrer no-referrer; ';
             break;
@@ -264,7 +265,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
     }
 
     // https://w3c.github.io/webappsec/specs/content-security-policy/#directive-plugin-types
-    if (csp_config.plugin_choice.length) {
+    if (csp_config.experimental && csp_config.plugin_choice.length) {
         policy += 'plugin-types ';
         for (var i = 0; i < csp_config.plugin_choice.length; i++) {
             policy += csp_config.plugin_choice[i];
