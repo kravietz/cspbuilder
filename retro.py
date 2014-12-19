@@ -49,7 +49,7 @@ def callback(message, db=None):
             review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
             report['review'] = review
             print('RECLASSIFY', report)
-            db.save(report, batch=True)
+            db.save(report)
 
 
 while True:
