@@ -19,7 +19,6 @@ print('KNOWN LIST', kl.known_list)
 
 
 def callback(message, db=None):
-    print(message)
 
     if 'id' not in message:
         return
@@ -38,8 +37,6 @@ def callback(message, db=None):
         review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
 
         doc['review'] = review
-
-        print('CLASSIFIED', doc)
 
         try:
             db.save(doc)
