@@ -11,7 +11,7 @@ import pycouchdb
 
 __author__ = 'Paweł Krawczyk'
 
-database = pycouchdb.Server().database('csp_test')
+database = pycouchdb.Server().database('csp')
 
 kl = KnownList(database, auto_update=False)
 
@@ -48,8 +48,11 @@ def callback(message, db=None):
         if decision != 'unknown':
             review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
             report['review'] = review
-            print('RECLASSIFY', report)
-            db.save(report)
+            try:
+                db.save(report)
+            except pycouchdb.exceptions.Conflict as e:
+                print(e, report)
+                pass
 
 
 while True:
