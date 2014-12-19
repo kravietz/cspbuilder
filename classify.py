@@ -11,7 +11,7 @@ import pycouchdb
 
 __author__ = 'Paweł Krawczyk'
 
-database = pycouchdb.Server().database('csp_test')
+database = pycouchdb.Server().database('csp')
 
 kl = KnownList(database)
 
