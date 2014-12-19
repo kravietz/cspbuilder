@@ -42,7 +42,7 @@ def callback(message, db=None):
         print('CLASSIFIED', doc)
 
         try:
-            db.save(doc)
+            db.save(doc, batch=True)
         except pycouchdb.exceptions.Conflict as e:
             print(e, doc)
 
