@@ -1,5 +1,5 @@
 /**
- * Created by pawelkrawczyk on 01/10/2014.
+ * Created by Paweł Krawczyk on 01/10/2014.
  */
 
 cspControllers.controller('CspMainController', ['$scope',

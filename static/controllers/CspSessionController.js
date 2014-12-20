@@ -1,5 +1,5 @@
 /**
- * Created by pawelkrawczyk on 26/09/2014.
+ * Created by Paweł Krawczyk on 26/09/2014.
  */
 
 cspControllers.controller('CspSessionController', ['$scope', '$cookies', '$window', '$rootScope',

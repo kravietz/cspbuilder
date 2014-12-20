@@ -1,5 +1,5 @@
 /**
- * Created by pawelkrawczyk on 09/12/14.
+ * Created by Paweł Krawczyk on 09/12/14.
  */
 
 function django_generator(owner_id, csp_config, approved_list) {

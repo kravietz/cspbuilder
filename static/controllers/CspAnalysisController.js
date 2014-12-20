@@ -1,5 +1,5 @@
 /**
- * Created by pawelkrawczyk on 04/09/2014.
+ * Created by Paweł Krawczyk on 04/09/2014.
  */
 
 cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',

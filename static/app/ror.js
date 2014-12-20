@@ -1,5 +1,5 @@
 /**
- * Created by pawelkrawczyk on 09/12/14.
+ * Created by Paweł Krawczyk on 09/12/14.
  */
 
 // https://w3c.github.io/webappsec/specs/content-security-policy/#csp-request-header
