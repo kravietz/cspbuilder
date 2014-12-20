@@ -15,7 +15,7 @@ import requests
 __author__ = 'Paweł Krawczyk'
 
 TEST_ID = '732349358731880803'
-DB = 'csp_test'
+DB = 'csp'
 
 REPORTS = [
     {"csp-report": {  # blocked URI approved by wildcard rule #1 (img-src & https:)
