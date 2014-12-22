@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import configparser
+
 import hashlib
 import hmac
 import os
-
 from flask import make_response, redirect
 
 
@@ -13,6 +13,7 @@ __author__ = 'Paweł Krawczyk'
 config = configparser.ConfigParser()
 config.read(('collector.ini', os.path.join('..', 'collector.ini')))
 CSRF_KEY = config.get('api', 'csrf_key')
+DEV = config.get('api', 'development')
 
 
 def login_response(owner_id):
@@ -25,8 +26,8 @@ def login_response(owner_id):
     """
     token = hmac.new(bytes(CSRF_KEY, 'ascii'), bytes(owner_id, 'ascii'), hashlib.sha512).hexdigest()
     resp = make_response(redirect('/static/#/analysis'))
-    resp.set_cookie('XSRF-TOKEN', token, secure=True)
-    resp.set_cookie('owner_id', owner_id, secure=True)
+    resp.set_cookie('XSRF-TOKEN', token, secure=(not DEV))
+    resp.set_cookie('owner_id', owner_id, secure=(not DEV))
     print('login_response setting token cookie {}'.format(token))
     return resp
 
