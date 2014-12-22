@@ -2,8 +2,9 @@
  * Created by Paweł Krawczyk on 04/09/2014.
  */
 
-cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cornercouch', '$window', '$http',
-    function ($scope, $rootScope, cornercouch, $window, $http) { "use strict";
+cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cornercouch',
+    function ($scope, $rootScope, cornercouch) {
+        "use strict";
 
         console.log('CspAnalysisController owner_id=' + $rootScope.owner_id);
 
@@ -80,19 +81,19 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
 
             console.log('review_source allow=' + allow + ' policy_choice=' + $scope.policy_choice);
 
-            $http.post('/api/' + $rootScope.owner_id + '/review', {
-                    'review_type': $scope.policy_type,
-                    'review_source': $scope.policy_choice,
-                    'review_action': allow ? 'accept' : 'reject'
-                })
-                .error(function (error) {
-                    $scope.error = error;
-                })
-                .success(function () {
-                    console.log('review source completed');
-                    $('#report-row-' + $scope.index).hide();
-                    $scope.detail_open($scope.index + 1);
-                });
+            // save new KL entry
+            var doc = $scope.db.newDoc({
+                'owner_id': $scope.owner_id,
+                'review_type': $scope.policy_type,
+                'review_source': $scope.policy_choice,
+                'review_action': allow ? 'accept' : 'reject'
+            });
+            doc.save();
+
+            // move to the next source
+            console.log('review source completed');
+            $('#report-row-' + $scope.index).hide();
+            $scope.detail_open($scope.index + 1);
 
         }; // review_source
 
