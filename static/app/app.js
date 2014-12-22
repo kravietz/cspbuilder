@@ -4,9 +4,9 @@
 
 "use strict";
 
-var couchdb_url = '//cspbuilder.info';
+var couchdb_url = '';
 
-var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'ngResource', 'cspControllers']);
+var cspbuilderApp = angular.module('cspbuilderApp', ['ngRoute', 'ngCookies', 'cspControllers']);
 
 cspbuilderApp.config(['$routeProvider',
     function ($routeProvider) {
