@@ -1,34 +1,40 @@
-{"views": {
-    "1000_known_list": {
-        "map": "function (doc) {\n    if (doc['owner_id'] && doc['review_type'] && doc['review_source'] && doc['review_action']) {\n        emit(doc['owner_id'], [doc['review_type'], doc['review_source'], doc['review_action']])\n    }\n}"
+{
+    "_id": "_design/csp",
+    "_rev": "3-1d40dd29ab5fd490c6b19d9b7cb2afbd",
+    "filters": {
+        "owner": "function(doc, req) { if(doc.owner_id && doc.owner_id == req.query.owner_id) { return true; } else { return false; }}",
+        "unclassified": "function(doc, req) { if(doc['csp-report'] && !doc.review) { return true; } else { return false; } }",
+        "known_list": "function(doc, req) { if(doc.review_type) { return true; } else { return false; }}"
     },
-    "1200_all": {
-        "map": "function (doc) {\n    if(doc.owner_id && doc['csp-report']) {\n\temit(doc.owner_id, null);\n    }\n}"
-    },
-    "1920_rejected": {
-        "map": "function (doc) {\n if (doc['review_action'] && doc['review_action'] == 'reject') {\n emit([doc['review_type'], doc['review_source']], 1)\n }\n}",
-        "reduce": "function(k,v,re) { return sum(v); }"
-    },
-    "1900_unique_sites": {
-        "map": "function(doc) {\n  if(doc.owner_id && doc['csp-report']) {\n  var base_uri = doc['csp-report']['document-uri'].split('/').splice(0,3).join('/');\n  emit([doc.owner_id, base_uri], 1);\n }\n}",
-        "reduce": "function(k,v,re) { return sum(v); }"
-    },
-    "1100_source_groups": {
-        "map": "function (doc) {\n    if (doc['owner_id'] && doc['csp-report'] && doc['csp-report']['blocked-uri'] && doc['reviewed']) {\n        if(doc['reviewed'] === 'not classified') {\n\tblocked_uri = doc['csp-report']['blocked-uri'];\n        if (/^data:/.test(blocked_uri)) {\n            // truncate the BASE64 encoded data from URI\n            blocked_uri = 'data:';\n        }\n        if (/^https?/.test(blocked_uri)) {\n            // truncate URI to exclude params after ? or #\n            blocked_uri = blocked_uri.match(/^(https?:\\/\\/[^?#]+)/)[1];\n            blocked_uri = blocked_uri.split('/').slice(0,7).join('/');\n        }\n\n        emit([ doc['owner_id'], doc['csp-report']['violated-directive'].split(' ')[0], blocked_uri, ], 1);\n\n    } }\n}",
-        "reduce": "function(k,v,re) { return sum(v); }"
-    },
-    "1930_accepted": {
-        "map": "function (doc) {\n if (doc['review_action'] && doc['review_action'] == 'accept') {\n emit([doc['review_type'], doc['review_source']], 1)\n }\n}",
-        "reduce": "function(k,v,re) { return sum(v); }"
-    },
-    "1300_unknown": {
-        "map": "function (doc) { if(doc.owner_id && doc['csp-report']) {if(!doc.review || doc.review.decision == 'unknown') { var violated_directive = doc['csp-report']['violated-directive'].split(' ')[0]; var blocked_uri = doc['csp-report']['blocked-uri']; emit([doc.owner_id, violated_directive, blocked_uri], null); }}}"
-    },
-    "1910_stale": {
-        "map": "function(doc) {\n  if(doc.meta && doc.meta.timestamp) {\n    var doc_date = new Date(doc.meta.timestamp.split('T')[0]);\n    var week_ago = new Date(Date.now()-259200000);\n    if(doc_date < week_ago) {\n        emit(doc.meta.timestamp, null);\n    }\n    }\n  }"
+    "language": "javascript",
+    "views": {
+        "1300_unknown": {
+            "map": "function (doc) { if(doc.owner_id && doc['csp-report']) {if(!doc.review || doc.review.decision == 'unknown') { var violated_directive = doc['csp-report']['violated-directive'].split(' ')[0]; var blocked_uri = doc['csp-report']['blocked-uri']; emit([doc.owner_id, violated_directive, blocked_uri], null); }}}"
+        },
+        "1200_all": {
+            "map": "function (doc) {\n    if(doc.owner_id && doc['csp-report']) {\n\temit(doc.owner_id, null);\n    }\n}"
+        },
+        "1920_rejected": {
+            "reduce": "function(k,v,re) { return sum(v); }",
+            "map": "function (doc) {\n if (doc['review_action'] && doc['review_action'] == 'reject') {\n emit([doc['review_type'], doc['review_source']], 1)\n }\n}"
+        },
+        "1900_unique_sites": {
+            "reduce": "function(k,v,re) { return sum(v); }",
+            "map": "function(doc) {\n  if(doc.owner_id && doc['csp-report']) {\n  var base_uri = doc['csp-report']['document-uri'].split('/').splice(0,3).join('/');\n  emit([doc.owner_id, base_uri], 1);\n }\n}"
+        },
+        "1910_stale": {
+            "map": "function(doc) {\n  if(doc.meta && doc.meta.timestamp) {\n    var doc_date = new Date(doc.meta.timestamp.split('T')[0]);\n    var week_ago = new Date(Date.now()-259200000);\n    if(doc_date < week_ago) {\n        emit(doc.meta.timestamp, null);\n    }\n    }\n  }"
+        },
+        "1000_known_list": {
+            "map": "function (doc) {\n    if (doc['owner_id'] && doc['review_type'] && doc['review_source'] && doc['review_action']) {\n        emit(doc['owner_id'], [doc['review_type'], doc['review_source'], doc['review_action']])\n    }\n}"
+        },
+        "1100_source_groups": {
+            "reduce": "function(k,v,re) { return sum(v); }",
+            "map": "function (doc) {\n    if (doc['owner_id'] && doc['csp-report'] && doc['csp-report']['blocked-uri']) {\n        if(!doc['review'] || (doc['review'] && doc['review']['decision'] === 'unknown')) {\n\t        blocked_uri = doc['csp-report']['blocked-uri'];\n        if (/^data:/.test(blocked_uri)) {\n            // truncate the BASE64 encoded data from URI\n            blocked_uri = blocked_uri.split(',')[0];\n        }\n        if (/^https?/.test(blocked_uri)) {\n            // truncate URI to exclude params after ? or #\n            blocked_uri = blocked_uri.match(/^(https?:\\/\\/[^?#]+)/)[1];\n            blocked_uri = blocked_uri.split('/').slice(0,3).join('/');\n        }\n\n        emit([ doc['owner_id'], doc['csp-report']['violated-directive'].split(' ')[0], blocked_uri, ], 1);\n\n    } }\n}"
+        },
+        "1930_accepted": {
+            "reduce": "function(k,v,re) { return sum(v); }",
+            "map": "function (doc) {\n if (doc['review_action'] && doc['review_action'] == 'accept') {\n emit([doc['review_type'], doc['review_source']], 1)\n }\n}"
+        }
     }
-}, "filters": {
-    "owner": "function(doc, req) { if(doc.owner_id && doc.owner_id == req.query.owner_id) { return true; } else { return false; }}",
-    "known_list": "function(doc, req) { if(doc.review_type) { return true; } else { return false; }}",
-    "unclassified": "function(doc, req) { if(doc['csp-report'] && !doc.review) { return true; } else { return false; } }"
-}, "_id": "_design/csp", "language": "javascript"}
+}
