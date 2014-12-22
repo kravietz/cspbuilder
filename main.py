@@ -25,7 +25,7 @@ app = Flask(__name__)
 
 if __name__ == '__main__':
     # run on test database if started from command line
-    DB = 'csp_test'
+    DB = 'csp'
 else:
     # run on production database if started by uwsgi
     DB = 'csp'
