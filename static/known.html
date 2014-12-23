@@ -1,9 +1,27 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
 <div class="container">
+
     <div class="row">
-        <table class="table table-condensed">
-                <thead>
+        <div class="col-md-12">
+
+            <h3>Known resources list</h3>
+
+            <div class="row">
+                <div class="alert alert-info" role="alert">
+                    This table contains resource types and origins that you have previously reviewed and
+                    either accepted or rejected. The <strong>accepted</strong> resources will go into the
+                    CSP header generator in the <a href="#/policy/">Policy tab</a>. The <strong>rejected</strong>
+                    items are purely for convenience &mdash; CspBuilder will use them to filter out items
+                    that are reported in spite of your CSP header, so all kind of frames or JavaScript injected
+                    into clients' browsers by spyware or adware add-ons etc.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-condensed">
+            <thead>
                 <tr>
 
                     <th>Known type</th>
@@ -24,5 +42,5 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
     </div>
-</div>
