@@ -2,8 +2,8 @@
  * Created by Paweł Krawczyk on 09/09/2014.
  */
 
-cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$rootScope', '$resource',
-    function ($scope, cornercouch, $rootScope, $resource) {
+cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$rootScope',
+    function ($scope, cornercouch, $rootScope) {
         "use strict";
 
         console.log('CspKnownController owner_id=' + $rootScope.owner_id);
