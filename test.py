@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-import json
 import time
+
+try:
+    import ujson as json
+except ImportError:
+    import json
 
 import random
 from api.known import KnownList

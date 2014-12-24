@@ -10,7 +10,11 @@ __author__ = 'Paweł Krawczyk'
 import configparser
 import datetime
 
-import json
+try:
+    import ujson as json
+except ImportError:
+    import json
+
 import os
 import threading
 from flask import Flask, request
