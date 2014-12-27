@@ -27,10 +27,14 @@ def callback(message, db=None):
     doc = db.get(doc_id)
 
     # update Known List with the new entry
-    review_action = doc['review_action']
-    review_type = doc['review_type']
-    review_source = doc['review_source']
-    owner_id = doc['owner_id']
+    try:
+        review_action = doc['review_action']
+        review_type = doc['review_type']
+        review_source = doc['review_source']
+        owner_id = doc['owner_id']
+    except KeyError as e:
+        print('EXCEPTION document lacks key KL fields', e, doc)
+        return
 
     kl.add(doc['_id'], owner_id, review_type, review_source, review_action)
 
