@@ -45,7 +45,7 @@ def callback(message, db=None):
         report = report['doc']
         decision = kl.decision(owner_id, report['csp-report'])
 
-        if decision != 'unknown':
+        if decision['action'] != 'unknown':
             review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
             report['review'] = review
             print('RECLASSIFY', report)

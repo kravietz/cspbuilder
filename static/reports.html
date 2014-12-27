@@ -1,58 +1,86 @@
 <ng-include src="'top-menu.html'"></ng-include>
 
 <div class="row">
-    <div class="col-xs-6" id="reports-left-list">
+    <div class="col-md-6" id="reports-left-list">
 
-    <ol>
-        <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
-            <small>{{report.doc.meta.timestamp | limitTo: 19}}
-                   {{report.doc['csp-report']['violated-directive'].split(' ')[0]}}
-                   {{report.doc['csp-report']['blocked-uri'] | limitTo: 70}}
-            </small>
-        </li>
-    </ol>
+        <ol>
+            <li ng-repeat="report in db.rows track by $index" ng-click="detail_show($index)" id="reports-li-{{$index}}">
+                <small>{{report.doc.meta.timestamp | limitTo: 19}}
+                    {{report.doc['csp-report']['violated-directive'].split(' ')[0]}}
+                    {{report.doc['csp-report']['blocked-uri'] | limitTo: 70}}
+                </small>
+            </li>
+        </ol>
 
-    <div class="text-center"><img ng-show="db.queryActive" src="/static/20-0.gif"/></div>
+        <div class="text-center"><img ng-show="db.queryActive" src="/static/20-0.gif"/></div>
 
-    <div class="text-center">
-       <button type="button" class="btn btn-default" ng-click="load_next_page()">Load more...</button>
+        <div class="text-center">
+            <button type="button" class="btn btn-default" ng-click="load_next_page()">Load more...</button>
+        </div>
+
     </div>
+</div>
 
-    </div>
-
-    <div class="col-xs-6" id="reports-details-fixed" ng-hide="db.queryActive">
+<div class="col-xs-6" style="position: fixed; right: 10px" ng-hide="db.queryActive">
 
     <div class="row text-center">
-       <button id="reports-prev-button" type="button" class="btn btn-default" ng-click="detail_prev()">Previous</button>
-       <button id="reports-next-button" type="button" class="btn btn-default" ng-click="detail_next()">Next</button>
-       <button id="reports-delete-button" type="button" class="btn btn-warning" ng-click="delete_all()">Delete all</button>
-   </div>
+        <button id="reports-prev-button" type="button" class="btn btn-default" ng-click="detail_prev()">Previous
+        </button>
+        <button id="reports-next-button" type="button" class="btn btn-default" ng-click="detail_next()">Next
+        </button>
+        <button id="reports-delete-button" type="button" class="btn btn-warning" ng-click="delete_all()">Delete
+            all
+        </button>
+    </div>
 
     <table class="table table-condensed">
         <tbody>
-            <tr><td colspan="2">Report #{{index+1}}
+        <tr>
+            <td colspan="2">Report #{{index+1}}
 
-            <tr><th colspan="2" class="text-center">Meta data
+        <tr>
+            <th colspan="2" class="text-center">Meta data
 
-            <tr><th>Received<td>{{meta.timestamp}}
-            <tr><th>User agent<td>{{meta.user_agent}}
-            <tr><th>Remote IP<td>{{meta.remote_ip}}
+        <tr>
+            <th>Received
+                <td>{{meta.timestamp}}
+        <tr>
+            <th>User agent
+                <td>{{meta.user_agent}}
+        <tr>
+            <th>Remote IP
+                <td>{{meta.remote_ip}}
 
-            <tr><th colspan="2" class="text-center">Blocked resource report
+        <tr>
+            <th colspan="2" class="text-center">Blocked resource report
 
-            <tr><th>Blocked URI<td>{{csp['blocked-uri']}}
-            <tr><th>Violated directive<td>{{csp['violated-directive'].split(' ')[0]}}
-            <tr><th>Document URI<td>{{csp['document-uri']}}
-            <tr ng-show="csp['referrer']"><th>Referrer<td>{{csp['referrer']}}
-            <tr ng-show="csp['source-file']"><th>Source file<td>{{csp['source-file']}}
+        <tr>
+            <th>Blocked URI
+                <td>{{csp['blocked-uri']}}
+        <tr>
+            <th>Violated directive
+                <td>{{csp['violated-directive'].split(' ')[0]}}
+        <tr>
+            <th>Document URI
+                <td>{{csp['document-uri']}}
+        <tr ng-show="csp['referrer']">
+            <th>Referrer
+                <td>{{csp['referrer']}}
+        <tr ng-show="csp['source-file']">
+            <th>Source file
+            <td>{{csp['source-file']}}
 
         </tbody>
     </table>
 
     <div class="row text-center">
-        <button type="button" class="btn btn-default" ng-click="raw = 2"><span class="caret"></span> Violated directive</button>
-        <button type="button" class="btn btn-default" ng-click="raw = 3"><span class="caret"></span> Original policy</button>
-        <button type="button" class="btn btn-default" ng-click="raw = 1"><span class="caret"></span> Raw JSON</button>
+        <button type="button" class="btn btn-default" ng-click="raw = 2"><span class="caret"></span> Violated
+            directive
+        </button>
+        <button type="button" class="btn btn-default" ng-click="raw = 3"><span class="caret"></span> Original policy
+        </button>
+        <button type="button" class="btn btn-default" ng-click="raw = 1"><span class="caret"></span> Raw JSON
+        </button>
     </div>
 
     <pre ng-show="raw == 1">
