@@ -41,7 +41,10 @@ def clean(db, debug=False):
         if debug:
             print('total processed=', total, 'this batch=', len(docs), 'total deleted=', deleted)
         if len(docs):
-            db.delete_bulk(docs)
+            try:
+                db.delete_bulk(docs)
+            except pycouchdb.exceptions.Conflict:
+                pass
 
 
 def kl_backup(db):
