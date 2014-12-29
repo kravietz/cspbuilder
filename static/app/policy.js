@@ -38,7 +38,7 @@ function gen_uri_variants(blocked_uri) {
 function null_url_guesswork(csp) {
     console.log('null_url_guesswork');
 
-    var blocked_type = csp['violated-directive'].split(' ')[0];
+    var blocked_type = csp['effective-directive'] ? csp['effective-directive'] : csp['violated-directive'].split(' ')[0];
     var violated_directive = csp['violated-directive'];
     var script_sample = csp['script-sample'];
 
