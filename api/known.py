@@ -107,7 +107,12 @@ class KnownList(object):
             self.load()
 
         blocked_uri = report['blocked-uri']
-        rtype = report['violated-directive'].split(' ')[0]
+        # effective-directive is CSP 1.1 http://www.w3.org/TR/CSP11/#violation-report-effective-directive
+        if 'effective-directive' in report:
+            rtype = report['effective-directive']
+        # if not found, fall back to CSP 1.0 violated-directive
+        else:
+            rtype = report['violated-directive'].split(' ')[0]
 
         # try exact match
         try:
