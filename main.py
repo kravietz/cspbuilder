@@ -111,8 +111,7 @@ def delete_all_reports(owner_id):
     return '', 204, []
 
 
-TAG_R = re.compile(r'^[a-zA-Z0-9]+$')
-
+TAG_R = re.compile(r'^[a-zA-Z0-9-]+$')
 
 @app.route('/report/<owner_id>/<tag>/', methods=['POST'])
 @app.route('/report/<owner_id>/', methods=['POST'])
