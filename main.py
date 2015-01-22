@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import re
 from api.auth import login_response, verify_csrf_token
 from api.delete import delete_all_reports_task
 from api.quota import Quota
@@ -110,12 +111,19 @@ def delete_all_reports(owner_id):
     return '', 204, []
 
 
+TAG_R = re.compile(r'^[a-zA-Z0-9]+$')
+
+
+@app.route('/report/<owner_id>/<tag>/', methods=['POST'])
 @app.route('/report/<owner_id>/', methods=['POST'])
-def read_csp_report(owner_id):
+def read_csp_report(owner_id, tag=None):
     """
     Read CSP violation report, perform sanity checks and save it to the database
     as soon as possible. Reports are written as unclassified here, classification
     is performed by Classifier Service.
+
+    :param owner_id:
+    :return: 204 No Content
     """
     start_time = datetime.datetime.now(datetime.timezone.utc)
 
@@ -126,7 +134,11 @@ def read_csp_report(owner_id):
     # sanity checks
     mime_type = request.headers.get('Content-Type')
     if mime_type not in ALLOWED_CONTENT_TYPES:
-        return 'Invalid content type\n'.format(mime_type), 400
+        return 'Invalid content type\n', 400
+
+    # validate sanity of tags
+    if tag and not TAG_R.match(tag):
+        return 'Invalid tag\n', 400
 
     # replace Flask original JSON error handler with our own (api/utils.py)
     request.on_json_loading_failed = on_json_loading_failed
@@ -160,6 +172,10 @@ def read_csp_report(owner_id):
 
     # save report UTC timestamp
     meta['timestamp'] = start_time.isoformat()
+
+    # if tag was sent in the report, add it
+    if tag:
+        meta['tag'] = tag
 
     # copy metadata into the final report object
     output['meta'] = meta
