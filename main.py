@@ -175,7 +175,7 @@ def read_csp_report(owner_id, tag=None):
 
     # if tag was sent in the report, add it
     if tag:
-        meta['tag'] = tag
+        meta['tag'] = str(tag)
 
     # copy metadata into the final report object
     output['meta'] = meta
