@@ -84,9 +84,9 @@ KL = [
 
 
 def db_clean(db):
-    for item in db.query('csp/1200_all', include_docs=True):
-        if not item['id'].startswith('_design'):
-            db.delete(item['doc'])
+    for item in db.all():
+        if not item['_id'].startswith('_design'):
+            db.delete(item['_id'])
 
 
 class TestKnownList(unittest.TestCase):
@@ -237,6 +237,7 @@ class TestLocalApi(unittest.TestCase):
         self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID)
         self.doc_id_generator = DocIdGen()
         self.report = REPORTS[0]
+        self.headers = {'content-type': 'application/csp-report'}
 
     def _saved(self, testval):
         found = False
@@ -254,27 +255,39 @@ class TestLocalApi(unittest.TestCase):
         return found
 
     def test_insert_single_report(self):
-        headers = {'content-type': 'application/csp-report'}
         testval = random.randint(0, 10000)
         self.report["_id"] = self.doc_id_generator.gen_id(TEST_ID)
         self.report['csp-report']['status-code'] = testval
-        self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
+        self.r = requests.post(self.url, data=json.dumps(self.report), headers=self.headers)
         self.assertTrue(self.r.ok)
         self.assertTrue(self._saved(testval))
 
     def test_insert_many_reports(self):
-        headers = {'content-type': 'application/csp-report'}
         num = 10
         vals = []
         for i in range(0, num):
             testval = random.randint(0, 10000)
             vals.append(testval)
-            self.report["_id"] = self.doc_id_generator.gen_id(TEST_ID)
             self.report['csp-report']['status-code'] = testval
-            self.r = requests.post(self.url, data=json.dumps(self.report), headers=headers)
+            self.r = requests.post(self.url, data=json.dumps(self.report), headers=self.headers)
             self.assertTrue(self.r.ok)
         for testval in vals:
             self.assertTrue(self._saved(testval), 'Document with id status-code {} was not saved'.format(testval))
+
+    def test_tagged_report(self):
+        expect_tag = 'tag' + str(random.randint(0, 10000))
+        url = 'http://localhost:8088/report/{}/{}/'.format(TEST_ID, expect_tag)
+        self.r = requests.post(url, data=json.dumps(self.report), headers=self.headers)
+        self.assertTrue(self.r.ok)
+        time.sleep(1)
+        print('expect_tag=', expect_tag)
+        found = False
+        for item in self.db.query('csp/1200_all', key=TEST_ID, include_docs=True):
+            if 'tag' in item['doc']['meta']:
+                found_tag = item['doc']['meta']['tag']
+                if found_tag == expect_tag:
+                    found = True
+        self.assertTrue(found)
 
     def test_invalid_content_type(self):
         headers = {'content-type': 'text/plain'}
@@ -282,23 +295,25 @@ class TestLocalApi(unittest.TestCase):
         self.assertFalse(self.r.ok)
 
     def test_csp_report_missing(self):
-        headers = {'content-type': 'application/csp-report'}
-        self.r = requests.post(self.url, data="", headers=headers)
+        self.r = requests.post(self.url, data="", headers=self.headers)
         self.assertFalse(self.r.ok)
 
     def test_csp_report_empty_report(self):
-        headers = {'content-type': 'application/csp-report'}
-        self.r = requests.post(self.url, data="{{{{{{{{", headers=headers)
+        self.r = requests.post(self.url, data="{{{{{{{{", headers=self.headers)
         self.assertFalse(self.r.ok)
 
     def test_csp_report_invalid_json(self):
-        headers = {'content-type': 'application/csp-report'}
-        self.r = requests.post(self.url, data="", headers=headers)
+        self.r = requests.post(self.url, data="", headers=self.headers)
         self.assertFalse(self.r.ok)
 
     def test_invalid_method(self):
-        headers = {'content-type': 'application/csp-report'}
-        self.r = requests.put(self.url, data=json.dumps(self.report), headers=headers)
+        self.r = requests.put(self.url, data=json.dumps(self.report), headers=self.headers)
+        self.assertFalse(self.r.ok)
+
+    def test_invalid_tag(self):
+        invalid_tag = 'test()'
+        url = 'http://localhost:8088/report/{}/{}/'.format(TEST_ID, invalid_tag)
+        self.r = requests.post(url, data=json.dumps(self.report), headers=self.headers)
         self.assertFalse(self.r.ok)
 
 
