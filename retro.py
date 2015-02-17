@@ -67,9 +67,12 @@ def callback(message, db=None):
         # check if the classifier returns a "known" answer and apply if so
         if decision['action'] != 'unknown':
             if DEBUG:
-                print('==> change {} to {}'.format(report['review'], decision['action']))
-                print('decision=', decision)
-                print('report=', report)
+                try:
+                    print('==> change {} to {}'.format(report['review'], decision['action']))
+                    print('decision=', decision)
+                    print('report=', report)
+                except KeyError as e:
+                    print('EXCEPTION document lacks key KL fields', e, report)
 
             review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
             report['review'] = review
