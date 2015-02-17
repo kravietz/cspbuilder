@@ -86,7 +86,9 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
                 'owner_id': $scope.owner_id,
                 'review_type': $scope.policy_type,
                 'review_source': $scope.policy_choice,
-                'review_action': allow ? 'accept' : 'reject'
+                'review_action': allow ? 'accept' : 'reject',
+                'user_agent': navigator.userAgent,
+                'timestamp': Date()
             });
             doc.save();
 
