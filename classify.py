@@ -21,6 +21,7 @@ kl = KnownList(database)
 
 print('KNOWN LIST', kl.known_list)
 
+
 def callback(message, db=None):
     """
     Callback is called for each new unclassified report in the database.
@@ -30,40 +31,48 @@ def callback(message, db=None):
     :return:
     """
 
-    if DEBUG:
-        print('*****************')
-        print('message=', message)
-
     if 'id' not in message:
         if DEBUG:
+            print('*****************')
+            print('message=', message)
             print('==> skip, no id')
         return
 
     if 'deleted' in message:
         if DEBUG:
+            print('*****************')
+            print('message=', message)
             print('==> skip, deleted')
         return
 
     doc_id = message['id']
     doc = db.get(doc_id)
 
-    if 'csp-report' in doc:
-        owner_id = doc['owner_id']
-        report = doc['csp-report']
-
-        decision = kl.decision(owner_id, report)
-
-        review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
-
-        doc['review'] = review
-
+    if 'csp-report' not in doc:
         if DEBUG:
-            print('==> decision={} ({})'.format(decision['action'], decision))
+            print('*****************')
+            print('message=', message)
+            print('==> skip, no csp-report')
+        return
 
-        try:
-            db.save(doc, batch=True)
-        except pycouchdb.exceptions.Conflict as e:
-            print(e, doc)
+    owner_id = doc['owner_id']
+    report = doc['csp-report']
+
+    decision = kl.decision(owner_id, report)
+
+    review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
+
+    doc['review'] = review
+
+    if DEBUG:
+        print('*****************')
+        print('message=', message)
+        print('==> decision={} ({})'.format(decision['action'], decision))
+
+    try:
+        db.save(doc, batch=True)
+    except pycouchdb.exceptions.Conflict as e:
+        print(e, doc)
 
 # start the main loop of the Classifier
 if __name__ == '__main__':
