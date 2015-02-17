@@ -54,13 +54,18 @@ def _match(pattern, report):
 
 
 class KnownList(object):
+    """
+    Class that represents an in-memory copy of the CspBuilder's known list
+    for run time processing.
+    """
     last_update = None
     db = None
     known_list = {}
 
     def add(self, rule_id, owner_id, rtype, origin, action):
         """
-        Add a new row to the known list.
+        Add a new row to the in-memory copy of the known list.
+        Does not affect the master copy in the database.
         """
         # add list entry
         if owner_id not in self.known_list:
@@ -71,8 +76,8 @@ class KnownList(object):
 
     def load(self):
         """
-        Load all known list entries from database and build a tree-like dictionary structure
-        for fast lookups.
+        Load all known list entries from master copy in database
+        and build a tree-like dictionary structure for fast lookups.
         """
         for row in self.db.query('csp/1000_known_list', include_docs=True):
             rule_id = row['id']
@@ -103,6 +108,7 @@ class KnownList(object):
                  where action is 'accept', 'reject' or 'unknown'
                  and rule identifier is document id or None
         """
+        # refresh the local KL copy if auto update interval has expired
         if self.auto_update and datetime.datetime.now(datetime.timezone.utc) - self.last_update > self.update_interval:
             self.load()
 
