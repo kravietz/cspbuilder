@@ -57,11 +57,10 @@
 
         <tr>
             <th>Blocked URI
-                <td>{{csp['blocked-uri']}}
+                <td>{{blocked_uri}}
         <tr>
             <th>Violated directive
-                <td>{{csp['csp-report']['effective-directive'] ? csp['csp-report']['effective-directive'] :
-                    csp['csp-report']['violated-directive'].split(' ')[0]}}
+                <td>{{violated_directive}}
 
         <tr>
             <th>Document URI

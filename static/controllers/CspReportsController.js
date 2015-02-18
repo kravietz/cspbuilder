@@ -33,6 +33,8 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
 
         $scope.detail_show = function (index) {
             console.log('detail_show ' + index);
+
+            // report list highlight cycling
             $('#reports-li-' + $scope.index).removeClass('bg-info'); // remove highlight from previous
             $scope.index = index; // update scope index
             $('#reports-li-' + $scope.index).addClass('bg-info'); // highlight
@@ -42,6 +44,15 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
             $scope.meta = $scope.db.rows[index].doc['meta'];
             $scope.raw = 0;
 
+            // shortcut variables for use in the details view
+            $scope.blocked_uri = $scope.csp['blocked-uri'];
+            if ($scope.csp['csp-report']['effective-directive']) {
+                $scope.violated_directive = $scope.csp['csp-report']['effective-directive'];
+            } else {
+                $scope.violated_directive = $scope.csp['csp-report']['violated-directive'].split(' ')[0];
+            }
+
+            // previous/next buttons showing
             if ($scope.index == 0) {
                 $('#reports-prev-button').addClass('disabled');
             } else {
