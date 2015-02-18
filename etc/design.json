@@ -9,7 +9,7 @@
     "language": "javascript",
     "views": {
         "1300_unknown": {
-            "map": "function (doc) { if(doc.owner_id && doc['csp-report']) {if(!doc.review || doc.review.decision == 'unknown') { var violated_directive = doc['csp-report']['violated-directive'].split(' ')[0]; var blocked_uri = doc['csp-report']['blocked-uri']; emit([doc.owner_id, violated_directive, blocked_uri], null); }}}"
+            "map": "function (doc) { if (doc.owner_id && doc['csp-report']) { if (!doc.review || doc.review.decision == 'unknown') { if(doc['csp-report']['effective-directive']) { var violated_directive = doc['csp-report']['effective-directive']; } else { var violated_directive = doc['csp-report']['violated-directive'].split(' ')[0]; } var blocked_uri = doc['csp-report']['blocked-uri']; emit([doc.owner_id, violated_directive, blocked_uri], null); } } }"
         },
         "1200_all": {
             "map": "function (doc) {\n    if(doc.owner_id && doc['csp-report']) {\n\temit(doc.owner_id, null);\n    }\n}"
