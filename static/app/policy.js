@@ -38,6 +38,16 @@ function gen_uri_variants(blocked_uri) {
 function null_url_guesswork(csp) {
     console.log('null_url_guesswork');
 
+    // first check tag, which is an authoritative source
+    var tag = csp['meta']['tag'];
+    if (tag == 'noscripteval') {
+        return { 'message': 'CSP report URL indicates blocked eval() call.', 'sources': ['\'unsafe-eval\'']};
+    }
+    if (tag == 'noscriptinline') {
+        return { 'message': 'CSP report URL indicates blocked inline code.', 'sources': ['\'unsafe-inline\'']};
+    }
+
+    // no tag, try heuristics
     var blocked_type = csp['effective-directive'] ? csp['effective-directive'] : csp['violated-directive'].split(' ')[0];
     var violated_directive = csp['violated-directive'];
     var script_sample = csp['script-sample'];
