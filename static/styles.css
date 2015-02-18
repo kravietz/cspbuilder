@@ -11,6 +11,13 @@
     width: 52%;
 }
 
+#reports-pop-up {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    width: 50%;
+}
+
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
