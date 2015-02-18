@@ -37,6 +37,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
             $scope.index = index; // update scope index
             $('#reports-li-' + $scope.index).addClass('bg-info'); // highlight
 
+            $scope.id = $scope.db.rows[index].id;
             $scope.csp = $scope.db.rows[index].doc['csp-report'];
             $scope.meta = $scope.db.rows[index].doc['meta'];
             $scope.raw = 0;
