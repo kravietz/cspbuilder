@@ -46,10 +46,10 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
 
             // shortcut variables for use in the details view
             $scope.blocked_uri = $scope.csp['blocked-uri'];
-            if ($scope.csp['csp-report']['effective-directive']) {
-                $scope.violated_directive = $scope.csp['csp-report']['effective-directive'];
+            if ($scope.csp['effective-directive']) {
+                $scope.violated_directive = $scope.csp['effective-directive'];
             } else {
-                $scope.violated_directive = $scope.csp['csp-report']['violated-directive'].split(' ')[0];
+                $scope.violated_directive = $scope.csp['violated-directive'].split(' ')[0];
             }
 
             // previous/next buttons showing
