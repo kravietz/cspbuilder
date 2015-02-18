@@ -296,4 +296,41 @@ Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/4877104
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-8" id="inline-eval-detection">
+            <h2>Inline and eval() detection</h2>
+
+            <p>
+                CSP reports are quite confusing when inline code or <code>eval()</code> events are blocked: in both
+                cases there will be just an empty <code>blocked-uri</code> in the report and no other clue to
+                identify which one is really being reported. This was actually
+                <a href="https://github.com/w3c/webappsec/issues/52">reported</a> as an issue to the W3C but as
+                of CSP 1.1 it's how it is.
+            </p>
+
+            <p>
+                The method to work around this limitation is to set <strong>two CSP headers</strong>, both almost
+                identical, with the only differences being the reporting URL and policy on the inline/eval:
+            </p>
+
+            <ol>
+                <li><code>Content-Security-Policy-Report-Only: report-uri
+                    //cspbuilder.info/report/0681611143285408602/noscripteval/; script-src 'unsafe-inline' ...</code>
+                <li><code>Content-Security-Policy-Report-Only: report-uri
+                    //cspbuilder.info/report/0681611143285408602/noscriptinline/; script-src 'unsafe-eval' ...</code>
+            </ol>
+            <p>
+                As result, the browser will report instances of blocked <code>eval()</code> to URL 1 and rule 2 will
+                report instances of blocked
+                inline code to URL 2. CspBuilder takes the last word in the URL and turns it into a <strong>tag</strong>
+                field. This way
+                it can distinguish these events: an empty <code>blocked-uri</code> report with <code>noscripteval</code>
+                means blocked <code>eval()</code>,
+                the other is for blocked inline code.
+            </p>
+
+        </div>
+    </div>
+</div>
+
 </div>
