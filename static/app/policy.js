@@ -8,7 +8,7 @@
  This function returns variants of a blocked URI for the user to choose. Example:
  For blocked_uri like 'http://webcookies.info/dajaxice/register_site.status/'
  returns array of
- ['http://webcookies.info/dajaxice/register_site.status','http://webcookies.info/dajaxice',http://webcookies.info']
+ ['http://webcookies.info/dajaxice/register_site.status','http://webcookies.info/dajaxice','http://webcookies.info']
  */
 function gen_uri_variants(blocked_uri) {
     console.log('gen_uri_variants');
