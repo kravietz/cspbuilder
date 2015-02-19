@@ -40,19 +40,18 @@
         <div class="col-md-12">
             <h4>Output</h4>
 
-            Basic formats:
+            Generic formats:
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default" ng-click="generate_csp('raw')"
-                        title="Raw content security policy string">
-                    Generic
+                        title="Raw content security policy string">CSP
                 </button>
                 <button class="btn btn-default" ng-click="generate_csp('http')"
                         title="Full CSP HTTP header">HTTP
                 </button>
             </div>
 
-            Alternative formats:
+            Web server formats:
 
             <div class="btn-group" role="group">
                 <button class="btn btn-default" ng-click="generate_csp('nginx')"
@@ -65,7 +64,7 @@
                         title="CSP wrapped in to PHP header() function">PHP
                 </button>
                 <button class="btn btn-default" ng-click="generate_csp('ror')"
-                        title="CSP formatted for Ruby on Rails secureheaders module ">Ruby on Rails
+                        title="CSP formatted for Ruby on Rails secureheaders module ">Ruby&nbsp;on&nbsp;Rails
                 </button>
                 <button class="btn btn-default" ng-click="generate_csp('django')"
                         title="CSP formatted for django-security module">Django
