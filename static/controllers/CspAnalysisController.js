@@ -62,7 +62,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
                         $scope.policy_type = $scope.csp['effective-directive'] ? $scope.csp['effective-directive'] : $scope.csp['violated-directive'].split(' ')[0];
 
                         // turn report source into policy statement
-                        var ret = source_to_policy_statement($scope.csp);
+                        var ret = source_to_policy_statement($scope.csp, $scope.meta);
                         $scope.policy_message = ret.message;
                         $scope.policy_sources = ret.sources;
                     } else {

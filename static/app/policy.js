@@ -35,11 +35,11 @@ function gen_uri_variants(blocked_uri) {
  are usually generated for eval() or inline objects, but in CSP 1.0 there's no way to distinguish them.
  We're using all available hints and heuristics to suggest the best solution.
  */
-function null_url_guesswork(csp) {
+function null_url_guesswork(csp, meta) {
     console.log('null_url_guesswork');
 
     // first check tag, which is an authoritative source
-    var tag = csp['meta']['tag'];
+    var tag = meta['tag'];
     if (tag == 'noscripteval') {
         return { 'message': 'CSP report URL indicates blocked eval() call.', 'sources': ['\'unsafe-eval\'']};
     }
@@ -118,7 +118,7 @@ function base_uri(uri) {
 }
 
 // convert blocked-uri from CSP report to a statement that can be used in new policy
-function source_to_policy_statement(csp) {
+function source_to_policy_statement(csp, meta) {
     console.log('source_to_policy_statement');
 
     var blocked_uri = csp['blocked-uri'];
@@ -155,7 +155,7 @@ function source_to_policy_statement(csp) {
 
     // for null URIs we need to do some guesswork and return variants
     if (blocked_uri === 'null') {
-        return null_url_guesswork(csp);
+        return null_url_guesswork(csp, meta);
     }
 
     console.log('policy statement ' + blocked_uri + ' for ' + JSON.stringify(csp));
@@ -180,6 +180,7 @@ function default_csp_config() {
     return {
         'enforce': false,
         'default': false,
+        'tagged_headers': false,
         'referrer': 'origin-when-cross-origin',
         'reflected_xss': 'filter',
         'header_format': 'standard',
@@ -214,8 +215,10 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         header += '-Report-Only';
     }
 
+    var report_uri = '//cspbuilder.info/report/' + owner_id + '/';
+
     // initialize the policy string putting report-uri in front
-    var policy = 'report-uri //cspbuilder.info/report/' + owner_id + '/; ';
+    var policy = 'report-uri ' + report_uri + '; ';
 
     // overwrite default-src with 'none'
     approved_list['default-src'] = {};
@@ -292,17 +295,35 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
             policy_text = policy;
             break
         case 'nginx':
+            // http://nginx.org/en/docs/http/ngx_http_headers_module.html
             policy_text = 'add_header ' + header + ' "' + policy + '";';
             break;
         case 'apache':
+            // https://httpd.apache.org/docs/2.2/mod/mod_headers.html
             policy_text = 'Header set ' + header + ' "' + policy + '"';
             break;
         case 'php':
+            // http://php.net/manual/en/function.header.php
             policy_text = 'header("' + header + ': ' + policy + '");';
             break;
         case 'http':
         default:
             policy_text = header + ': ' + policy;
+    }
+
+    // if tagged headers for inline/eval detection are enabled
+    // create a new patched versions of the headers
+    if (csp_config.tagged_headers) {
+        // modify web server options so that headers are appended not replaced
+        var policy_text2 = policy_text.replace('Header set', 'Header add'); // for Apache
+        var policy_text2 = policy_text2.replace('");', '", false);'); // for PHP
+        // modify URL
+        var noinline_report_uri = report_uri + 'noscriptinline/';
+        var policy_text = policy_text.replace(report_uri, noinline_report_uri);
+        var noeval_report_uri = report_uri + 'noscripteval/';
+        var policy_text2 = policy_text2.replace(report_uri, noeval_report_uri);
+
+        var final_policy_text = policy_text + '\n' + policy_text2;
     }
 
     return [policy_text, policy_message];
