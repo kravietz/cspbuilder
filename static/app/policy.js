@@ -195,8 +195,24 @@ function default_csp_config() {
     };
 } // default_csp_config
 
-function policy_generator(owner_id, format, csp_config, approved_list) {
-    console.log('policy_generator owner_id=' + owner_id);
+function generate_csp_strings(owner_id, format, approved_list, csp_config) {
+    var policy_message = '';
+
+    if (csp_config.tagged_headers) {
+        // produce two tagged headers
+
+    } else {
+        // produce standard single header
+        // function generate_csp(owner_id, csp_config, approved_list, tag) {
+
+        var csp1 = generate_csp(owner_id, csp_config, approved_list);
+        var formatted1 = generate_formatted(format, csp_config)
+    }
+
+} // generate_csp_strings
+
+// pack the generic CSP string into appropriate header
+function generate_formatted(format, csp_config, policy_string) {
 
     // select CSP header format
     switch (csp_config.header_format) {
@@ -215,7 +231,41 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         header += '-Report-Only';
     }
 
+    // produce final formatted output depending on requested format
+    var policy_text = '';
+    switch (format) {
+        case 'raw':
+            policy_text = policy_string;
+            break
+        case 'nginx':
+            // http://nginx.org/en/docs/http/ngx_http_headers_module.html
+            policy_text = 'add_header ' + header + ' "' + policy_string + '";';
+            break;
+        case 'apache':
+            // https://httpd.apache.org/docs/2.2/mod/mod_headers.html
+            policy_text = 'Header set ' + header + ' "' + policy_string + '"';
+            break;
+        case 'php':
+            // http://php.net/manual/en/function.header.php
+            policy_text = 'header("' + header + ': ' + policy_string + '");';
+            break;
+        case 'http':
+        default:
+            policy_text = header + ': ' + policy_string;
+    }
+
+    return policy_text;
+
+} // generate_formatted
+
+function generate_csp(owner_id, csp_config, approved_list, tag) {
+    console.log('generate_csp owner_id=' + owner_id);
+
     var report_uri = '//cspbuilder.info/report/' + owner_id + '/';
+
+    if (tag) {
+        report_uri += tag + '/';
+    }
 
     // initialize the policy string putting report-uri in front
     var policy = 'report-uri ' + report_uri + '; ';
@@ -233,6 +283,18 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         // cycle through sources in each type and build policy entry out of them
         Object.keys(approved_list[type]).forEach(function (src) {
             // iterating through 'source1', 'source2'...
+
+            // support inline/eval tagging
+            if (type == 'script-src') {
+                if (tag == 'noscripteval' && src == "'unsafe-eval'") {
+                    src = '';
+                }
+                if (tag == 'noscriptinline' && src == "'unsafe-inline'") {
+                    src = '';
+                }
+            }
+
+            // actually append the source
             policy += src + ' ';
         });
         policy += '; ';
@@ -287,46 +349,7 @@ function policy_generator(owner_id, format, csp_config, approved_list) {
         policy += '; ';
     }
 
-    var policy_text = '';
-    var policy_message = '';
-    // produce final formatted output depending on requested format
-    switch (format) {
-        case 'raw':
-            policy_text = policy;
-            break
-        case 'nginx':
-            // http://nginx.org/en/docs/http/ngx_http_headers_module.html
-            policy_text = 'add_header ' + header + ' "' + policy + '";';
-            break;
-        case 'apache':
-            // https://httpd.apache.org/docs/2.2/mod/mod_headers.html
-            policy_text = 'Header set ' + header + ' "' + policy + '"';
-            break;
-        case 'php':
-            // http://php.net/manual/en/function.header.php
-            policy_text = 'header("' + header + ': ' + policy + '");';
-            break;
-        case 'http':
-        default:
-            policy_text = header + ': ' + policy;
-    }
-
-    // if tagged headers for inline/eval detection are enabled
-    // create a new patched versions of the headers
-    if (csp_config.tagged_headers) {
-        // modify web server options so that headers are appended not replaced
-        var policy_text2 = policy_text.replace('Header set', 'Header add'); // for Apache
-        var policy_text2 = policy_text2.replace('");', '", false);'); // for PHP
-        // modify URL
-        var noinline_report_uri = report_uri + 'noscriptinline/';
-        var policy_text = policy_text.replace(report_uri, noinline_report_uri);
-        var noeval_report_uri = report_uri + 'noscripteval/';
-        var policy_text2 = policy_text2.replace(report_uri, noeval_report_uri);
-
-        var final_policy_text = policy_text + '\n' + policy_text2;
-    }
-
-    return [policy_text, policy_message];
-} // policy_generator
+    return policy;
+} // generate_csp
 
 
