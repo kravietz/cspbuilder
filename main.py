@@ -75,6 +75,28 @@ def quick_login(owner_id):
     return login_response(owner_id)
 
 
+@app.route('/api/<owner_id>/<report_id>', methods=['DELETE'])
+def delete_report(owner_id, report_id):
+    """
+    Delete a single report by its database id.
+    :param owner_id:
+    :param report_id:
+    :return: HTTP response
+    """
+
+    if not verify_csrf_token(request):
+        return '', 400, []
+
+    report = db.get(report_id)
+
+    if 'owner_id' in report and report['owner_id'] == owner_id:
+        db.delete(report_id)
+        print('Delete report', owner_id, report_id)
+        return '', 204, []
+    else:
+        return 'Owner mismatch', 400, []
+
+
 @app.route('/login', methods=['POST'])
 def login():
     """

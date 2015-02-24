@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import configparser
-import os
 from datetime import datetime, timezone
-from fnmatch import fnmatch
 import threading
 
+import os
+from fnmatch import fnmatch
 from flask import request, abort
 from netaddr import IPNetwork
 
@@ -24,12 +24,6 @@ DEBUG = config.get('collector', 'debug') == 'True'
 CLOUDFLARE_IPS = list(map(IPNetwork, config.get('api', 'cloudflare_ips').split()))
 ACTION_MAP = {'accept': 'accepted', 'reject': 'rejected', 'unknown': 'not classified'}
 COUCHDB_SERVER = config.get('collector', 'couchdb_server')
-
-
-
-
-
-
 
 
 @app.route('/api/<owner_id>/review', methods=['POST'])
@@ -65,15 +59,18 @@ def update_known_list(owner_id):
                 row['doc']['review_source'] = review_source
                 row['doc']['review_method'] = 'user'
                 db.save(row['doc'])
-                print('KL {} {} matched {} {} and is longer, update'.format(row['key'][1], row['key'][2], review_directive, review_source))
+                print('KL {} {} matched {} {} and is longer, update'.format(row['key'][1], row['key'][2],
+                                                                            review_directive, review_source))
                 print('update_known_list saved updated KL entry {}'.format(row['doc']))
                 match = True
                 break
             elif row['key'][2] == review_source:
-                print('KL {} {} matched {} {}, skip and do not add new one'.format(row['key'][1], row['key'][2], review_directive, review_source))
+                print('KL {} {} matched {} {}, skip and do not add new one'.format(row['key'][1], row['key'][2],
+                                                                                   review_directive, review_source))
                 match = True
             else:
-                print('KL {} {} does not match {} {}, skip as it will be added'.format(row['key'][1], row['key'][2], review_directive, review_source))
+                print('KL {} {} does not match {} {}, skip as it will be added'.format(row['key'][1], row['key'][2],
+                                                                                       review_directive, review_source))
 
     if not match:
         # means the KL was not updated, create a new entry
@@ -147,7 +144,7 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
             # and finally, actual blocked URL is on known list
             if fnmatch(row['key'][2], review_source + '*'):
                 lv.match = True
-                
+
             # review report if match was found
             if lv.match:
                 lv.doc = row['doc']
@@ -173,19 +170,6 @@ def review_old_reports(owner_id, review_directive, review_source, review_action)
     lv.run_time = datetime.now(timezone.utc) - lv.start_time
 
     print('review_old_reports updated status of {} existing reports, time {}'.format(lv.total, lv.run_time))
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @app.route('/report/<owner_id>/', methods=['POST'])
@@ -323,16 +307,19 @@ def read_csp_report(owner_id):
         # save current report to CouchDB
         db.save(output, batch=True)
         stop_time = datetime.now(timezone.utc)
-        print('read_csp_report {} {} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time,
-                                                                                                           get_client_ip(), get_client_geo(),
-                                                                                                           request.url,
-                                                                                                           stop_time - start_time,
-                                                                                                           action,
-                                                                                                           owner_id,
-                                                                                                           violated_directive,
-                                                                                                           blocked_uri))
+        print(
+            'read_csp_report {} {} {} {} {} action={} owner={} violated-directive={} blocked-uri={}'.format(start_time,
+                                                                                                            get_client_ip(),
+                                                                                                            get_client_geo(),
+                                                                                                            request.url,
+                                                                                                            stop_time - start_time,
+                                                                                                            action,
+                                                                                                            owner_id,
+                                                                                                            violated_directive,
+                                                                                                            blocked_uri))
 
     return '', 204, []
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8088)
