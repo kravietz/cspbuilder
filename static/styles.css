@@ -1,12 +1,15 @@
 #policy-config {
     font-size: 0.8em;
 }
+
 #raw-report {
     font-size: 0.7em;
 }
+
 .menu-text {
     font-weight: bold;
 }
+
 #reports-left-list {
     width: 52%;
 }
@@ -20,8 +23,4 @@
 
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
-}
-
-.FlattrButton {
-    display: none;
 }
