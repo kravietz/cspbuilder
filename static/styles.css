@@ -21,3 +21,7 @@
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
+
+.FlattrButton {
+    display: none;
+}
