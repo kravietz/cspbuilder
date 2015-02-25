@@ -117,7 +117,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
         };
 
         $scope.delete_this = function () {
-            $http.delete('/api' + $rootScope.owner_id + '/' + $scope.id);
+            $http.delete('/api/' + $rootScope.owner_id + '/' + $scope.id);
 
             mixpanel.track("Delete report");
         };
