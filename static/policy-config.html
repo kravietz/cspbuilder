@@ -2,6 +2,7 @@
     <h4>Configuration</h4>
 
     <div class="col-md-2">
+
         <div class="checkbox"
              title="In enforcement mode browsers will actually block content forbidden by CSP, which may result in significant website malfunction if CSP is incomplete. When this flag is disabled, the website will operate in Report-Only mode and browsers will only report content that would be otherwise blocked">
         <label>
@@ -11,6 +12,7 @@
                     aria-hidden="true"></span></a>
             </label>
         </div>
+
         <div class="checkbox"
              title="Enable this if you want to generate an initial, empty policy, blocking all content">
         <label>
@@ -20,6 +22,17 @@
                     aria-hidden="true"></span></a>
             </label>
         </div>
+
+        <div class="checkbox"
+             title="Enable improved eval()/inline code detection using tagged CSP headers">
+            <label>
+                <input type="checkbox" ng-model="csp_config.tagged_headers">
+                Improved eval/inline detection&nbsp;<a target="_blank" href="#/faq/#tagged-headers"><span
+                    class="glyphicon glyphicon-question-sign"
+                    aria-hidden="true"></span></a>
+            </label>
+        </div>
+
         <div class="checkbox" title="Enable strict mixed content checking policy.">
             <label>
                 <input type="checkbox" ng-model="csp_config.strict_mixed_content_checking">
