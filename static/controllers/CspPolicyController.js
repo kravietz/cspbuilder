@@ -73,7 +73,7 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
             } else if (format == 'django') {
                 var result = django_generator($rootScope.owner_id, $scope.csp_config, $scope.approved_list);
             } else {
-                var result = policy_generator($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
+                var result = generate_csp($rootScope.owner_id, format, $scope.csp_config, $scope.approved_list);
             }
 
             $scope.policy = result[0];
