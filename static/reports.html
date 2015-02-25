@@ -43,45 +43,49 @@
         <tr>
             <th colspan="2" class="text-center">Meta data
 
-        <tr>
+        <tr title="Timestamp of when this report was received by CspBuilder.">
             <th>Received
                 <td>{{meta.timestamp}}
-        <tr>
+        <tr title="Identification of the web browser that reported this CSP violation.">
             <th>User agent
                 <td>{{meta.user_agent}}
-        <tr>
+        <tr title="The IP address that reported this CSP violation.">
             <th>Remote IP
                 <td>{{meta.remote_ip}}
-        <tr>
-            <th>Geo
+        <tr title="Country of the browser that reported this CSP violation.">
+            <th>Country
                 <td>{{meta.remote_geo.join(',')}}
 
-        <tr>
-            <th>Geo
+        <tr ng-show="meta.tag"
+            title="Custom tag reported for this CSP violation. Tags are used for improved resource type detection, but can be also used for custom purposes.">
+            <th>Tag
                 <td>{{meta.tag}}
 
-        <tr>
-            <th>Status
+        <tr title="CspBuilder classification result for this report. Based on the Known List rules.">
+        <th>Status
                 <td>{{review.decision}}
 
         <tr>
             <th colspan="2" class="text-center">Blocked resource report
 
-        <tr>
+        <tr title="URI address of the blocked resource. This can be a special URI (e.g. data) or empty in case of some JavaScript or CSS violations.">
             <th>Blocked URI
                 <td>{{blocked_uri}}
-        <tr>
+
+        <tr title="The name of the policy directive that was violated.">
             <th>Violated directive
                 <td>{{violated_directive}}
 
-        <tr>
+        <tr title="URI address of the page where the blocked resource was referenced.">
             <th>Document URI
                 <td>{{csp['document-uri']}}
-        <tr ng-show="csp['referrer']">
+
+        <tr ng-show="csp['referrer']" title="Referrer header as reported by the browser.">
             <th>Referrer
                 <td>{{csp['referrer']}}
-        <tr ng-show="csp['source-file']">
-            <th>Source file
+
+        <tr ng-show="csp['source-file']" title="Name of the source file where the violation occured.">
+        <th>Source file
             <td>{{csp['source-file']}}
 
         </tbody>
