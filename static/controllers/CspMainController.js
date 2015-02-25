@@ -12,7 +12,7 @@ cspControllers.controller('CspMainController', ['$scope',
             new_owner_id = new_owner_id.substring(1, 19); // skip leading 0
             var approved_list = empty_approved_list();
             var csp_config = default_csp_config();
-            var policy = generate_csp(new_owner_id, format, csp_config, approved_list);
+            var policy = generate_csp_strings(new_owner_id, format, approved_list, csp_config);
             $scope.new_policy = policy[0];
             $scope.new_owner_id = new_owner_id;
 

@@ -196,18 +196,23 @@ function default_csp_config() {
 } // default_csp_config
 
 function generate_csp_strings(owner_id, format, approved_list, csp_config) {
-    var policy_message = '';
 
     if (csp_config.tagged_headers) {
         // produce two tagged headers
+        var policy_string1 = generate_csp(owner_id, csp_config, approved_list, 'noscripteval');
+        var formatted1 = generate_formatted(format, csp_config, policy_string1);
+        var policy_string2 = generate_csp(owner_id, csp_config, approved_list, 'noscriptinline');
+        var formatted2 = generate_formatted(format, csp_config, policy_string2);
+        var formatted = formatted1 + '\n' + formatted2;
 
     } else {
         // produce standard single header
-        // function generate_csp(owner_id, csp_config, approved_list, tag) {
 
-        var csp1 = generate_csp(owner_id, csp_config, approved_list);
-        var formatted1 = generate_formatted(format, csp_config)
+        var policy_string = generate_csp(owner_id, csp_config, approved_list, '');
+        var formatted = generate_formatted(format, csp_config, policy_string);
     }
+
+    return [formatted, ''];
 
 } // generate_csp_strings
 
