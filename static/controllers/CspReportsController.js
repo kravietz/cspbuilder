@@ -42,6 +42,7 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
             $scope.id = $scope.db.rows[index].id;
             $scope.csp = $scope.db.rows[index].doc['csp-report'];
             $scope.meta = $scope.db.rows[index].doc['meta'];
+            $scope.review = $scope.db.rows[index].doc['review'];
             $scope.raw = 0;
 
             // shortcut variables for use in the details view
