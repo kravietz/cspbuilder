@@ -203,7 +203,7 @@ function generate_csp_strings(owner_id, format, approved_list, csp_config) {
         var formatted1 = generate_formatted(format, csp_config, policy_string1);
         var policy_string2 = generate_csp(owner_id, csp_config, approved_list, 'noscriptinline');
         var formatted2 = generate_formatted(format, csp_config, policy_string2);
-        var formatted = formatted1 + '\n' + formatted2;
+        var formatted = formatted1 + '\n\n' + formatted2;
         var message = 'Tagged headers are enabled so we generate two CSP headers, each with distinct reporting URL. ' +
             'This allows CspBuilder to distinguish between the eval()/inline events that are otherwise ' +
             '<a target="_blank" href="/static/#/faq#inline-eval-detection">identical</a>. ' +
