@@ -49,30 +49,6 @@
                     aria-hidden="true"></span></a>
             </label>
         </div>
-
-        <h5>Reflected XSS
-            <a target="_blank" href="#/faq/#reflected-xss"><span class="glyphicon glyphicon-question-sign"
-                                                                 aria-hidden="true"></span></a>
-        </h5>
-
-        <div class="radio">
-            <label>
-                <input type="radio" ng-model="csp_config.reflected_xss" value="none">
-                None
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <input type="radio" ng-model="csp_config.reflected_xss" value="filter" checked>
-                Filter
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <input type="radio" ng-model="csp_config.reflected_xss" value="block">
-                Block
-            </label>
-        </div>
     </div>
 
     <div class="col-md-2">
@@ -98,6 +74,31 @@
             <label>
                 <input type="radio" ng-model="csp_config.header_format" value="webkit">
                 <code>X-WebKit-CSP</code>
+            </label>
+        </div>
+
+
+        <h5>Reflected XSS
+            <a target="_blank" href="#/faq/#reflected-xss"><span class="glyphicon glyphicon-question-sign"
+                                                                 aria-hidden="true"></span></a>
+        </h5>
+
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="none">
+                None
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="filter" checked>
+                Filter
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="csp_config.reflected_xss" value="block">
+                Block
             </label>
         </div>
     </div>
