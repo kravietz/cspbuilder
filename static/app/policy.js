@@ -180,7 +180,7 @@ function default_csp_config() {
     return {
         'enforce': false,
         'default': false,
-        'tagged_headers': false,
+        'tagged_headers': true,
         'referrer': 'origin-when-cross-origin',
         'reflected_xss': 'filter',
         'header_format': 'standard',
@@ -204,15 +204,23 @@ function generate_csp_strings(owner_id, format, approved_list, csp_config) {
         var policy_string2 = generate_csp(owner_id, csp_config, approved_list, 'noscriptinline');
         var formatted2 = generate_formatted(format, csp_config, policy_string2);
         var formatted = formatted1 + '\n' + formatted2;
+        var message = 'Tagged headers are enabled so we generate two CSP headers, each with distinct reporting URL. ' +
+            'This allows CspBuilder to distinguish between the eval()/inline events that are otherwise ' +
+            '<a target="_blank" href="/static/#/faq#inline-eval-detection">identical</a>. ' +
+            'One headers is tagged \'noscripteval\' and its script-src statement does ' +
+            'not allow the eval(). The other one is tagged \'noscriptinline\' and this in turn disallows ' +
+            'inline JavaScript. Because each class of events is then reported to distinct URL, CspBuilder ' +
+            'has much easier job with distinguishing one from another.';
 
     } else {
         // produce standard single header
 
         var policy_string = generate_csp(owner_id, csp_config, approved_list, '');
         var formatted = generate_formatted(format, csp_config, policy_string);
+        var message = '';
     }
 
-    return [formatted, ''];
+    return [formatted, message];
 
 } // generate_csp_strings
 
