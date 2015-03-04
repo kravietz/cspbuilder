@@ -56,27 +56,15 @@ class Reader(BaseFeedReader):
         global DEBUG, last_seq
 
         if 'id' not in message:
-            if DEBUG:
-                print('*****************')
-                print('message=', message)
-                print('==> skip, no id')
             return
 
         if 'deleted' in message:
-            if DEBUG:
-                print('*****************')
-                print('message=', message)
-                print('==> skip, deleted')
             return
 
         doc_id = message['id']
         doc = self.db.get(doc_id)
 
         if 'csp-report' not in doc:
-            if DEBUG:
-                print('*****************')
-                print('message=', message)
-                print('==> skip, no csp-report')
             return
 
         owner_id = doc['owner_id']
