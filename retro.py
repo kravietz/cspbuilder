@@ -7,6 +7,7 @@ reclassify reports that may be impacted by the changes.
 """
 import pickle
 import sys
+import signal
 
 from api.known import KnownList
 import os
@@ -23,15 +24,30 @@ kl = KnownList(database, auto_update=False)
 
 from pycouchdb.feedreader import BaseFeedReader
 
+last_seq = 0
+SEQ_FILE = os.path.join(os.getcwd(), 'last_seq.txt')
+
+
+def sighandler(signum, frame):
+    print('Killed by signal', signum, 'saving seq', last_seq)
+    with open(SEQ_FILE, 'wb') as f:
+        pickle.dump(last_seq, f)
+    sys.exit(0)
+
+
+signal.signal(signal.SIGTERM, sighandler)
+signal.signal(signal.SIGINT, sighandler)
+
 
 class Reader(BaseFeedReader):
     """
     Class for processing Known List changes.
     """
-    seq = 0
 
     def on_message(self, message):
-        self.seq = message['seq']
+
+        if 'seq' in message:
+            last_seq = message['seq']
 
         if 'id' not in message:
             return
@@ -91,8 +107,8 @@ class Reader(BaseFeedReader):
                 self.db.save(report, batch=True)
 
     def on_close(self):
-        with open(os.path.join(os.getcwd(), 'last_seq.txt'), 'wb') as f:
-            pickle.dump(self.seq, f)
+        with open(SEQ_FILE, 'wb') as f:
+            pickle.dump(last_seq, f)
 
 
 # start the main loop of the Classifier
@@ -104,14 +120,14 @@ if __name__ == '__main__':
     # read CouchDB change feed 'seq' number to avoid reading through
     # already processed changes in case of re-run
     try:
-        with open(os.path.join(os.getcwd(), 'last_seq.txt'), 'rb') as ff:
-            seq = pickle.load(ff)
+        with open(SEQ_FILE, 'rb') as ff:
+            last_seq = pickle.load(ff)
     except IOError:
         seq = 0
 
-    # actuall loop
+    # actual loop
     while True:
         try:
-            database.changes_feed(Reader(), filter='csp/known_list', since=seq)
+            database.changes_feed(Reader(), filter='csp/known_list', since=last_seq)
         except ValueError:
             pass
