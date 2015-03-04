@@ -45,8 +45,13 @@ class Reader(BaseFeedReader):
     """
 
     def on_message(self, message):
+        global DEBUG
+
+        if DEBUG:
+            print(message)
 
         if 'seq' in message:
+            global last_seq
             last_seq = message['seq']
 
         if 'id' not in message:
@@ -107,6 +112,7 @@ class Reader(BaseFeedReader):
                 self.db.save(report, batch=True)
 
     def on_close(self):
+        global last_seq
         with open(SEQ_FILE, 'wb') as f:
             pickle.dump(last_seq, f)
 
