@@ -60,11 +60,14 @@ class Reader(BaseFeedReader):
         # view returns ["732349358731880803", "img-src", "https://assets.example.com"]
         # startkey is [owner_id, review_type] because it may be a wildcard
         # so it must be matched per report
-        for report in self.db.query('csp/1300_unknown', include_docs=True,
+        for result in self.db.query('csp/1300_unknown', include_docs=True,
                                     startkey=[owner_id, review_type],
                                     endkey=[owner_id, review_type, {}]):
 
-            report = report['doc']
+            if not 'doc' in result:
+                continue
+
+            report = result['doc']
 
             if not 'csp-report' in report:
                 continue
