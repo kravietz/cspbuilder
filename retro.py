@@ -63,6 +63,9 @@ class Reader(BaseFeedReader):
         doc_id = message['id']
         doc = self.db.get(doc_id)
 
+        if DEBUG:
+            print(doc)
+
         # update Known List with the new entry
         try:
             review_action = doc['review_action']
