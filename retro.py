@@ -25,7 +25,7 @@ kl = KnownList(database, auto_update=False)
 from pycouchdb.feedreader import BaseFeedReader
 
 last_seq = 0
-SEQ_FILE = os.path.join(os.getcwd(), 'last_seq.txt')
+SEQ_FILE = os.path.join(os.getcwd(), 'seq_retro.txt')
 
 
 def sighandler(signum, frame):
