@@ -61,6 +61,9 @@ def callback(message, db=None):
 
         report = report['doc']
 
+        if not 'csp-report' in report:
+            continue
+
         # check the new classification, with the KL change applied
         decision = kl.decision(owner_id, report['csp-report'])
 
