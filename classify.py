@@ -100,6 +100,8 @@ if __name__ == '__main__':
     except IOError:
         seq = 0
 
+    print('Starting with seq', last_seq)
+
     # subscribe to the changes feed in the database and
     # run callback on each new, unclassified message
     while True:
