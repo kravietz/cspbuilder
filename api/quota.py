@@ -12,7 +12,7 @@ class Quota(object):
     is cached inside object and self-updates every 5 minutes.
     """
     quotas = {}
-    limit = 1e6
+    limit = 1e5
     last_update = None
     db = None
 
