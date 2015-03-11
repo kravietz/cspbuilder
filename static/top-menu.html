@@ -39,8 +39,8 @@
                                name="submit" alt="PayPal">
                     </form>
                 </li>
-                <li role="presentation">
-                    <span class="glyphicon glyphicon glyphicon-warning-sign text-danger" title="{{error}}"></span>
+                <li role="presentation" ng-show="error">
+                <span class="glyphicon glyphicon glyphicon-warning-sign text-danger" title="{{error}}"></span>
                 </li>
                 <li role="presentation">
                     <p class="navbar-text navbar-right">Current page identifier: {{owner_id}}</p>
