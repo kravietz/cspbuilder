@@ -13,39 +13,47 @@ cspbuilderApp.config(['$routeProvider',
         $routeProvider.
             when('/main/', {
                 templateUrl: '/static/main.html',
-                controller: 'CspMainController'
+                controller: 'CspMainController',
+                activeTab: 'main'
 
             }).
             when('/analysis/', {
                 templateUrl: '/static/analysis.html',
-                controller: 'CspAnalysisController'
+                controller: 'CspAnalysisController',
+                activeTab: 'analysis'
             }).
             when('/policy/', {
                 templateUrl: '/static/policy.html',
-                controller: 'CspPolicyController'
+                controller: 'CspPolicyController',
+                activeTab: 'policy'
             }
         ).
             when('/reports/', {
                 templateUrl: '/static/reports.html',
-                controller: 'CspReportsController'
+                controller: 'CspReportsController',
+                activeTab: 'reports'
             }
         ).
             when('/live/', {
                 templateUrl: '/static/live.html',
-                controller: 'CspLiveController'
+                controller: 'CspLiveController',
+                activeTab: 'live'
             }
         ).
             when('/known/', {
                 templateUrl: '/static/known.html',
-                controller: 'CspKnownController'
+                controller: 'CspKnownController',
+                activeTab: 'known'
             }
         ).
             when('/feedback', {
-                templateUrl: '/static/feedback.html'
+                templateUrl: '/static/feedback.html',
+                activeTab: 'feedback'
             }
         ).
             when('/faq', {
-                templateUrl: '/static/faq.html'
+                templateUrl: '/static/faq.html',
+                activeTab: 'faq'
             }
         ).
             otherwise({

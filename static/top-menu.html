@@ -14,13 +14,21 @@
         <div class="collapse navbar-collapse" id="bar1">
 
             <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#/analysis/">Review</a></li>
-                <li role="presentation"><a href="#/policy/">Policy</a></li>
-                <li role="presentation"><a href="#/reports/">Reports</a></li>
-                <li role="presentation"><a href="#/known/">Known</a></li>
-                <li role="presentation"><a href="#/live/">Live view</a></li>
-                <li role="presentation"><a href="#/feedback/">Feedback</a></li>
-                <li role="presentation"><a target="_blank" href="#/faq/">Docs</a></li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'analysis'}"><a
+                        href="#/analysis/">Review</a></li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'policy'}"><a href="#/policy/">Policy</a>
+                </li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'reports'}"><a href="#/reports/">Reports</a>
+                </li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'known'}"><a href="#/known/">Known</a>
+                </li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'live'}"><a href="#/live/">Live
+                    view</a></li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'feedback'}"><a
+                        href="#/feedback/">Feedback</a></li>
+                <li role="presentation" ng-class="{active: $route.current.activetab == 'analysis'}"><a target="_blank"
+                                                                                                       href="#/faq/">Docs</a>
+                </li>
                 <li role="presentation">
                     <button type="button" class="btn navbar-btn" ng-click="logout()">Log out</button>
                 </li>
