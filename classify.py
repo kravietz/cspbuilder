@@ -61,19 +61,26 @@ class Reader(BaseFeedReader):
         if 'deleted' in message:
             return
 
+        # fetch the actual document referenced in the update message
         doc_id = message['id']
-        doc = self.db.get(doc_id)
+        try:
+            doc = self.db.get(doc_id)
+        # the document might have been deleted in the meantime, just ignore it
+        except pycouchdb.exceptions.NotFound:
+            return
 
+        # just in case (no such docs should come from the filter)
         if 'csp-report' not in doc:
             return
 
         owner_id = doc['owner_id']
         report = doc['csp-report']
 
+        # obtain classifier decision based on the current Known List
         decision = kl.decision(owner_id, report)
 
+        # update the review field
         review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
-
         doc['review'] = review
 
         if DEBUG:
@@ -81,6 +88,7 @@ class Reader(BaseFeedReader):
             print('message=', message)
             print('==> decision={} ({})'.format(decision['action'], decision))
 
+        # finally save the classified document back to database
         try:
             self.db.save(doc, batch=True)
         except pycouchdb.exceptions.Conflict as e:
