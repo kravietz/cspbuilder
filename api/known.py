@@ -88,7 +88,7 @@ class KnownList(object):
                     i += 1
         return i
 
-    def __unicode__(self):
+    def __str__(self):
         owner_ids = 0
         source_types = 0
         origins = 0
