@@ -53,7 +53,11 @@ class Reader(BaseFeedReader):
             pickle.dump(last_seq, f)
 
     def on_message(self, message):
-        global DEBUG, last_seq
+        global DEBUG
+
+        if 'seq' in message:
+            global last_seq
+            last_seq = message['seq']
 
         if 'id' not in message:
             return
