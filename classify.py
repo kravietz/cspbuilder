@@ -39,7 +39,7 @@ def sighandler(signum, frame):
 signal.signal(signal.SIGTERM, sighandler)
 signal.signal(signal.SIGINT, sighandler)
 
-print('KNOWN LIST', len(kl.known_list), 'entries')
+print('Starting with Known List', kl)
 
 
 class Reader(BaseFeedReader):
