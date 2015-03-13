@@ -56,11 +56,49 @@ def _match(pattern, report):
 class KnownList(object):
     """
     Class that represents an in-memory copy of the CspBuilder's known list
-    for run time processing.
+    for run time processing. The list has the following structure:
+
+    { 'owner_id1': {
+            'script-src': {
+                'http://source1': {
+                    'action': 'accept', 'rule': '050ebaacbce4fff26f1f4f785ee2a097'
+                },
+                'https://source2': { ... },
+            },
+            'img-src': {
+                ...
+            },
+            ...
+        },
+      'owner_id2': ...
+    }
+
+    Patterns for given owner and resource type are extracted with a dictionary lookup
+    of ['owner_id']['type'] and then matched in a loop to handle wildcards.
     """
     last_update = None
     db = None
     known_list = {}
+
+    def __len__(self):
+        i = 0
+        for owner_id in self.known_list.keys():
+            for source_type in self.known_list[owner_id].keys():
+                for _ in self.known_list[owner_id][source_type].keys():
+                    i += 1
+        return i
+
+    def __unicode__(self):
+        owner_ids = 0
+        source_types = 0
+        origins = 0
+        for owner_id in self.known_list.keys():
+            owner_ids += 1
+            for source_type in self.known_list[owner_id].keys():
+                source_types += 1
+                for _ in self.known_list[owner_id][source_type].keys():
+                    origins += 1
+        return '{} owner_ids, {} source_types, {} origins'.format(owner_ids, source_types, origins)
 
     def add(self, rule_id, owner_id, rtype, origin, action):
         """
@@ -135,3 +173,4 @@ class KnownList(object):
             pass
 
         return {'action': 'unknown', 'rule': None}
+
