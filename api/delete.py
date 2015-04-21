@@ -17,7 +17,6 @@ def delete_all_reports_task(owner_id, db, verbose=False):
 
     print('delete_all_reports_thread starting for {} at {}'.format(owner_id, lv.start_time))
 
-    lv.total = 0
     lv.more_results = True
     lv.processed = 0
 
@@ -59,4 +58,5 @@ def delete_all_reports_task(owner_id, db, verbose=False):
 
     lv.stop_time = datetime.datetime.now(datetime.timezone.utc)
 
-    print('delete_all_reports_thread {} completed at {}, deleted {} total'.format(owner_id, lv.stop_time, lv.total))
+    print('delete_all_reports_thread {} completed at {}, processed {}, deleted {}'.format(owner_id, lv.stop_time,
+                                                                                          lv.processed, lv.deleted))
