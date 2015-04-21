@@ -1,336 +1,335 @@
 <div class="container">
-    <div class="row">
-        <h1>CspBuilder Documentation</h1>
+<div class="row">
+    <h1>CspBuilder Documentation</h1>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="about">
+        <h2>What is CspBuilder?</h2>
+
+        <p>
+            CspBuilder stands for Content Security Policy builder, or web application for collecting
+            and analysing CSP violation reports. It works by collecting reports sent by browsers rendering
+            your pages, lets you review the sources of would-be-blocked content and eventually fine-tune
+            the CSP installed on your page.
+        </p>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="about">
-            <h2>What is CspBuilder?</h2>
-
-            <p>
-                CspBuilder stands for Content Security Policy builder, or web application for collecting
-                and analysing CSP violation reports. It works by collecting reports sent by browsers rendering
-                your pages, lets you review the sources of would-be-blocked content and eventually fine-tune
-                the CSP installed on your page.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="tos">
-            <h2>What are the terms of the service?</h2>
-
-            <p>
-                Currently CspBuilder is an free service available to everyone in the web security
-                community. As it's still experimental and sometimes coping with large bursts of
-                reports from new websites joining in, the database may be cleared at any time (I will
-                try to preserve your known list records and other settings though).
-            </p>
-
-            <p>
-                There's almost no authentication &mdash; so you should perhaps assume that anyone can view
-                reports from your website if they know your "page identifier" (which is not very hard to find
-                taking into account it's announced in the CSP header). If there's such need, some kind of
-                access control will be added to the analytics console.
-            </p>
-
-            <p>
-                The reports collector API is currently filtering received items to prevent clogging the database
-                with continuous streams of repeated, identical records. Reports from sources you have previously
-                approved or rejected in the console are <em>not saved</em> to the database, so you will only see
-                only unclassified reports there. Reports older than 3 days are discarded.
-            </p>
-
-            <p>
-                There's also a simple quota &mdash; when number of reports for single identifier exceeds 1 million
-                the API will still accept them, but they will not be saved to the database. Remember that you can easily
-                reduce the number of reports in database by simply accepting or rejecting the ones that come most
-                frequently.
-                Each time you do this, the matching old reports get reclassified and make space for the new, yet
-                unclassified
-                ones.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
+<div class="row">
     <div class="col-xs-12 col-sm-6 col-md-8" id="enforcement-mode">
-            <h2>Enforcement mode</h2>
+        <h2>Enforcement mode</h2>
 
-            <p>
-                Content Security Policy can be announced by websites in two modes: <strong>enforcement</strong>
-                and <strong>report-only</strong>. The formed happens if you annonuce the policy via <code>Content-Security-Policy</code>
-                header, the latter is set with <code>Content-Security-Policy-Report-Only</code>.
-            </p>
+        <p>
+            Content Security Policy can be announced by websites in two modes: <strong>enforcement</strong>
+            and <strong>report-only</strong>. The formed happens if you annonuce the policy via <code>Content-Security-Policy</code>
+            header, the latter is set with <code>Content-Security-Policy-Report-Only</code>.
+        </p>
 
-            <p>
-                Enforcement is, well, enforcement &mdash; if your CSP is not allowing <em>everything</em> that needs to
-                be
-                allowd your website will just stop rendering. In report-only mode though the browsers will report
-                whatever
-                it <em>would</em> block in the JavaScript console and to the CSP violation reports. CspBuilder makes use
-                of these
-                reports to gradually learn what content the website really loads and allow you to make decisions which
-                of these
-                should be allowed.
-            </p>
+        <p>
+            Enforcement is, well, enforcement &mdash; if your CSP is not allowing <em>everything</em> that needs to
+            be
+            allowd your website will just stop rendering. In report-only mode though the browsers will report
+            whatever
+            it <em>would</em> block in the JavaScript console and to the CSP violation reports. CspBuilder makes use
+            of these
+            reports to gradually learn what content the website really loads and allow you to make decisions which
+            of these
+            should be allowed.
+        </p>
 
-            <p>
-                In reality, this is more difficult than it looks at first look. Most websites will load much more
-                content than
-                is directly visible in their HTML code. It's because when you start using
-                JavaScript frameworks or 3
-                <small><sup>rd</sup></small>
-                party code (like Google Adsense) it becomes
-                a chain reaction. One script loads another one, then another one, then that one creates some additional
-                HTML elements, open frames etc.
-            </p>
-        </div>
+        <p>
+            In reality, this is more difficult than it looks at first look. Most websites will load much more
+            content than
+            is directly visible in their HTML code. It's because when you start using
+            JavaScript frameworks or 3
+            <small><sup>rd</sup></small>
+            party code (like Google Adsense) it becomes
+            a chain reaction. One script loads another one, then another one, then that one creates some additional
+            HTML elements, open frames etc.
+        </p>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="default-policy">
-            <h2>Default empty policy</h2>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="default-policy">
+        <h2>Default empty policy</h2>
 
-            <p>
-                CspBuilder will initially recommend you a very restrictive Content Security Policy that basically
-                disallows
-                any content from loading, but in report-only mode, such as this one:
-            </p>
+        <p>
+            CspBuilder will initially recommend you a very restrictive Content Security Policy that basically
+            disallows
+            any content from loading, but in report-only mode, such as this one:
+        </p>
 
 <pre>
 Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/487710497807711360/; connect-src 'none' ; child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ; media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ; reflected-xss block; referrer origin-when-cross-origin;
 </pre>
 
-            <p>
-                This very restrictive policy usually results in an avalanche of CSP violation reports
-                which CspBuilder happily captures to find out what should be allowed.
-                If you ever need to revert to this empty policy after you've collected some events you can do so by
-                selecting the
-                <strong>Default (empty) policy</strong> in the <a href="#/policy/">Policy generation</a> tab.
+        <p>
+            This very restrictive policy usually results in an avalanche of CSP violation reports
+            which CspBuilder happily captures to find out what should be allowed.
+            If you ever need to revert to this empty policy after you've collected some events you can do so by
+            selecting the
+            <strong>Default (empty) policy</strong> in the <a href="#/policy/">Policy generation</a> tab.
 
-        </div>
-    </div>
-
-    <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-8" id="referrer">
-            <h2>Referrer policy</h2>
-
-            <p>
-                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-referrer">introduces</a> a new
-                directive <code>referrer</code> to instruct browser on the
-                <a href="https://en.wikipedia.org/wiki/HTTP_referer">HTTP Referer</a> behaviour. Details of this
-                directive are described in yet another standard
-                <a href="https://w3c.github.io/webappsec/specs/referrer-policy/">Referrer Policy</a>.
-                The directive allows the following scenarios that are reflected in CspBuilder policy generation engine:
-            </p>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Value</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
-                <tbody>
-
-
-                <tr>
-                    <td><code>none</code>
-                    <td> suppress Referer header completely
-                <tr>
-                    <td><code>none-when-downgrade</code>
-                    <td> suppress the header when moving from
-                        a <a href="https://en.wikipedia.org/wiki/HTTP_Secure">TLS page</a> to a plaintext page
-                <tr>
-                    <td><code>origin</code>
-                    <td> the header will only contain URL's base domain (origin), not the whole
-                        URL
-                <tr>
-                    <td><code>origin-when-cross-origin</code>
-                    <td> same as above, but only if moving to another website;
-                    browser will send full URL if moving within the same origin
-                <tr>
-                    <td><code>unsafe-url</code>
-                    <td> retain the default behaviour of sending full URL in
-                        <code>Referer</code>
-                </tbody>
-            </table>
-
-
-            <p>
-                By default, CspBuilder offers <code>origin-when-cross-origin</code> as default setting because it seems
-                to provide the best balance between privacy and usability.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="reflected-xss">
-            <h2>Reflected XSS</h2>
-
-            <p>
-                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-reflected-xss">introduces</a> a
-                new
-                directive <code>reflected-xss</code> that controls browser's built-in anti-XSS filter. These filters
-                will, with more or less success, detect and block <a
-                    href="https://en.wikipedia.org/wiki/Cross-site_scripting#Reflected_.28non-persistent.29">reflected
-                Cross-Site Scripting attacks</a>.
-                The directive is pretty much a
-                drop-in replacement for the
-                <a href="http://blogs.msdn.com/b/ieinternals/archive/2011/01/31/controlling-the-internet-explorer-xss-filter-with-the-x-xss-protection-http-header.aspx">X-XSS-Protection</a>
-                header.
-                The directive allows the following scenarios that are reflected in CspBuilder policy generation engine:
-            </p>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Value</th>
-                    <th>Description</th>
-                    <th>X-XSS-Protection</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><code>allow</code></td>
-                    <td>disable the XSS filter; usually not recommended, unless you have a specific reason to do so</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td><code>filter</code></td>
-                    <td>discard the offending content and continue rendering the page; alert is logged to the JavaScript
-                        console
-                    </td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td><code>block</code></td>
-                    <td>stop rendering the page when offending content is detected and display a warning to the user
-                    </td>
-                    <td>1;&nbsp;mode=block</td>
-                </tr>
-
-                </tbody>
-            </table>
-
-
-            <p>
-                CspBuilder sets <code>filter</code> as default.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="header-format">
-            <h2>CSP Header Formats</h2>
-
-            <p>
-                Content Security Policy was initially implemented as an experimental feature and various browsers
-                recognized it
-                in different HTTP headers. The standard on is <code>Content-Security-Policy</code> and it's what should
-                be used
-                by default.
-            </p>
-
-            <p>
-                There are also two less known variants <code>X-Content-Security-Policy</code> and </code><code>X-Webkit-CSP</code>
-                that were used by some browsers at some stage of development. Please see
-                <a href="http://caniuse.com/#feat=contentsecuritypolicy">Can I use Content Security Policy 1.0</a> for
-                detailed information.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="plugin-types">
-            <h2>Plugin types</h2>
-
-            <p>
-                CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-plugin-types">introduces</a> a
-                new directive <code>plugin-types</code> that can be used to specify a list of MIME types of plugins
-                allowed to run at this page.
-            </p>
-
-            <p>
-                For example, if your page allows PDF documents to be rendered in-line by 3
-                <small><sup>rd</sup></small>
-                &nbsp;party
-                plugins you might select <code>application/pdf</code> as the value for this directive. For Flash plugins
-                it would be <code>application/x-shockwave-flash</code> etc.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="mixed-content">
-            <h2>Strict mixed content checking</h2>
-
-            <p>
-                W3C <a href="https://w3c.github.io/webappsec/specs/mixedcontent/">Mixed Content</a>
-                introduces a new CSP directive <code>strict-mixed-content-checking</code> that is intended to be
-                used as a catch-all hint on pages that do not set a granular policy for each external resource.
-                If enabled, compliant browsers will reject external content loaded from
-                destinations of less security level that the origin &mdash; for example, images on a TLS page
-                loaded from a non-TLS server.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="experimental">
-            <h2>Experimental features</h2>
-
-            <p>
-                Upcoming <a href="http://www.w3.org/TR/CSP11/">Content Security Policy 1.1</a> introduces a number
-                of new security controls that are being gradually introduced by browsers. Announcing those features
-                in CSP header usually won't have major side effects. You may however expect a potentially large number
-                of warnings in the JavaScript console about unsupported CSP options:</p>
-
-            <p>
-                <code>The 'referrer' Content Security Policy directive has the invalid value "origin-when-cross-origin".
-                    Valid values are "no-referrer", "no-referrer-when-downgrade", "origin", and "unsafe-url".
-                    Note that "origin-when-cross-origin" is not yet supported.</code>
-            </p>
-
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-8" id="inline-eval-detection">
-            <h2>Inline and eval() detection</h2>
-
-            <p>
-                CSP reports are quite confusing when inline code or <code>eval()</code> events are blocked: in both
-                cases there will be just an empty <code>blocked-uri</code> in the report and no other clue to
-                identify which one is really being reported. This was actually
-                <a href="https://github.com/w3c/webappsec/issues/52">reported</a> as an issue to the W3C but as
-                of CSP 1.1 it's how it is.
-            </p>
-
-            <p>
-                The method to work around this limitation is to set <strong>two CSP headers</strong>, both almost
-                identical, with the only differences being the reporting URL and policy on the inline/eval:
-            </p>
-
-            <ol>
-                <li><code>Content-Security-Policy-Report-Only: report-uri
-                    //cspbuilder.info/report/0681611143285408602/noscripteval/; script-src 'unsafe-inline' ...</code>
-                <li><code>Content-Security-Policy-Report-Only: report-uri
-                    //cspbuilder.info/report/0681611143285408602/noscriptinline/; script-src 'unsafe-eval' ...</code>
-            </ol>
-            <p>
-                As result, the browser will report instances of blocked <code>eval()</code> to URL 1 and rule 2 will
-                report instances of blocked
-                inline code to URL 2. CspBuilder takes the last word in the URL and turns it into a <strong>tag</strong>
-                field. This way
-                it can distinguish these events: an empty <code>blocked-uri</code> report with <code>noscripteval</code>
-                means blocked <code>eval()</code>,
-                the other is for blocked inline code.
-            </p>
-
-        </div>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="referrer">
+        <h2>Referrer policy</h2>
+
+        <p>
+            CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-referrer">introduces</a> a new
+            directive <code>referrer</code> to instruct browser on the
+            <a href="https://en.wikipedia.org/wiki/HTTP_referer">HTTP Referer</a> behaviour. Details of this
+            directive are described in yet another standard
+            <a href="https://w3c.github.io/webappsec/specs/referrer-policy/">Referrer Policy</a>.
+            The directive allows the following scenarios that are reflected in CspBuilder policy generation engine:
+        </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            <tr>
+                <td><code>none</code>
+                <td> suppress Referer header completely
+            <tr>
+                <td><code>none-when-downgrade</code>
+                <td> suppress the header when moving from
+                    a <a href="https://en.wikipedia.org/wiki/HTTP_Secure">TLS page</a> to a plaintext page
+            <tr>
+                <td><code>origin</code>
+                <td> the header will only contain URL's base domain (origin), not the whole
+                    URL
+            <tr>
+                <td><code>origin-when-cross-origin</code>
+                <td> same as above, but only if moving to another website;
+                    browser will send full URL if moving within the same origin
+            <tr>
+                <td><code>unsafe-url</code>
+                <td> retain the default behaviour of sending full URL in
+                    <code>Referer</code>
+            </tbody>
+        </table>
+
+
+        <p>
+            By default, CspBuilder offers <code>origin-when-cross-origin</code> as default setting because it seems
+            to provide the best balance between privacy and usability.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="reflected-xss">
+        <h2>Reflected XSS</h2>
+
+        <p>
+            CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-reflected-xss">introduces</a> a
+            new
+            directive <code>reflected-xss</code> that controls browser's built-in anti-XSS filter. These filters
+            will, with more or less success, detect and block <a
+                href="https://en.wikipedia.org/wiki/Cross-site_scripting#Reflected_.28non-persistent.29">reflected
+            Cross-Site Scripting attacks</a>.
+            The directive is pretty much a
+            drop-in replacement for the
+            <a href="http://blogs.msdn.com/b/ieinternals/archive/2011/01/31/controlling-the-internet-explorer-xss-filter-with-the-x-xss-protection-http-header.aspx">X-XSS-Protection</a>
+            header.
+            The directive allows the following scenarios that are reflected in CspBuilder policy generation engine:
+        </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Value</th>
+                <th>Description</th>
+                <th>X-XSS-Protection</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>allow</code></td>
+                <td>disable the XSS filter; usually not recommended, unless you have a specific reason to do so</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><code>filter</code></td>
+                <td>discard the offending content and continue rendering the page; alert is logged to the JavaScript
+                    console
+                </td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><code>block</code></td>
+                <td>stop rendering the page when offending content is detected and display a warning to the user
+                </td>
+                <td>1;&nbsp;mode=block</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <p>
+            CspBuilder sets <code>filter</code> as default.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="header-format">
+        <h2>CSP Header Formats</h2>
+
+        <p>
+            Content Security Policy was initially implemented as an experimental feature and various browsers
+            recognized it
+            in different HTTP headers. The standard on is <code>Content-Security-Policy</code> and it's what should
+            be used
+            by default.
+        </p>
+
+        <p>
+            There are also two less known variants <code>X-Content-Security-Policy</code> and </code>
+            <code>X-Webkit-CSP</code>
+            that were used by some browsers at some stage of development. Please see
+            <a href="http://caniuse.com/#feat=contentsecuritypolicy">Can I use Content Security Policy 1.0</a> for
+            detailed information.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="plugin-types">
+        <h2>Plugin types</h2>
+
+        <p>
+            CSP standard version 1.1 <a href="http://www.w3.org/TR/CSP11/#directive-plugin-types">introduces</a> a
+            new directive <code>plugin-types</code> that can be used to specify a list of MIME types of plugins
+            allowed to run at this page.
+        </p>
+
+        <p>
+            For example, if your page allows PDF documents to be rendered in-line by 3
+            <small><sup>rd</sup></small>
+            &nbsp;party
+            plugins you might select <code>application/pdf</code> as the value for this directive. For Flash plugins
+            it would be <code>application/x-shockwave-flash</code> etc.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="mixed-content">
+        <h2>Strict mixed content checking</h2>
+
+        <p>
+            W3C <a href="https://w3c.github.io/webappsec/specs/mixedcontent/">Mixed Content</a>
+            introduces a new CSP directive <code>strict-mixed-content-checking</code> that is intended to be
+            used as a catch-all hint on pages that do not set a granular policy for each external resource.
+            If enabled, compliant browsers will reject external content loaded from
+            destinations of less security level that the origin &mdash; for example, images on a TLS page
+            loaded from a non-TLS server.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="experimental">
+        <h2>Experimental features</h2>
+
+        <p>
+            Upcoming <a href="http://www.w3.org/TR/CSP11/">Content Security Policy 1.1</a> introduces a number
+            of new security controls that are being gradually introduced by browsers. Announcing those features
+            in CSP header usually won't have major side effects. You may however expect a potentially large number
+            of warnings in the JavaScript console about unsupported CSP options:</p>
+
+        <p>
+            <code>The 'referrer' Content Security Policy directive has the invalid value "origin-when-cross-origin".
+                Valid values are "no-referrer", "no-referrer-when-downgrade", "origin", and "unsafe-url".
+                Note that "origin-when-cross-origin" is not yet supported.</code>
+        </p>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="inline-eval-detection">
+        <h2>Inline and eval() detection</h2>
+
+        <p>
+            CSP reports are quite confusing when inline code or <code>eval()</code> events are blocked: in both
+            cases there will be just an empty <code>blocked-uri</code> in the report and no other clue to
+            identify which one is really being reported. This was actually
+            <a href="https://github.com/w3c/webappsec/issues/52">reported</a> as an issue to the W3C but as
+            of CSP 1.1 it's how it is.
+        </p>
+
+        <p>
+            The method to work around this limitation is to set <strong>two CSP headers</strong>, both almost
+            identical, with the only differences being the reporting URL and policy on the inline/eval:
+        </p>
+
+        <ol>
+            <li><code>Content-Security-Policy-Report-Only: report-uri
+                //cspbuilder.info/report/0681611143285408602/noscripteval/; script-src 'unsafe-inline' ...</code>
+            <li><code>Content-Security-Policy-Report-Only: report-uri
+                //cspbuilder.info/report/0681611143285408602/noscriptinline/; script-src 'unsafe-eval' ...</code>
+        </ol>
+        <p>
+            As result, the browser will report instances of blocked <code>eval()</code> to URL 1 and rule 2 will
+            report instances of blocked
+            inline code to URL 2. CspBuilder takes the last word in the URL and turns it into a <strong>tag</strong>
+            field. This way
+            it can distinguish these events: an empty <code>blocked-uri</code> report with <code>noscripteval</code>
+            means blocked <code>eval()</code>,
+            the other is for blocked inline code.
+        </p>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-8" id="tos">
+        <h2>What are the terms of the service?</h2>
+
+        <p>
+            Currently CspBuilder is an free service available to everyone in the web security
+            community. As it's still experimental and sometimes coping with large bursts of
+            reports from new websites joining in, the database may be cleared at any time (I will
+            try to preserve your known list records and other settings though).
+        </p>
+
+        <p>
+            There's almost no authentication &mdash; so you should perhaps assume that anyone can view
+            reports from your website if they know your "page identifier" (which is not very hard to find
+            taking into account it's announced in the CSP header). If there's such need, some kind of
+            access control will be added to the analytics console.
+        </p>
+
+        <p>
+            The reports collector API is currently filtering received items to prevent clogging the database
+            with continuous streams of repeated, identical records. Reports from sources you have previously
+            approved or rejected in the console are <em>not saved</em> to the database, so you will only see
+            only unclassified reports there. Reports older than 3 days are discarded.
+        </p>
+
+        <p>
+            There's also a simple quota &mdash; when number of reports for single identifier exceeds 1 million
+            the API will still accept them, but they will not be saved to the database. Remember that you can easily
+            reduce the number of reports in database by simply accepting or rejecting the ones that come most
+            frequently.
+            Each time you do this, the matching old reports get reclassified and make space for the new, yet
+            unclassified
+            ones.
+        </p>
+    </div>
+</div>
 </div>
