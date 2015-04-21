@@ -25,8 +25,8 @@
             <form class="form-inline">
                 <div class="form-group">
                     <label for="custom-directive">Directive</label>
-                    <select id="custom-directive" required ng-model="custom.directive">
-                        <option value="">Select</option>
+                    <select id="custom-directive" ng-model="custom.directive">
+                    <option value="">Select</option>
                         <option ng-repeat="opt in csp_directives" value="{{opt}}">{{opt}}</option>
                     </select>
                 </div>
@@ -38,8 +38,8 @@
                 </div>
                 <div class="form-group">
                     <label for="custom-action">Action</label>
-                    <select id="custom-action" required ng-model="custom.action">
-                        <option value="accept" selected>accept</option>
+                    <select id="custom-action" ng-model="custom.action">
+                    <option value="accept" selected>accept</option>
                         <option value="reject">reject</option>
                     </select>
                 </div>
