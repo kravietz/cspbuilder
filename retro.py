@@ -99,20 +99,17 @@ class Reader(BaseFeedReader):
             # check the new classification, with the KL change applied
             decision = kl.decision(owner_id, report['csp-report'])
 
-            # check if the classifier returns a "known" answer and apply if so
-            if decision['action'] != 'unknown':
-                if DEBUG:
-                    try:
-                        print('==> change {} to {}'.format(report['review'], decision['action']))
-                        print('decision=', decision)
-                        print('report=', report)
-                    except KeyError as e:
-                        print('EXCEPTION document lacks key KL fields', e, report)
+            # apply the answer
+            if DEBUG:
+                # we use report.get() because the original report might have had no review before
+                print('==> change {} to {}'.format(report.get('review'), decision['action']))
+                print('decision=', decision)
+                print('report=', report)
 
-                review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
-                report['review'] = review
+            review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
+            report['review'] = review
 
-                self.db.save(report, batch=True)
+            self.db.save(report, batch=True)
 
     def on_close(self):
         global last_seq
