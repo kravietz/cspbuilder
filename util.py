@@ -104,13 +104,13 @@ def design_backup(db):
     ddoc = db.get('_design/csp')
     del ddoc['_rev']
 
-    filename = 'etc/design.json'
+    filename = 'etc/design.backup.json'
 
     with open(filename, 'w') as file:
         json.dump(ddoc, file)
 
 
-def design_restore(db, filename='etc/design.json'):
+def design_restore(db, filename='etc/design.backup.json'):
     with open(filename) as file:
         doc = json.load(file)
         db.save(doc)
