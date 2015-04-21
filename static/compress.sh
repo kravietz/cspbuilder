@@ -7,7 +7,7 @@ for f in $(ls controllers/*.js | egrep -v 'min.js$' | xargs); do
         n=$(dirname $f)/$(basename $f .js).min.js
         python -m jsmin $f > $n
 done
-find . | egrep '\.(html|map|svg|ttf|css|js)$' | xargs gzip -9kf 
+find . | egrep '\.(html|map|svg|ttf|css|js|woff|woff2)$' | xargs gzip -9kf 
 cp logo.png apple-touch-icon.png
 cp apple-touch-icon.png touch-icon-ipad.png
 cp apple-touch-icon.png touch-icon-iphone-retina.png
