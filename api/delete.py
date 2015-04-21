@@ -19,9 +19,10 @@ def delete_all_reports_task(owner_id, db, verbose=False):
 
     lv.more_results = True
     lv.processed = 0
+    lv.deleted = 0
 
     while lv.more_results:
-        lv.deleted = 0
+
         lv.docs = []
         lv.i = 0
 
