@@ -66,14 +66,14 @@ class Reader(BaseFeedReader):
         if DEBUG:
             print(doc)
 
-        # update Known List with the new entry
+        # update local copy of Known List with the new entry
         try:
             review_action = doc['review_action']
             review_type = doc['review_type']
             review_source = doc['review_source']
             owner_id = doc['owner_id']
         except KeyError as e:
-            print('EXCEPTION document lacks key KL fields', e, doc)
+            print('EXCEPTION new KL entry lacks key KL fields', e, doc)
             return
 
         # update local classifier instance with the record newly received
