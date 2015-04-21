@@ -168,6 +168,7 @@ function empty_approved_list() {
     // { 'script-src': { 'none': true }... }
     var approved_list = {};
     // report-uri and default-src will be added automatically
+    // TODO: list of CSP directives should be defined globally
     var types = ['connect-src', 'child-src', 'font-src', 'form-action', 'frame-ancestors', 'frame-src',
         'img-src', 'media-src', 'object-src', 'script-src', 'style-src'];
     types.forEach(function (type) {
