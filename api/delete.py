@@ -20,19 +20,24 @@ def delete_all_reports_task(owner_id, db, verbose=False):
 
     # cycle through all reports for this user
     for row in db.query('csp/1200_all', key=owner_id, include_docs=True):
+
         # skip non CSP report entries - such as KL entries
         if 'csp-report' not in row['doc']:
             continue
+
         # copy the document's crucial parts (id, rev), adding the _deleted flag
         lv.doc = {'_id': row['doc']['_id'], '_rev': row['doc']['_rev'], '_deleted': True}
         lv.docs.append(lv.doc)
         lv.i += 1
         lv.total += 1
 
+        if verbose:
+            print('.', end='')
+
         # process in batches to prevent long run-time and memory hogging
-        if lv.i > 500:
+        if lv.i > 200:
             if verbose:
-                print('delete_all_reports_thread deleting {}, total {}', lv.i, lv.total)
+                print('\ndelete_all_reports_thread deleting {}, total {}', lv.i, lv.total)
             db.save_bulk(lv.docs)
             lv.i = 0
             lv.docs = []
