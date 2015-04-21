@@ -65,8 +65,8 @@ def kl_backup(db):
     print('KL backup saved to {} with {} entries'.format(filename, len(known_list)))
 
 
-def purge(db, id):
-    delete_all_reports_task(id, db)
+def purge(db, owner_id):
+    delete_all_reports_task(owner_id, db, True)
 
 
 def dump(db, num=1000):
