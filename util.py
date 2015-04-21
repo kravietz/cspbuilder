@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from api.delete import delete_all_reports_task
 
 try:
     import ujson as json
@@ -62,6 +63,10 @@ def kl_backup(db):
         json.dump(known_list, file)
 
     print('KL backup saved to {} with {} entries'.format(filename, len(known_list)))
+
+
+def purge(db, id):
+    delete_all_reports_task(id, db)
 
 
 def dump(db, num=1000):
@@ -148,6 +153,7 @@ Commands:
 
     clean: clean stale alerts
     init: reset database (preserving known list and design doc)
+    purge: delete all reports for given id
     dbackup: backup design doc
     drestore: restore design doc
     kbackup: backup known list
@@ -176,6 +182,13 @@ if __name__ == '__main__':
 
     elif cmd == 'kbackup':
         kl_backup(database)
+
+    elif cmd == 'purge':
+        if len(sys.argv) > 2:
+            purge(database, sys.argv[2])
+        else:
+            print('usage: purge ID')
+            sys.exit(1)
 
     elif cmd == 'dbackup':
         design_backup(database)
