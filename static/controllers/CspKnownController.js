@@ -8,6 +8,10 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$root
 
         console.log('CspKnownController owner_id=' + $rootScope.owner_id);
 
+        // TODO: should use global list of directives
+        $scope.csp_directives = ['connect-src', 'child-src', 'font-src', 'form-action', 'frame-ancestors', 'frame-src',
+            'img-src', 'media-src', 'object-src', 'script-src', 'style-src'];
+
         $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.db.query("csp", "1000_known_list",
             {
@@ -31,6 +35,18 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$root
                 $scope.error = resp;
             });
         mixpanel.track("View known");
+
+        $scope.kl_save_custom = function (custom) {
+            var doc = $scope.db.newDoc({
+                'owner_id': $scope.owner_id,
+                'review_type': custom.directive,
+                'review_source': custom.origin,
+                'review_action': custom.action,
+                'user_agent': navigator.userAgent,
+                'timestamp': Date()
+            });
+            doc.save();
+        };
 
         $scope.delete_kl_entry = function (index) {
             console.log('delete_kl_entry ' + index);

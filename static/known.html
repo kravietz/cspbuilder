@@ -18,10 +18,41 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="custom-directive">Directive</label>
+                    <select id="custom-directive" required ng-model="custom.directive">
+                        <option value="">Select</option>
+                        <option ng-repeat="opt in csp_directives" value="{{opt}}">{{opt}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="custom-origin">Origin</label>
+                    <input type="text" class="form-control" id="custom-origin" ng-model="custom.origin"
+                           title="Enter custom CSP origin, such as SHA256 hash of inline script (see section 7.15.2 of CSP 1.1)"
+                           placeholder="'sha256-qznLcsROx4GACP2dm0UCKCzCG+HiZ1guq6ZZDob/Tng='">
+                </div>
+                <div class="form-group">
+                    <label for="custom-action">Action</label>
+                    <select id="custom-action" required ng-model="custom.action">
+                        <option value="accept" selected>accept</option>
+                        <option value="reject">reject</option>
+                    </select>
+                </div>
+                <button type="submit" ng-click="kl_save_custom(custom)" class="btn btn-default">Add</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
             <table class="table table-condensed">
-            <thead>
+                <thead>
                 <tr>
 
                     <th>Known type</th>
@@ -44,3 +75,4 @@
             </table>
         </div>
     </div>
+</div>
