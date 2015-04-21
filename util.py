@@ -13,6 +13,7 @@ import pycouchdb
 SERVER = 'http://localhost:5984/'
 DB = 'csp'
 CLEANUP_VIEW = 'csp/1910_stale'
+KL_VIEW = 'csp/1000_known_list'
 
 
 def clean(db, debug=False):
@@ -52,7 +53,7 @@ def kl_backup(db):
     known_list = []
 
     # dump known list
-    for row in db.query('csp/1000_known_list'):
+    for row in db.query(KL_VIEW):
         doc = db.get(row['id'])
         del doc['_rev']
         known_list.append(doc)
