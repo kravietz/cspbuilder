@@ -88,12 +88,12 @@ class Reader(BaseFeedReader):
                                     startkey=[owner_id, review_type],
                                     endkey=[owner_id, review_type, {}]):
 
-            if not 'doc' in result:
+            if 'doc' not in result:
                 continue
 
             report = result['doc']
 
-            if not 'csp-report' in report:
+            if 'csp-report' not in report:
                 continue
 
             # check the new classification, with the KL change applied
