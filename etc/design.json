@@ -1,6 +1,5 @@
 {
     "_id": "_design/csp",
-    "_rev": "3-af19d4807115c58b252a8ce1e5c23d1c",
     "language": "javascript",
     "filters": {
         "unclassified": "function(doc, req) { if(doc['csp-report'] && !doc.review) { return true; } else { return false; } }",
