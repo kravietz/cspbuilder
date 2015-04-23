@@ -16,12 +16,12 @@ def _base_uri_match(a, b):
     :param b: second URL
     :return: True or False
     """
-    r = re.match(r'^(https?://[^?#/]+)', a)
+    r = re.match(r"^(https?://[^?#/]+)", a)
     if not r:
         return False
     a = r.group(1)
 
-    r = re.match(r'^(https?://[^?#/]+)', b)
+    r = re.match(r"^(https?://[^?#/]+)", b)
     if not r:
         return False
     b = r.group(1)
@@ -98,7 +98,7 @@ class KnownList(object):
                 source_types += 1
                 for _ in self.known_list[owner_id][source_type].keys():
                     origins += 1
-        return '{} owner_ids, {} source_types, {} origins'.format(owner_ids, source_types, origins)
+        return '<KnownList object: {} owner_ids, {} source_types, {} origins>'.format(owner_ids, source_types, origins)
 
     def add(self, rule_id, owner_id, rtype, origin, action):
         """
@@ -129,12 +129,14 @@ class KnownList(object):
         if self.auto_update:
             self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
-    def __init__(self, db, minutes=1, auto_update=True):
+    def __init__(self, db, interval=1, auto_update=True, verbose=False):
         self.auto_update = auto_update
         if self.auto_update:
-            self.update_interval = datetime.timedelta(minutes=minutes)
+            self.update_interval = datetime.timedelta(seconds=interval)
         self.db = db
+        self.verbose = verbose
         self.load()
+        self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
     def decision(self, owner_id, report):
         """
@@ -149,6 +151,8 @@ class KnownList(object):
         # refresh the local KL copy if auto update interval has expired
         if self.auto_update and datetime.datetime.now(datetime.timezone.utc) - self.last_update > self.update_interval:
             self.load()
+            if self.verbose:
+                print('Self-updated', self)
 
         blocked_uri = report['blocked-uri']
         # effective-directive is CSP 1.1 http://www.w3.org/TR/CSP11/#violation-report-effective-directive

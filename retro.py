@@ -10,28 +10,48 @@ import sys
 import signal
 
 from api.known import KnownList
+from api.utils import get_reports_db
 import os
 import pycouchdb
+from pycouchdb.feedreader import BaseFeedReader
 
 
 __author__ = 'Paweł Krawczyk'
 
-database = pycouchdb.Server().database('csp')
+server = pycouchdb.Server()
 
 DEBUG = False
+if 'debug' in sys.argv:
+    DEBUG = True
 
-kl = KnownList(database, auto_update=False)
+# this is where Known List is stored
+DB_NAME = 'csp'
 
-from pycouchdb.feedreader import BaseFeedReader
+state_table = {}
 
-last_seq = 0
-SEQ_FILE = os.path.join(os.getcwd(), 'seq_retro.txt')
+kl = KnownList(server.database(DB_NAME), auto_update=False)
+if DEBUG:
+    print(kl)
+
+# read CouchDB change feed 'seq' number to avoid reading through
+# already processed changes in case of re-run
+STATE_FILE = os.path.join(os.getcwd(), '{}.state.dat'.format(os.path.basename(__name__)))
+from _pickle import UnpicklingError
+
+try:
+    with open(STATE_FILE, 'rb') as ff:
+        state_table = pickle.load(ff)
+except (IOError, UnpicklingError) as e:
+    print('Warning: cannot restore state table', e)
+    state_table = {}
 
 
+# save state table on close
 def sighandler(signum, frame):
-    print('Killed by signal', signum, 'saving seq', last_seq)
-    with open(SEQ_FILE, 'wb') as f:
-        pickle.dump(last_seq, f)
+    global state_table
+    print('Killed by signal', signum, 'saving state', last_seq)
+    with open(STATE_FILE, 'wb') as f:
+        pickle.dump(state_table, f)
     sys.exit(0)
 
 
@@ -39,41 +59,52 @@ signal.signal(signal.SIGTERM, sighandler)
 signal.signal(signal.SIGINT, sighandler)
 
 
-class Reader(BaseFeedReader):
+class DatabaseFeedReader(BaseFeedReader):
     """
     Class for processing Known List changes.
     """
 
+    def on_close(self):
+        global state_table
+        with open(STATE_FILE, 'wb') as f:
+            pickle.dump(state_table, f)
+
     def on_message(self, message):
-        global DEBUG
+        global DEBUG, DB_NAME, state_table, kl
+
+        # save the current seq in state table
+        if 'last_seq' in message:
+            state_table[DB_NAME]['last_seq'] = message['last_seq']
+            return
+        if 'seq' in message:
+            state_table[DB_NAME]['last_seq'] = message['seq']
 
         if DEBUG:
-            print(message)
+            print('Received new msg=', message)
 
-        if 'seq' in message:
-            global last_seq
-            last_seq = message['seq']
-
+        # discard irrelevant messages
         if 'id' not in message:
             return
 
+        # TODO: these events *might* be relevant
         if 'deleted' in message:
             return
 
+        # retrieve the new KL entry
         doc_id = message['id']
         doc = self.db.get(doc_id)
 
         if DEBUG:
             print(doc)
 
-        # update local copy of Known List with the new entry
+        # check if the new entry is a complete KL record
         try:
             review_action = doc['review_action']
             review_type = doc['review_type']
             review_source = doc['review_source']
             owner_id = doc['owner_id']
         except KeyError as e:
-            print('EXCEPTION new KL entry lacks key KL fields', e, doc)
+            print('EXCEPTION new KL entry found, but seems to be incomplete', e, doc)
             return
 
         # update local classifier instance with the record newly received
@@ -84,9 +115,20 @@ class Reader(BaseFeedReader):
         # view returns ["732349358731880803", "img-src", "https://assets.example.com"]
         # startkey is [owner_id, review_type] because it may be a wildcard
         # so it must be matched per report
-        for result in self.db.query('csp/1300_unknown', include_docs=True,
-                                    startkey=[owner_id, review_type],
-                                    endkey=[owner_id, review_type, {}]):
+        if DEBUG:
+            print('\tReclassifying reports in database {}'.format(get_reports_db(owner_id)))
+        try:
+            reports_db = server.database(get_reports_db(owner_id))
+        except pycouchdb.exceptions.NotFound:
+            # this may happen if a rule was added for owner_id that has no reports, just ignore
+            print('\t\tNo reports for {}, skipping'.format(owner_id))
+            return
+        for result in reports_db.query('csp/1300_unknown', include_docs=True,
+                                       startkey=[owner_id, review_type],
+                                       endkey=[owner_id, review_type, {}]):
+
+            if DEBUG:
+                print('\t\tProcessing report', result)
 
             if 'doc' not in result:
                 continue
@@ -99,43 +141,45 @@ class Reader(BaseFeedReader):
             # check the new classification, with the KL change applied
             decision = kl.decision(owner_id, report['csp-report'])
 
-            # apply the answer
             if DEBUG:
                 # we use report.get() because the original report might have had no review before
-                print('==> change {} to {}'.format(report.get('review'), decision['action']))
-                print('decision=', decision)
-                print('report=', report)
+                print('\t\tchange {} ==> {}'.format(report.get('review'), decision['action']))
+                print('\t\tdecision=', decision)
+                print('\t\treport=', report)
 
+            # apply the classifier decision to the currently processed report
             review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
             report['review'] = review
 
-            self.db.save(report, batch=True)
-
-    def on_close(self):
-        global last_seq
-        with open(SEQ_FILE, 'wb') as f:
-            pickle.dump(last_seq, f)
+            # save classified report
+            reports_db.save(report, batch=True)
 
 
-# start the main loop of the Classifier
 if __name__ == '__main__':
 
-    if len(sys.argv) > 1 and sys.argv[1] == 'debug':
-        DEBUG = True
+    # retro only tracks changes the 'csp' database as it's where Known List is stored
 
-    # read CouchDB change feed 'seq' number to avoid reading through
-    # already processed changes in case of re-run
-    try:
-        with open(SEQ_FILE, 'rb') as ff:
-            last_seq = pickle.load(ff)
-    except IOError:
-        seq = 0
+    db = server.database(DB_NAME)
 
-    print('Starting with seq', last_seq)
+    if DEBUG:
+        print('Starting the {} loop in database "{}"'.format(__file__, DB_NAME))
 
-    # actual loop
     while True:
+
+        # check if states table entry is present for this db
+        if DB_NAME not in state_table:
+            state_table[DB_NAME] = {}
+        if 'last_seq' not in state_table[DB_NAME]:
+            state_table[DB_NAME]['last_seq'] = 0
+
+        # restore the last_seq from state table
+        last_seq = state_table[DB_NAME]['last_seq']
+
+        # process updates in each database
+        # the database object is passed automatically
+        # by changes_feed() to the callback
         try:
-            database.changes_feed(Reader(), filter='csp/known_list', since=last_seq)
+            db.changes_feed(DatabaseFeedReader(), filter='csp/known_list', since=last_seq)
+        # ValueError means the poll timed out and/or server returned empty line, just skip over it
         except ValueError:
             pass

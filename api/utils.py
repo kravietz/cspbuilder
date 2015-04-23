@@ -1,15 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import datetime
-import random
+import string
 
 from flask import request
-
 from netaddr import IPAddress, IPNetwork
 from werkzeug.exceptions import BadRequest
 
 
 __author__ = 'Paweł Krawczyk'
+
+REPORTS_DB_PREFIX = 'reports'
+
+
+def get_reports_db(owner_id):
+    """
+    Return string identifying database name that stores alerts for specified identifier.
+    :param owner_id:
+    :return:
+    """
+    return '{}_{}'.format(REPORTS_DB_PREFIX, owner_id)
 
 
 def str_in_policy(p, t, s):
@@ -27,13 +36,44 @@ def str_in_policy(p, t, s):
     return False
 
 
-class DocIdGen(object):
-    def __init__(self):
-        self.epoch = datetime.datetime.utcfromtimestamp(0)
+BASE_ALPH = tuple(string.ascii_letters + string.digits)
+BASE_DICT = dict((c, v) for v, c in enumerate(BASE_ALPH))
+BASE_LEN = len(BASE_ALPH)
 
-    def gen_id(self, owner_id):
-        recv_time = '%020f' % (datetime.datetime.now() - self.epoch).total_seconds()
-        return '{}{}{}'.format(owner_id, recv_time.replace('.', ''), random.randint(0, 1000))
+
+def b62e(num):
+    if not num:
+        return BASE_ALPH[0]
+
+    encoding = ""
+    while num:
+        num, rem = divmod(num, BASE_LEN)
+        encoding = BASE_ALPH[rem] + encoding
+    return encoding
+
+
+def b62d(data):
+    num = 0
+    for char in data:
+        num = num * BASE_LEN + BASE_DICT[char]
+    return num
+
+
+class DocIdGen(object):
+    """
+    Textual document identifier generator
+    """
+
+    def __init__(self, db):
+        self.update_seq = db.config()['update_seq']
+
+    def new_id(self):
+        """
+        Generate new identifier
+        :return:
+        """
+        self.update_seq += 1
+        return b62e(self.update_seq)
 
 
 class ClientResolver(object):

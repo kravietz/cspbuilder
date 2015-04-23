@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
+
 import re
 from api.auth import login_response, verify_csrf_token
 from api.delete import delete_all_reports_task
-from api.quota import Quota
-from api.utils import DocIdGen, ClientResolver, on_json_loading_failed
+from api.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
+
 
 __author__ = 'Paweł Krawczyk'
 
@@ -25,39 +27,39 @@ config = configparser.ConfigParser()
 config.read(('collector.ini', os.path.join('..', 'collector.ini')))
 
 ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
+DESIGN_DOCUMENT = json.load(open(os.path.join('etc', 'design.json')))
+
+DEBUG = False
+if 'debug' in sys.argv:
+    DEBUG = True
 
 app = Flask(__name__)
 
-if __name__ == '__main__':
-    # run on test database if started from command line
-    DB = 'csp'
-else:
-    # run on production database if started by uwsgi
-    DB = 'csp'
+if __name__ != '__main__':
     # Flask is considered unsupported by NewRelic http://goo.gl/gP26Dj
     import newrelic.agent
-
     newrelic.agent.initialize('newrelic.ini')
 
 # initialise database structures if necessary
 server = pycouchdb.Server()
-try:
-    db = server.database(DB)
-except pycouchdb.exceptions.NotFound:
-    db = server.create(DB)
 
-try:
-    db.get('_design/csp')
-except pycouchdb.exceptions.NotFound:
-    with open('etc/design.json') as file:
-        doc = json.load(file)
-        db.save(doc)
+# the 'csp' database is the default database for configuration data etc
+DEFAULT_DB = 'csp'
 
-# initialise document id generator
-doc_id_generator = DocIdGen()
+state_table = {}
+
+# create if not there (first run)
+try:
+    default_db = server.database(DEFAULT_DB)
+except pycouchdb.exceptions.NotFound:
+    if DEBUG:
+        print('Database was uninitialised, doing it now')
+    default_db = server.create(DEFAULT_DB)
+    # TODO: maintain different design documents for 'csp' and report databases
+    default_db.save(DESIGN_DOCUMENT)
 
 # initialise quota checker
-quota_checker = Quota(db)
+# TODO: reimplement quota to support new database layout
 
 # initialise client IP and geoIP resolver
 cr = ClientResolver()
@@ -87,7 +89,15 @@ def delete_report(owner_id, report_id):
     if not verify_csrf_token(request):
         return '', 400, []
 
-    report = db.get(report_id)
+    try:
+        db = server.database(get_reports_db(owner_id))
+    except pycouchdb.exceptions.NotFound:
+        return 'No reports', 404, []
+
+    try:
+        report = db.get(report_id)
+    except pycouchdb.exceptions.NotFound:
+        return 'No such report', 404, []
 
     if 'owner_id' in report and report['owner_id'] == owner_id:
         db.delete(report_id)
@@ -123,6 +133,11 @@ def delete_all_reports(owner_id):
     if not verify_csrf_token(request):
         return '', 400, []
 
+    try:
+        db = server.database(get_reports_db(owner_id))
+    except pycouchdb.exceptions.NotFound:
+        return 'No reports', 404, []
+
     # this take a long time so push into a separate thread
     t = threading.Thread(target=delete_all_reports_task, args=(owner_id, db,), daemon=True)
 
@@ -134,6 +149,7 @@ def delete_all_reports(owner_id):
 
 
 TAG_R = re.compile(r'^[a-zA-Z0-9-]+$')
+OWNER_ID_R = re.compile(r'^[0-9]{,20}$')
 
 @app.route('/report/<owner_id>/<tag>/', methods=['POST'])
 @app.route('/report/<owner_id>/', methods=['POST'])
@@ -148,37 +164,80 @@ def read_csp_report(owner_id, tag=None):
     """
     start_time = datetime.datetime.now(datetime.timezone.utc)
 
+    # ### VALIDATION ###
+
     # silently discard the report if quota is exceeded for this id
-    if quota_checker.check(owner_id):
-        return '', 204, []
+    # TODO: reimplement with new db layout
+    # if quota_checker.check(owner_id):
+    #    return '', 204, []
 
     # sanity checks
     mime_type = request.headers.get('Content-Type')
     if mime_type not in ALLOWED_CONTENT_TYPES:
-        return 'Invalid content type\n', 400
+        err = 'Invalid content type'
+        print(err, mime_type)
+        return '{}\n'.format(err), 400
+
+    # validate owner id
+    if not OWNER_ID_R.match(owner_id):
+        err = 'Invalid owner id'
+        print(err, owner_id)
+        return '{}\n'.format(err), 400
 
     # validate sanity of tags
     if tag and not TAG_R.match(tag):
-        return 'Invalid tag\n', 400
+        err = 'Invalid tag'
+        print(err, tag)
+        return '{}\n'.format(err), 400
 
     # replace Flask original JSON error handler with our own (api/utils.py)
     request.on_json_loading_failed = on_json_loading_failed
-    # try to decode JSON from input
+
+    # ### START BUILDING OUTPUT ###
+
+    # try to decode JSON from input, will throw error in syntax invalid
     output = request.get_json(force=True)
 
     # if we got here, the JSON was syntactically correct
-    # perform semantic sanity checks on the input
+    # perform semantic sanity checks on the unserialized input
     if 'csp-report' not in output:
-        return 'CSP report missing', 400
+        err = 'CSP report missing'
+        print(err, output)
+        return '{}\n'.format(err), 400
+
     for item in ['blocked-uri', 'document-uri', 'violated-directive']:
         if item not in output['csp-report']:
-            return 'CSP report incomplete\n', 400
+            err = 'CSP report incomplete'
+            print(err, item, output['csp-report'])
+            return '{}\n'.format(err), 400
 
     output['owner_id'] = owner_id
 
+    # check if database for this owner_id exists
+    # create & initialize if not
+    try:
+        db = server.database(get_reports_db(owner_id))
+    except pycouchdb.exceptions.NotFound:
+        # noinspection PyBroadException
+        try:
+            db = server.create(get_reports_db(owner_id))
+            db.save(DESIGN_DOCUMENT)
+        except Exception as e:
+            err = 'Could not initialise database'
+            print(err, e)
+            return '{}\n'.format(err), 500
+
     # add document identifier; this is important for performance
     # otherwise py-couchdb will add a random one
-    output['_id'] = doc_id_generator.gen_id(owner_id)
+    if owner_id not in state_table:
+        state_table[owner_id] = {}
+
+    if 'doc_id' not in state_table[owner_id]:
+        state_table[owner_id]['doc_id'] = DocIdGen(db)
+
+    # assign document identifier
+    doc_id_gen = state_table[owner_id]['doc_id']
+    output['_id'] = doc_id_gen.new_id()
 
     # fill-in metadata for current report from HTTP headers
     meta = {}
@@ -216,10 +275,14 @@ def read_csp_report(owner_id, tag=None):
     if output['csp-report']['blocked-uri'].startswith('data:'):
         output['csp-report']['blocked-uri'] = output['csp-report']['blocked-uri'].split(',')[0]
 
+    if DEBUG:
+        print(output)
+
     db.save(output, batch=True)
 
     return '', 204, []
 
 
 if __name__ == '__main__':
+    print('API starting, debugging=', DEBUG)
     app.run(host='0.0.0.0', debug=True, port=8088)
