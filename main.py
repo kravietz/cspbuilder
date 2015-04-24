@@ -58,9 +58,6 @@ except pycouchdb.exceptions.NotFound:
     # TODO: maintain different design documents for 'csp' and report databases
     default_db.save(DESIGN_DOCUMENT)
 
-# initialise quota checker
-# TODO: reimplement quota to support new database layout
-
 # initialise client IP and geoIP resolver
 cr = ClientResolver()
 
@@ -165,11 +162,6 @@ def read_csp_report(owner_id, tag=None):
     start_time = datetime.datetime.now(datetime.timezone.utc)
 
     # ### VALIDATION ###
-
-    # silently discard the report if quota is exceeded for this id
-    # TODO: reimplement with new db layout
-    # if quota_checker.check(owner_id):
-    #    return '', 204, []
 
     # sanity checks
     mime_type = request.headers.get('Content-Type')
