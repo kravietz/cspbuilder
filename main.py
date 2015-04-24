@@ -122,7 +122,7 @@ def login():
     return login_response(owner_id)
 
 
-@app.route('/api/<owner_id>/all-reports', methods=['DELETE'])
+@app.route('/api/<owner_id>/all', methods=['DELETE'])
 def delete_all_reports(owner_id):
     start_time = datetime.datetime.now(datetime.timezone.utc)
     client_ip = cr.get_ip(request)
