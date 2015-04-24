@@ -8,12 +8,13 @@ reclassify reports that may be impacted by the changes.
 import pickle
 import sys
 import signal
+import os
+
+import pycouchdb
+from pycouchdb.feedreader import BaseFeedReader
 
 from api.known import KnownList
 from api.utils import get_reports_db
-import os
-import pycouchdb
-from pycouchdb.feedreader import BaseFeedReader
 
 
 __author__ = 'Paweł Krawczyk'
@@ -123,7 +124,7 @@ class DatabaseFeedReader(BaseFeedReader):
             # this may happen if a rule was added for owner_id that has no reports, just ignore
             print('\t\tNo reports for {}, skipping'.format(owner_id))
             return
-        for result in reports_db.query('csp/1300_unknown', include_docs=True,
+        for result in reports_db.query('reports/1300_unknown', include_docs=True,
                                        startkey=[owner_id, review_type],
                                        endkey=[owner_id, review_type, {}]):
 

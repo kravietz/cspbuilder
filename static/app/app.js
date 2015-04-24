@@ -70,6 +70,12 @@ function screen_rows(obj) {
     return Math.floor(window.innerHeight / font_size / 1.8);
 }
 
+// return CouchDB database name for specific owner_id
+// needs to stay in sync with api/utils.py
+function get_db_for_user(owner_id) {
+    return "reports_" + owner_id;
+}
+
 var cspControllers = angular.module('cspControllers', ['CornerCouch', 'ui.bootstrap']);
 
 

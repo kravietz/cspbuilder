@@ -19,15 +19,16 @@ cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeou
 
         var last_seq = null;
         var poll_interval = 1000; // every 1 second
-        var db = cornercouch(couchdb_url, 'GET').getDB('csp');
+        var db_name = get_db_for_user($rootScope.owner_id);
+        var db = cornercouch(couchdb_url, 'GET').getDB(db_name);
 
         $scope.poll = function () {
             $scope.live_enabled = true;
             // build changes feed URL with parameters
-            var req = '/csp/_changes';
+            var req = '/' + db_name + '/_changes';
             req += '?descending=true&';
             req += 'feed=longpoll';
-            req += '&filter=csp/owner';
+            req += '&filter=reports/owner';
             req += '&limit=10';
             req += '&owner_id=' + $rootScope.owner_id;
             // only on subsequent calls
