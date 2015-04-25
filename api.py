@@ -130,7 +130,7 @@ def init_owner_database(owner_id):
         server.create(get_reports_db(owner_id))
     except Conflict:
         pass
-    
+
     return '', 204, []
 
 

@@ -23,7 +23,8 @@ TEST_ID1 = '1' * 20
 TEST_ID2 = '2' * 20
 TEST_ID3 = '3' * 20
 TEST_ID4 = '4' * 20
-DB = 'csp'
+CSP_DB = 'csp'
+BASE_URL = 'http://localhost:8088'
 
 REPORTS = [
     {"csp-report": {  # blocked URI approved by wildcard rule #1 (img-src & https:)
@@ -90,7 +91,12 @@ KL = [
 ]
 
 
-def db_init(db):
+def db_init():
+    """
+    Restore the database to vanilla state. All reports databases are deleted,
+    csp database is recreated.
+    :return:
+    """
     s = pycouchdb.Server()
     for db_name in s:
         if db_name == 'csp' or db_name.startswith('reports'):
@@ -98,15 +104,16 @@ def db_init(db):
     s.create('csp')
     s.database('csp').upload_design(os.path.join('designs', 'csp'))
 
+
 class TestKnownList(unittest.TestCase):
     def setUp(self):
-        self.db = pycouchdb.Server().database(DB)
-        db_clean(self.db)
+        self.csp_db = pycouchdb.Server().database(CSP_DB)
+        db_init()
 
         # load the known list
         for kl in KL:
-            self.db.save(kl)
-        self.kl = KnownList(self.db)
+            self.csp_db.save(kl)
+        self.kl = KnownList(self.csp_db)
 
     def test_kl(self):
         for rep in REPORTS:
@@ -118,28 +125,24 @@ class TestKnownList(unittest.TestCase):
                              'Expected "{}" on: {}'.format("unknown", report))
 
     def tearDown(self):
-        db_clean(self.db)
+        db_init()
 
 
 class TestClassifier(unittest.TestCase):
     def setUp(self):
         # initial request required initialise the database for TEST_ID1
         self.test_id = TEST_ID1
-        self.url = 'http://localhost:8088/report/{}/'.format(self.test_id)
+        self.report_url = 'http://localhost:8088/report/{}/'.format(self.test_id)
         self.headers = {'content-type': 'application/csp-report'}
 
-        # # take the first report and send it so that API creates database for this owner_id
-        report = REPORTS[-1]
-        report['csp-report']['debug-code'] = 'ping-only'
-        requests.post(self.url, data=json.dumps(report), headers=self.headers)
+        db_init()
+
+        # init the reports db for TEST_ID1
+        requests.post(BASE_URL + '/api/{}/init'.format(self.test_id))
 
         # prepare databases for direct checks
         self.reports_db = pycouchdb.Server().database(get_reports_db(self.test_id))
         self.csp_db = pycouchdb.Server().database('csp')
-
-        # now delete this and all other reports
-        db_clean(self.reports_db)
-        db_clean(self.csp_db)
 
         # upload the test known list
         for kl in KL:
@@ -148,10 +151,10 @@ class TestClassifier(unittest.TestCase):
 
         time.sleep(1)
 
-        # # send second ping to make classifier update the KL on next call
+        # send a "ping" report to make classifier update the KL on next call
         report = REPORTS[-1]
         report['csp-report']['debug-code'] = 'ping-only'
-        requests.post(self.url, data=json.dumps(report), headers=self.headers)
+        requests.post(self.report_url, data=json.dumps(report), headers=self.headers)
 
         time.sleep(1)
 
@@ -178,7 +181,7 @@ class TestClassifier(unittest.TestCase):
         report = REPORTS[0]
         testval = random.randint(0, 10000)
         report['csp-report']['debug-code'] = testval
-        self.r = requests.post(self.url, data=json.dumps(report), headers=self.headers)
+        self.r = requests.post(self.report_url, data=json.dumps(report), headers=self.headers)
         self.assertTrue(self.r.ok, self.r.status_code)
 
         time.sleep(1)
@@ -191,7 +194,7 @@ class TestClassifier(unittest.TestCase):
         for report in REPORTS:
             testval = random.randint(0, 10000)
             report['csp-report']['debug-code'] = testval
-            self.r = requests.post(self.url, data=json.dumps(report), headers=self.headers)
+            self.r = requests.post(self.report_url, data=json.dumps(report), headers=self.headers)
             self.assertTrue(self.r.ok, self.r.status_code)
 
             time.sleep(1)
@@ -201,10 +204,7 @@ class TestClassifier(unittest.TestCase):
             self.assertTrue(result, report['expect'])
 
     def tearDown(self):
-
-        db_clean(self.reports_db)
-        db_clean(self.csp_db)
-        pass
+        db_init()
 
 
 class TestClientResolver(unittest.TestCase):
@@ -229,19 +229,19 @@ class TestClientResolver(unittest.TestCase):
 class TestRetro(unittest.TestCase):
     def setUp(self):
         # initial request required initialise the database for TEST_ID4
-        self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID4)
+        self.test_id = TEST_ID4
+        self.reports_url = 'http://localhost:8088/report/{}/'.format(TEST_ID4)
         self.headers = {'content-type': 'application/csp-report'}
 
-        # take the first report and send it so that API creates database for this owner_id
-        requests.post(self.url, data=json.dumps(REPORTS[0]), headers=self.headers)
+        db_init()
 
-        self.csp_db = pycouchdb.Server().database(DB)
-        self.reports_db = pycouchdb.Server().database(get_reports_db(TEST_ID4))
+        # init the reports db for TEST_ID1
+        requests.post(BASE_URL + '/api/{}/init'.format(self.test_id))
 
-        db_clean(self.reports_db)
-        db_clean(self.csp_db)
+        self.csp_db = pycouchdb.Server().database(CSP_DB)
+        self.reports_db = pycouchdb.Server().database(get_reports_db(self.test_id))
 
-        self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID4)
+        self.reports_url = 'http://localhost:8088/report/{}/'.format(self.test_id)
         self.report = {"_id": "this will be replaced by a random value",
                        "csp-report": {
                            "document-uri": "https://www.example.com/",
@@ -251,7 +251,7 @@ class TestRetro(unittest.TestCase):
                            "violated-directive": "object-src 'self'"
                        },
                        # match KL
-                       "owner_id": TEST_ID4,
+                       "owner_id": self.test_id,
                        "meta": {
                            "timestamp": "2014-12-17T16:03:12.248527+00:00",
                            "user_agent": "python-requests/2.5.0 CPython/3.4.1 Darwin/14.0.0",
@@ -260,7 +260,7 @@ class TestRetro(unittest.TestCase):
                        }
                        }
         # this KL rule should reclassify a previously unclassified report when added
-        self.kl1 = {"owner_id": TEST_ID4, "review_action": "accept", "_id": "matching-rule",
+        self.kl1 = {"owner_id": self.test_id, "review_action": "accept", "_id": "matching-rule",
                     "review_type": "object-src", "review_source": "https://retro.com"}
         # this KL rule is irrelevant to the report and should not result in classification
         self.kl2 = {"owner_id": TEST_ID2, "review_action": "accept", "_id": "non-matching-rule",
@@ -310,47 +310,7 @@ class TestRetro(unittest.TestCase):
         self.assertTrue(unknown)
 
     def tearDown(self):
-        db_clean(self.reports_db)
-        db_clean(self.csp_db)
-
-
-class TestPublicApi(unittest.TestCase):
-    def setUp(self):
-        self.hostname = 'cspbuilder.info'
-        self.https_url = 'https://{}/report/{}/'.format(self.hostname, TEST_ID1)
-        self.http_url = 'http://{}/report/{}/'.format(self.hostname, TEST_ID1)
-        self.report = REPORTS[0]
-
-    def test_valid_post_https(self):
-        headers = {'content-type': 'application/csp-report'}
-        self.r = requests.post(self.https_url, data=json.dumps(self.report), headers=headers)
-        self.assertTrue(self.r.ok)
-        self.assertEqual(self.r.status_code, 204)
-
-    def test_valid_post_http(self):
-        headers = {'content-type': 'application/csp-report'}
-        self.r = requests.post(self.http_url, data=json.dumps(self.report), headers=headers)
-        self.assertTrue(self.r.ok)
-        self.assertEqual(self.r.status_code, 204)
-
-    def test_couchdb(self):
-        self.r = requests.get(
-            'https://{}/csp/_design/csp/_view/1900_unique_sites?limit=101&group=true'.format(self.hostname))
-        self.assertTrue(self.r.ok)
-
-    def test_https_redirect(self):
-        self.r = requests.get('http://{}/'.format(self.hostname))
-        self.assertTrue(self.r.ok)
-        self.assertEqual(self.r.url, 'https://cspbuilder.info/static/#/main/')
-
-    def test_unattended_login(self):
-        self.r = requests.get('https://{}/policy/{}/'.format(self.hostname, TEST_ID1))
-        self.assertTrue(self.r.ok)
-        self.assertEqual(len(self.r.history), 1)
-        self.assertEqual(self.r.history[0].status_code, 302)
-        self.assertIn('XSRF-TOKEN', self.r.history[0].cookies)
-        self.assertIn('owner_id', self.r.history[0].cookies)
-        self.assertEqual(self.r.history[0].cookies['owner_id'], TEST_ID1)
+        db_init()
 
 
 class TestLocalApi(unittest.TestCase):
@@ -366,7 +326,7 @@ class TestLocalApi(unittest.TestCase):
         self.db = pycouchdb.Server().database(get_reports_db(TEST_ID3))
 
         # now delete this and all other reports
-        db_clean(self.db)
+        db_init()
 
         self.doc_id_generator = DocIdGen(self.db)
 
@@ -452,7 +412,7 @@ class TestLocalApi(unittest.TestCase):
         self.assertFalse(self.r.ok)
 
     def tearDown(self):
-        db_clean(self.db)
+        db_init()
 
 
 if __name__ == '__main__':
