@@ -52,7 +52,7 @@ except (IOError, UnpicklingError) as e:
 # save state table on close
 def sighandler(signum, frame):
     global state_table
-    print('Killed by signal', signum, 'saving state', last_seq)
+    print('Killed by signal', signum, 'saving state', state_table)
     with open(STATE_FILE, 'wb') as f:
         pickle.dump(state_table, f)
     sys.exit(0)
