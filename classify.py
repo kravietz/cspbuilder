@@ -14,6 +14,7 @@ import pycouchdb
 
 from apihelpers.known import KnownList
 from apihelpers.utils import REPORTS_DB_PREFIX
+from settings import CLASSIFY_INTERVAL
 
 
 __author__ = 'Paweł Krawczyk'
@@ -152,7 +153,7 @@ if __name__ == '__main__':
             # by changes_feed() to the callback
             try:
                 server.database(db).changes_feed(ReportsFeedReader(), filter='reports/unclassified', since=last_seq,
-                    timeout=50)
+                    timeout=CLASSIFY_INTERVAL)
             # this means the poll timed out and server returned empty line, just skip over it
             except ValueError:
                 pass
