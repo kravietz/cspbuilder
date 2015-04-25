@@ -26,6 +26,7 @@
           "reduce": "_sum",
             "map": "function(doc) {\n  if(doc.owner_id && doc['csp-report']) {\n  var base_uri = doc['csp-report']['document-uri'].split('/').splice(0,3).join('/');\n  emit([doc.owner_id, base_uri], 1);\n }\n}"
         },
+      // this is not directly portable to the multi-database architecture
         "1940_most_blocked": {
           "reduce": "_sum",
             "map": "function (doc) {\n    if(doc.owner_id && doc['csp-report'] && doc['csp-report']['blocked-uri']) {\n\tvar base_uri = doc['csp-report']['blocked-uri'].split('/').splice(0,3).join('/');\n\temit(base_uri, 1);\n    }\n}"

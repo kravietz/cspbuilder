@@ -12,10 +12,11 @@ import pycouchdb
 
 SERVER = 'http://localhost:5984/'
 DB = 'csp'
-CLEANUP_VIEW = 'csp/1910_stale'
+CLEANUP_VIEW = 'reports/1910_stale'
 KL_VIEW = 'csp/1000_known_list'
 
 
+# TODO: need to port to the new multi-database approach
 def clean(db, debug=False):
     more_results = True
     total = 0
