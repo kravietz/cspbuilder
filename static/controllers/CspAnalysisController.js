@@ -9,9 +9,12 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
         console.log('CspAnalysisController owner_id=' + $rootScope.owner_id);
 
         $scope.blocked = true;
-        $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
+        $scope.db_name = get_db_for_user($rootScope.owner_id);
+        $scope.reports_db = cornercouch(couchdb_url, 'GET').getDB($scope.db_name);
+        // for KnownList updates
+        $scope.csp_db = cornercouch(couchdb_url, 'GET').getDB('csp');
         $scope.index = 0;
-        $scope.db.query("csp", "1100_source_groups", {
+        $scope.reports_db.query("reports", "1100_source_groups", {
             include_docs: false,
             // CouchDB idiom used to narrow search
             // ref: http://docs.couchdb.org/en/latest/couchapp/views/collation.html#string-ranges
@@ -25,7 +28,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
                 console.log('data loading finished');
 
                 // sort
-                $scope.db.rows.sort(function (a, b) {
+                $scope.reports_db.rows.sort(function (a, b) {
                     return b.value - a.value;
                 });
 
@@ -46,8 +49,8 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
             $scope.index = index;
             $('#report-row-' + $scope.index).addClass('bg-info'); // highlight current row
             // sources list already contains the key we can use to fetch sample report
-            $scope.db2 = cornercouch(couchdb_url, 'GET').getDB('csp');
-            $scope.db2.query('csp', '1100_source_groups',
+            $scope.db2 = cornercouch(couchdb_url, 'GET').getDB($scope.db_name);
+            $scope.db2.query('reports', '1100_source_groups',
                 {
                     reduce: false,
                     limit: 1,
@@ -82,7 +85,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
             console.log('review_source allow=' + allow + ' policy_choice=' + $scope.policy_choice);
 
             // save new KL entry
-            var doc = $scope.db.newDoc({
+            var doc = $scope.csp_db.newDoc({
                 'owner_id': $scope.owner_id,
                 'review_type': $scope.policy_type,
                 'review_source': $scope.policy_choice,
