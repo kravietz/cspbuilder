@@ -8,11 +8,11 @@ from pycouchdb.exceptions import Conflict
 from apihelpers.auth import login_response, verify_csrf_token
 from apihelpers.delete import delete_all_reports_task
 from apihelpers.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
+from settings import ALLOWED_CONTENT_TYPES
 
 
 __author__ = 'Paweł Krawczyk'
 
-import configparser
 import datetime
 
 try:
@@ -24,12 +24,6 @@ import os
 import threading
 from flask import Flask, request
 import pycouchdb
-
-config = configparser.ConfigParser()
-config.read(('collector.ini', os.path.join('..', 'collector.ini')))
-
-ALLOWED_CONTENT_TYPES = [x.strip() for x in config.get('collector', 'mime_types').split(',')]
-DESIGN_DOCUMENT = json.load(open(os.path.join('etc', 'design.json')))
 
 DEBUG = False
 if 'debug' in sys.argv:
@@ -46,19 +40,18 @@ if __name__ != '__main__':
 server = pycouchdb.Server()
 
 # the 'csp' database is the default database for configuration data etc
-DEFAULT_DB = 'csp'
+CSP_DB = 'csp'
 
 state_table = {}
 
 # create if not there (first run)
 try:
-    default_db = server.database(DEFAULT_DB)
+    default_db = server.database(CSP_DB)
 except pycouchdb.exceptions.NotFound:
     if DEBUG:
         print('Database was uninitialised, doing it now')
-    default_db = server.create(DEFAULT_DB)
-    # TODO: maintain different design documents for 'csp' and report databases
-    default_db.save(DESIGN_DOCUMENT)
+    default_db = server.create(CSP_DB)
+    default_db.upload_design(os.path.join('design', 'csp'))
 
 # initialise client IP and geoIP resolver
 cr = ClientResolver()
@@ -72,6 +65,24 @@ def quick_login(owner_id):
     start_time = datetime.datetime.now(datetime.timezone.utc)
 
     print('quick login {} {} {} owner_id={}'.format(start_time, cr.get_ip(request), cr.get_geo(request), owner_id))
+
+    return login_response(owner_id)
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    """
+    Standard login via form and POST request.
+    """
+    start_time = datetime.datetime.now(datetime.timezone.utc)
+
+    owner_id = request.form.get('owner_id')
+
+    print('form login {} {} {} owner_id={}'.format(start_time, cr.get_ip(request), cr.get_geo(request), owner_id))
+
+    if not owner_id:
+        print('login missing owner_id')
+        return 'Missing owner id', 400, []
 
     return login_response(owner_id)
 
@@ -106,30 +117,22 @@ def delete_report(owner_id, report_id):
         return 'Owner mismatch', 400, []
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    """
-    Standard login via form and POST request.
-    """
-    start_time = datetime.datetime.now(datetime.timezone.utc)
-
-    owner_id = request.form.get('owner_id')
-
-    print('form login {} {} {} owner_id={}'.format(start_time, cr.get_ip(request), cr.get_geo(request), owner_id))
-
-    if not owner_id:
-        print('login missing owner_id')
-        return 'Missing owner id', 400, []
-
-    return login_response(owner_id)
-
-
 @app.route('/api/<owner_id>/init', methods=['POST'])
 def init_owner_database(owner_id):
     try:
         server.create(get_reports_db(owner_id))
     except Conflict:
+        # this means database already exists
         pass
+    except Exception as e:
+        print('Cannot create database for user {}: {}'.format(owner_id, e))
+        return 'Cannot create database', 500, []
+
+    try:
+        server.database(get_reports_db(owner_id)).upload_design(os.path.join('designs', 'reports'))
+    except Exception as e:
+        print('Cannot upload design document user {}: {}'.format(owner_id, e))
+        return 'Cannot init database', 500, []
 
     return '', 204, []
 
@@ -222,14 +225,7 @@ def read_csp_report(owner_id, tag=None):
     try:
         db = server.database(get_reports_db(owner_id))
     except pycouchdb.exceptions.NotFound:
-        # noinspection PyBroadException
-        try:
-            db = server.create(get_reports_db(owner_id))
-            db.save(DESIGN_DOCUMENT)
-        except Exception as e:
-            err = 'Could not initialise database'
-            print(err, e)
-            return '{}\n'.format(err), 500
+        return 'No such database', 404, []
 
     # add document identifier; this is important for performance
     # otherwise py-couchdb will add a random one
