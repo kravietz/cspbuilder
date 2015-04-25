@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from api.delete import delete_all_reports_task
+from apihelpers.delete import delete_all_reports_task
 
 try:
     import ujson as json

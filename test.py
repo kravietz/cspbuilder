@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
 import unittest
 import time
 
@@ -9,8 +10,8 @@ except ImportError:
     import json
 
 import random
-from api.known import KnownList
-from api.utils import ClientResolver, DocIdGen, get_reports_db
+from apihelpers.known import KnownList
+from apihelpers.utils import ClientResolver, DocIdGen, get_reports_db
 from flask import Request
 import pycouchdb
 import requests
@@ -89,14 +90,13 @@ KL = [
 ]
 
 
-def db_clean(db):
-    for item in db.all():
-        if not item['_id'].startswith('_design'):
-            try:
-                db.delete(item['_id'])
-            except pycouchdb.exceptions.Conflict:
-                pass
-
+def db_init(db):
+    s = pycouchdb.Server()
+    for db_name in s:
+        if db_name == 'csp' or db_name.startswith('reports'):
+            s.delete(db_name)
+    s.create('csp')
+    s.database('csp').upload_design(os.path.join('designs', 'csp'))
 
 class TestKnownList(unittest.TestCase):
     def setUp(self):

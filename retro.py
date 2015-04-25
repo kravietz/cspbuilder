@@ -13,8 +13,8 @@ import os
 import pycouchdb
 from pycouchdb.feedreader import BaseFeedReader
 
-from api.known import KnownList
-from api.utils import get_reports_db
+from apihelpers.known import KnownList
+from apihelpers.utils import get_reports_db
 
 
 __author__ = 'Paweł Krawczyk'

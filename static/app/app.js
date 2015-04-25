@@ -71,7 +71,7 @@ function screen_rows(obj) {
 }
 
 // return CouchDB database name for specific owner_id
-// needs to stay in sync with api/utils.py
+// needs to stay in sync with apihelpers/utils.py
 function get_db_for_user(owner_id) {
     return "reports_" + owner_id;
 }

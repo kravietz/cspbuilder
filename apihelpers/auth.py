@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import configparser
-
 import hashlib
 import hmac
 import os
+
 from flask import make_response, redirect
 
 

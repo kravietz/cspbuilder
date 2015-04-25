@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
-
 import re
-from api.auth import login_response, verify_csrf_token
-from api.delete import delete_all_reports_task
-from api.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
+
+from pycouchdb.exceptions import Conflict
+
+from apihelpers.auth import login_response, verify_csrf_token
+from apihelpers.delete import delete_all_reports_task
+from apihelpers.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
 
 
 __author__ = 'Paweł Krawczyk'
@@ -122,6 +124,16 @@ def login():
     return login_response(owner_id)
 
 
+@app.route('/api/<owner_id>/init', methods=['POST'])
+def init_owner_database(owner_id):
+    try:
+        server.create(get_reports_db(owner_id))
+    except Conflict:
+        pass
+    
+    return '', 204, []
+
+
 @app.route('/api/<owner_id>/all', methods=['DELETE'])
 def delete_all_reports(owner_id):
     start_time = datetime.datetime.now(datetime.timezone.utc)
@@ -182,7 +194,7 @@ def read_csp_report(owner_id, tag=None):
         print(err, tag)
         return '{}\n'.format(err), 400
 
-    # replace Flask original JSON error handler with our own (api/utils.py)
+    # replace Flask original JSON error handler with our own (apihelpers/utils.py)
     request.on_json_loading_failed = on_json_loading_failed
 
     # ### START BUILDING OUTPUT ###

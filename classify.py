@@ -12,8 +12,8 @@ import os
 
 import pycouchdb
 
-from api.known import KnownList
-from api.utils import REPORTS_DB_PREFIX
+from apihelpers.known import KnownList
+from apihelpers.utils import REPORTS_DB_PREFIX
 
 
 __author__ = 'Paweł Krawczyk'
