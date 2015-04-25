@@ -3,7 +3,7 @@
 import sys
 import re
 
-from pycouchdb.exceptions import Conflict
+from pycouchdb.exceptions import Conflict, NotFound
 
 from apihelpers.auth import login_response, verify_csrf_token
 from apihelpers.delete import delete_all_reports_task
@@ -44,14 +44,22 @@ CSP_DB = 'csp'
 
 state_table = {}
 
-# create if not there (first run)
+# sanity checks
+
+# do we have database? if not, create
 try:
     default_db = server.database(CSP_DB)
-except pycouchdb.exceptions.NotFound:
+except NotFound:
     if DEBUG:
-        print('Database was uninitialised, doing it now')
+        print('Creating database "{}"'.format(CSP_DB))
     default_db = server.create(CSP_DB)
-    default_db.upload_design(os.path.join('design', 'csp'))
+
+try:
+    default_db.get('_design/csp')
+except NotFound:
+    if DEBUG:
+        print('Uploading design document')
+    default_db.upload_design(os.path.join('designs', 'csp'))
 
 # initialise client IP and geoIP resolver
 cr = ClientResolver()
