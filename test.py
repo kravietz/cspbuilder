@@ -162,7 +162,7 @@ class TestClassifier(unittest.TestCase):
     def _get_classification(self, testval):
         response = None
 
-        for item in self.reports_db.query('csp/1200_all', key=self.test_id, include_docs=True):
+        for item in self.reports_db.query('reports/1200_all', key=self.test_id, include_docs=True):
             doc = item['doc']
             if 'csp-report' in doc:
                 report = doc['csp-report']
@@ -376,7 +376,7 @@ class TestLocalApi(unittest.TestCase):
         is checked directly in the database
         """
         found = False
-        for item in self.db.query('csp/1200_all', key=TEST_ID3, include_docs=True):
+        for item in self.db.query('reports/1200_all', key=TEST_ID3, include_docs=True):
             if 'csp-report' in item['doc'] and item['doc']['csp-report'].get('debug-code') == testval:
                 found = True
         return found
@@ -414,7 +414,7 @@ class TestLocalApi(unittest.TestCase):
         self.r = requests.post(url, data=json.dumps(self.report), headers=self.headers)
         self.assertTrue(self.r.ok)
         found = False
-        for item in self.db.query('csp/1200_all', key=TEST_ID3, include_docs=True):
+        for item in self.db.query('reports/1200_all', key=TEST_ID3, include_docs=True):
             if 'tag' in item['doc']['meta']:
                 found_tag = item['doc']['meta']['tag']
                 if found_tag == expect_tag:

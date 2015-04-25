@@ -12,8 +12,9 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
         $('#reports-prev-button').addClass('disabled');
         $scope.index = 0;
 
-        $scope.db = cornercouch(couchdb_url, 'GET').getDB('csp');
-        $scope.db.query("csp", "1200_all",
+        $scope.db_name = get_db_for_user($rootScope.owner_id);
+        $scope.db = cornercouch(couchdb_url, 'GET').getDB($scope.db_name);
+        $scope.db.query("reports", "1200_all",
             {
                 include_docs: true,
                 key: $rootScope.owner_id,

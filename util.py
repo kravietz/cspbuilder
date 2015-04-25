@@ -71,10 +71,11 @@ def purge(db, owner_id):
     delete_all_reports_task(owner_id, db, True)
 
 
+# TODO: need to port to the new multi-database approach
 def dump(db, num=1000):
     items = []
 
-    for row in db.query('csp/1200_all', limit=num):
+    for row in db.query('reports/1200_all', limit=num):
         doc = db.get(row['id'])
         del doc['_rev']
         items.append(doc)

@@ -26,7 +26,7 @@ def delete_all_reports_task(owner_id, db, verbose=False):
         lv.docs = []
         lv.i = 0
 
-        for row in db.query('csp/1200_all', key=owner_id, include_docs=True, limit=1000, skip=lv.processed):
+        for row in db.query('reports/1200_all', key=owner_id, include_docs=True, limit=1000, skip=lv.processed):
 
             lv.processed += 1
 
