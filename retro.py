@@ -5,16 +5,15 @@
 Subscribes to CouchDB feed returning any new Known List entries and retroactively
 reclassify reports that may be impacted by the changes.
 """
-import pickle
 import sys
 import signal
-import os
 
 import pycouchdb
 from pycouchdb.exceptions import NotFound
 from pycouchdb.feedreader import BaseFeedReader
 
 from apihelpers.known import KnownList
+from apihelpers.state import State
 from apihelpers.utils import get_reports_db
 
 
@@ -29,32 +28,20 @@ if 'debug' in sys.argv:
 # this is where Known List is stored
 DB_NAME = 'csp'
 
-state_table = {}
-
 kl = KnownList(server.database(DB_NAME), auto_update=False)
 if DEBUG:
     print(kl)
 
 # read CouchDB change feed 'seq' number to avoid reading through
 # already processed changes in case of re-run
-STATE_FILE = os.path.join(os.getcwd(), '{}.state.dat'.format(os.path.basename(__file__)))
-from _pickle import UnpicklingError
-
-try:
-    with open(STATE_FILE, 'rb') as ff:
-        state_table = pickle.load(ff)
-        print('Loaded state', state_table)
-except (IOError, UnpicklingError) as e:
-    print('Warning: cannot restore state table', e)
-    state_table = {}
+state = State(__file__)
 
 
 # save state table on close
 def sighandler(signum, frame):
-    global state_table
-    print('Killed by signal', signum, 'saving state', last_seq)
-    with open(STATE_FILE, 'wb') as f:
-        pickle.dump(state_table, f)
+    global state
+    print('Killed by signal', signum, 'saving state', state.state)
+    state.save()
     sys.exit(0)
 
 
@@ -68,19 +55,18 @@ class DatabaseFeedReader(BaseFeedReader):
     """
 
     def on_close(self):
-        global state_table
-        with open(STATE_FILE, 'wb') as f:
-            pickle.dump(state_table, f)
+        global state
+        state.save()
 
     def on_message(self, message):
-        global DEBUG, DB_NAME, state_table, kl
+        global DEBUG, state, kl, DB_NAME
 
         # save the current seq in state table
         if 'last_seq' in message:
-            state_table[DB_NAME]['last_seq'] = message['last_seq']
+            state.state[DB_NAME]['last_seq'] = message['last_seq']
             return
         if 'seq' in message:
-            state_table[DB_NAME]['last_seq'] = message['seq']
+            state.state[DB_NAME]['last_seq'] = message['seq']
 
         if DEBUG:
             print('Received new msg=', message)
@@ -177,13 +163,13 @@ if __name__ == '__main__':
     while True:
 
         # check if states table entry is present for this db
-        if DB_NAME not in state_table:
-            state_table[DB_NAME] = {}
-        if 'last_seq' not in state_table[DB_NAME]:
-            state_table[DB_NAME]['last_seq'] = 0
+        if DB_NAME not in state.state:
+            state.state[DB_NAME] = {}
+        if 'last_seq' not in state.state[DB_NAME]:
+            state.state[DB_NAME]['last_seq'] = 0
 
         # restore the last_seq from state table
-        last_seq = state_table[DB_NAME]['last_seq']
+        last_seq = state.state[DB_NAME]['last_seq']
 
         # process updates in each database
         # the database object is passed automatically

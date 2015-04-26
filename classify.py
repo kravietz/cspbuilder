@@ -5,15 +5,14 @@
 Subscribes to CouchDB feeds returning any new unclassified documents and classify them in real time.
 Use KnownList object that will update itself automatically on periodic basis.
 """
-import pickle
 import sys
 import signal
-import os
 
 import pycouchdb
 from pycouchdb.exceptions import NotFound
 
 from apihelpers.known import KnownList
+from apihelpers.state import State
 from apihelpers.utils import REPORTS_DB_PREFIX
 from settings import CLASSIFY_INTERVAL
 
@@ -29,8 +28,6 @@ if 'debug' in sys.argv:
 # this is where Known List is stored
 DB_NAME = 'csp'
 
-state_table = {}
-
 kl = KnownList(server.database(DB_NAME), verbose=True)
 if DEBUG:
     print(kl)
@@ -39,24 +36,14 @@ from pycouchdb.feedreader import BaseFeedReader
 
 # read CouchDB change feed 'seq' number to avoid reading through
 # already processed changes in case of re-run
-STATE_FILE = os.path.join(os.getcwd(), '{}.state.dat'.format(os.path.basename(__file__)))
-from _pickle import UnpicklingError
-
-try:
-    with open(STATE_FILE, 'rb') as ff:
-        state_table = pickle.load(ff)
-        print('Loaded state', state_table)
-except (IOError, UnpicklingError) as e:
-    print('Warning: cannot restore state table', e)
-    state_table = {}
+state = State(__file__)
 
 
 # save state table on close
 def sighandler(signum, frame):
-    global state_table
-    print('Killed by signal', signum, 'saving state', state_table)
-    with open(STATE_FILE, 'wb') as f:
-        pickle.dump(state_table, f)
+    global state
+    print('Killed by signal', signum, 'saving state', state.state)
+    state.save()
     sys.exit(0)
 
 
@@ -70,20 +57,22 @@ class ReportsFeedReader(BaseFeedReader):
     """
 
     def on_close(self):
-        global last_seq
-        with open(STATE_FILE, 'wb') as f:
-            pickle.dump(state_table, f)
+        global state
+        state.save()
 
     def on_message(self, message):
-        global DEBUG, state_table, kl
+        global DEBUG, state, kl
+
+        # on each call database may be different, so need to check it each time
+        db_name = self.db.config()['db_name']
 
         # save the current seq in state table
         if 'last_seq' in message:
-            state_table[DB_NAME]['last_seq'] = message['last_seq']
+            state.state[db_name]['last_seq'] = message['last_seq']
             return
         # these are coming along with real messages
         if 'seq' in message:
-            state_table[DB_NAME]['last_seq'] = message['seq']
+            state.state[db_name]['last_seq'] = message['seq']
 
         if DEBUG:
             print('Received new msg=', message)
@@ -143,12 +132,12 @@ if __name__ == '__main__':
                 continue
 
             # check if states table entry is present for this db
-            if db not in state_table:
-                state_table[db] = {}
-            if 'last_seq' not in state_table[db]:
-                state_table[db]['last_seq'] = 0
+            if db not in state.state:
+                state.state[db] = {}
+            if 'last_seq' not in state.state[db]:
+                state.state[db]['last_seq'] = 0
 
-            last_seq = state_table[db]['last_seq']
+            last_seq = state.state[db]['last_seq']
 
             # process updates in each database
             # the database object is passed automatically
