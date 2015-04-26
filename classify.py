@@ -39,7 +39,7 @@ from pycouchdb.feedreader import BaseFeedReader
 
 # read CouchDB change feed 'seq' number to avoid reading through
 # already processed changes in case of re-run
-STATE_FILE = os.path.join(os.getcwd(), '{}.state.dat'.format(os.path.basename(__name__)))
+STATE_FILE = os.path.join(os.getcwd(), '{}.state.dat'.format(os.path.basename(__file__)))
 from _pickle import UnpicklingError
 
 try:
