@@ -11,6 +11,7 @@ import signal
 import os
 
 import pycouchdb
+from pycouchdb.exceptions import NotFound
 from pycouchdb.feedreader import BaseFeedReader
 
 from apihelpers.known import KnownList
@@ -42,6 +43,7 @@ from _pickle import UnpicklingError
 try:
     with open(STATE_FILE, 'rb') as ff:
         state_table = pickle.load(ff)
+        print('Loaded state', state_table)
 except (IOError, UnpicklingError) as e:
     print('Warning: cannot restore state table', e)
     state_table = {}
@@ -93,7 +95,11 @@ class DatabaseFeedReader(BaseFeedReader):
 
         # retrieve the new KL entry
         doc_id = message['id']
-        doc = self.db.get(doc_id)
+        try:
+            doc = self.db.get(doc_id)
+        except NotFound:
+            # report was deleted in the meantime
+            return
 
         if DEBUG:
             print(doc)
@@ -134,26 +140,29 @@ class DatabaseFeedReader(BaseFeedReader):
             if 'doc' not in result:
                 continue
 
-            report = result['doc']
+            reclassified_report = result['doc']
 
-            if 'csp-report' not in report:
+            if 'csp-report' not in reclassified_report:
                 continue
 
             # check the new classification, with the KL change applied
-            decision = kl.decision(owner_id, report['csp-report'])
+            decision = kl.decision(owner_id, reclassified_report['csp-report'])
 
             if DEBUG:
                 # we use report.get() because the original report might have had no review before
-                print('\t\tchange {} ==> {}'.format(report.get('review'), decision['action']))
+                print('\t\tchange {} ==> {}'.format(reclassified_report.get('review'), decision['action']))
                 print('\t\tdecision=', decision)
-                print('\t\treport=', report)
+                print('\t\treport=', reclassified_report)
 
             # apply the classifier decision to the currently processed report
             review = {'decision': decision['action'], 'method': __file__, 'rule': decision['rule']}
-            report['review'] = review
+            reclassified_report['review'] = review
 
             # save classified report
-            reports_db.save(report, batch=True)
+            try:
+                reports_db.save(reclassified_report, batch=True)
+            except Exception as e:
+                print('Cannot save report', e, reclassified_report)
 
 
 if __name__ == '__main__':
@@ -180,7 +189,9 @@ if __name__ == '__main__':
         # the database object is passed automatically
         # by changes_feed() to the callback
         try:
-            db.changes_feed(DatabaseFeedReader(), filter='csp/known_list', since=last_seq)
+            # the source keyword is ignored by CouchDB but helps in debugging by identifying
+            # which script generated this call
+            db.changes_feed(DatabaseFeedReader(), filter='csp/known_list', since=last_seq, source=__file__)
         # ValueError means the poll timed out and/or server returned empty line, just skip over it
         except ValueError:
             pass

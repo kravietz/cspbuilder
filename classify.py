@@ -11,6 +11,7 @@ import signal
 import os
 
 import pycouchdb
+from pycouchdb.exceptions import NotFound
 
 from apihelpers.known import KnownList
 from apihelpers.utils import REPORTS_DB_PREFIX
@@ -44,6 +45,7 @@ from _pickle import UnpicklingError
 try:
     with open(STATE_FILE, 'rb') as ff:
         state_table = pickle.load(ff)
+        print('Loaded state', state_table)
 except (IOError, UnpicklingError) as e:
     print('Warning: cannot restore state table', e)
     state_table = {}
@@ -98,7 +100,7 @@ class ReportsFeedReader(BaseFeedReader):
             # the self.db object already stores handle for the relevant reports database
             doc = self.db.get(doc_id)
         # the document might have been deleted in the meantime, just ignore it
-        except pycouchdb.exceptions.NotFound:
+        except NotFound:
             return
 
         # sanity check, just in case (no such docs should come from the filter)
@@ -130,7 +132,7 @@ class ReportsFeedReader(BaseFeedReader):
 if __name__ == '__main__':
 
     if DEBUG:
-        print('Starting the loop...')
+        print('Starting the {} loop with {} databases'.format(__file__, len(server)))
 
     while True:
         # cycle through all report databases on the servers and check recent changes
@@ -152,8 +154,14 @@ if __name__ == '__main__':
             # the database object is passed automatically
             # by changes_feed() to the callback
             try:
-                server.database(db).changes_feed(ReportsFeedReader(), filter='reports/unclassified', since=last_seq,
-                    timeout=CLASSIFY_INTERVAL)
-            # this means the poll timed out and server returned empty line, just skip over it
+                # the source keyword is ignored by CouchDB but helps in debugging by identifying
+                # which script generated this call
+                server.database(db).changes_feed(ReportsFeedReader(), filter='reports/unclassified',
+                    since=last_seq,
+                    timeout=CLASSIFY_INTERVAL, source=__file__)
             except ValueError:
+                # this means the poll timed out and server returned empty line, just skip over it
+                pass
+            except NotFound:
+                # database was deleted
                 pass
