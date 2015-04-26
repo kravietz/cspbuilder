@@ -283,9 +283,16 @@ def read_csp_report(owner_id, tag=None):
         output['csp-report']['blocked-uri'] = output['csp-report']['blocked-uri'].split(',')[0]
 
     if DEBUG:
-        print(output)
+        print('Saving', output)
 
-    db.save(output, batch=True)
+    try:
+        db.save(output, batch=True)
+    except Conflict:
+        if DEBUG:
+            print('Conflict')
+    except NotFound:
+        if DEBUG:
+            print('Database disappeared')
 
     return '', 204, []
 
