@@ -126,7 +126,7 @@ class DatabaseFeedReader(BaseFeedReader):
             print('\tReclassifying reports in database {}'.format(get_reports_db(owner_id)))
         try:
             reports_db = server.database(get_reports_db(owner_id))
-        except pycouchdb.exceptions.NotFound:
+        except NotFound:
             # this may happen if a rule was added for owner_id that has no reports, just ignore
             print('\t\tNo reports for {}, skipping'.format(owner_id))
             return
