@@ -138,6 +138,9 @@ def init_owner_database(owner_id):
 
     try:
         server.database(get_reports_db(owner_id)).upload_design(os.path.join('designs', 'reports'))
+    except Conflict:
+        # this means design document is already there
+        pass
     except Exception as e:
         print('Cannot upload design document user {}: {}'.format(owner_id, e))
         return 'Cannot init database', 500, []
