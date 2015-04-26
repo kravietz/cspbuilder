@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from pycouchdb.exceptions import NotFound
 
 __author__ = 'Paweł Krawczyk'
 
-import os
 import unittest
 import time
 
@@ -76,42 +76,27 @@ REPORTS = [
 ]
 
 KL = [
-    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "RULE1",  # 1
+    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "KLRULE1",  # 1
      "review_type": "img-src", "review_source": "https:"},
-    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "RULE2",  # 2
+    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "KLRULE2",  # 2
      "review_type": "script-src", "review_source": "https://assets.example.com"},
-    {"owner_id": TEST_ID1, "review_action": "reject", "_id": "RULE3",  # 3
+    {"owner_id": TEST_ID1, "review_action": "reject", "_id": "KLRULE3",  # 3
      "review_type": "frame-src", "review_source": "https://evil.com"},
-    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "RULE4",  # 4
+    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "KLRULE4",  # 4
      "review_type": "style-src", "review_source": "'self'"},
-    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "RULE5",  # 5
+    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "KLRULE5",  # 5
      "review_type": "img-src", "review_source": "https://*.wildcard.com"},
-    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "RULE6",  # 6
+    {"owner_id": TEST_ID1, "review_action": "accept", "_id": "KLRULE6",  # 6
      "review_type": "script-src", "review_source": "'unsafe-inline'"},
 
-    {"owner_id": TEST_ID2, "review_action": "accept", "_id": "RULE7",  # irrelevant rule 7
+    {"owner_id": TEST_ID2, "review_action": "accept", "_id": "KLRULE7",  # irrelevant rule 7
      "review_type": "script-src", "review_source": "'unsafe-eval'"},
 ]
-
-
-def db_init():
-    """
-    Restore the database to vanilla state. All reports databases are deleted,
-    csp database is recreated.
-    :return:
-    """
-    s = pycouchdb.Server()
-    for db_name in s:
-        if db_name == 'csp' or db_name.startswith('reports'):
-            s.delete(db_name)
-    s.create('csp')
-    s.database('csp').upload_design(os.path.join('designs', 'csp'))
 
 
 class TestKnownList(unittest.TestCase):
     def setUp(self):
         self.csp_db = pycouchdb.Server().database(CSP_DB)
-        db_init()
 
         # load the known list
         for kl in KL:
@@ -128,7 +113,9 @@ class TestKnownList(unittest.TestCase):
                              'Expected "{}" on: {}'.format("unknown", report))
 
     def tearDown(self):
-        db_init()
+        # need to clean up so that other tests don't get Conflict exception
+        for kl in KL:
+            self.csp_db.delete(kl['_id'])
 
 
 class TestClassifier(unittest.TestCase):
@@ -138,8 +125,6 @@ class TestClassifier(unittest.TestCase):
         self.report_url = 'http://localhost:8088/report/{}/'.format(self.test_id)
         self.headers = {'content-type': 'application/csp-report'}
 
-        db_init()
-
         # init the reports db for TEST_ID1
         requests.post(BASE_URL + '/api/{}/init'.format(self.test_id))
 
@@ -147,7 +132,7 @@ class TestClassifier(unittest.TestCase):
         self.reports_db = pycouchdb.Server().database(get_reports_db(self.test_id))
         self.csp_db = pycouchdb.Server().database('csp')
 
-        # upload the test known list
+        # upload the test known list - this will be used by classifier.py
         for kl in KL:
             self.csp_db.save(kl)
         self.kl = KnownList(self.csp_db)
@@ -207,7 +192,9 @@ class TestClassifier(unittest.TestCase):
             self.assertTrue(result, report['expect'])
 
     def tearDown(self):
-        db_init()
+        # need to clean up so that other tests don't get Conflict exception
+        for kl in KL:
+            self.csp_db.delete(kl['_id'])
 
 
 class TestClientResolver(unittest.TestCase):
@@ -235,8 +222,6 @@ class TestRetro(unittest.TestCase):
         self.test_id = TEST_ID4
         self.reports_url = 'http://localhost:8088/report/{}/'.format(TEST_ID4)
         self.headers = {'content-type': 'application/csp-report'}
-
-        db_init()
 
         # init the reports db for TEST_ID1
         requests.post(BASE_URL + '/api/{}/init'.format(self.test_id))
@@ -313,23 +298,27 @@ class TestRetro(unittest.TestCase):
         self.assertTrue(unknown)
 
     def tearDown(self):
-        db_init()
+        try:
+            self.csp_db.delete(self.kl1['_id'])
+            self.csp_db.delete(self.kl2['_id'])
+        except NotFound:
+            pass
 
 
 class TestLocalApi(unittest.TestCase):
     def setUp(self):
         # initial request required initialise the database for TEST_ID3
         # a separate owner_id is used to avoid all kinds of conflicts with classifier/retro
-        self.url = 'http://localhost:8088/report/{}/'.format(TEST_ID3)
-        self.report = REPORTS[-1]
+        self.test_id = TEST_ID3
+        self.url = 'http://localhost:8088/report/{}/'.format(self.test_id)
+        self.report = REPORTS[0]
         self.headers = {'content-type': 'application/csp-report'}
-        requests.post(self.url, data=json.dumps(self.report), headers=self.headers)
+
+        # init the reports db for TEST_ID1
+        requests.post(BASE_URL + '/api/{}/init'.format(self.test_id))
 
         # prepare database for direct checks
-        self.db = pycouchdb.Server().database(get_reports_db(TEST_ID3))
-
-        # now delete this and all other reports
-        db_init()
+        self.db = pycouchdb.Server().database(get_reports_db(self.test_id))
 
         self.doc_id_generator = DocIdGen(self.db)
 
@@ -339,7 +328,7 @@ class TestLocalApi(unittest.TestCase):
         is checked directly in the database
         """
         found = False
-        for item in self.db.query('reports/1200_all', key=TEST_ID3, include_docs=True):
+        for item in self.db.query('reports/1200_all', key=self.test_id, include_docs=True):
             if 'csp-report' in item['doc'] and item['doc']['csp-report'].get('debug-code') == testval:
                 found = True
         return found
@@ -373,11 +362,11 @@ class TestLocalApi(unittest.TestCase):
         This tests HTTP API insertion with tagged report.
         """
         expect_tag = 'tag-' + str(random.randint(0, 10000))
-        url = 'http://localhost:8088/report/{}/{}/'.format(TEST_ID3, expect_tag)
+        url = 'http://localhost:8088/report/{}/{}/'.format(self.test_id, expect_tag)
         self.r = requests.post(url, data=json.dumps(self.report), headers=self.headers)
         self.assertTrue(self.r.ok)
         found = False
-        for item in self.db.query('reports/1200_all', key=TEST_ID3, include_docs=True):
+        for item in self.db.query('reports/1200_all', key=self.test_id, include_docs=True):
             if 'tag' in item['doc']['meta']:
                 found_tag = item['doc']['meta']['tag']
                 if found_tag == expect_tag:
@@ -410,12 +399,9 @@ class TestLocalApi(unittest.TestCase):
 
     def test_invalid_tag(self):
         invalid_tag = 'test{(\''
-        url = 'http://localhost:8088/report/{}/{}/'.format(TEST_ID3, invalid_tag)
+        url = 'http://localhost:8088/report/{}/{}/'.format(self.test_id, invalid_tag)
         self.r = requests.post(url, data=json.dumps(self.report), headers=self.headers)
         self.assertFalse(self.r.ok)
-
-    def tearDown(self):
-        db_init()
 
 
 if __name__ == '__main__':
