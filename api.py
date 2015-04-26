@@ -6,7 +6,6 @@ import re
 from pycouchdb.exceptions import Conflict, NotFound
 
 from apihelpers.auth import login_response, verify_csrf_token
-from apihelpers.delete import delete_all_reports_task
 from apihelpers.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
 from settings import ALLOWED_CONTENT_TYPES
 
@@ -21,7 +20,6 @@ except ImportError:
     import json
 
 import os
-import threading
 from flask import Flask, request
 import pycouchdb
 
@@ -149,24 +147,22 @@ def init_owner_database(owner_id):
 
 
 @app.route('/api/<owner_id>/all', methods=['DELETE'])
-def delete_all_reports(owner_id):
-    start_time = datetime.datetime.now(datetime.timezone.utc)
-    client_ip = cr.get_ip(request)
+def reset_owner_database(owner_id):
+    """
+    Attached to the "delete all reports" button. Deletes the whole
+    database and then reinitialises it.
+    :param owner_id:
+    """
 
     if not verify_csrf_token(request):
         return '', 400, []
 
     try:
-        db = server.database(get_reports_db(owner_id))
-    except pycouchdb.exceptions.NotFound:
+        server.delete(get_reports_db(owner_id))
+    except NotFound:
         return 'No reports', 404, []
 
-    # this take a long time so push into a separate thread
-    t = threading.Thread(target=delete_all_reports_task, args=(owner_id, db,), daemon=True)
-
-    t.start()
-
-    print('delete_all_reports {} {} {} started background task {}'.format(start_time, client_ip, owner_id, t.ident))
+    init_owner_database(owner_id)
 
     return '', 204, []
 
