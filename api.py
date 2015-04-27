@@ -232,7 +232,11 @@ def read_csp_report(owner_id, tag=None):
     try:
         db = server.database(get_reports_db(owner_id))
     except pycouchdb.exceptions.NotFound:
-        return 'No such database', 404, []
+        try:
+            init_owner_database(owner_id)
+        except Exception as e:
+            print('Cannot initialise database for id {}: {}'.format(owner_id, e))
+            return 'Cannot initialise database', 500, []
 
     # add document identifier; this is important for performance
     # otherwise py-couchdb will add a random one
