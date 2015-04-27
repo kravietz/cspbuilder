@@ -34,6 +34,10 @@ if DEBUG:
 
 # read CouchDB change feed 'seq' number to avoid reading through
 # already processed changes in case of re-run
+try:
+    __file__
+except NameError:
+    __file__ = 'classify.py'
 state = State(__file__)
 
 
