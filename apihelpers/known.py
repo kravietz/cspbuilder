@@ -129,7 +129,7 @@ class KnownList(object):
         if self.auto_update:
             self.last_update = datetime.datetime.now(datetime.timezone.utc)
 
-    def __init__(self, db, interval=1, auto_update=True, verbose=False):
+    def __init__(self, db, interval=30, auto_update=True, verbose=False):
         self.auto_update = auto_update
         if self.auto_update:
             self.update_interval = datetime.timedelta(seconds=interval)
