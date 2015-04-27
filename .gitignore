@@ -5,3 +5,4 @@ include/
 .idea/
 *.gz
 etc/public.key
+*.pyc
