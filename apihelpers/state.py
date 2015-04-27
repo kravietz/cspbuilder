@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 import os
 import pickle
-from _pickle import UnpicklingError
+try:
+    from _pickle import UnpicklingError
+except ImportError:
+    UnpicklingError = KeyError
 
 __author__ = 'Paweł Krawczyk'
 
