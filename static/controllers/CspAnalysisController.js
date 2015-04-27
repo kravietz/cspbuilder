@@ -54,7 +54,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
                 {
                     reduce: false,
                     limit: 1,
-                    key: $scope.db.rows[index].key,
+                    key: $scope.reports_db.rows[index].key,
                     include_docs: true
                 })
                 .success(function () {
