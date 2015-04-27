@@ -1,9 +1,10 @@
 /**
  * Created by Paweł Krawczyk on 01/10/2014.
  */
+"use strict";
 
 cspControllers.controller('CspMainController', ['$scope',
-    function ($scope) { "use strict";
+    function ($scope) {
 
         $scope.new_csp = function (format) {
             var a = Math.random().toString().replace('.', '').substr(0, 15);
