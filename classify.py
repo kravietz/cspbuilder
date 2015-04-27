@@ -28,7 +28,7 @@ if 'debug' in sys.argv:
 # this is where Known List is stored
 DB_NAME = 'csp'
 
-kl = KnownList(server.database(DB_NAME), verbose=True)
+kl = KnownList(server.database(DB_NAME))
 if DEBUG:
     print(kl)
 
