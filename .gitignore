@@ -6,3 +6,4 @@ include/
 *.gz
 etc/public.key
 *.pyc
+.*.min.js
