@@ -2,7 +2,7 @@
 
 ANGULAR=" angular-aria.js angular-aria.min.js angular-aria.min.js.map angular-cookies.js angular-cookies.min.js angular-cookies.min.js.map angular-resource.js angular-resource.min.js angular-resource.min.js.map angular-route.js angular-route.min.js angular-route.min.js.map angular.js angular.min.js angular.min.js.map errors.json version.json"
 
-URL="https://code.angularjs.org/1.3.13"
+URL="https://code.angularjs.org/1.3.15"
 
 for f in $ANGULAR; do
     echo $f
