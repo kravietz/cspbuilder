@@ -7,3 +7,4 @@ requests
 uWSGI
 yuicompressor
 uwsgitop
+pip
