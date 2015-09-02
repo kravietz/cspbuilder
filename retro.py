@@ -116,13 +116,15 @@ class DatabaseFeedReader(BaseFeedReader):
             print('\tReclassifying reports in database {}'.format(get_reports_db(owner_id)))
         try:
             reports_db = server.database(get_reports_db(owner_id))
+            # sanity check to trigger NotFound before we try to fetch results
+            reports_db.get('_design/reports')
         except NotFound:
             # this may happen if a rule was added for owner_id that has no reports, just ignore
             print('\t\tNo reports for {}, skipping'.format(owner_id))
             return
         for result in reports_db.query('reports/1300_unknown', include_docs=True,
                                        startkey=[owner_id, review_type],
-                                       endkey=[owner_id, review_type, {}]):
+                                       endkey=[owner_id, review_type, {}], limit=1000):
 
             if DEBUG:
                 print('\t\tProcessing report', result)
