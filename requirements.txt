@@ -8,3 +8,4 @@ uWSGI
 yuicompressor
 uwsgitop
 pip
+ujson
