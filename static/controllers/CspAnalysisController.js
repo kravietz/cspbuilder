@@ -50,6 +50,7 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
             $('#report-row-' + $scope.index).addClass('bg-info'); // highlight current row
             // sources list already contains the key we can use to fetch sample report
             $scope.db2 = cornercouch(couchdb_url, 'GET').getDB($scope.db_name);
+            console.log('index', index, '$scope.reports_db.rows', $scope.reports_db.rows);
             $scope.db2.query('reports', '1100_source_groups',
                 {
                     reduce: false,
