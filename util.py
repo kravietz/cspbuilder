@@ -183,7 +183,7 @@ if __name__ == '__main__':
     if cmd == 'clean':
         for db in server:
             if db.startswith('reports_'):
-                clean(db, 'debug' in sys.argv)
+                clean(server.database(db), 'debug' in sys.argv)
 
     elif cmd == 'kbackup':
         kl_backup(database)
