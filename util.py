@@ -68,7 +68,7 @@ def dump(db):
     for row in db.all(include_docs=True):
         doc = db.get(row['id'])
         del doc['_rev']
-        json.dump(doc, sys.stdout)
+        json.dump(doc, sys.stdout, ensure_ascii=False)
         print(',')
     print(']')
 
