@@ -58,14 +58,14 @@ def clean(db, debug=False):
 
 
 def dump(db):
-    items = []
 
+    print('[')
     for row in db.all(include_docs=True):
         doc = db.get(row['id'])
         del doc['_rev']
-        items.append(doc)
-
-    json.dump(items, sys.stdout)
+        json.dump(doc, sys.stdout)
+        print(',')
+    print(']')
 
 
 help_text = """
