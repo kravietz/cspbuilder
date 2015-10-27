@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 import sys
 import re
+import datetime
+import time
 
 from apihelpers.auth import login_response, verify_csrf_token
 from apihelpers.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
 from settings import ALLOWED_CONTENT_TYPES
-
-import datetime
-import time
 
 try:
     import ujson as json
@@ -272,7 +271,7 @@ def read_csp_report(owner_id, tag=None):
 
     # default lifetime is 1 day
     default_lifetime = 24*3600
-    meta['end_of_life'] = int(time.time()) + default_lifetime
+    meta['expires'] = int(time.time()) + default_lifetime
 
     # if tag was sent in the report, add it
     if tag:

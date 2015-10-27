@@ -4,7 +4,7 @@
  * Used by util.py cleanup function.
  */
 (function (doc) {
-    if (doc.meta && doc.meta.end_of_life && doc.meta.end_of_life > Date.now()) {
+    if (doc.meta && doc.meta.expires && doc.meta.expires > Date.now()) {
             emit(doc._id, null);
         }
 
