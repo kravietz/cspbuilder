@@ -170,6 +170,7 @@ def reset_owner_database(owner_id):
 TAG_R = re.compile(r'^[a-zA-Z0-9-]+$')
 OWNER_ID_R = re.compile(r'^[0-9]{,20}$')
 
+
 @app.route('/report/<owner_id>/<tag>/', methods=['POST'])
 @app.route('/report/<owner_id>/', methods=['POST'])
 def read_csp_report(owner_id, tag=None):
@@ -259,7 +260,13 @@ def read_csp_report(owner_id, tag=None):
 
     # save reporting client's IP information
     meta['remote_ip'] = cr.get_ip(request)
-    meta['remote_geo'] = cr.get_geo(request),
+
+    # save GeoIP information which is passed as an array from Nginx
+    geo = cr.get_geo(request)
+    if type(geo) is list:
+        meta['remote_geo'] = cr.get_geo(request)[0]
+    else:
+        meta['remote_geo'] = cr.get_geo(request)
 
     # save report UTC timestamp
     meta['timestamp'] = start_time.isoformat()
