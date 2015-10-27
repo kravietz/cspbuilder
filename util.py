@@ -57,7 +57,6 @@ def clean(db, debug=False):
                 pass
 
 
-# TODO: need to port to the new multi-database approach
 def dump(db):
     items = []
 
@@ -94,7 +93,7 @@ if __name__ == '__main__':
                 clean(server.database(cdb), 'debug' in sys.argv)
 
     elif cmd == 'dump':
-        dump(DB)
+        dump(server.database(DB))
 
     else:
         print('Bad command', cmd)
