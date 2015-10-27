@@ -3,16 +3,12 @@
 import sys
 import re
 
-from pycouchdb.exceptions import Conflict, NotFound
-
 from apihelpers.auth import login_response, verify_csrf_token
 from apihelpers.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
 from settings import ALLOWED_CONTENT_TYPES
 
-
-__author__ = 'Paweł Krawczyk'
-
 import datetime
+import time
 
 try:
     import ujson as json
@@ -22,6 +18,9 @@ except ImportError:
 import os
 from flask import Flask, request
 import pycouchdb
+from pycouchdb.exceptions import Conflict, NotFound
+
+__author__ = 'Paweł Krawczyk'
 
 DEBUG = False
 if 'debug' in sys.argv:
@@ -270,6 +269,10 @@ def read_csp_report(owner_id, tag=None):
 
     # save report UTC timestamp
     meta['timestamp'] = start_time.isoformat()
+
+    # default lifetime is 1 day
+    default_lifetime = 24*3600
+    meta['end_of_life'] = int(time.time()) + default_lifetime
 
     # if tag was sent in the report, add it
     if tag:
