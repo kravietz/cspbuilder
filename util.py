@@ -42,7 +42,7 @@ def clean(db, debug=False):
         # it's done this way because py-couchdb returns generator
         more_results = i > 0
         if debug:
-            print('total processed=', total, 'this batch=', len(docs), 'total deleted=', deleted)
+            print(db, 'total processed=', total, 'this batch=', len(docs), 'total deleted=', deleted)
         if len(docs):
             try:
                 db.delete_bulk(docs)
