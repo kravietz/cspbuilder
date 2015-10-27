@@ -24,16 +24,20 @@ def clean(db, debug=False):
     # of documents, which ends up in timeouts and excessive memory usage
 
     try:
-        db.get('{}/_design/reports/_view/{}'.format(db, CLEANUP_VIEW))
+        for row in db.query(CLEANUP_VIEW, limit=1):
+            pass
     except pycouchdb.exceptions.NotFound:
-        print('database', db, 'has no', CLEANUP_VIEW, 'deleting to reinitialize')
-        server.delete(db)
+        if debug:
+            print('database', db.name, 'has no', CLEANUP_VIEW, 'deleting to reinitialize')
+        server.delete(db.name)
         return
 
     while more_results:
         i = 0
         docs = []
 
+        if debug:
+            print('Cleaning', db.name)
         for row in db.query(CLEANUP_VIEW, include_docs=True, limit=1000, skip=total):
             # if alert is not marked as archived, add it to delete list
             if 'archived' not in row['doc'] or ('archived' in row['doc'] and row['doc']['archived'] != 'true'):
@@ -49,12 +53,13 @@ def clean(db, debug=False):
         # it's done this way because py-couchdb returns generator
         more_results = i > 0
         if debug:
-            print(db, 'total processed=', total, 'this batch=', len(docs), 'total deleted=', deleted)
+            print(db.name, 'total processed=', total, 'this batch=', len(docs), 'total deleted=', deleted)
         if len(docs):
             try:
                 db.delete_bulk(docs)
             except pycouchdb.exceptions.Conflict:
                 pass
+            db.cleanup()
 
 
 def dump(db):
