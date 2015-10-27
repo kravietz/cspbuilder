@@ -4,11 +4,9 @@
  * Used by util.py cleanup function.
  */
 (function (doc) {
-    if (doc.meta && doc.meta.timestamp) {
-        var doc_date = new Date(doc.meta.timestamp.split('T')[0]);
-        var week_ago = new Date(Date.now() - 86400000);
-        if (doc_date < week_ago) {
-            emit(doc.meta.timestamp, null);
+    if (doc.meta && doc.meta.end_of_life) {
+        if(doc.meta.end_of_life < Date.now()) {
+            emit(doc._id, null);
         }
     }
 });
