@@ -16,13 +16,13 @@ CLEANUP_VIEW = 'reports/1910_stale'
 KL_VIEW = 'csp/1000_known_list'
 
 
-# TODO: need to port to the new multi-database approach
 def clean(db, debug=False):
     more_results = True
     total = 0
     deleted = 0
     # updating is done in batches; views can return thousands
     # of documents, which ends up in timeouts and excessive memory usage
+
     while more_results:
         i = 0
         docs = []
@@ -181,7 +181,9 @@ if __name__ == '__main__':
     database = server.database(DB)
 
     if cmd == 'clean':
-        clean(database, 'debug' in sys.argv)
+        for db in server:
+            if db.startswith('reports_'):
+                clean(db, 'debug' in sys.argv)
 
     elif cmd == 'kbackup':
         kl_backup(database)
