@@ -27,11 +27,6 @@ if 'debug' in sys.argv:
 
 app = Flask(__name__)
 
-if __name__ != '__main__':
-    # Flask is considered unsupported by NewRelic http://goo.gl/gP26Dj
-    import newrelic.agent
-    newrelic.agent.initialize('newrelic.ini')
-
 # initialise database structures if necessary
 server = pycouchdb.Server()
 
