@@ -2,10 +2,10 @@ Flask
 certifi
 jsmin
 netaddr
-git+https://github.com/kravietz/py-couchdb.git
 requests
 uWSGI
 yuicompressor
 uwsgitop
 pip
 ujson
+git+https://github.com/kravietz/py-couchdb.git
