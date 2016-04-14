@@ -9,6 +9,8 @@ from apihelpers.auth import login_response, verify_csrf_token
 from apihelpers.utils import DocIdGen, ClientResolver, on_json_loading_failed, get_reports_db
 from settings import ALLOWED_CONTENT_TYPES
 
+__author__ = 'Paweł Krawczyk'
+
 try:
     import ujson as json
 except ImportError:

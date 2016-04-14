@@ -5,6 +5,7 @@
 Subscribes to CouchDB feed returning any new Known List entries and retroactively
 reclassify reports that may be impacted by the changes.
 """
+__author__ = 'Paweł Krawczyk'
 import sys
 import signal
 

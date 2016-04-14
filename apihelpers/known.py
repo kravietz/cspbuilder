@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+__author__ = 'Paweł Krawczyk'
 import datetime
 
 from fnmatch import fnmatch

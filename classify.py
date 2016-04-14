@@ -5,6 +5,8 @@
 Subscribes to CouchDB feeds returning any new unclassified documents and classify them in real time.
 Use KnownList object that will update itself automatically on periodic basis.
 """
+__author__ = 'Paweł Krawczyk'
+
 import sys
 import signal
 
