@@ -17,7 +17,7 @@ Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/3847474
     style-src 'none' ; default-src 'none' ; strict-mixed-content-checking; reflected-xss filter;
     referrer origin-when-cross-origin; 
 ```
-The CSP policy specified in the header is very restrictive &mdash; to be precise, it blocks *everything*. On first load of your page with the new header, your browser will send a number of CSP violation reports to CspBuilder, leaving trace for each CSP-regulated resource it loads. CspBuilder aggregates these reports and presents a pre-processed list of origins for you to allow or disallow.
+The CSP policy specified in the header is very restrictive &mdash; to be precise, it blocks *everything* (but in report-only mode, so the block is not enforced). On next load of your page, your browser will send a batch of CSP violation reports to CspBuilder, leaving trace for each CSP-regulated resource found there. CspBuilder aggregates these reports and presents a pre-processed list of origins for you to allow or disallow.
 
 Finally, CspBuilder presents a policy allowing all of the origins you allowed. The process can be iterative so if any further resources are blocked, you can whitelist them as well.
 
