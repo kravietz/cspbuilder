@@ -11,7 +11,11 @@ CspBuilder is distributed with multiple licenses:
 Adding a new website is a matter of just one click on the main page. Database structures are initialized and a long number is assigned, that will uniquely identify CSP reports sent by your website. CspBuilder also outputs HTTP header for CSP with the identifier, ready to paste to most popular web servers:
 
 ```
-Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/384747463478960510/noscripteval/; connect-src 'none' ; child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ; frame-src 'none' ; img-src 'none' ; media-src 'none' ; object-src 'none' ; script-src 'none' ; style-src 'none' ; default-src 'none' ; strict-mixed-content-checking; reflected-xss filter; referrer origin-when-cross-origin; 
+Content-Security-Policy-Report-Only: report-uri //cspbuilder.info/report/384747463478960510/noscripteval/;
+    connect-src 'none' ; child-src 'none' ; font-src 'none' ; form-action 'none' ; frame-ancestors 'none' ;
+    frame-src 'none' ; img-src 'none' ; media-src 'none' ; object-src 'none' ; script-src 'none' ;
+    style-src 'none' ; default-src 'none' ; strict-mixed-content-checking; reflected-xss filter;
+    referrer origin-when-cross-origin; 
 ```
 The CSP policy specified in the header is very restrictive &mdash; to be precise, it blocks *everything*. On first load of your page with the new header, your browser will send a number of CSP violation reports to CspBuilder, leaving trace for each CSP-regulated resource it loads. CspBuilder aggregates these reports and presents a pre-processed list of origins for you to allow or disallow.
 
