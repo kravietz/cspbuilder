@@ -5,6 +5,6 @@ import socket
 __author__ = 'Paweł Krawczyk'
 
 ALLOWED_CONTENT_TYPES = ['application/json', 'application/csp-report']
-CSRF_KEY = 'fxwL8Ole62zSUXOk8LYKQlMweLs'
+CSRF_KEY = 'PtwRT6oQn8EEgH+onjf/9FDmB1Y'
 DEVELOPER_MACHINE = socket.gethostname().endswith('.lan')
 CLASSIFY_INTERVAL = 200
