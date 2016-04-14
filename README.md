@@ -65,4 +65,5 @@ tail -f /var/log/upstart/{retro,classify,cspbuilder}.conf
 The `nginx` subdirectory contains Nginx configuration currently used by [CspBuilder.info](https://cspbuilder.info). You will need to customize the domain and TLS certificates, the rest should work out of the box.
 
 # Bugs
-Please report any bugs [here](https://github.com/kravietz/cspbuilder/issues).
+Please report any bugs [here](https://github.com/kravietz/cspbuilder/issues). Currently known bugs or limitations:
+* Yes, it requires a working JRE, as silly as it sounds. It's required by `yuicompressor` library, but this will be soon replaced by `jsmin`.
