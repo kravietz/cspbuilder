@@ -6,9 +6,6 @@ cspControllers.controller('CspSessionController', ['$scope', '$cookies', '$windo
     function ($scope, $cookies, $window, $rootScope) {
         "use strict";
 
-        // track page view, this should be called on each page including main
-        mixpanel.track("Page view");
-
         // check if user is logged in
         var owner_id = $cookies.owner_id;
         console.log('CspSessionController owner_id=' + owner_id + ' (encoded)');

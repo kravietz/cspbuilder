@@ -2,16 +2,11 @@
  * Created by pawelkrawczyk on 08/10/2014.
  */
 
-/**
- * Created by Paweł Krawczyk on 04/09/2014.
- */
-
 cspControllers.controller('CspLiveController', ['$scope', '$rootScope', '$timeout', '$http', 'cornercouch',
     function ($scope, $rootScope, $timeout, $http, cornercouch) {
         "use strict";
 
         console.log('CspLiveController owner_id=' + $rootScope.owner_id);
-        mixpanel.track("View live");
 
         $scope.reports = [];
         $scope.polling = false;

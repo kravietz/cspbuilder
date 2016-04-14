@@ -30,7 +30,6 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
                 $scope.error = resp;
             });
 
-        mixpanel.track("View reports");
 
         $scope.detail_show = function (index) {
             console.log('detail_show ' + index);
@@ -66,7 +65,6 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
                 $('#reports-next-button').removeClass('disabled');
             }
 
-            mixpanel.track("View reports detail");
 
         };
 
@@ -114,14 +112,12 @@ cspControllers.controller('CspReportsController', ['$scope', '$rootScope', 'corn
 
             $http.delete('/api/' + $rootScope.owner_id + '/all');
 
-            mixpanel.track("Delete all reports");
 
         };
 
         $scope.delete_this = function () {
             $http.delete('/api/' + $rootScope.owner_id + '/' + $scope.id);
 
-            mixpanel.track("Delete report");
         };
 
 

@@ -17,7 +17,6 @@ cspControllers.controller('CspMainController', ['$scope',
             $scope.new_policy = policy[0];
             $scope.new_owner_id = new_owner_id;
 
-            mixpanel.track("Get code");
         }
 
     }]);

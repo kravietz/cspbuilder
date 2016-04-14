@@ -15,5 +15,3 @@ echo jquery-2.1.3.min.map
 curl -s --compressed -O http://code.jquery.com/jquery-2.1.3.min.map
 echo jquery-2.1.3.min.js
 curl -s --compressed -O http://code.jquery.com/jquery-2.1.3.min.js
-echo mixpanel.min.js
-curl -s --compressed -O https://raw.githubusercontent.com/mixpanel/mixpanel-js/master/mixpanel.min.js

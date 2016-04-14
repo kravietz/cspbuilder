@@ -34,7 +34,6 @@ cspControllers.controller('CspKnownController', ['$scope', 'cornercouch', '$root
                 $scope.blocked = false;
                 $scope.error = resp;
             });
-        mixpanel.track("View known");
 
         $scope.kl_save_custom = function (custom) {
             var doc = $scope.db.newDoc({

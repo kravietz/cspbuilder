@@ -35,7 +35,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
                 $scope.blocked = false;
             });
 
-        mixpanel.track("View analysis");
 
         $scope.detail_open = function (index) {
             console.log('detail_open ' + index);
@@ -78,7 +77,6 @@ cspControllers.controller('CspAnalysisController', ['$scope', '$rootScope', 'cor
                     $scope.error = resp;
                 });
 
-            mixpanel.track("View analysis detail");
         };   // detail_open
 
         $scope.review_source = function (allow) {

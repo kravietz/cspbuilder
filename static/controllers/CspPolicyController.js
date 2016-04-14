@@ -52,7 +52,6 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
             }
         );
 
-        mixpanel.track("View policy");
 
         // Cycle between default (empty) policy and original, generated policy array
         $scope.default_policy = function () {
@@ -79,7 +78,6 @@ cspControllers.controller('CspPolicyController', ['$scope', 'cornercouch', '$roo
             $scope.policy = result[0];
             $scope.policy_message = $sce.trustAsHtml(result[1]);
 
-            mixpanel.track("Generate policy " + format);
 
         };
 
