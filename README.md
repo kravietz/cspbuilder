@@ -1,10 +1,10 @@
-CspBuilder is a web-based collector for Content Security Policy violation reports with advanced analytics and policy generation features, supporting CSP Level 2 and some extensions.
+CspBuilder is a web-based collector for Content Security Policy violation reports with advanced analytics and policy generation features, supporting CSP Level 2 and some extensions. Between 2013 and 2016 this was the code behind free online CSP collector CspBuilder.info but increasing operational and maintenance costs made me discontinue the website and just open-source the code instead.
 
 # Licensing
 CspBuilder is distributed with multiple licenses:
 
 * Usage for personal purposes, by educational and other non-profit organisations is licensed based on the attached GPLv3 license.
-* License for usage within for-profit organisations is $150 per year
+* License for usage within a for-profit organisations is $150 per year
 * Distribution, repackaging and sale of services based on CspBuilder is licensed on per-case basis (please contact for details).
 
 # Operations
