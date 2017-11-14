@@ -4,8 +4,7 @@ CspBuilder is a web-based collector for Content Security Policy violation report
 CspBuilder is distributed with multiple licenses:
 
 * Usage for personal purposes, by educational and other non-profit organisations is licensed based on the attached GPLv3 license.
-* License for usage within a for-profit organisations is $150 per year
-* Distribution, repackaging and sale of services based on CspBuilder is licensed on per-case basis (please contact for details).
+* Large-scale for-profit usage, repackaging and resale of services based on CspBuilder is licensed for a reasonable one-time fee (please contact me for details)
 
 # Operations
 Adding a new website is a matter of just one click on the main page. Database structures are initialized and a long number is assigned, that will uniquely identify CSP reports sent by your website. CspBuilder also outputs HTTP header for CSP with the identifier, ready to paste to most popular web servers:
